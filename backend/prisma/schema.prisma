@@ -1,0 +1,986 @@
+// Construction Project Cost Control & Management System
+// Normalized relational schema. See ARCHITECTURE.md section 2 for the ERD summary.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// TENANCY / IDENTITY
+// ─────────────────────────────────────────────────────────────────────────
+
+model Company {
+  id        String    @id @default(cuid())
+  name      String
+  logoUrl   String?
+  address   String?
+  phone     String?
+  email     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+  users     User[]
+}
+
+model User {
+  id           String     @id @default(cuid())
+  companyId    String
+  company      Company    @relation(fields: [companyId], references: [id])
+  email        String     @unique
+  passwordHash String
+  fullName     String
+  jobTitle     String?
+  isActive     Boolean    @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  roles        UserRole[]
+  auditLogs    AuditLog[]
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  companyId   String
+  name        String
+  description String?
+  isSystem    Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@unique([companyId, name])
+}
+
+model UserRole {
+  userId String
+  roleId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+}
+
+// module = e.g. "budget", "actual_cost", "boq" ...
+// action = view|create|edit|delete|approve|post|export|import|print|review|reverse|manage_users|manage_settings
+model RolePermission {
+  id      String  @id @default(cuid())
+  roleId  String
+  role    Role    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  module  String
+  action  String
+  allowed Boolean @default(true)
+
+  @@unique([roleId, module, action])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// PROJECT
+// ─────────────────────────────────────────────────────────────────────────
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  CLOSED
+}
+
+model Project {
+  id                  String        @id @default(cuid())
+  companyId           String
+  company             Company       @relation(fields: [companyId], references: [id])
+  code                String
+  name                String
+  client              String?
+  mainContractor      String?
+  consultant          String?
+  contractNumber      String?
+  contractType        String?
+  originalContractValue Decimal     @default(0) @db.Decimal(18, 2)
+  currentContractValue  Decimal     @default(0) @db.Decimal(18, 2)
+  contractStartDate   DateTime?
+  originalFinishDate  DateTime?
+  currentFinishDate   DateTime?
+  currency            String        @default("SAR")
+  vatRate             Decimal       @default(15) @db.Decimal(5, 2)
+  projectManager      String?
+  costControlManager  String?
+  status              ProjectStatus @default(PLANNING)
+  location            String?
+  description         String?
+  eacFormula          String        @default("AC_PLUS_ETC") // AC_PLUS_ETC | BAC_OVER_CPI | AC_PLUS_BAC_MINUS_EV | AC_PLUS_BAC_MINUS_EV_OVER_CPI
+  allowedWasteDefault Decimal       @default(2) @db.Decimal(5, 2)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  wbsNodes         WBS[]
+  costCategories   CostCategory[]
+  costCodes        CostCode[]
+  boqItems         BOQItem[]
+  variations       Variation[]
+  budgets          Budget[]
+  actualCosts      ActualCostTransaction[]
+  commitments      Commitment[]
+  accruals         Accrual[]
+  subcontractors   Subcontractor[]
+  materials        Material[]
+  manpowerEntries  ManpowerEntry[]
+  equipmentEntries EquipmentEntry[]
+  indirectCosts    IndirectCostEntry[]
+  fixedAssets      FixedAsset[]
+  progressEntries  ProgressEntry[]
+  forecastEntries  ForecastEntry[]
+  evmSnapshots     EVMSnapshot[]
+  reportingPeriods ReportingPeriod[]
+  alerts           Alert[]
+  alertRules       AlertRule[]
+  workPackages     WorkPackage[]
+
+  @@unique([companyId, code])
+}
+
+// Administrator-defined construction packages (Concrete, MEP, etc.) — never hard-coded.
+model WorkPackage {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  code      String
+  name      String
+  isActive  Boolean  @default(true)
+  boqItems  BOQItem[]
+
+  @@unique([projectId, code])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// WBS (self-referencing tree, unlimited depth)
+// ─────────────────────────────────────────────────────────────────────────
+
+model WBS {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parentId  String?
+  parent    WBS?     @relation("WBSTree", fields: [parentId], references: [id])
+  children  WBS[]    @relation("WBSTree")
+  code      String
+  name      String
+  level     Int      @default(0)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  boqItems         BOQItem[]
+  actualCosts      ActualCostTransaction[]
+  commitments      Commitment[]
+  accruals         Accrual[]
+  budgetLines      BudgetLine[]
+  costAllocations  CostAllocation[]
+  progressEntries  ProgressEntry[]
+  forecastEntries  ForecastEntry[]
+
+  @@unique([projectId, code])
+  @@index([projectId, parentId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// COST CODING STRUCTURE (admin-configurable, not hard-coded)
+// ─────────────────────────────────────────────────────────────────────────
+
+model CostCategory {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  code      String
+  name      String
+  isActive  Boolean  @default(true)
+  costCodes CostCode[]
+  budgetLines BudgetLine[]
+  actualCosts ActualCostTransaction[]
+  costAllocations CostAllocation[]
+
+  @@unique([projectId, code])
+}
+
+model CostCode {
+  id             String        @id @default(cuid())
+  projectId      String
+  project        Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parentId       String?
+  parent         CostCode?     @relation("CostCodeTree", fields: [parentId], references: [id])
+  children       CostCode[]    @relation("CostCodeTree")
+  code           String
+  description    String
+  division       String?
+  costCategoryId String?
+  costCategory   CostCategory? @relation(fields: [costCategoryId], references: [id])
+  isActive       Boolean       @default(true)
+  notes          String?
+
+  boqItems        BOQItem[]
+  budgetLines     BudgetLine[]
+  actualCosts     ActualCostTransaction[]
+  commitments     Commitment[]
+  accruals        Accrual[]
+  costAllocations CostAllocation[]
+  progressEntries ProgressEntry[]
+  forecastEntries ForecastEntry[]
+
+  @@unique([projectId, code])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// BOQ (with revision history — never overwritten)
+// ─────────────────────────────────────────────────────────────────────────
+
+enum BOQStatus {
+  ORIGINAL
+  REVISED
+  APPROVED_VARIATION
+  PENDING_VARIATION
+  FINAL
+}
+
+model BOQItem {
+  id             String        @id @default(cuid())
+  projectId      String
+  project        Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  itemNumber     String
+  description    String
+  unit           String
+  quantity       Decimal       @db.Decimal(18, 4)
+  unitRate       Decimal       @db.Decimal(18, 4)
+  totalAmount    Decimal       @db.Decimal(18, 2)
+  division       String?
+  section        String?
+  wbsId          String?
+  wbs            WBS?          @relation(fields: [wbsId], references: [id])
+  costCodeId     String?
+  costCode       CostCode?     @relation(fields: [costCodeId], references: [id])
+  workPackageId  String?
+  workPackage    WorkPackage?  @relation(fields: [workPackageId], references: [id])
+  progressWeight Decimal?      @db.Decimal(9, 6) // manual weight for weighted-BOQ progress method
+  status         BOQStatus     @default(ORIGINAL)
+  notes          String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  revisions       BOQRevisionLine[]
+  budgetLines     BudgetLine[]
+  actualCosts     ActualCostTransaction[]
+  commitments     Commitment[]
+  accruals        Accrual[]
+  costAllocations CostAllocation[]
+  progressEntries ProgressEntry[]
+  forecastEntries ForecastEntry[]
+
+  @@unique([projectId, itemNumber])
+  @@index([projectId, wbsId])
+  @@index([projectId, costCodeId])
+}
+
+// Append-only history of every change to a BOQ item's qty/rate/amount.
+model BOQRevisionLine {
+  id          String    @id @default(cuid())
+  boqItemId   String
+  boqItem     BOQItem   @relation(fields: [boqItemId], references: [id], onDelete: Cascade)
+  revisionNo  Int
+  reason      String? // e.g. "Variation Order 02"
+  quantity    Decimal   @db.Decimal(18, 4)
+  unitRate    Decimal   @db.Decimal(18, 4)
+  totalAmount Decimal   @db.Decimal(18, 2)
+  status      BOQStatus
+  changedById String?
+  createdAt   DateTime  @default(now())
+
+  @@index([boqItemId])
+}
+
+enum VariationStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+}
+
+model Variation {
+  id          String          @id @default(cuid())
+  projectId   String
+  project     Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  number      String
+  title       String
+  description String?
+  amount      Decimal         @db.Decimal(18, 2) // + or -
+  status      VariationStatus @default(DRAFT)
+  requestedAt DateTime        @default(now())
+  approvedAt  DateTime?
+  createdAt   DateTime        @default(now())
+
+  @@unique([projectId, number])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// BUDGET (Original → Revised → Current; both Qty-based and Value-based)
+// ─────────────────────────────────────────────────────────────────────────
+
+enum BudgetStatus {
+  DRAFT
+  APPROVED
+  SUPERSEDED
+}
+
+model Budget {
+  id        String       @id @default(cuid())
+  projectId String
+  project   Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  version   Int
+  label     String // "Original Budget", "Revision 1" ...
+  status    BudgetStatus @default(DRAFT)
+  approvedAt DateTime?
+  createdAt DateTime     @default(now())
+
+  lines     BudgetLine[]
+  revisions BudgetRevision[]
+
+  @@unique([projectId, version])
+}
+
+model BudgetLine {
+  id             String        @id @default(cuid())
+  budgetId       String
+  budget         Budget        @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  projectId      String
+  wbsId          String?
+  wbs            WBS?          @relation(fields: [wbsId], references: [id])
+  boqItemId      String?
+  boqItem        BOQItem?      @relation(fields: [boqItemId], references: [id])
+  costCodeId     String?
+  costCode       CostCode?     @relation(fields: [costCodeId], references: [id])
+  costCategoryId String?
+  costCategory   CostCategory? @relation(fields: [costCategoryId], references: [id])
+  budgetQuantity Decimal?      @db.Decimal(18, 4)
+  budgetRate     Decimal?      @db.Decimal(18, 4)
+  budgetAmount   Decimal       @db.Decimal(18, 2)
+
+  @@index([budgetId])
+  @@index([projectId, costCodeId])
+}
+
+// Append-only log of budget changes (who/when/old->new) distinct from AuditLog for fast reporting.
+model BudgetRevision {
+  id          String   @id @default(cuid())
+  budgetId    String
+  budget      Budget   @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  reason      String
+  deltaAmount Decimal  @db.Decimal(18, 2)
+  changedById String?
+  createdAt   DateTime @default(now())
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// ACTUAL COST + ALLOCATION
+// ─────────────────────────────────────────────────────────────────────────
+
+enum TxStatus {
+  DRAFT
+  SUBMITTED
+  REVIEWED
+  APPROVED
+  POSTED
+  REVERSED
+}
+
+model ActualCostTransaction {
+  id             String        @id @default(cuid())
+  projectId      String
+  project        Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date           DateTime
+  documentNumber String?
+  supplier       String?
+  subcontractorId String?
+  subcontractor  Subcontractor? @relation(fields: [subcontractorId], references: [id])
+  employeeName   String?
+  materialId     String?
+  material       Material?     @relation(fields: [materialId], references: [id])
+  equipmentEntryId String?
+  description    String
+  quantity       Decimal?      @db.Decimal(18, 4)
+  unit           String?
+  unitRate       Decimal?      @db.Decimal(18, 4)
+  netAmount      Decimal       @db.Decimal(18, 2)
+  vatAmount      Decimal       @default(0) @db.Decimal(18, 2)
+  grossAmount    Decimal       @db.Decimal(18, 2)
+  wbsId          String?
+  wbs            WBS?          @relation(fields: [wbsId], references: [id])
+  boqItemId      String?
+  boqItem        BOQItem?      @relation(fields: [boqItemId], references: [id])
+  costCodeId     String?
+  costCode       CostCode?     @relation(fields: [costCodeId], references: [id])
+  costCategoryId String?
+  costCategory   CostCategory? @relation(fields: [costCategoryId], references: [id])
+  currency       String        @default("SAR")
+  exchangeRate   Decimal       @default(1) @db.Decimal(12, 6)
+  reference      String?
+  status         TxStatus      @default(DRAFT)
+  isUnallocated  Boolean       @default(false) // true when costCodeId is null at entry time
+  reversedById   String?
+  createdById    String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  allocations CostAllocation[]
+  attachments Attachment[]
+
+  @@index([projectId, date])
+  @@index([projectId, costCodeId])
+  @@index([projectId, isUnallocated])
+}
+
+// Splits one transaction across multiple WBS/BOQ/CostCode/Category targets. Must sum to 100%.
+model CostAllocation {
+  id             String                 @id @default(cuid())
+  transactionId  String
+  transaction    ActualCostTransaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  wbsId          String?
+  wbs            WBS?                   @relation(fields: [wbsId], references: [id])
+  boqItemId      String?
+  boqItem        BOQItem?               @relation(fields: [boqItemId], references: [id])
+  costCodeId     String?
+  costCode       CostCode?              @relation(fields: [costCodeId], references: [id])
+  costCategoryId String?
+  costCategory   CostCategory?          @relation(fields: [costCategoryId], references: [id])
+  percentage     Decimal                @db.Decimal(7, 4)
+  amount         Decimal                @db.Decimal(18, 2)
+
+  @@index([transactionId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// COMMITMENTS (POs, subcontracts, material orders, equipment contracts...)
+// ─────────────────────────────────────────────────────────────────────────
+
+enum CommitmentType {
+  PURCHASE_ORDER
+  SUBCONTRACT
+  MATERIAL_ORDER
+  EQUIPMENT_CONTRACT
+  SERVICE_ORDER
+}
+
+model Commitment {
+  id                 String         @id @default(cuid())
+  projectId          String
+  project            Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type               CommitmentType
+  number             String
+  vendorName         String
+  subcontractId      String?
+  subcontract        Subcontract?   @relation(fields: [subcontractId], references: [id])
+  wbsId              String?
+  wbs                WBS?           @relation(fields: [wbsId], references: [id])
+  boqItemId          String?
+  boqItem            BOQItem?       @relation(fields: [boqItemId], references: [id])
+  costCodeId         String?
+  costCode           CostCode?      @relation(fields: [costCodeId], references: [id])
+  originalAmount     Decimal        @db.Decimal(18, 2)
+  approvedVariations Decimal        @default(0) @db.Decimal(18, 2)
+  certifiedAmount    Decimal        @default(0) @db.Decimal(18, 2)
+  paidAmount         Decimal        @default(0) @db.Decimal(18, 2)
+  forecastFinalCost  Decimal?       @db.Decimal(18, 2)
+  status             TxStatus       @default(DRAFT)
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  lines CommitmentLine[]
+
+  @@unique([projectId, number])
+  @@index([projectId, costCodeId])
+}
+
+model CommitmentLine {
+  id           String     @id @default(cuid())
+  commitmentId String
+  commitment   Commitment @relation(fields: [commitmentId], references: [id], onDelete: Cascade)
+  description  String
+  quantity     Decimal?   @db.Decimal(18, 4)
+  unit         String?
+  unitRate     Decimal?   @db.Decimal(18, 4)
+  amount       Decimal    @db.Decimal(18, 2)
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// ACCRUALS (work done, not yet invoiced)
+// ─────────────────────────────────────────────────────────────────────────
+
+model Accrual {
+  id             String    @id @default(cuid())
+  projectId      String
+  project        Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  periodDate     DateTime
+  description    String
+  workDoneAmount Decimal   @db.Decimal(18, 2)
+  invoicedAmount Decimal   @default(0) @db.Decimal(18, 2)
+  accruedAmount  Decimal   @db.Decimal(18, 2) // workDoneAmount - invoicedAmount
+  wbsId          String?
+  wbs            WBS?      @relation(fields: [wbsId], references: [id])
+  boqItemId      String?
+  boqItem        BOQItem?  @relation(fields: [boqItemId], references: [id])
+  costCodeId     String?
+  costCode       CostCode? @relation(fields: [costCodeId], references: [id])
+  status         TxStatus  @default(DRAFT)
+  createdAt      DateTime  @default(now())
+
+  @@index([projectId, periodDate])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// SUBCONTRACTORS
+// ─────────────────────────────────────────────────────────────────────────
+
+model Subcontractor {
+  id             String    @id @default(cuid())
+  projectId      String
+  project        Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  companyName    String
+  scope          String?
+  contactName    String?
+  contactPhone   String?
+  createdAt      DateTime  @default(now())
+
+  subcontracts Subcontract[]
+  actualCosts  ActualCostTransaction[]
+}
+
+model Subcontract {
+  id                 String       @id @default(cuid())
+  subcontractorId    String
+  subcontractor      Subcontractor @relation(fields: [subcontractorId], references: [id], onDelete: Cascade)
+  projectId          String
+  contractNumber     String
+  scope              String?
+  costCodeId         String?
+  originalValue      Decimal      @db.Decimal(18, 2)
+  approvedVariations Decimal      @default(0) @db.Decimal(18, 2)
+  revisedValue       Decimal      @default(0) @db.Decimal(18, 2)
+  advancePercent     Decimal      @default(0) @db.Decimal(5, 2)
+  retentionPercent   Decimal      @default(0) @db.Decimal(5, 2)
+  status             TxStatus     @default(DRAFT)
+  createdAt          DateTime     @default(now())
+
+  commitments Commitment[]
+  certificates PaymentCertificate[]
+
+  @@unique([projectId, contractNumber])
+}
+
+enum CertificateStatus {
+  DRAFT
+  SUBMITTED
+  CERTIFIED
+  PAID
+}
+
+model PaymentCertificate {
+  id                String            @id @default(cuid())
+  subcontractId     String
+  subcontract       Subcontract       @relation(fields: [subcontractId], references: [id], onDelete: Cascade)
+  certificateNumber String
+  periodDate        DateTime
+  grossWorkDone     Decimal           @db.Decimal(18, 2)
+  cumulativeWorkDone Decimal          @db.Decimal(18, 2)
+  advanceRecovery   Decimal           @default(0) @db.Decimal(18, 2)
+  retentionHeld     Decimal           @default(0) @db.Decimal(18, 2)
+  deductions        Decimal           @default(0) @db.Decimal(18, 2)
+  backCharges       Decimal           @default(0) @db.Decimal(18, 2)
+  netPayable        Decimal           @db.Decimal(18, 2)
+  status            CertificateStatus @default(DRAFT)
+  createdAt         DateTime          @default(now())
+
+  @@unique([subcontractId, certificateNumber])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// MATERIALS (purchase → receipt → storage → issue → consumption → return → waste)
+// ─────────────────────────────────────────────────────────────────────────
+
+model Material {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  code           String
+  description    String
+  unit           String
+  costCodeId     String?
+  allowedWastePercent Decimal @default(2) @db.Decimal(5, 2)
+  standardRate   Decimal?  @db.Decimal(18, 4)
+  createdAt      DateTime @default(now())
+
+  receipts     MaterialReceipt[]
+  issues       MaterialIssue[]
+  returns      MaterialReturn[]
+  consumptions MaterialConsumption[]
+  losses       MaterialLoss[]
+  actualCosts  ActualCostTransaction[]
+
+  @@unique([projectId, code])
+}
+
+model MaterialReceipt {
+  id         String   @id @default(cuid())
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  date       DateTime
+  supplier   String?
+  quantity   Decimal  @db.Decimal(18, 4)
+  unitRate   Decimal  @db.Decimal(18, 4)
+  amount     Decimal  @db.Decimal(18, 2)
+  reference  String?
+  createdAt  DateTime @default(now())
+}
+
+model MaterialIssue {
+  id         String   @id @default(cuid())
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  date       DateTime
+  wbsId      String?
+  boqItemId  String?
+  quantity   Decimal  @db.Decimal(18, 4)
+  issuedTo   String?
+  createdAt  DateTime @default(now())
+}
+
+model MaterialReturn {
+  id         String   @id @default(cuid())
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  date       DateTime
+  quantity   Decimal  @db.Decimal(18, 4)
+  reason     String?
+  createdAt  DateTime @default(now())
+}
+
+model MaterialConsumption {
+  id             String   @id @default(cuid())
+  materialId     String
+  material       Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  date           DateTime
+  wbsId          String?
+  boqItemId      String?
+  budgetQuantity Decimal? @db.Decimal(18, 4)
+  quantity       Decimal  @db.Decimal(18, 4)
+  createdAt      DateTime @default(now())
+}
+
+model MaterialLoss {
+  id            String   @id @default(cuid())
+  materialId    String
+  material      Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  date          DateTime
+  budgetQuantity Decimal @db.Decimal(18, 4)
+  actualUsedQuantity Decimal @db.Decimal(18, 4)
+  lossQuantity  Decimal  @db.Decimal(18, 4)
+  allowedWastePercent Decimal @db.Decimal(5, 2)
+  actualWastePercent  Decimal @db.Decimal(5, 2)
+  lossCost      Decimal  @db.Decimal(18, 2)
+  createdAt     DateTime @default(now())
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// MANPOWER / EQUIPMENT / INDIRECT COSTS
+// ─────────────────────────────────────────────────────────────────────────
+
+model ManpowerEntry {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date         DateTime
+  category     String // Skilled/Unskilled/Supervisor/Engineer/Management (admin-defined free text)
+  trade        String?
+  wbsId        String?
+  boqItemId    String?
+  costCodeId   String?
+  headcount    Decimal  @default(1) @db.Decimal(9, 2)
+  hours        Decimal? @db.Decimal(9, 2)
+  days         Decimal? @db.Decimal(9, 2)
+  rate         Decimal  @db.Decimal(18, 4)
+  overtimeHours Decimal @default(0) @db.Decimal(9, 2)
+  overtimeRate Decimal  @default(0) @db.Decimal(18, 4)
+  totalCost    Decimal  @db.Decimal(18, 2)
+  createdAt    DateTime @default(now())
+
+  @@index([projectId, date])
+}
+
+model EquipmentEntry {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date           DateTime
+  equipmentName  String
+  equipmentType  String?
+  ownership      String // OWNED | RENTED
+  dailyRate      Decimal? @db.Decimal(18, 4)
+  hourlyRate     Decimal? @db.Decimal(18, 4)
+  operatingHours Decimal  @default(0) @db.Decimal(9, 2)
+  standbyHours   Decimal  @default(0) @db.Decimal(9, 2)
+  fuelCost       Decimal  @default(0) @db.Decimal(18, 2)
+  maintenanceCost Decimal @default(0) @db.Decimal(18, 2)
+  operator       String?
+  wbsId          String?
+  costCodeId     String?
+  totalCost      Decimal  @db.Decimal(18, 2)
+  createdAt      DateTime @default(now())
+
+  @@index([projectId, date])
+}
+
+model IndirectCostEntry {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date        DateTime
+  category    String // admin-defined: Site Management, Security, Utilities, Overhead...
+  description String
+  amount      Decimal  @db.Decimal(18, 2)
+  allocationMethod String @default("PROJECT_LEVEL") // PROJECT_LEVEL | ALLOCATED
+  wbsId       String?
+  costCodeId  String?
+  createdAt   DateTime @default(now())
+
+  @@index([projectId, date])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// FIXED ASSETS
+// ─────────────────────────────────────────────────────────────────────────
+
+model FixedAsset {
+  id                 String   @id @default(cuid())
+  projectId          String
+  project            Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assetTag           String
+  description        String
+  purchaseDate       DateTime
+  purchaseCost       Decimal  @db.Decimal(18, 2)
+  usefulLifeMonths   Int
+  depreciationMethod String   @default("STRAIGHT_LINE")
+  costCodeId         String?
+  createdAt          DateTime @default(now())
+
+  depreciationEntries DepreciationEntry[]
+
+  @@unique([projectId, assetTag])
+}
+
+model DepreciationEntry {
+  id                    String     @id @default(cuid())
+  fixedAssetId          String
+  fixedAsset            FixedAsset @relation(fields: [fixedAssetId], references: [id], onDelete: Cascade)
+  periodDate            DateTime
+  monthlyDepreciation   Decimal    @db.Decimal(18, 2)
+  accumulatedDepreciation Decimal  @db.Decimal(18, 2)
+  netBookValue          Decimal    @db.Decimal(18, 2)
+  createdAt             DateTime   @default(now())
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// PROGRESS / FORECAST / EVM
+// ─────────────────────────────────────────────────────────────────────────
+
+enum ProgressMethod {
+  MANUAL
+  QUANTITY_BASED
+  WEIGHTED_BOQ
+}
+
+model ProgressEntry {
+  id             String         @id @default(cuid())
+  projectId      String
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date           DateTime
+  wbsId          String?
+  wbs            WBS?           @relation(fields: [wbsId], references: [id])
+  boqItemId      String?
+  boqItem        BOQItem?       @relation(fields: [boqItemId], references: [id])
+  costCodeId     String?
+  costCode       CostCode?      @relation(fields: [costCodeId], references: [id])
+  method         ProgressMethod @default(MANUAL)
+  plannedPercent Decimal?       @db.Decimal(7, 4)
+  actualPercent  Decimal?       @db.Decimal(7, 4)
+  executedQuantity Decimal?     @db.Decimal(18, 4)
+  createdAt      DateTime       @default(now())
+
+  @@index([projectId, date])
+}
+
+model ForecastEntry {
+  id                String   @id @default(cuid())
+  projectId         String
+  project           Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date              DateTime @default(now())
+  wbsId             String?
+  wbs               WBS?     @relation(fields: [wbsId], references: [id])
+  boqItemId         String?
+  boqItem           BOQItem? @relation(fields: [boqItemId], references: [id])
+  costCodeId        String?
+  costCode          CostCode? @relation(fields: [costCodeId], references: [id])
+  scenario          String   @default("MOST_LIKELY") // MOST_LIKELY | OPTIMISTIC | WORST_CASE
+  isManualOverride  Boolean  @default(false)
+  manualETC         Decimal? @db.Decimal(18, 2)
+  manualForecastCost Decimal? @db.Decimal(18, 2)
+  forecastRate      Decimal? @db.Decimal(18, 4)
+  overrideReason    String?
+  createdById       String?
+  createdAt         DateTime @default(now())
+
+  @@index([projectId, wbsId])
+}
+
+// Frozen (or live-computed) EVM values, kept per calculation for trend charts.
+model EVMSnapshot {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  asOfDate  DateTime
+  scope     String   @default("PROJECT") // PROJECT | WBS:<id> | COSTCODE:<id> ...
+  bac       Decimal  @db.Decimal(18, 2)
+  pv        Decimal  @db.Decimal(18, 2)
+  ev        Decimal  @db.Decimal(18, 2)
+  ac        Decimal  @db.Decimal(18, 2)
+  cv        Decimal  @db.Decimal(18, 2)
+  sv        Decimal  @db.Decimal(18, 2)
+  cpi       Decimal  @db.Decimal(9, 4)
+  spi       Decimal  @db.Decimal(9, 4)
+  etc       Decimal  @db.Decimal(18, 2)
+  eac       Decimal  @db.Decimal(18, 2)
+  vac       Decimal  @db.Decimal(18, 2)
+  tcpi      Decimal  @db.Decimal(9, 4)
+  createdAt DateTime @default(now())
+
+  @@index([projectId, asOfDate])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// REPORTING PERIODS / SNAPSHOTS (immutable once finalized)
+// ─────────────────────────────────────────────────────────────────────────
+
+enum PeriodStatus {
+  DRAFT
+  UNDER_REVIEW
+  APPROVED
+  FINALIZED
+}
+
+model ReportingPeriod {
+  id          String       @id @default(cuid())
+  projectId   String
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  periodLabel String // "Cost Report No. 04"
+  cutoffDate  DateTime
+  status      PeriodStatus @default(DRAFT)
+  finalizedAt DateTime?
+  createdAt   DateTime     @default(now())
+
+  snapshots ReportSnapshot[]
+
+  @@unique([projectId, periodLabel])
+}
+
+model ReportSnapshot {
+  id                 String           @id @default(cuid())
+  reportingPeriodId  String
+  reportingPeriod    ReportingPeriod  @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
+  reportType         String // EXECUTIVE | COST_CODE | WBS | BOQ | EVM | ...
+  payloadJson         Json
+  createdAt          DateTime         @default(now())
+
+  @@index([reportingPeriodId, reportType])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// ALERTS / NOTIFICATIONS / SETTINGS
+// ─────────────────────────────────────────────────────────────────────────
+
+enum AlertSeverity {
+  GREEN
+  YELLOW
+  RED
+  BLACK
+}
+
+// Configurable threshold rule, e.g. metric="CPI", operator="LT", value=0.85 => YELLOW
+model AlertRule {
+  id        String        @id @default(cuid())
+  projectId String
+  project   Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  metric    String // CPI | SPI | MATERIAL_WASTE | UNALLOCATED_COST | COST_CODE_OVERRUN | ...
+  operator  String // LT | LTE | GT | GTE | EQ
+  threshold Decimal       @db.Decimal(18, 4)
+  severity  AlertSeverity
+  isActive  Boolean       @default(true)
+}
+
+model Alert {
+  id         String        @id @default(cuid())
+  projectId  String
+  project    Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  severity   AlertSeverity
+  message    String
+  entityType String?
+  entityId   String?
+  isRead     Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+
+  @@index([projectId, isRead])
+}
+
+model SystemSettings {
+  id                String   @id @default(cuid())
+  companyId         String   @unique
+  reportNumberFormat String  @default("CR-{project}-{seq:03d}")
+  defaultCurrency   String   @default("SAR")
+  defaultVatRate    Decimal  @default(15) @db.Decimal(5, 2)
+  updatedAt         DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// ATTACHMENTS / AUDIT (polymorphic)
+// ─────────────────────────────────────────────────────────────────────────
+
+model Attachment {
+  id            String   @id @default(cuid())
+  entityType    String
+  entityId      String
+  fileName      String
+  storagePath   String
+  mimeType      String
+  sizeBytes     Int
+  uploadedById  String?
+  createdAt     DateTime @default(now())
+
+  actualCostTransactionId String?
+  actualCostTransaction   ActualCostTransaction? @relation(fields: [actualCostTransactionId], references: [id])
+
+  @@index([entityType, entityId])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  entityType String
+  entityId   String
+  action     String // CREATE | UPDATE | DELETE | APPROVE | POST | REVERSE | LOGIN | ...
+  oldValue   Json?
+  newValue   Json?
+  reason     String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}

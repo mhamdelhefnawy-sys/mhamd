@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ccc
+      POSTGRES_PASSWORD: ccc_dev_password
+      POSTGRES_DB: ccc
+    ports:
+      - "5432:5432"
+    volumes:
+      - ccc_pgdata:/var/lib/postgresql/data
+
+volumes:
+  ccc_pgdata:
