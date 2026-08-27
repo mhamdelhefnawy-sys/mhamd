@@ -213,11 +213,14 @@ against current data for "as-of-today" views.
   loss), Manpower, Equipment, Indirect Costs, Progress (3 methods), EVM,
   Forecast/EAC/ETC, Dashboard, Alerts, core Reports (Excel export), demo data
   seed.
-- **Phase 2**: Fixed Assets/Depreciation, Taxes & Overhead module UI, full
-  PDF report branding, Approval Center workflow UI, Report Snapshots/period
-  finalization UI, Forecast Scenarios UI, remaining report templates,
-  Reconciliation/Zero-Check dashboard.
-  Global search, notifications center.
+- **Phase 2**: ✅ Approval Center (backend `/approvals` module + frontend page,
+  pending-count badge in the top bar) — a single place to Approve / Reject /
+  Return-for-Correction pending Actual Costs, Budgets, Variations, Accruals,
+  and Payment Certificates, with a required reason on reject/return, fully
+  audit-logged. Still queued: Taxes & Overhead module UI, full PDF report
+  branding, Report Snapshots/period finalization UI, Forecast Scenarios UI,
+  remaining report templates, Reconciliation/Zero-Check dashboard, global
+  search, notifications center.
 - **Phase 3**: Primavera P6 XER import stub, Odoo/Power BI integration
   endpoints, mobile-optimized views, multi-company/multi-currency UI.
 

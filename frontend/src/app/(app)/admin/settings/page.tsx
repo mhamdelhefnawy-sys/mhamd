@@ -21,7 +21,7 @@ interface Role {
 const MODULES = [
   "projects", "wbs", "cost_codes", "boq", "budget", "variations", "actual_cost",
   "commitments", "accruals", "subcontractors", "materials", "manpower", "equipment",
-  "indirect_costs", "fixed_assets", "progress", "forecast", "evm", "reports",
+  "indirect_costs", "fixed_assets", "progress", "forecast", "evm", "reports", "approvals",
 ];
 const ACTIONS = ["view", "create", "edit", "delete", "approve", "post", "export"];
 

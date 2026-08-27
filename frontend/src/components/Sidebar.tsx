@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   History,
   Settings,
+  ClipboardCheck,
 } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -83,6 +84,7 @@ const NAV: NavGroup[] = [
   {
     title: "Reports",
     items: [
+      { href: "/approvals", label: "Approval Center", icon: <ClipboardCheck size={16} /> },
       { href: "/reports", label: "Reports", icon: <FileBarChart size={16} /> },
       { href: "/alerts", label: "Alerts", icon: <BarChart3 size={16} /> },
     ],

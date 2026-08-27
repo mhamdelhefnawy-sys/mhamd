@@ -21,6 +21,7 @@ import { alertsRouter } from "./modules/alerts/routes";
 import { reportsRouter } from "./modules/reports/routes";
 import { adminRouter } from "./modules/admin/routes";
 import { workPackagesRouter } from "./modules/workPackages/routes";
+import { approvalsRouter } from "./modules/approvals/routes";
 
 export const app = express();
 
@@ -56,6 +57,7 @@ app.use("/api/projects/:projectId/dashboard", dashboardRouter);
 app.use("/api/projects/:projectId/alerts", alertsRouter);
 app.use("/api/projects/:projectId/reports", reportsRouter);
 app.use("/api/projects/:projectId/work-packages", workPackagesRouter);
+app.use("/api/projects/:projectId/approvals", approvalsRouter);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

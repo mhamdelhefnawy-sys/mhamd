@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/contexts/AuthContext";
 import { useProject } from "@/contexts/ProjectContext";
-import { LogOut, Bell } from "lucide-react";
+import { LogOut, Bell, ClipboardCheck } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import Link from "next/link";
@@ -18,6 +18,14 @@ export function Topbar() {
     refetchInterval: 60_000,
   });
   const unread = alerts.filter((a: { isRead: boolean }) => !a.isRead).length;
+
+  const { data: approvals } = useQuery({
+    queryKey: ["approvals", currentProject?.id, "count"],
+    queryFn: async () => (await api.get(`/projects/${currentProject!.id}/approvals`)).data,
+    enabled: !!currentProject,
+    refetchInterval: 60_000,
+  });
+  const pending = approvals?.totalPending ?? 0;
 
   return (
     <header className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-2.5">
@@ -35,6 +43,14 @@ export function Topbar() {
         </select>
       </div>
       <div className="flex items-center gap-4">
+        <Link href="/approvals" className="relative text-slate-400 hover:text-slate-100" title="Approval Center">
+          <ClipboardCheck size={18} />
+          {pending > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[10px] font-semibold text-slate-950">
+              {pending}
+            </span>
+          )}
+        </Link>
         <Link href="/alerts" className="relative text-slate-400 hover:text-slate-100">
           <Bell size={18} />
           {unread > 0 && (
