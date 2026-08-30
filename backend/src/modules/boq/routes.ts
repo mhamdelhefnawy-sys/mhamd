@@ -1,10 +1,11 @@
 import { Router } from "express";
 import multer from "multer";
+import { randomUUID } from "crypto";
 import { z } from "zod";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requirePermission } from "../../lib/auth";
 import { requireProjectScope } from "../../lib/scope";
-import { asyncHandler, validateBody } from "../../lib/http";
+import { asyncHandler, validateBody, HttpError } from "../../lib/http";
 import { writeAudit } from "../../lib/audit";
 import { parseWorkbook, mapAndValidateRows, ValidationError } from "../../lib/importEngine";
 import { buildExcelReport } from "../../lib/excelExport";
@@ -12,7 +13,21 @@ import { buildExcelReport } from "../../lib/excelExport";
 export const boqRouter = Router({ mergeParams: true });
 boqRouter.use(requireAuth, requireProjectScope);
 
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 20 * 1024 * 1024 } });
+const ALLOWED_IMPORT_MIME_TYPES = new Set([
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
+  "application/vnd.ms-excel", // .xls
+  "text/csv",
+  "application/octet-stream", // some browsers/OSes send this for .xlsx — extension check below covers it
+]);
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 20 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    const extOk = /\.(xlsx|xls|csv)$/i.test(file.originalname);
+    if (ALLOWED_IMPORT_MIME_TYPES.has(file.mimetype) && extOk) return cb(null, true);
+    cb(new HttpError(400, "Only .xlsx, .xls, or .csv files are accepted"));
+  },
+});
 
 boqRouter.get(
   "/",
@@ -217,18 +232,49 @@ boqRouter.post(
       if (result.errors.length > 0) {
         return res.status(400).json({ error: "Cannot commit while validation errors remain", ...result });
       }
-      const created = [];
-      for (const row of result.valid) {
-        created.push(await createBoqItem(req.projectId!, req.user!.id, row as any));
+      // Batched insert (2 statements total) instead of two sequential creates per
+      // row — a bulk Excel import of thousands of BOQ items would otherwise mean
+      // thousands of sequential round trips to the database.
+      const rows = result.valid.map((row: any) => ({ id: randomUUID(), row, totalAmount: round2(row.quantity * row.unitRate) }));
+      if (rows.length > 0) {
+        await prisma.$transaction([
+          prisma.bOQItem.createMany({
+            data: rows.map(({ id, row, totalAmount }) => ({
+              id,
+              projectId: req.projectId!,
+              itemNumber: row.itemNumber,
+              description: row.description,
+              unit: row.unit,
+              quantity: row.quantity,
+              unitRate: row.unitRate,
+              totalAmount,
+              division: row.division,
+              section: row.section,
+              status: "ORIGINAL" as const,
+            })),
+          }),
+          prisma.bOQRevisionLine.createMany({
+            data: rows.map(({ id, row, totalAmount }) => ({
+              boqItemId: id,
+              revisionNo: 1,
+              reason: "Original BOQ entry (bulk import)",
+              quantity: row.quantity,
+              unitRate: row.unitRate,
+              totalAmount,
+              status: "ORIGINAL" as const,
+              changedById: req.user!.id,
+            })),
+          }),
+        ]);
       }
       await writeAudit({
         userId: req.user!.id,
         entityType: "BOQItem",
         entityId: "bulk-import",
         action: "IMPORT",
-        newValue: { count: created.length },
+        newValue: { count: rows.length },
       });
-      return res.json({ imported: created.length, summary: result.summary });
+      return res.json({ imported: rows.length, summary: result.summary });
     }
 
     res.json(result);

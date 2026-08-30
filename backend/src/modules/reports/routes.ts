@@ -37,30 +37,45 @@ reportsRouter.get(
 );
 
 // ── Cost Code Analysis (Budget vs Actual vs Forecast) ─────────────────
+// Batches into a fixed number of queries regardless of how many cost codes
+// exist (previously two aggregate queries per cost code — an N+1 pattern
+// that scales badly once a project has a few hundred codes). Also scopes
+// the budget figure to the current budget version only: budget lines from
+// superseded/regenerated versions were being summed together before,
+// double-counting anything regenerated more than once.
 reportsRouter.get(
   "/cost-code-analysis",
   asyncHandler(async (req, res) => {
-    const costCodes = await prisma.costCode.findMany({ where: { projectId: req.projectId } });
-    const rows = await Promise.all(
-      costCodes.map(async (cc) => {
-        const budgetAgg = await prisma.budgetLine.aggregate({ where: { costCodeId: cc.id }, _sum: { budgetAmount: true } });
-        const actualAgg = await prisma.actualCostTransaction.aggregate({
-          where: { costCodeId: cc.id, status: "POSTED" },
-          _sum: { netAmount: true },
-        });
-        const budget = Number(budgetAgg._sum.budgetAmount ?? 0);
-        const actual = Number(actualAgg._sum.netAmount ?? 0);
-        return {
-          costCodeId: cc.id,
-          code: cc.code,
-          description: cc.description,
-          budget,
-          actual,
-          variance: round2(budget - actual),
-          variancePercent: budget !== 0 ? round2(((budget - actual) / budget) * 100) : 0,
-        };
-      })
-    );
+    const projectId = req.projectId!;
+    const [costCodes, currentBudget] = await Promise.all([
+      prisma.costCode.findMany({ where: { projectId } }),
+      prisma.budget.findFirst({ where: { projectId, status: "APPROVED" } }).then(
+        (approved) => approved ?? prisma.budget.findFirst({ where: { projectId }, orderBy: { version: "desc" } })
+      ),
+    ]);
+
+    const [budgetGroups, actualGroups] = await Promise.all([
+      currentBudget
+        ? prisma.budgetLine.groupBy({ by: ["costCodeId"], where: { budgetId: currentBudget.id }, _sum: { budgetAmount: true } })
+        : Promise.resolve([] as { costCodeId: string | null; _sum: { budgetAmount: unknown } }[]),
+      prisma.actualCostTransaction.groupBy({ by: ["costCodeId"], where: { projectId, status: "POSTED" }, _sum: { netAmount: true } }),
+    ]);
+    const budgetByCode = new Map(budgetGroups.map((g) => [g.costCodeId, Number(g._sum.budgetAmount ?? 0)]));
+    const actualByCode = new Map(actualGroups.map((g) => [g.costCodeId, Number(g._sum.netAmount ?? 0)]));
+
+    const rows = costCodes.map((cc) => {
+      const budget = budgetByCode.get(cc.id) ?? 0;
+      const actual = actualByCode.get(cc.id) ?? 0;
+      return {
+        costCodeId: cc.id,
+        code: cc.code,
+        description: cc.description,
+        budget,
+        actual,
+        variance: round2(budget - actual),
+        variancePercent: budget !== 0 ? round2(((budget - actual) / budget) * 100) : 0,
+      };
+    });
     res.json(rows.sort((a, b) => a.variance - b.variance));
   })
 );

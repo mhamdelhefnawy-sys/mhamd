@@ -819,6 +819,7 @@ model ProgressEntry {
   createdAt      DateTime       @default(now())
 
   @@index([projectId, date])
+  @@index([boqItemId, date])
 }
 
 model ForecastEntry {

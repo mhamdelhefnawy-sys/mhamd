@@ -1,5 +1,6 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
+import rateLimit from "express-rate-limit";
 import { z } from "zod";
 import { prisma } from "../../lib/prisma";
 import { signToken, requireAuth } from "../../lib/auth";
@@ -13,8 +14,20 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
+// Throttles brute-force/credential-stuffing attempts against login specifically —
+// scoped here rather than the whole auth router so GET /me (called on every page
+// load with an already-valid token) is never affected.
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many login attempts — please wait a few minutes and try again." },
+});
+
 authRouter.post(
   "/login",
+  loginLimiter,
   validateBody(loginSchema),
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;

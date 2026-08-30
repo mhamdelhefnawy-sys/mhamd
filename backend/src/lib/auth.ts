@@ -2,7 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { prisma } from "./prisma";
 
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
+// A weak/default JWT secret lets anyone forge a valid session token, so it's only
+// tolerated outside production. In production the app refuses to start rather than
+// silently run insecurely.
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === "production") {
+  throw new Error("JWT_SECRET must be set in production — refusing to start with an insecure default secret.");
+}
+const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me-in-.env";
 const JWT_EXPIRES_IN = "8h";
 
 export interface AuthUser {

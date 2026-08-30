@@ -276,3 +276,37 @@ Excel sheet → system mapping (business logic reconstructed, not copied):
 `Reports → Reconciliation` (Phase 2) will show Excel Total vs System Total vs
 Difference vs Status per sheet, per the reconciliation engine described in
 requirement §58/§59/§71.
+
+## 14. Production Readiness / Performance Review
+
+A dedicated pass for §69 ("hundreds of thousands of transactions, thousands
+of BOQ items... multiple concurrent users") and general hardening. Findings
+were reproduced with a script against a live project seeded with 3,000 BOQ
+items and 3,000 progress entries, then verified fixed against the same data:
+
+| Finding | Fix | Measured effect |
+|---|---|---|
+| `getProjectProgress` ran one `progressEntry.findFirst` query per BOQ item in a loop — an N+1 pattern that scaled linearly with BOQ size and hit every dashboard/EVM/forecast load | Batched into 2 queries total (bulk fetch + in-memory reduce to latest-per-item), plus a new `ProgressEntry(boqItemId, date)` index | Dashboard: **~2,750ms → ~125–200ms** |
+| Dashboard's "Top Cost Overruns" fetched every full BOQ row (every column) plus every `CostAllocation` row via a nested `include`, just to rank the top 10 | `select` only the 4 needed columns; sum allocations with one `groupBy` instead of loading every allocation row | (included in the figure above) |
+| `/reports/cost-code-analysis` ran 2 aggregate queries per cost code (N+1); it also summed `BudgetLine` rows across **every** budget version ever generated instead of just the current one, double-counting after a re-generate | Batched into 2 `groupBy` queries scoped to the current budget version, merged in memory | Correctness fix + O(1) query count regardless of cost-code count |
+| Bulk BOQ Excel import created each row with 2 sequential `create` calls (BOQItem + BOQRevisionLine) — thousands of round trips for a large import | Client-generated UUIDs + two `createMany` calls in one `$transaction` | O(1) query count regardless of import size |
+| `JWT_SECRET` silently fell back to a hardcoded default if unset | Refuses to start in `NODE_ENV=production` without an explicit `JWT_SECRET` | — |
+| CORS accepted requests from any origin (`cors()` with no options) | Configurable `ALLOWED_ORIGINS` allowlist; fails closed (blocks all origins) in production if unset, permissive only in dev | — |
+| No brute-force protection on login | Rate-limited to 20 attempts / 15 min per client on `POST /auth/login` only (not `/me`, which runs on every page load) | — |
+| BOQ import accepted any file content under any name | `multer` `fileFilter` now rejects anything that isn't `.xlsx`/`.xls`/`.csv` by extension + MIME type | — |
+| An uncaught exception or unhandled promise rejection could leave the process in an undefined state with no record of why | `process.on('uncaughtException'/'unhandledRejection')` logs and exits cleanly for a process manager to restart; `SIGTERM`/`SIGINT` drain in-flight requests and close the Prisma pool before exiting | — |
+| Large JSON responses (e.g. a 3,000-row BOQ export) were sent uncompressed | Added `compression` middleware | Smaller payloads over the wire, no code changes needed elsewhere |
+
+**What this does not cover** — genuinely infrastructure-level, not something
+application code alone can fix: horizontal scaling (the API is stateless and
+JWT-based, so it scales out behind a load balancer with no code changes),
+Postgres connection pool sizing under high concurrency (tune
+`connection_limit`/`pool_timeout` on `DATABASE_URL`, see `.env.example`),
+a managed Postgres with read replicas for reporting-heavy load, a CDN in
+front of the frontend, and a real load-testing pass (k6/Artillery) before
+a production launch. The 3,000-row scenario above demonstrates the N+1
+fix, not a ceiling — very large single-project datasets (tens of thousands
+of rows) would benefit from adding pagination to the remaining unpaginated
+list endpoints (BOQ, Cost Codes, Commitments, Materials, Subcontractors —
+Actual Cost and Audit Log already paginate), which was not done here to
+avoid a matching frontend rework outside this review's scope.

@@ -55,21 +55,34 @@ dashboardRouter.get(
     });
 
     // Top cost overruns: BOQ items where actual cost allocated exceeds budget amount.
-    const boqItems = await prisma.bOQItem.findMany({
-      where: { projectId },
-      include: { costAllocations: true },
-    });
-    const overruns = boqItems
+    // Pulls only the columns needed (not full rows) and sums allocations with a
+    // groupBy instead of loading every CostAllocation row for every item — this
+    // used to transfer the entire BOQ table (every column, every allocation) on
+    // every dashboard load just to find the worst 10.
+    const [boqItemsSlim, allocationSums] = await Promise.all([
+      prisma.bOQItem.findMany({
+        where: { projectId },
+        select: { id: true, itemNumber: true, description: true, totalAmount: true },
+      }),
+      prisma.costAllocation.groupBy({
+        by: ["boqItemId"],
+        where: { boqItem: { projectId } },
+        _sum: { amount: true },
+      }),
+    ]);
+    const allocatedByBoqItem = new Map(allocationSums.map((a) => [a.boqItemId, Number(a._sum.amount ?? 0)]));
+    const overruns = boqItemsSlim
       .map((item) => {
-        const actualAllocated = item.costAllocations.reduce((s, a) => s + Number(a.amount), 0);
+        const actualAllocated = allocatedByBoqItem.get(item.id) ?? 0;
+        const budgetAmount = Number(item.totalAmount);
         return {
           boqItemId: item.id,
           itemNumber: item.itemNumber,
           description: item.description,
-          budgetAmount: Number(item.totalAmount),
+          budgetAmount,
           actualAmount: round2(actualAllocated),
-          overrun: round2(actualAllocated - Number(item.totalAmount)),
-          overrunPercent: Number(item.totalAmount) !== 0 ? round2((actualAllocated - Number(item.totalAmount)) / Number(item.totalAmount) * 100) : 0,
+          overrun: round2(actualAllocated - budgetAmount),
+          overrunPercent: budgetAmount !== 0 ? round2(((actualAllocated - budgetAmount) / budgetAmount) * 100) : 0,
         };
       })
       .filter((o) => o.overrun > 0)

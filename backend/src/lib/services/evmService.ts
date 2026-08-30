@@ -51,20 +51,40 @@ export async function getUnallocatedTotal(projectId: string): Promise<number> {
 
 // Weighted-BOQ progress: each BOQ item's latest recorded % complete, weighted by its
 // share of total BOQ value. Falls back to an explicit project-level manual entry if present.
+//
+// Batches both queries regardless of BOQ item count (was previously one findFirst
+// per item in a loop — an N+1 query pattern that turned a single dashboard load
+// into thousands of sequential round trips on a realistically sized BOQ).
 export async function getProjectProgress(projectId: string): Promise<{ plannedPercent: number; actualPercent: number }> {
-  const projectLevel = await prisma.progressEntry.findFirst({
-    where: { projectId, wbsId: null, boqItemId: null, costCodeId: null },
-    orderBy: { date: "desc" },
-  });
+  const [projectLevel, boqItems] = await Promise.all([
+    prisma.progressEntry.findFirst({
+      where: { projectId, wbsId: null, boqItemId: null, costCodeId: null },
+      orderBy: { date: "desc" },
+    }),
+    prisma.bOQItem.findMany({ where: { projectId }, select: { id: true, totalAmount: true } }),
+  ]);
 
-  const boqItems = await prisma.bOQItem.findMany({ where: { projectId }, select: { id: true, totalAmount: true } });
   const totalValue = boqItems.reduce((s, i) => s + Number(i.totalAmount), 0);
 
   let weightedActual = 0;
   let weightedPlanned = 0;
-  if (totalValue > 0) {
+  if (totalValue > 0 && boqItems.length > 0) {
+    const boqItemIds = boqItems.map((i) => i.id);
+    // One query for every item's progress history, newest first; the first row seen
+    // per boqItemId (via latestByBoqItem below) is that item's latest entry.
+    const allEntries = await prisma.progressEntry.findMany({
+      where: { boqItemId: { in: boqItemIds } },
+      orderBy: { date: "desc" },
+      select: { boqItemId: true, actualPercent: true, plannedPercent: true },
+    });
+    const latestByBoqItem = new Map<string, (typeof allEntries)[number]>();
+    for (const entry of allEntries) {
+      if (entry.boqItemId && !latestByBoqItem.has(entry.boqItemId)) {
+        latestByBoqItem.set(entry.boqItemId, entry);
+      }
+    }
     for (const item of boqItems) {
-      const latest = await prisma.progressEntry.findFirst({ where: { boqItemId: item.id }, orderBy: { date: "desc" } });
+      const latest = latestByBoqItem.get(item.id);
       const weight = Number(item.totalAmount) / totalValue;
       weightedActual += (latest?.actualPercent ? Number(latest.actualPercent) : 0) * weight;
       weightedPlanned += (latest?.plannedPercent ? Number(latest.plannedPercent) : 0) * weight;
