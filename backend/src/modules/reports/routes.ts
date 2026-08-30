@@ -124,6 +124,118 @@ reportsRouter.get(
   })
 );
 
+// ── Taxes & Overhead Report ──────────────────────────────────────────────
+reportsRouter.get(
+  "/taxes-overhead",
+  asyncHandler(async (req, res) => {
+    const project = await prisma.project.findUniqueOrThrow({ where: { id: req.projectId } });
+    const vatAgg = await prisma.actualCostTransaction.aggregate({
+      where: { projectId: req.projectId, status: "POSTED" },
+      _sum: { netAmount: true, vatAmount: true, grossAmount: true },
+    });
+    const netCost = Number(vatAgg._sum.netAmount ?? 0);
+    const vatAmount = Number(vatAgg._sum.vatAmount ?? 0);
+    const grossCost = Number(vatAgg._sum.grossAmount ?? 0);
+
+    const headOfficeOverheadPercent = Number(project.headOfficeOverheadPercent);
+    const insuranceRate = Number(project.insuranceRate);
+    const provisionRate = Number(project.provisionRate);
+
+    const headOfficeOverhead = round2((netCost * headOfficeOverheadPercent) / 100);
+    const insurance = round2((netCost * insuranceRate) / 100);
+    const provision = round2((netCost * provisionRate) / 100);
+
+    res.json({
+      vatRate: Number(project.vatRate),
+      netCost,
+      vatAmount,
+      grossCost,
+      headOfficeOverheadPercent,
+      headOfficeOverhead,
+      insuranceRate,
+      insurance,
+      provisionRate,
+      provision,
+      totalTaxesAndOverhead: round2(vatAmount + headOfficeOverhead + insurance + provision),
+    });
+  })
+);
+
+// ── Manpower Cost Report ─────────────────────────────────────────────────
+reportsRouter.get(
+  "/manpower",
+  asyncHandler(async (req, res) => {
+    const entries = await prisma.manpowerEntry.groupBy({
+      by: ["category"],
+      where: { projectId: req.projectId },
+      _sum: { totalCost: true, headcount: true },
+    });
+    res.json(
+      entries.map((e) => ({
+        category: e.category,
+        headcount: Number(e._sum.headcount ?? 0),
+        totalCost: Number(e._sum.totalCost ?? 0),
+      }))
+    );
+  })
+);
+
+// ── Equipment Cost Report ────────────────────────────────────────────────
+reportsRouter.get(
+  "/equipment",
+  asyncHandler(async (req, res) => {
+    const entries = await prisma.equipmentEntry.groupBy({
+      by: ["equipmentName", "ownership"],
+      where: { projectId: req.projectId },
+      _sum: { totalCost: true, operatingHours: true },
+    });
+    res.json(
+      entries.map((e) => ({
+        equipmentName: e.equipmentName,
+        ownership: e.ownership,
+        operatingHours: Number(e._sum.operatingHours ?? 0),
+        totalCost: Number(e._sum.totalCost ?? 0),
+      }))
+    );
+  })
+);
+
+// ── Commitment Report ─────────────────────────────────────────────────────
+reportsRouter.get(
+  "/commitments",
+  asyncHandler(async (req, res) => {
+    const commitments = await prisma.commitment.findMany({ where: { projectId: req.projectId } });
+    res.json(
+      commitments.map((c) => {
+        const revised = Number(c.originalAmount) + Number(c.approvedVariations);
+        return {
+          number: c.number,
+          type: c.type,
+          vendorName: c.vendorName,
+          originalAmount: Number(c.originalAmount),
+          revisedAmount: round2(revised),
+          certifiedAmount: Number(c.certifiedAmount),
+          remaining: round2(revised - Number(c.certifiedAmount)),
+          status: c.status,
+        };
+      })
+    );
+  })
+);
+
+// ── Indirect Cost Report ─────────────────────────────────────────────────
+reportsRouter.get(
+  "/indirect-costs",
+  asyncHandler(async (req, res) => {
+    const entries = await prisma.indirectCostEntry.groupBy({
+      by: ["category"],
+      where: { projectId: req.projectId },
+      _sum: { amount: true },
+    });
+    res.json(entries.map((e) => ({ category: e.category, amount: Number(e._sum.amount ?? 0) })));
+  })
+);
+
 // ── Executive Cost Report (Excel) ───────────────────────────────────────
 reportsRouter.get(
   "/executive/excel",
@@ -170,6 +282,7 @@ reportsRouter.get(
 
     const buffer = await buildPdfReport({
       companyName: company.name,
+      companyLogoDataUri: company.logoUrl,
       projectName: project.name,
       reportTitle: "Executive Cost Report",
       reportingDate: new Date().toISOString().slice(0, 10),

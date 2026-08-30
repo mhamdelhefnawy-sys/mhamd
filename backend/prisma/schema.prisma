@@ -114,6 +114,9 @@ model Project {
   description         String?
   eacFormula          String        @default("AC_PLUS_ETC") // AC_PLUS_ETC | BAC_OVER_CPI | AC_PLUS_BAC_MINUS_EV | AC_PLUS_BAC_MINUS_EV_OVER_CPI
   allowedWasteDefault Decimal       @default(2) @db.Decimal(5, 2)
+  headOfficeOverheadPercent Decimal @default(0) @db.Decimal(5, 2)
+  insuranceRate       Decimal       @default(0) @db.Decimal(5, 2)
+  provisionRate       Decimal       @default(0) @db.Decimal(5, 2)
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
 

@@ -4,9 +4,25 @@ import { prisma } from "../../lib/prisma";
 import { requireAuth, requirePermission } from "../../lib/auth";
 import { requireProjectScope } from "../../lib/scope";
 import { asyncHandler, validateBody } from "../../lib/http";
+import { evaluateProjectAlerts } from "../../lib/services/alertEngine";
+import { computeProjectEvmAndForecast } from "../evm/routes";
+import { getUnallocatedTotal } from "../../lib/services/evmService";
 
 export const alertsRouter = Router({ mergeParams: true });
 alertsRouter.use(requireAuth, requireProjectScope);
+
+// Manually re-run the alert engine (the dashboard also triggers this on every load).
+alertsRouter.post(
+  "/evaluate",
+  asyncHandler(async (req, res) => {
+    const projectId = req.projectId!;
+    const { evm, forecast } = await computeProjectEvmAndForecast(projectId);
+    const unallocated = await getUnallocatedTotal(projectId);
+    await evaluateProjectAlerts(projectId, { cpi: evm.cpi, spi: evm.spi, vac: forecast.vac, eac: forecast.eac, unallocatedCost: unallocated });
+    const items = await prisma.alert.findMany({ where: { projectId }, orderBy: { createdAt: "desc" } });
+    res.json(items);
+  })
+);
 
 alertsRouter.get(
   "/",

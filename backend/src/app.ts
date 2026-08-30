@@ -23,6 +23,8 @@ import { adminRouter } from "./modules/admin/routes";
 import { workPackagesRouter } from "./modules/workPackages/routes";
 import { approvalsRouter } from "./modules/approvals/routes";
 import { reconciliationRouter } from "./modules/reconciliation/routes";
+import { companyRouter } from "./modules/company/routes";
+import { searchRouter } from "./modules/search/routes";
 
 export const app = express();
 
@@ -36,6 +38,7 @@ app.get("/health", (_req, res) => res.json({ ok: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/projects", projectsRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/company", companyRouter);
 
 // Project-scoped modules: /api/projects/:projectId/<module>
 app.use("/api/projects/:projectId/wbs", wbsRouter);
@@ -60,6 +63,7 @@ app.use("/api/projects/:projectId/reports", reportsRouter);
 app.use("/api/projects/:projectId/work-packages", workPackagesRouter);
 app.use("/api/projects/:projectId/approvals", approvalsRouter);
 app.use("/api/projects/:projectId/reconciliation", reconciliationRouter);
+app.use("/api/projects/:projectId/search", searchRouter);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

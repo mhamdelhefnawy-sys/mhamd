@@ -14,6 +14,11 @@ const REPORT_TABS = [
   { key: "boq-variance", label: "BOQ Qty/Rate Variance" },
   { key: "material-loss", label: "Material Loss" },
   { key: "subcontractors", label: "Subcontractors" },
+  { key: "commitments", label: "Commitments" },
+  { key: "manpower", label: "Manpower Cost" },
+  { key: "equipment", label: "Equipment Cost" },
+  { key: "indirect-costs", label: "Indirect Cost" },
+  { key: "taxes-overhead", label: "Taxes & Overhead" },
   { key: "unallocated", label: "Unallocated Cost" },
 ] as const;
 
@@ -126,6 +131,67 @@ export default function ReportsPage() {
         />
       )}
 
+      {tab === "commitments" && (
+        <DataTable
+          columns={[
+            { key: "number", header: "No." },
+            { key: "type", header: "Type", render: (r: any) => String(r.type).replace(/_/g, " ") },
+            { key: "vendorName", header: "Vendor" },
+            { key: "revisedAmount", header: "Revised", align: "right", render: (r: any) => formatMoney(r.revisedAmount, currency) },
+            { key: "certifiedAmount", header: "Certified", align: "right", render: (r: any) => formatMoney(r.certifiedAmount, currency) },
+            { key: "remaining", header: "Remaining", align: "right", render: (r: any) => formatMoney(r.remaining, currency) },
+            { key: "status", header: "Status" },
+          ]}
+          rows={data ?? []}
+        />
+      )}
+
+      {tab === "manpower" && (
+        <DataTable
+          columns={[
+            { key: "category", header: "Category" },
+            { key: "headcount", header: "Headcount", align: "right", render: (r: any) => formatNumber(r.headcount, 0) },
+            { key: "totalCost", header: "Total Cost", align: "right", render: (r: any) => formatMoney(r.totalCost, currency) },
+          ]}
+          rows={data ?? []}
+        />
+      )}
+
+      {tab === "equipment" && (
+        <DataTable
+          columns={[
+            { key: "equipmentName", header: "Equipment" },
+            { key: "ownership", header: "Ownership" },
+            { key: "operatingHours", header: "Operating Hours", align: "right", render: (r: any) => formatNumber(r.operatingHours) },
+            { key: "totalCost", header: "Total Cost", align: "right", render: (r: any) => formatMoney(r.totalCost, currency) },
+          ]}
+          rows={data ?? []}
+        />
+      )}
+
+      {tab === "indirect-costs" && (
+        <DataTable
+          columns={[
+            { key: "category", header: "Category" },
+            { key: "amount", header: "Amount", align: "right", render: (r: any) => formatMoney(r.amount, currency) },
+          ]}
+          rows={data ?? []}
+        />
+      )}
+
+      {tab === "taxes-overhead" && data && (
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <ReportStat label="VAT Rate" value={formatPercent(data.vatRate)} />
+          <ReportStat label="Net Cost (posted)" value={formatMoney(data.netCost, currency)} />
+          <ReportStat label="VAT Amount" value={formatMoney(data.vatAmount, currency)} />
+          <ReportStat label="Gross Cost" value={formatMoney(data.grossCost, currency)} />
+          <ReportStat label={`Head Office Overhead (${data.headOfficeOverheadPercent}%)`} value={formatMoney(data.headOfficeOverhead, currency)} />
+          <ReportStat label={`Insurance (${data.insuranceRate}%)`} value={formatMoney(data.insurance, currency)} />
+          <ReportStat label={`Provision (${data.provisionRate}%)`} value={formatMoney(data.provision, currency)} />
+          <ReportStat label="Total Taxes & Overhead" value={formatMoney(data.totalTaxesAndOverhead, currency)} />
+        </div>
+      )}
+
       {tab === "unallocated" && (
         <>
           <p className="mb-3 text-sm text-slate-400">Total unallocated: {formatMoney(data?.total ?? 0, currency)}</p>
@@ -140,6 +206,15 @@ export default function ReportsPage() {
           />
         </>
       )}
+    </div>
+  );
+}
+
+function ReportStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="kpi-card">
+      <span className="text-xs uppercase tracking-wide text-slate-400">{label}</span>
+      <span className="text-lg font-semibold text-slate-100">{value}</span>
     </div>
   );
 }

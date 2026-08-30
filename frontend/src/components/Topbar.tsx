@@ -6,6 +6,7 @@ import { LogOut, Bell, ClipboardCheck } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import Link from "next/link";
+import { GlobalSearch } from "./GlobalSearch";
 
 export function Topbar() {
   const { user, logout } = useAuth();
@@ -41,6 +42,7 @@ export function Topbar() {
             </option>
           ))}
         </select>
+        <GlobalSearch />
       </div>
       <div className="flex items-center gap-4">
         <Link href="/approvals" className="relative text-slate-400 hover:text-slate-100" title="Approval Center">

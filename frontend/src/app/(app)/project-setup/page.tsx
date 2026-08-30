@@ -26,6 +26,9 @@ interface ProjectDetail {
   location?: string;
   description?: string;
   eacFormula: string;
+  headOfficeOverheadPercent: string;
+  insuranceRate: string;
+  provisionRate: string;
 }
 
 const EAC_FORMULAS = [
@@ -58,6 +61,9 @@ export default function ProjectSetupPage() {
         originalContractValue: Number(form.originalContractValue),
         currentContractValue: Number(form.currentContractValue),
         vatRate: Number(form.vatRate),
+        headOfficeOverheadPercent: Number(form.headOfficeOverheadPercent ?? 0),
+        insuranceRate: Number(form.insuranceRate ?? 0),
+        provisionRate: Number(form.provisionRate ?? 0),
       }),
     onSuccess: () => {
       setMessage("Project updated.");
@@ -107,7 +113,6 @@ export default function ProjectSetupPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {field("originalContractValue", "Original Contract Value", "number")}
           {field("currentContractValue", "Current Contract Value", "number")}
-          {field("vatRate", "VAT Rate (%)", "number")}
           {field("projectManager", "Project Manager")}
           {field("costControlManager", "Cost Control Manager")}
           <div>
@@ -134,6 +139,19 @@ export default function ProjectSetupPage() {
             value={form.description ?? ""}
             onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
           />
+        </div>
+
+        <div>
+          <h3 className="mb-2 text-sm font-semibold text-slate-300">Taxes & Overhead</h3>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+            {field("vatRate", "VAT Rate (%)", "number")}
+            {field("headOfficeOverheadPercent", "Head Office Overhead (% of Actual Cost)", "number")}
+            {field("insuranceRate", "Insurance Rate (%)", "number")}
+            {field("provisionRate", "Provision Rate (%)", "number")}
+          </div>
+          <p className="mt-1 text-xs text-slate-500">
+            Applied at project level against posted Actual Cost. See Reports → Taxes & Overhead for the computed amounts.
+          </p>
         </div>
 
         <div className="flex items-center gap-3">

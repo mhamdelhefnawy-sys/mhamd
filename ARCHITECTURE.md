@@ -230,8 +230,28 @@ against current data for "as-of-today" views.
   Most Likely / Optimistic / Worst Case ETC/EAC/VAC/Profit/Margin, using a
   per-scenario manual override when set (via the existing forecast-override
   endpoint) or a heuristic variance band otherwise.
-  Still queued: Taxes & Overhead module UI, full PDF report branding,
-  remaining report templates, global search, notifications center.
+  ✅ Taxes & Overhead (Project.headOfficeOverheadPercent/insuranceRate/
+  provisionRate + `/reports/taxes-overhead`) — VAT, head office overhead,
+  insurance and provision computed against posted Actual Cost, editable in
+  Project Setup, viewable as a Reports tab.
+  ✅ Company Branding (`/api/company` + Admin Settings panel) — logo upload
+  (stored as a data URI on `Company.logoUrl`), name/address/phone, and the
+  logo now renders on generated executive PDF reports.
+  ✅ More report templates as Reports-page tabs reusing existing list data:
+  Commitment Report, Manpower Cost, Equipment Cost, Indirect Cost Report.
+  ✅ Global Search (`/api/projects/:projectId/search` + top-bar search box) —
+  BOQ items, Cost Codes, WBS, Materials, Subcontractors, and Actual Cost
+  transactions, debounced, with click-through to the owning module.
+  ✅ Alert Evaluation Engine (`lib/services/alertEngine.ts`, run on every
+  dashboard load and via `POST /alerts/evaluate`) — turns the configurable
+  `AlertRule` thresholds into real `Alert` rows for CPI/SPI, negative VAC,
+  EAC increases vs. the last snapshot, and unallocated cost, deduplicated
+  per metric within a 24h window.
+
+  Phase 2 is now functionally complete. Remaining lower-priority polish
+  items (not required for daily use): richer PDF layout (multi-page cover,
+  signature blocks as images), a dedicated Notifications center distinct
+  from Alerts, and file-based (rather than data-URI) attachment storage.
 - **Phase 3**: Primavera P6 XER import stub, Odoo/Power BI integration
   endpoints, mobile-optimized views, multi-company/multi-currency UI.
 

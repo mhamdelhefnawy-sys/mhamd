@@ -12,6 +12,7 @@ export interface PdfTableRow {
 
 export interface PdfReportOptions {
   companyName: string;
+  companyLogoDataUri?: string | null;
   projectName: string;
   reportTitle: string;
   reportingDate: string;
@@ -25,6 +26,17 @@ export interface PdfReportOptions {
   notes?: string;
 }
 
+// Decodes a "data:image/png;base64,...." URI into a Buffer pdfkit can embed.
+function decodeDataUri(dataUri: string): Buffer | null {
+  const match = /^data:image\/(png|jpe?g);base64,(.+)$/.exec(dataUri);
+  if (!match) return null;
+  try {
+    return Buffer.from(match[2], "base64");
+  } catch {
+    return null;
+  }
+}
+
 export async function buildPdfReport(opts: PdfReportOptions): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({ size: "A4", margin: 40, bufferPages: true });
@@ -34,6 +46,16 @@ export async function buildPdfReport(opts: PdfReportOptions): Promise<Buffer> {
     stream.on("end", () => resolve(Buffer.concat(chunks)));
     stream.on("error", reject);
     doc.pipe(stream);
+
+    // Logo in the top-right corner keeps the left-aligned text flow below untouched.
+    const logoBuffer = opts.companyLogoDataUri ? decodeDataUri(opts.companyLogoDataUri) : null;
+    if (logoBuffer) {
+      try {
+        doc.image(logoBuffer, doc.page.width - doc.page.margins.right - 50, doc.page.margins.top, { fit: [50, 50] });
+      } catch {
+        // Corrupt/unsupported image data — fall back to text-only header.
+      }
+    }
 
     doc.fontSize(18).fillColor("#111827").text(opts.companyName, { continued: false });
     doc.fontSize(14).fillColor("#374151").text(opts.projectName);

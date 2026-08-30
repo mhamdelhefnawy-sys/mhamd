@@ -6,6 +6,7 @@ import { asyncHandler } from "../../lib/http";
 import { computeProjectEvmAndForecast } from "../evm/routes";
 import { getUnallocatedTotal } from "../../lib/services/evmService";
 import { evaluateMetric, DEFAULT_ALERT_RULES } from "../../lib/calc/alerts";
+import { evaluateProjectAlerts } from "../../lib/services/alertEngine";
 
 export const dashboardRouter = Router({ mergeParams: true });
 dashboardRouter.use(requireAuth, requireProjectScope);
@@ -17,6 +18,8 @@ dashboardRouter.get(
     const project = await prisma.project.findUniqueOrThrow({ where: { id: projectId } });
     const { evm, forecast, exposure, profitability, progress } = await computeProjectEvmAndForecast(projectId);
     const unallocated = await getUnallocatedTotal(projectId);
+
+    await evaluateProjectAlerts(projectId, { cpi: evm.cpi, spi: evm.spi, vac: forecast.vac, eac: forecast.eac, unallocatedCost: unallocated });
 
     const cpiStatus = evaluateMetric(evm.cpi, DEFAULT_ALERT_RULES.CPI);
     const spiStatus = evaluateMetric(evm.spi, DEFAULT_ALERT_RULES.SPI);

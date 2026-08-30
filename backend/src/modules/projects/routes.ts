@@ -53,6 +53,9 @@ const projectSchema = z.object({
   eacFormula: z
     .enum(["AC_PLUS_ETC", "BAC_OVER_CPI", "AC_PLUS_BAC_MINUS_EV", "AC_PLUS_BAC_MINUS_EV_OVER_CPI"])
     .default("AC_PLUS_ETC"),
+  headOfficeOverheadPercent: z.number().min(0).max(100).default(0),
+  insuranceRate: z.number().min(0).max(100).default(0),
+  provisionRate: z.number().min(0).max(100).default(0),
 });
 
 projectsRouter.post(

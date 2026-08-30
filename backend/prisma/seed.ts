@@ -9,7 +9,7 @@ const MODULES = [
   "projects", "wbs", "cost_codes", "boq", "budget", "variations", "actual_cost",
   "commitments", "accruals", "subcontractors", "materials", "manpower", "equipment",
   "indirect_costs", "fixed_assets", "progress", "forecast", "evm", "dashboard",
-  "alerts", "reports", "users", "roles", "audit", "work_packages", "approvals",
+  "alerts", "reports", "users", "roles", "audit", "work_packages", "approvals", "settings",
 ];
 const ACTIONS = ["view", "create", "edit", "delete", "approve", "post", "export", "import", "print", "review", "reverse", "manage_users", "manage_settings"];
 
