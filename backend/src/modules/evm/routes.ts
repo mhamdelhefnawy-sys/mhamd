@@ -129,6 +129,66 @@ evmRouter.post(
   })
 );
 
+// Forecast Scenarios (spec §66): Current/Most Likely, Optimistic, Worst Case — each
+// with its own ETC/EAC/VAC/Profit/Margin. Uses the latest project-level manual
+// override for that scenario when one exists; otherwise applies a heuristic
+// variance band around the system-calculated ETC so the three scenarios are
+// always populated, clearly labeled as heuristic until a user overrides them.
+const SCENARIOS = ["MOST_LIKELY", "OPTIMISTIC", "WORST_CASE"] as const;
+const HEURISTIC_MULTIPLIER: Record<(typeof SCENARIOS)[number], number> = {
+  MOST_LIKELY: 1,
+  OPTIMISTIC: 0.9,
+  WORST_CASE: 1.15,
+};
+
+evmRouter.get(
+  "/scenarios",
+  asyncHandler(async (req, res) => {
+    const projectId = req.projectId!;
+    const project = await prisma.project.findUniqueOrThrow({ where: { id: projectId } });
+    const bac = await getCurrentBudgetTotal(projectId);
+    const ac = await getActualCostTotal(projectId);
+    const progress = await getProjectProgress(projectId);
+    const evm = computeEVM({ bac, plannedPercent: progress.plannedPercent, actualPercent: progress.actualPercent, actualCost: ac });
+    const baseForecast = computeForecast({ bac, ac, ev: evm.ev, cpi: evm.cpi, formula: project.eacFormula as EacFormula });
+    const revenue = Number(project.currentContractValue) || Number(project.originalContractValue);
+
+    const results: Record<string, unknown> = {};
+    for (const scenario of SCENARIOS) {
+      const override = await prisma.forecastEntry.findFirst({
+        where: { projectId, scenario, wbsId: null, boqItemId: null, costCodeId: null, isManualOverride: true },
+        orderBy: { createdAt: "desc" },
+      });
+
+      const etc = override?.manualETC != null ? Number(override.manualETC) : round2(baseForecast.etc * HEURISTIC_MULTIPLIER[scenario]);
+      const eac = round2(ac + etc);
+      const vac = round2(bac - eac);
+      const profitability = computeProfitability({ currentContractValue: revenue, forecastCost: eac, budgetCost: bac });
+
+      results[scenarioKey(scenario)] = {
+        scenario,
+        etc,
+        eac,
+        vac,
+        forecastProfit: profitability.forecastProfit,
+        forecastMarginPercent: profitability.forecastMarginPercent,
+        isManualOverride: !!override,
+        overrideReason: override?.overrideReason ?? null,
+      };
+    }
+
+    res.json(results);
+  })
+);
+
+function scenarioKey(s: (typeof SCENARIOS)[number]) {
+  return s === "MOST_LIKELY" ? "mostLikely" : s === "OPTIMISTIC" ? "optimistic" : "worstCase";
+}
+
+function round2(n: number) {
+  return Math.round(n * 100) / 100;
+}
+
 evmRouter.get(
   "/trend",
   asyncHandler(async (req, res) => {

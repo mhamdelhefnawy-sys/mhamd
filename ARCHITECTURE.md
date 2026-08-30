@@ -217,10 +217,21 @@ against current data for "as-of-today" views.
   pending-count badge in the top bar) — a single place to Approve / Reject /
   Return-for-Correction pending Actual Costs, Budgets, Variations, Accruals,
   and Payment Certificates, with a required reason on reject/return, fully
-  audit-logged. Still queued: Taxes & Overhead module UI, full PDF report
-  branding, Report Snapshots/period finalization UI, Forecast Scenarios UI,
-  remaining report templates, Reconciliation/Zero-Check dashboard, global
-  search, notifications center.
+  audit-logged.
+  ✅ Reconciliation / Zero-Check dashboard (backend `/reconciliation` module +
+  frontend page) — nine data-integrity checks (missing cost code/WBS on BOQ,
+  unallocated costs, budget-vs-BOQ drift, negative material balances,
+  over-certified commitments/subcontracts, negative accruals, inactive cost
+  codes still posted against) rolled into one PASS/WARNING/ERROR status.
+  ✅ Report Periods & Snapshots UI (backend already existed; added the
+  frontend) — create a period, finalize it to freeze an immutable KPI
+  snapshot, view any past snapshot.
+  ✅ Forecast Scenarios (backend `/evm/scenarios` + panel on the EVM page) —
+  Most Likely / Optimistic / Worst Case ETC/EAC/VAC/Profit/Margin, using a
+  per-scenario manual override when set (via the existing forecast-override
+  endpoint) or a heuristic variance band otherwise.
+  Still queued: Taxes & Overhead module UI, full PDF report branding,
+  remaining report templates, global search, notifications center.
 - **Phase 3**: Primavera P6 XER import stub, Odoo/Power BI integration
   endpoints, mobile-optimized views, multi-company/multi-currency UI.
 

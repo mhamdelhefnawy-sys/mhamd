@@ -26,6 +26,8 @@ import {
   History,
   Settings,
   ClipboardCheck,
+  ShieldAlert,
+  CalendarClock,
 } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -86,6 +88,8 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/approvals", label: "Approval Center", icon: <ClipboardCheck size={16} /> },
       { href: "/reports", label: "Reports", icon: <FileBarChart size={16} /> },
+      { href: "/report-periods", label: "Report Periods", icon: <CalendarClock size={16} /> },
+      { href: "/reconciliation", label: "Reconciliation", icon: <ShieldAlert size={16} /> },
       { href: "/alerts", label: "Alerts", icon: <BarChart3 size={16} /> },
     ],
   },

@@ -24,6 +24,21 @@ interface Snapshot {
   eac: string;
   vac: string;
 }
+interface ScenarioResult {
+  scenario: string;
+  etc: number;
+  eac: number;
+  vac: number;
+  forecastProfit: number;
+  forecastMarginPercent: number;
+  isManualOverride: boolean;
+  overrideReason: string | null;
+}
+interface ScenariosData {
+  mostLikely: ScenarioResult;
+  optimistic: ScenarioResult;
+  worstCase: ScenarioResult;
+}
 
 export default function EvmPage() {
   const { currentProject } = useProject();
@@ -39,6 +54,11 @@ export default function EvmPage() {
   const { data: trend = [] } = useQuery({
     queryKey: ["evm-trend", currentProject?.id],
     queryFn: async () => (await api.get<Snapshot[]>(`/projects/${currentProject!.id}/evm/trend`)).data,
+    enabled: !!currentProject,
+  });
+  const { data: scenarios } = useQuery({
+    queryKey: ["evm-scenarios", currentProject?.id],
+    queryFn: async () => (await api.get<ScenariosData>(`/projects/${currentProject!.id}/evm/scenarios`)).data,
     enabled: !!currentProject,
   });
 
@@ -106,6 +126,45 @@ export default function EvmPage() {
         )}
       </div>
 
+      {scenarios && (
+        <div className="panel p-4 mt-6">
+          <h3 className="mb-1 text-sm font-semibold text-slate-200">Forecast Scenarios</h3>
+          <p className="mb-3 text-xs text-slate-500">
+            Optimistic/Worst Case default to a heuristic band around the system ETC until overridden per scenario above.
+          </p>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th className="text-right">ETC</th>
+                <th className="text-right">EAC</th>
+                <th className="text-right">VAC</th>
+                <th className="text-right">Forecast Profit</th>
+                <th className="text-right">Margin</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { key: "optimistic", label: "Optimistic", row: scenarios.optimistic },
+                { key: "mostLikely", label: "Most Likely", row: scenarios.mostLikely },
+                { key: "worstCase", label: "Worst Case", row: scenarios.worstCase },
+              ].map(({ key, label, row }) => (
+                <tr key={key} className={key === "mostLikely" ? "bg-slate-800/30" : ""}>
+                  <td className="font-medium text-slate-200">{label}</td>
+                  <td className="text-right">{formatMoney(row.etc, currency)}</td>
+                  <td className="text-right">{formatMoney(row.eac, currency)}</td>
+                  <td className={`text-right ${row.vac >= 0 ? "text-emerald-400" : "text-rose-400"}`}>{formatMoney(row.vac, currency)}</td>
+                  <td className="text-right">{formatMoney(row.forecastProfit, currency)}</td>
+                  <td className="text-right">{row.forecastMarginPercent}%</td>
+                  <td className="text-xs text-slate-500">{row.isManualOverride ? `Manual: ${row.overrideReason}` : "Heuristic"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       {showOverride && <OverrideModal projectId={currentProject!.id} onClose={() => setShowOverride(false)} />}
     </div>
   );
@@ -124,6 +183,7 @@ function OverrideModal({ projectId, onClose }: { projectId: string; onClose: () 
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["evm", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["evm-scenarios", projectId] });
       onClose();
     },
     onError: (err) => setError(apiErrorMessage(err)),
