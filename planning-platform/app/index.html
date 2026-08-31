@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>منصة التخطيط الإنشائي — نسخة محلية</title>
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">PP</span>
+        <div class="brand-text">
+          <strong>منصة التخطيط الإنشائي</strong>
+          <span>نسخة محلية غير متصلة — M01–M05</span>
+        </div>
+      </div>
+
+      <nav class="project-switch" id="project-switch">
+        <!-- filled by app.js -->
+      </nav>
+
+      <div class="topbar-actions">
+        <label class="actor-field">
+          <span>المستخدم الحالي</span>
+          <input id="actor-input" type="text" placeholder="اسمك" />
+        </label>
+        <label class="actor-field">
+          <span>الدور (توجيهي فقط)</span>
+          <select id="role-select">
+            <option value="Admin">مسؤول</option>
+            <option value="Planner">مخطط</option>
+            <option value="Viewer">مُطّلع فقط</option>
+          </select>
+        </label>
+        <button id="theme-toggle" class="btn btn-ghost" type="button" title="تبديل المظهر">◐</button>
+        <button id="backup-export" class="btn btn-ghost" type="button">تصدير نسخة احتياطية</button>
+        <label class="btn btn-ghost file-btn">
+          استيراد نسخة احتياطية
+          <input id="backup-import" type="file" accept="application/json" hidden />
+        </label>
+      </div>
+    </header>
+
+    <div class="body">
+      <aside class="sidenav" id="sidenav">
+        <!-- filled by app.js once a project is selected -->
+      </aside>
+
+      <main id="view-root" class="view-root">
+        <!-- filled by router -->
+      </main>
+    </div>
+
+    <footer class="statusbar">
+      <span id="status-left">جاهز</span>
+      <span id="status-right"></span>
+    </footer>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/governance.js"></script>
+  <script src="js/confidence.js"></script>
+  <script src="js/seed.js"></script>
+  <script src="js/views/governance.js"></script>
+  <script src="js/views/projects.js"></script>
+  <script src="js/views/documents.js"></script>
+  <script src="js/views/boq.js"></script>
+  <script src="js/views/wbs.js"></script>
+  <script src="js/views/activities.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
