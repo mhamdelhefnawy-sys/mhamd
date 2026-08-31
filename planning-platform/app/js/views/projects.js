@@ -105,10 +105,12 @@
     var approvedActivities = db.query("activities", function (a) { return a.projectId === project.id && a.status === "APPROVED"; }).length;
     var openReview = gov.openReviewCount(project.id);
     var openConflicts = gov.openConflictCount(project.id);
+    var mappingRec = PP.views.mapping ? PP.views.mapping.reconciliation(project) : { revision: null, unresolvedCount: 0 };
 
     return [
       { name: "Document Gate", ok: docsCount > 0, detail: docsCount + " مستند مسجَّل" },
       { name: "BOQ Gate", ok: boqApproved, detail: boqApproved ? "توجد مراجعة BOQ معتمدة" : "لا توجد مراجعة BOQ معتمدة بعد" },
+      { name: "Mapping Gate", ok: !mappingRec.revision || mappingRec.unresolvedCount === 0, detail: !mappingRec.revision ? "بانتظار اعتماد BOQ" : mappingRec.unresolvedCount === 0 ? "كل الكميات متزنة" : mappingRec.unresolvedCount + " بند غير متزن" },
       { name: "WBS Gate", ok: wbsApproved, detail: wbsApproved ? "توجد نسخة WBS معتمدة" : "لا توجد نسخة WBS معتمدة بعد" },
       { name: "Activity Gate", ok: approvedActivities > 0, detail: approvedActivities + " نشاط معتمد" },
       { name: "Review Queue", ok: openReview === 0, detail: openReview === 0 ? "لا عناصر مفتوحة" : openReview + " عنصر يحتاج مراجعة" },

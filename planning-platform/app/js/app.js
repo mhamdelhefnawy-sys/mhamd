@@ -18,6 +18,7 @@
     { key: "boq", label: "BOQ (M03)" },
     { key: "wbs", label: "هيكل الأعمال WBS (M04)" },
     { key: "activities", label: "الأنشطة (M05)" },
+    { key: "mapping", label: "الربط والتوزيع (M06)" },
     { key: "governance", label: "الحوكمة والتدقيق (M00)" },
   ];
 
@@ -97,6 +98,13 @@
     wrap.appendChild(select);
   }
 
+  function appendCount(a, n) {
+    var count = document.createElement("span");
+    count.className = "count";
+    count.textContent = n;
+    a.appendChild(count);
+  }
+
   // ---------- sidenav ----------
   function renderSidenav(projectId, activeKey) {
     var nav = document.getElementById("sidenav");
@@ -125,12 +133,12 @@
       a.appendChild(span);
       if (item.key === "governance") {
         var openCount = gov.openReviewCount(projectId) + gov.openConflictCount(projectId);
-        if (openCount > 0) {
-          var count = document.createElement("span");
-          count.className = "count";
-          count.textContent = openCount;
-          a.appendChild(count);
-        }
+        if (openCount > 0) appendCount(a, openCount);
+      }
+      if (item.key === "mapping") {
+        var project = db.get("projects", projectId);
+        var unresolved = project ? PP.views.mapping.reconciliation(project).unresolvedCount : 0;
+        if (unresolved > 0) appendCount(a, unresolved);
       }
       nav.appendChild(a);
     });
@@ -168,6 +176,7 @@
       case "boq": PP.views.boq.render(root, project); break;
       case "wbs": PP.views.wbs.render(root, project); break;
       case "activities": PP.views.activities.render(root, project); break;
+      case "mapping": PP.views.mapping.render(root, project); break;
       case "governance": PP.views.governance.render(root, project); break;
       default: root.innerHTML = '<div class="empty">شاشة غير معروفة.</div>';
     }

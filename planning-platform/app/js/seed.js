@@ -36,6 +36,7 @@
     var b01 = db.insert("wbsNodes", { wbsVersionId: version.id, parentId: null, code: "B01", name: "مبنى B01", level: 0, sortOrder: 0, status: "DERIVED" });
     var ss = db.insert("wbsNodes", { wbsVersionId: version.id, parentId: b01.id, code: "B01-SS", name: "الأساسات (Substructure)", level: 1, sortOrder: 0, status: "DERIVED" });
     var gf = db.insert("wbsNodes", { wbsVersionId: version.id, parentId: b01.id, code: "B01-GF", name: "الدور الأرضي", level: 1, sortOrder: 1, status: "DERIVED" });
+    var ff = db.insert("wbsNodes", { wbsVersionId: version.id, parentId: b01.id, code: "B01-FF", name: "الدور الأول", level: 1, sortOrder: 2, status: "DERIVED" });
     db.update("wbsVersions", version.id, { status: "APPROVED", rationale: "هيكل موقعي مبسّط لغرض العرض التوضيحي.", approvedBy: gov.currentActor(), approvedAt: new Date().toISOString() });
     db.query("wbsNodes", function (n) { return n.wbsVersionId === version.id; }).forEach(function (n) { db.update("wbsNodes", n.id, { status: "APPROVED" }); });
     gov.recordDecision({ projectId: project.id, entityType: "WBSVersion", entityId: version.id, title: "اعتماد Rev 00", description: "هيكل موقعي مبسّط لغرض العرض التوضيحي." });
@@ -95,12 +96,30 @@
       var duration = item.quantity != null && best.dict.defaultProductivity ? Math.ceil(item.quantity / best.dict.defaultProductivity) : null;
       var wbsNodeId = null;
       Object.keys(nodeFor).forEach(function (kw) { if (item.description.indexOf(kw) !== -1) wbsNodeId = nodeFor[kw]; });
-      db.insert("activities", {
+      var activity = db.insert("activities", {
         projectId: project.id, wbsNodeId: wbsNodeId, dictionaryItemId: best.dict.id, code: code, name: best.dict.name,
         discipline: best.dict.discipline, unit: item.unit, quantity: item.quantity, durationDays: duration,
         status: "PROPOSED", confidenceScore: result.score, confidenceFactors: JSON.stringify(result.factors),
         confidenceRationale: JSON.stringify(result.rationale),
       });
+      db.insert("boqMappings", { boqItemId: item.id, activityId: activity.id, quantity: item.quantity, source: "AUTO" });
+      if (item.description.indexOf("Ceramic") !== -1) {
+        // M06 demonstration: split this single BOQ item's quantity across two WBS
+        // locations (GF / FF) as two separate, fully-reconciled mappings — the exact
+        // "distribute a BOQ quantity across floors" workflow M06 exists for.
+        var mapping = db.query("boqMappings", function (m) { return m.boqItemId === item.id; })[0];
+        var gfQty = 350, ffQty = item.quantity - gfQty;
+        db.update("boqMappings", mapping.id, { quantity: gfQty });
+        db.update("activities", activity.id, { quantity: gfQty });
+        var ffActivity = db.insert("activities", {
+          projectId: project.id, wbsNodeId: ff.id, dictionaryItemId: best.dict.id,
+          code: project.code + "-ACT-" + String(++seq).padStart(4, "0"), name: best.dict.name + " (الدور الأول)",
+          discipline: best.dict.discipline, unit: item.unit, quantity: ffQty,
+          durationDays: Math.ceil(ffQty / best.dict.defaultProductivity), status: "PROPOSED",
+          confidenceScore: result.score, confidenceFactors: JSON.stringify(result.factors), confidenceRationale: JSON.stringify(result.rationale),
+        });
+        db.insert("boqMappings", { boqItemId: item.id, activityId: ffActivity.id, quantity: ffQty, source: "MANUAL_SPLIT" });
+      }
     });
     gov.writeAudit({ entityType: "BOQRevision", entityId: rev.id, action: "GENERATE_ACTIVITIES" });
 

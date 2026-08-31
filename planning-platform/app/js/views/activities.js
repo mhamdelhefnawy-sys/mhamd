@@ -86,6 +86,7 @@
         if (!confirm("حذف " + ids.length + " نشاط؟")) return;
         ids.forEach(function (id) {
           var a = db.get("activities", id);
+          db.query("boqMappings", function (m) { return m.activityId === id; }).forEach(function (m) { db.remove("boqMappings", m.id); });
           db.remove("activities", id);
           gov.writeAudit({ entityType: "Activity", entityId: id, action: "DELETE", oldValue: a });
         });
@@ -247,6 +248,11 @@
         confidenceScore: result.score, confidenceFactors: JSON.stringify(result.factors),
         confidenceRationale: JSON.stringify(result.rationale),
       });
+      // M06: the generation engine's 1:1 activity-per-BOQ-item choice is itself a
+      // mapping decision — record it as a real BOQMapping row (full quantity) instead
+      // of leaving the link implicit, so M06's reconciliation view has real data from
+      // the moment activities are generated, not only for manually-added mappings.
+      db.insert("boqMappings", { boqItemId: item.id, activityId: activity.id, quantity: item.quantity, source: "AUTO" });
       created++;
       if (result.score < conf.LOW_CONFIDENCE_THRESHOLD) {
         gov.raiseReviewItem({

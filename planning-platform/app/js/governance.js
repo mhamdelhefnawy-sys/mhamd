@@ -60,6 +60,18 @@
     });
   }
 
+  // Same as raiseReviewItem but skips creating a duplicate when an OPEN item already
+  // exists for this exact entity+kind — call sites that recompute state on every render
+  // (e.g. reconciliation checks) must use this, not raiseReviewItem, or they'd spam
+  // the queue once per render.
+  function raiseReviewItemOnce(params) {
+    var dupe = db.query("reviewQueue", function (r) {
+      return r.status === "OPEN" && r.kind === params.kind && r.entityType === params.entityType && r.entityId === params.entityId;
+    })[0];
+    if (dupe) return dupe;
+    return raiseReviewItem(params);
+  }
+
   function resolveReviewItem(id, resolution) {
     return db.update("reviewQueue", id, { status: "RESOLVED", resolution: resolution, resolvedBy: currentActor(), resolvedAt: new Date().toISOString() });
   }
@@ -96,6 +108,7 @@
     writeAudit: writeAudit,
     recordDecision: recordDecision,
     raiseReviewItem: raiseReviewItem,
+    raiseReviewItemOnce: raiseReviewItemOnce,
     resolveReviewItem: resolveReviewItem,
     raiseConflict: raiseConflict,
     resolveConflict: resolveConflict,
