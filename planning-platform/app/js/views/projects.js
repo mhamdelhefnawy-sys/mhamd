@@ -106,6 +106,7 @@
     var openReview = gov.openReviewCount(project.id);
     var openConflicts = gov.openConflictCount(project.id);
     var mappingRec = PP.views.mapping ? PP.views.mapping.reconciliation(project) : { revision: null, unresolvedCount: 0 };
+    var logicSummary = PP.views.relationships ? PP.views.relationships.graphSummary(project) : { cycleCount: 0, relCount: 0 };
 
     return [
       { name: "Document Gate", ok: docsCount > 0, detail: docsCount + " مستند مسجَّل" },
@@ -113,6 +114,7 @@
       { name: "Mapping Gate", ok: !mappingRec.revision || mappingRec.unresolvedCount === 0, detail: !mappingRec.revision ? "بانتظار اعتماد BOQ" : mappingRec.unresolvedCount === 0 ? "كل الكميات متزنة" : mappingRec.unresolvedCount + " بند غير متزن" },
       { name: "WBS Gate", ok: wbsApproved, detail: wbsApproved ? "توجد نسخة WBS معتمدة" : "لا توجد نسخة WBS معتمدة بعد" },
       { name: "Activity Gate", ok: approvedActivities > 0, detail: approvedActivities + " نشاط معتمد" },
+      { name: "Logic Gate", ok: logicSummary.cycleCount === 0, detail: logicSummary.cycleCount === 0 ? logicSummary.relCount + " علاقة، بلا دورات" : logicSummary.cycleCount + " نشاط ضمن دورة منطقية" },
       { name: "Review Queue", ok: openReview === 0, detail: openReview === 0 ? "لا عناصر مفتوحة" : openReview + " عنصر يحتاج مراجعة" },
       { name: "Conflicts", ok: openConflicts === 0, detail: openConflicts === 0 ? "لا تعارضات مفتوحة" : openConflicts + " تعارض مفتوح" },
     ];

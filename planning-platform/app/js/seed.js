@@ -47,12 +47,25 @@
       if (existingDict) return existingDict;
       return db.insert("dictionaryItems", { projectId: null, name: name, discipline: discipline, unit: unit, defaultProductivity: productivity, boqKeywords: keywords, isActive: true });
     }
-    dict("أعمال الحفر", "excavation,حفر", "m3", 60, "مدني");
-    dict("خرسانة عادية (بلطة)", "blinding,plain concrete", "m3", 25, "إنشائي");
-    dict("خرسانة مسلحة للقواعد", "footing,reinforced concrete", "m3", 20, "إنشائي");
-    dict("أعمال المباني بالطوب", "block,masonry,blockwork", "m2", 35, "معماري");
-    dict("تركيب بلاط سيراميك", "ceramic,tiling,tile", "m2", 40, "معماري");
-    dict("دهانات داخلية", "painting,paint", "m2", 80, "معماري");
+    var dExcavation = dict("أعمال الحفر", "excavation,حفر", "m3", 60, "مدني");
+    var dBlinding = dict("خرسانة عادية (بلطة)", "blinding,plain concrete", "m3", 25, "إنشائي");
+    var dFooting = dict("خرسانة مسلحة للقواعد", "footing,reinforced concrete", "m3", 20, "إنشائي");
+    var dBlockwork = dict("أعمال المباني بالطوب", "block,masonry,blockwork", "m2", 35, "معماري");
+    var dCeramic = dict("تركيب بلاط سيراميك", "ceramic,tiling,tile", "m2", 40, "معماري");
+    var dPainting = dict("دهانات داخلية", "painting,paint", "m2", 80, "معماري");
+
+    // ---- M08: standard relationship library (global) — real construction logic, not
+    // blind sequencing: each entry carries the methodology reason for the link/lag.
+    function tpl(predId, succId, type, lag, notes) {
+      var dupe = db.query("relationshipTemplates", function (t) { return t.predecessorDictionaryItemId === predId && t.successorDictionaryItemId === succId; })[0];
+      if (dupe) return dupe;
+      return db.insert("relationshipTemplates", { predecessorDictionaryItemId: predId, successorDictionaryItemId: succId, type: type, lag: lag, notes: notes });
+    }
+    tpl(dExcavation.id, dBlinding.id, "FS", 0, "لا يمكن صب البلطة قبل اكتمال الحفر بالكامل.");
+    tpl(dBlinding.id, dFooting.id, "FS", 1, "يوم تجفيف أدنى لخرسانة البلطة قبل تسليح القواعد.");
+    tpl(dFooting.id, dBlockwork.id, "FS", 3, "فترة معالجة الخرسانة (Curing) قبل بدء أعمال المباني فوقها.");
+    tpl(dBlockwork.id, dCeramic.id, "FS", 0, "لا يبدأ التبليط قبل اكتمال المباني المحيطة بالمساحة.");
+    tpl(dBlockwork.id, dPainting.id, "FS", 7, "فترة جفاف اللياسة/المباني قبل بدء الدهانات.");
 
     // ---- M03: BOQ ----
     var boq = db.insert("boqs", { projectId: project.id, name: "BOQ الرئيسي" });
@@ -122,6 +135,13 @@
       }
     });
     gov.writeAudit({ entityType: "BOQRevision", entityId: rev.id, action: "GENERATE_ACTIVITIES" });
+
+    // ---- M08: propose relationships from the standard library, then approve the
+    // straightforward ones so the network diagram has something real to show ----
+    PP.views.relationships.generateFromTemplates(project);
+    db.query("relationships", function (r) { return r.projectId === project.id; }).forEach(function (r) {
+      db.update("relationships", r.id, { status: "APPROVED" });
+    });
 
     return project;
   }

@@ -19,6 +19,7 @@
     "boqs", "boqRevisions", "boqItems",
     "wbsList", "wbsVersions", "wbsNodes",
     "dictionaryItems", "activities", "activityVersions", "boqMappings",
+    "relationshipTemplates", "relationships",
     "auditLog", "decisionLog", "reviewQueue", "conflicts",
   ];
 

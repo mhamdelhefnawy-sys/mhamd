@@ -19,6 +19,7 @@
     { key: "wbs", label: "هيكل الأعمال WBS (M04)" },
     { key: "activities", label: "الأنشطة (M05)" },
     { key: "mapping", label: "الربط والتوزيع (M06)" },
+    { key: "relationships", label: "العلاقات المنطقية (M08)" },
     { key: "governance", label: "الحوكمة والتدقيق (M00)" },
   ];
 
@@ -140,6 +141,11 @@
         var unresolved = project ? PP.views.mapping.reconciliation(project).unresolvedCount : 0;
         if (unresolved > 0) appendCount(a, unresolved);
       }
+      if (item.key === "relationships") {
+        var project2 = db.get("projects", projectId);
+        var cycles = project2 ? PP.views.relationships.graphSummary(project2).cycleCount : 0;
+        if (cycles > 0) appendCount(a, cycles);
+      }
       nav.appendChild(a);
     });
   }
@@ -177,6 +183,7 @@
       case "wbs": PP.views.wbs.render(root, project); break;
       case "activities": PP.views.activities.render(root, project); break;
       case "mapping": PP.views.mapping.render(root, project); break;
+      case "relationships": PP.views.relationships.render(root, project); break;
       case "governance": PP.views.governance.render(root, project); break;
       default: root.innerHTML = '<div class="empty">شاشة غير معروفة.</div>';
     }

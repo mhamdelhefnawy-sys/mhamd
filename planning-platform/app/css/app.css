@@ -178,5 +178,20 @@ dialog::backdrop { background: rgba(10, 16, 22, .45); }
 .dialog-inner h3 { margin-bottom: 14px; }
 .dialog-actions { display: flex; justify-content: flex-start; gap: 8px; margin-top: 16px; }
 
+/* ---- M08 network diagram ---- */
+.net-wrap { position: relative; overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; padding: 20px; background: var(--surface); }
+.net-cols { display: flex; gap: 56px; align-items: flex-start; position: relative; z-index: 1; }
+.net-col { display: flex; flex-direction: column; gap: 18px; min-width: 170px; }
+.net-node { background: var(--surface-2); border: 1px solid var(--border); border-radius: 9px; padding: 7px 10px; font-size: 12px; display: flex; flex-direction: column; gap: 2px; }
+.net-node .mono { font-size: 11px; color: var(--accent-strong); }
+.net-node-cycle { border-color: var(--bad); background: var(--bad-bg); }
+.net-svg { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: visible; }
+.net-edge-approved { stroke: var(--good); stroke-width: 1.5; fill: none; }
+.net-edge-proposed { stroke: var(--ink-faint); stroke-width: 1.3; stroke-dasharray: 4 3; fill: none; }
+.net-arrow { fill: var(--ink-faint); }
+.net-lag-label { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-soft); }
+.cycle-box { border: 1px solid var(--bad); background: var(--bad-bg); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
+.cycle-box .net-node-cycle { display: inline-flex; flex-direction: row; gap: 6px; margin-inline-end: 8px; }
+
 .scrollx { overflow-x: auto; }
 ::selection { background: var(--accent-soft-bg); }
