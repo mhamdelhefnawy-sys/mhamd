@@ -1,665 +1,1513 @@
 [
-{
-"questionCode": "RES-001",
-"category": "RES",
-"subcategory": "Resource-Driven vs Task-Driven Scheduling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Distinguishing Task Dependent from Resource Dependent activity types and their effect on duration calculation in P6",
-"difficulty": 1,
-"careerLevel": "JUNIOR",
-"secondaryCareerLevels": ["PLANNING_ENGINEER"],
-"questionType": "MCQ",
-"question": "In Primavera P6, an activity is set to 'Resource Dependent' and has two resources assigned: an in-house crew working a 6-day calendar and a specialty subcontractor working a 5-day calendar, each with different budgeted units. How does P6 determine the activity's duration?",
-"options": [
-{"label": "A", "text": "The activity duration always follows the activity's own calendar; resource calendars are cosmetic and never affect duration.", "isCorrect": false},
-{"label": "B", "text": "Duration is driven by whichever assigned resource takes the longest, given its own calendar and units, to complete its budgeted work — the most restrictive resource governs.", "isCorrect": true},
-{"label": "C", "text": "Duration is always the simple average of the two resources' calendars.", "isCorrect": false},
-{"label": "D", "text": "Duration is fixed by Original Duration and cannot change once resources are assigned, regardless of activity type.", "isCorrect": false}
-],
-"correctAnswer": "B",
-"explanation": "For a Resource Dependent activity, P6 calculates duration from the assigned resources' calendars and remaining units rather than the activity calendar. When multiple resources are assigned, the one that needs the most calendar time to deliver its own budgeted units becomes the driving resource and sets the activity duration. Task Dependent activities, by contrast, always follow the activity calendar regardless of what resources are assigned.",
-"reasoning": "P6's Activity Type field controls which calendar governs scheduling. Resource Dependent means each resource's own calendar and units are used to compute how long that resource needs; the longest of these becomes the activity duration. A 5-day subcontractor calendar with a large quantity of work can therefore out-drive a 6-day in-house crew with a smaller quantity, or vice versa.",
-"commonMistakes": ["Believing the activity calendar always governs duration irrespective of activity type.", "Assuming duration is averaged across assigned resources.", "Not realizing Task Dependent vs Resource Dependent is a per-activity setting rather than a project-wide scheduling option."],
-"redFlags": ["Cannot explain the practical difference between Task Dependent and Resource Dependent at all."],
-"p6Checks": ["Activities view -> General tab -> Activity Type field.", "Resources tab for the activity to see each assigned resource and its calendar.", "Duration Type field (Fixed Duration & Units, Fixed Units/Time, etc.) which further affects how added resources change duration."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "If the activity type were Task Dependent instead, would adding a third, slower resource change the activity's duration?", "purpose": "Tests whether the candidate understands Task Dependent activities ignore resource calendars for duration purposes."},
-{"trigger": "always", "prompt": "What P6 field lets you fix the duration even when resources are added or removed?", "purpose": "Tests awareness of Duration Type settings (Fixed Duration & Units/Time)."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 60,
-"tags": ["resource dependent", "task dependent", "activity type", "resource calendar", "duration calculation"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-002",
-"category": "RES",
-"subcategory": "Resource Calendars",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Explaining how an individual resource calendar interacts with the activity calendar during scheduling",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "TRUE_FALSE",
-"question": "True or False: For a Resource Dependent activity in P6, if the assigned resource's personal calendar has fewer working days per week than the activity's own calendar, the resource's calendar can extend the activity's calculated duration beyond what the activity calendar alone would produce.",
-"options": [
-{"label": "True", "text": "True", "isCorrect": true},
-{"label": "False", "text": "False", "isCorrect": false}
-],
-"correctAnswer": "True",
-"explanation": "On a Resource Dependent activity, remaining duration is calculated using the resource's own calendar to spread its remaining units. A resource with a more restrictive calendar (e.g., 5-day) than the activity calendar (e.g., 6-day) will need more elapsed calendar time to complete the same quantity of work, which lengthens the activity's calculated duration.",
-"reasoning": "P6 does not ignore resource calendars for Resource Dependent activities; it uses them to convert budgeted/remaining units into elapsed duration. If the activity calendar allows Saturday work but the resource calendar does not, the resource simply cannot work that day, so its portion of the task stretches out, and since duration is resource-driven, the activity duration stretches with it.",
-"commonMistakes": ["Assuming the activity calendar always overrides resource calendars.", "Not distinguishing this behavior from Task Dependent activities, where the activity calendar alone governs."],
-"redFlags": ["States resource calendars never affect duration under any activity type."],
-"p6Checks": ["Resources dictionary -> resource's assigned calendar.", "Activities view -> Activity Type (must be Resource Dependent for this behavior).", "Compare project/activity calendar working days vs the resource calendar working days."],
-"followUpQuestions": [
-{"trigger": "always", "prompt": "Would this same effect occur if the activity were Task Dependent?", "purpose": "Confirms the candidate ties the behavior specifically to Resource Dependent activity type."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 60,
-"tags": ["resource calendar", "resource dependent", "duration", "calendars"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-003",
-"category": "RES",
-"subcategory": "Resource Over-Allocation",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Diagnosing a resource over-allocation spike shown on a resource usage histogram before recommending a fix",
-"difficulty": 3,
-"careerLevel": "PLANNING_ENGINEER",
-"secondaryCareerLevels": ["SENIOR"],
-"questionType": "WHAT_CHECK_FIRST",
-"scenario": "On a 14-story residential tower, the Resource Usage Profile for 'Formwork Carpenter' shows a spike to 22 carpenters in week 14 against a resource dictionary Max Units/Time of 14 carpenters (2 crews of 7). The spike coincides with slab pours on Levels 8, 9 and 10 all showing formwork activities scheduled in the same week.",
-"question": "Before proposing any fix (leveling, resequencing, adding crews), what would you check first to understand why three levels of formwork converged into the same week?",
-"expectedAnswer": "Check whether Levels 8, 9 and 10 formwork activities are logically independent (no predecessor/successor relationship forcing sequence) and whether they have float that let them drift into the same week after an upstream slip, versus whether they were always planned to run in parallel by design.",
-"strongAnswer": "Also check the driving logic/relationships feeding into each level's formwork start (e.g., a shared predecessor like column/wall pour or crane availability), whether Max Units/Time in the resource dictionary reflects real site capacity or is outdated, and whether other trades are also mobilizing to the same floors in that week (broader congestion, not just this one resource).",
-"expertAnswer": "Recognizes that fixing the histogram spike by leveling alone may just delay the project if all three levels are genuinely on parallel critical or near-critical paths, and that the real fix may require either adding a third crew (cost/schedule tradeoff), physically resequencing floor pours, or accepting a leveled delay — and frames the choice as a decision to be raised with the PM rather than a mechanical leveling exercise.",
-"explanation": "A resource over-allocation spike is a symptom, not a diagnosis. The correct first step is tracing why the three floors converged in that specific week — logic-driven convergence (e.g., a shared predecessor slipped) behaves very differently from independently-planned parallel work, and the fix differs accordingly (resequence logic vs. add resources vs. accept a level-driven delay).",
-"reasoning": "Resource histograms show the symptom (demand exceeding Max Units/Time) but not the cause. Tracing each level's formwork activity back through its predecessors reveals whether the convergence is a scheduling logic issue, a real capacity constraint from the original plan, or a knock-on effect of an earlier delay — each implying a different corrective action.",
-"commonMistakes": ["Jumping straight to running P6 resource leveling without understanding why the peak occurred.", "Assuming the resource dictionary's Max Units/Time figure is necessarily correct without validating it against actual site capacity.", "Treating over-allocation purely as a scheduling software problem rather than a planning/logic problem."],
-"redFlags": ["Recommends automatically increasing Max Units/Time to make the histogram 'look fine' without addressing whether that many carpenters can physically work the floors.", "No mention of checking predecessor logic or float before proposing a fix."],
-"p6Checks": ["Resource Usage Profile filtered to 'Formwork Carpenter' by week.", "Each Level 8/9/10 formwork activity's Predecessors/Successors and Total Float.", "Resource dictionary Max Units/Time value and its basis.", "Activities view grouped by floor/zone to see if other trades are also stacked that week."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "If all three levels turn out to be logically independent and only converged because Level 8 slipped two weeks, what leveling option in P6 would you use, and what tradeoff does it create?", "purpose": "Tests understanding of P6 leveling priorities and the float-consumption tradeoff of leveling."},
-{"trigger": "always", "prompt": "Would you recommend leveling, adding a third crew, or resequencing? What would decide between them?", "purpose": "Tests ability to connect diagnosis to a cost/schedule tradeoff decision, not just software mechanics."},
-{"trigger": "if_incorrect", "prompt": "What does the resource histogram spike alone actually tell you, and what does it not tell you?", "purpose": "Remedial prompt distinguishing symptom from cause."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Correctly identifies tracing predecessor logic and float as the first diagnostic step, not jumping to a fix."},
-{"name": "reasoning", "maxScore": 5, "guidance": "Explains why the cause changes the appropriate remedy."},
-{"name": "p6Understanding", "maxScore": 5, "guidance": "References concrete P6 views/fields used for the diagnosis."}
-], "passingScore": 9},
-"weight": 1.5,
-"estimatedTimeSec": 180,
-"tags": ["over-allocation", "resource usage profile", "leveling", "formwork", "max units per time"],
-"references": ["PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-004",
-"category": "RES",
-"subcategory": "Resource Loading Calculations",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Calculating a Resource Dependent activity's duration from budgeted units, crew size, and calendar",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "NUMERICAL",
-"scenario": "A rebar fixing activity on a highway bridge deck is budgeted at 960 labor-hours. It is Resource Dependent and assigned a single crew resource with Max Units/Time of 24 hours/day (3 fixers x 8-hour shifts) working a 6-day-per-week calendar.",
-"question": "Assuming the crew works at its full budgeted Max Units/Time every working day with no interruptions, calculate the activity's duration in working days.",
-"correctAnswer": 40,
-"explanation": "Duration = Total budgeted units / Units per working day = 960 labor-hours / 24 labor-hours per day = 40 working days.",
-"reasoning": "For a Resource Dependent activity assigned a single resource at constant Max Units/Time, P6 spreads the budgeted units evenly across the resource's calendar until the total is consumed. 960 hours divided by 24 hours/day of capacity yields 40 working days; the 6-day calendar determines which calendar dates those 40 working days fall on, but does not change the working-day count itself.",
-"commonMistakes": ["Dividing by 7 calendar days per week instead of working days, producing an incorrect elapsed-time answer instead of a working-duration answer.", "Forgetting to convert crew size x shift hours into a daily unit rate before dividing.", "Confusing labor-hours (960) with crew-days directly."],
-"redFlags": ["Cannot set up the units/rate/duration relationship without prompting."],
-"p6Checks": ["Activity's Budgeted Units field on the Resources tab.", "Resource's Max Units/Time and the assignment's Units/Time (may differ if the assignment is not at full capacity).", "Activity Type = Resource Dependent to confirm this calculation logic applies."],
-"followUpQuestions": [
-{"trigger": "always", "prompt": "If a second identical crew were added at the same 24 hrs/day rate, would duration simply halve to 20 days? What P6 setting would determine that?", "purpose": "Tests understanding of Duration Type (Fixed Units vs Fixed Duration & Units) governing whether adding resources shortens duration or increases total units."},
-{"trigger": "if_correct", "prompt": "How would the answer change if the crew calendar included a public holiday during that 40-day window?", "purpose": "Tests whether the candidate accounts for non-working exceptions within a calendar, not just the weekly pattern."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 120,
-"tags": ["resource loading", "duration calculation", "budgeted units", "resource dependent", "rebar"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-005",
-"category": "RES",
-"subcategory": "Resource Dictionary Structure",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Designing a resource dictionary hierarchy using roles vs named resources for multi-project estimating and reporting",
-"difficulty": 3,
-"careerLevel": "SENIOR",
-"secondaryCareerLevels": ["LEAD"],
-"questionType": "P6_ANALYSIS",
-"scenario": "A contractor runs an EPDB (enterprise project database) spanning five concurrent oil & gas EPC projects. Currently every project planner creates their own free-text resource names (e.g., 'Welder1', 'PipeWelder_ProjectA'), making cross-project resource demand reporting impossible. Management wants to forecast total welder demand across all five projects six months out, before individual welders are even hired.",
-"question": "How would you restructure the resource dictionary to fix this, and what is the role of P6 'Roles' versus named 'Resources' in your design?",
-"expectedAnswer": "Establish a single enterprise-wide resource dictionary with a standardized hierarchy (e.g., by discipline/trade and craft code) shared across all five projects instead of per-project free-text names. Use Roles (e.g., 'Pipe Welder', 'Foreman - Piping') during early planning/estimating when specific individuals or crews are not yet known, since Roles represent a skill/function and can be assigned to activities to build the histogram before actual resource assignment; convert or supplement Roles with named Resources (e.g., specific crews or labor pools) as the projects mobilize and actual crews are confirmed.",
-"strongAnswer": "Notes that Roles can carry their own default price/unit and can later be resolved to primary Resources, that Resource Codes (e.g., by project, discipline, cost center) should be applied so cross-project Resource Usage Profile/Spreadsheet can be filtered and summed by 'Pipe Welder' across all five EPDB projects, and that the resource dictionary should be built and governed centrally (not per-project) to keep IDs consistent.",
-"expertAnswer": "Recognizes the organizational/process dimension: this requires a resource dictionary governance policy (who can create new resource IDs), a naming/coding standard enforced at EPDB level, and flags the risk that retrofitting a shared dictionary onto five live projects with inconsistent resource names will require a one-time cleanup/remapping exercise; also notes Roles-based demand forecasting is only as reliable as the assumed role price/unit and productivity assumptions used at that early stage.",
-"explanation": "The core fix is centralizing the resource dictionary at the enterprise level with standardized IDs and codes, and using Roles for early, pre-mobilization demand planning since Roles represent skill categories independent of named individuals, while named Resources represent actual assigned crews/labor once known.",
-"reasoning": "Free-text, per-project resource names defeat P6's rollup capability because the tool aggregates by resource ID; unless 'PipeWelder_ProjectA' and 'Welder1' resolve to the same underlying ID (or share a Resource Code), P6 cannot sum them. Roles exist precisely to let early planning proceed on skill categories before individuals are hired, and rolling Role-based demand up across five projects via a shared enterprise resource dictionary is exactly how P6 is designed to answer 'how many pipe welders do we need enterprise-wide in six months.'",
-"commonMistakes": ["Trying to solve this purely by renaming resources within each project without addressing enterprise-level governance.", "Not knowing the distinction between Roles and Resources at all.", "Assuming Resource Codes and Roles are the same feature."],
-"redFlags": ["Suggests each project should keep independent dictionaries and reconcile manually via spreadsheet exports as the long-term solution."],
-"p6Checks": ["Enterprise Data -> Resources (dictionary) hierarchy and structure.", "Enterprise Data -> Roles and Role Rate assignments.", "Resource Codes dictionary for cross-project grouping.", "Resource Usage Spreadsheet/Profile filtered/grouped by Role or Resource Code across the EPDB."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "Once real welders are hired and assigned by name, would you remove the Role assignment or keep both?", "purpose": "Tests knowledge that a Role can remain as the 'Primary Role' alongside a named Resource for reporting continuity."},
-{"trigger": "always", "prompt": "What risk does relying purely on Role-based forecasting introduce if actual crew productivity differs materially from the Role's assumed rate?", "purpose": "Tests awareness that early estimates carry assumption risk that must be revisited as resources mobilize."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "p6Understanding", "maxScore": 5, "guidance": "Correctly distinguishes Roles from Resources and Resource Codes."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a workable enterprise-level restructuring, not a per-project patch."},
-{"name": "completeness", "maxScore": 5, "guidance": "Addresses both the technical fix and the governance/process dimension."}
-], "passingScore": 9},
-"weight": 1.5,
-"estimatedTimeSec": 240,
-"tags": ["resource dictionary", "roles", "resource codes", "enterprise data", "EPC", "demand forecasting"],
-"references": ["Oracle Primavera P6 EPPM User's Guide", "PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-006",
-"category": "RES",
-"subcategory": "Resource Curves",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Selecting an appropriate resource curve shape to model realistic unit distribution across an activity's duration",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "SCENARIO",
-"scenario": "A 'Site Mobilization and Temporary Facilities' activity on a data center project is budgeted at 2,400 labor-hours over an 8-week duration. Site experience shows mobilization work (fencing, site offices, temporary power, access roads) is heaviest in the first two weeks and tapers off sharply as the permanent workforce ramps onto foundation work instead.",
-"question": "Which type of resource curve should be applied to this activity's resource assignment, and why would applying the default linear curve misrepresent this activity's actual manpower loading?",
-"expectedAnswer": "A front-loaded (front-end weighted) resource curve should be applied rather than the default linear curve, because the linear curve spreads the 2,400 hours evenly across all 8 weeks, whereas the real work is concentrated in the first two weeks and tapers off.",
-"strongAnswer": "Explains that P6 allows custom or predefined non-linear curves (e.g., front-loaded, back-loaded, bell/normal, trapezoidal) to be assigned per resource assignment, that this affects both the resource histogram and any cost curve derived from it, and that getting this shape right matters for near-term cash flow and manpower forecasting, not just total budgeted units (which stay the same regardless of curve shape).",
-"expertAnswer": "Notes that curve shape choice should be evidence-based (historical mobilization data or estimator input) rather than a default habit, that an incorrect curve shape does not change EV at completion but does distort period-by-period PV and therefore short-term SPI/CPI and cash flow forecasts, and that curve assumptions should be documented so later performance reviews are not misread as being 'ahead/behind' due to a modeling artifact rather than real performance.",
-"explanation": "Resource/cost curves determine how an activity's total budgeted units are distributed across its duration for time-phased reporting; a linear curve is only appropriate when work genuinely proceeds at a constant rate, which mobilization activities typically do not.",
-"reasoning": "The total budgeted units (2,400 hours) and total duration (8 weeks) are unaffected by curve choice — curve shape only redistributes when those units are considered 'earned' or 'planned' period by period. Using a linear curve on a front-loaded activity understates early-period planned/actual demand and overstates late-period demand, corrupting both the manpower histogram and any time-phased cost/EV reporting drawn from it.",
-"commonMistakes": ["Assuming curve shape changes total budgeted quantity or activity duration.", "Leaving every resource assignment on the default linear curve regardless of the real work profile.", "Confusing resource curves with resource leveling (a different P6 feature)."],
-"redFlags": ["Cannot explain what a resource curve actually controls in P6."],
-"p6Checks": ["Activity's Resources tab -> assignment's Curve field.", "Enterprise Data -> Resource Curves dictionary for predefined and custom curve shapes.", "Resource Usage Profile before/after applying the curve to visually confirm the distribution matches expected mobilization pattern."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "Does changing the resource curve on this activity change its total budgeted cost or EV at completion?", "purpose": "Tests that the candidate does not conflate time-phasing with total value."},
-{"trigger": "always", "prompt": "How would you validate that a front-loaded curve, rather than some other shape, is the right one to use here?", "purpose": "Tests whether curve selection is evidence-based rather than an arbitrary default."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies front-loaded curve as appropriate and explains the linear-curve mismatch."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Connects curve shape to real-world reporting/cash-flow consequences."}
-], "passingScore": 7},
-"weight": 1.0,
-"estimatedTimeSec": 180,
-"tags": ["resource curves", "front-loaded curve", "mobilization", "resource histogram", "data center"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-007",
-"category": "RES",
-"subcategory": "Resource Leveling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Diagnosing why P6 resource leveling delayed a critical-path activity instead of a float-bearing one",
-"difficulty": 4,
-"careerLevel": "SENIOR",
-"questionType": "TROUBLESHOOTING",
-"scenario": "On a combined-cycle power plant project, the planner ran P6 resource leveling to resolve an over-allocation of 'Instrument Technician'. After leveling, an instrumentation activity on the critical path (0 days Total Float) was pushed back 6 working days, while a non-critical instrumentation activity with 15 days of Total Float on a parallel system was left untouched, even though delaying the float-bearing activity instead would have avoided any project delay.",
-"question": "What in the P6 leveling setup most likely caused the scheduler to delay the critical activity instead of the one with float, and how would you fix it?",
-"expectedAnswer": "The leveling Priorities list (used to decide which activity gets resource preference when demand exceeds Max Units/Time) was most likely not set to prioritize by Total Float (or was overridden by another priority field such as Activity ID or Early Start ranking) — with leveling priority not driven by float, P6 has no inherent preference for delaying the float-bearing activity over the critical one, so it may delay whichever activity happens to rank lower in the configured priority order.",
-"strongAnswer": "Recommends re-running leveling with 'Total Float' set as (or included in) the leveling priority sort so P6 preferentially delays activities with more float first, and checking whether 'Level all resources' vs a filtered subset, and the leveling date range, were configured correctly; also checks whether 'Preserve scheduled early and late dates' / leveling only within float was enabled, which would have prevented the critical activity from being pushed at all.",
-"expertAnswer": "Notes that automated leveling is a blunt instrument that treats float purely as schedule slack without weighing commercial/criticality judgment (e.ks., a float-bearing activity might itself be tied to a contractual milestone even though CPM shows float), so leveling results should always be reviewed activity-by-activity before acceptance rather than accepted wholesale, and that on a project this complex, manual/selective leveling of the specific over-allocated trade within a defined activity subset is often safer than a full project-wide auto-level.",
-"explanation": "P6's leveling algorithm resolves resource conflicts using the configured Priorities list; if Total Float is not part of that priority ordering (or a higher-ranked criterion ties activities together differently), leveling can delay a zero-float critical activity while leaving genuine float on the table elsewhere. The fix is to correct the leveling priority configuration — typically ranking by Total Float ascending is not what you want; you generally want activities with the LEAST float to be leveled last (delayed least), so Total Float should be a leveling priority set to preserve critical work.",
-"reasoning": "Leveling does not automatically 'know' which activities matter more; it mechanically applies whatever priority order is configured (by default this can include fields like Activity ID, which is essentially arbitrary) plus a Total Float option that must be explicitly enabled/ordered correctly. Getting the priority wrong produces exactly this symptom: a technically feasible float-preserving solution exists, but leveling picked a worse one because it wasn't told to prefer preserving critical-path activities.",
-"commonMistakes": ["Assuming P6 leveling always automatically protects the critical path by default.", "Not checking the Leveling Priorities dialog before or after running leveling.", "Accepting the leveled result without manually reviewing which activities moved."],
-"redFlags": ["Treats the leveling output as ground truth without questioning why a critical activity moved.", "Does not know where leveling priorities are configured in P6."],
-"p6Checks": ["Tools -> Level Resources -> Priorities tab/dialog to review the sort order used.", "Confirm 'Total Float' is included and correctly ordered in the priority list.", "Check the leveling options: 'Level all resources' vs a filtered list, the leveling date range, and whether leveling is constrained to occur only within available float.", "Compare Start/Finish dates before and after leveling for both the critical and float-bearing activities to confirm which one actually moved."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "If Total Float is correctly prioritized but the critical activity is still delayed, what else could be going on?", "purpose": "Tests whether the candidate considers resource calendar constraints or a genuine lack of an alternative feasible solution, not just priority misconfiguration."},
-{"trigger": "always", "prompt": "Would you accept an auto-leveled schedule without manual review on a project of this complexity? Why or why not?", "purpose": "Tests professional judgment about the limits of automated leveling."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "p6Understanding", "maxScore": 5, "guidance": "Correctly identifies the leveling priority configuration as the likely root cause."},
-{"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains mechanically why priority misconfiguration produces this exact symptom."},
-{"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes leveling output requires manual review, not blind acceptance."}
-], "passingScore": 10},
-"weight": 1.5,
-"estimatedTimeSec": 210,
-"tags": ["resource leveling", "leveling priorities", "total float", "critical path", "power plant"],
-"references": ["Oracle Primavera P6 Professional User's Guide", "PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-008",
-"category": "RES",
-"subcategory": "Resource-Driven Duration Recalculation",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Identifying why adding a second, less available resource to a Resource Dependent activity unexpectedly lengthened its duration",
-"difficulty": 3,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "MOST_LIKELY_CAUSE",
-"scenario": "A 10-day 'Cable Pulling' activity in a substation project was Resource Dependent with a single electrician crew at full Max Units/Time. The planner then added a second resource — a specialist testing engineer who is only available 2 days per week per their resource calendar and has a much smaller quantity of budgeted hours. After scheduling, the activity's calculated duration jumped from 10 days to 26 days.",
-"question": "What is the most likely cause of the duration jumping to 26 days after adding the testing engineer, and is this a scheduling error?",
-"expectedAnswer": "This is not a scheduling error. For a Resource Dependent activity, P6 duration is governed by whichever assigned resource takes longest, given its own calendar and budgeted units, to complete its share of work; the testing engineer's very restrictive 2-day/week calendar means even a small quantity of budgeted hours takes many calendar weeks to complete, and since that now exceeds the electrician crew's 10-day need, the engineer becomes the driving resource and stretches the whole activity to 26 days.",
-"strongAnswer": "Adds that this is a common real-world planning trap: assigning a resource with a restrictive calendar to a Resource Dependent activity can silently blow out duration even if that resource's total hours are small, and that the fix (if 26 days is not actually intended) is either to change the activity to Task Dependent so the testing engineer's calendar no longer drives overall duration, or to split the testing work into its own successor activity so it does not co-drive the pulling activity.",
-"expertAnswer": "Notes the deeper planning lesson: activity type (Resource Dependent) should be a deliberate choice tied to which resource genuinely paces the work, and a planner should sanity-check any duration jump this large before accepting the schedule update, since an incorrect Resource Dependent setting silently corrupts durations across many activities in a resource-loaded schedule, not just this one, and is a common source of unexplained float/duration drift in periodic updates.",
-"explanation": "The jump to 26 days is the expected mechanical consequence of Resource Dependent duration calculation once a second, more restrictive resource is added — it is not a bug, but it usually signals that either the activity type or the resource assignment structure needs review if 26 days was not intended.",
-"reasoning": "Resource Dependent duration = max across assigned resources of (that resource's units / that resource's available capacity per its own calendar). The electrician crew alone needed 10 days; the testing engineer, working only 2 days/week, needs proportionally far more elapsed calendar time even for a small quantity, and because P6 takes the longest of the two, the engineer's constrained availability becomes the binding constraint.",
-"commonMistakes": ["Assuming this must be a data-entry error rather than correct mechanical behavior.", "Not realizing a small quantity of work on a very restrictive calendar can still dominate a Resource Dependent duration calculation.", "Failing to consider whether the testing engineer should instead be on a separate, logically-linked activity."],
-"redFlags": ["Immediately blames 'P6 is buggy' without working through the calculation logic."],
-"p6Checks": ["Activity Type field (confirm Resource Dependent).", "Testing engineer's resource calendar and budgeted units on the assignment.", "Compare each assigned resource's individually implied duration to identify which one is driving.", "Consider whether Task Dependent activity type or splitting into two activities better represents the real work."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "What would you recommend to the planner if 26 days is not actually realistic for this activity?", "purpose": "Tests ability to propose a concrete fix, not just diagnose the mechanism."},
-{"trigger": "always", "prompt": "How would you catch this kind of duration blow-out during a routine schedule update review, before it reaches the client report?", "purpose": "Tests quality-control habits for resource-loaded schedules."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 150,
-"tags": ["resource dependent", "duration calculation", "resource calendar", "substation", "cable pulling"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-009",
-"category": "RES",
-"subcategory": "Resource-Driven vs Task-Driven Scheduling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Deciding whether a specialized, capacity-constrained activity should be modeled as Resource Dependent or Task Dependent",
-"difficulty": 3,
-"careerLevel": "SENIOR",
-"questionType": "DECISION_MAKING",
-"scenario": "A marine quay-wall project has a 'Heavy Lift – Precast Caisson Placement' activity that can only proceed using the project's single 400-tonne floating crane, which is shared across three separate caisson placement activities scheduled sequentially. The crane's own resource calendar accounts for tidal working windows (only usable during specific tide states, roughly 4 hours per day).",
-"question": "Would you model this activity as Resource Dependent (driven by the crane's calendar) or Task Dependent (driven by a fixed activity calendar you build to represent the tidal window)? Justify your choice and state the practical consequence of choosing wrong.",
-"expectedAnswer": "Resource Dependent is generally preferable here because the crane genuinely paces the work — its tidal-window calendar should directly drive the activity's duration so that the schedule automatically reflects real crane availability, and any change to the crane's calendar (e.g., updated tide tables, crane downtime) automatically ripples into duration without manual activity-duration edits.",
-"strongAnswer": "Notes the alternative is defensible too: building the tidal constraint directly into a dedicated activity calendar and using Task Dependent keeps duration fixed and predictable for reporting, at the cost of having to manually keep that calendar synchronized with the crane's real calendar and with the other two caisson activities sharing the same crane (risking the crane being modeled as available in two places at once if not resource-loaded).",
-"expertAnswer": "Highlights the real deciding factor: because the crane is shared across three sequential activities and is a genuine bottleneck resource, only the Resource Dependent approach (with the crane loaded onto all three activities) lets P6 leveling detect and resolve the sharing conflict automatically; a Task Dependent approach with hand-built calendars cannot detect a double-booking of the same physical crane across activities, which is the practical consequence of choosing wrong — the schedule could show all three caisson placements as feasible in isolation while silently double-booking the single crane.",
-"explanation": "The deciding factor is not just 'what governs duration' in isolation, but that the crane is a shared, capacity-constrained resource across multiple activities — only modeling it as a genuine Resource Dependent assignment on all three activities lets P6 (via the Resource Usage Profile and leveling) detect over-allocation of the single crane, which a Task Dependent / hand-built-calendar approach cannot do.",
-"reasoning": "Task Dependent activities do not carry resource-availability logic between activities; if the crane calendar changes or the crane is needed elsewhere at an overlapping time, nothing in a Task Dependent schedule will flag it. Resource Dependent modeling with the crane resource assigned to all three activities makes the shared constraint visible and manageable through the standard resource tools (usage profile, leveling), which is the entire point of resource loading a schedule with a genuine bottleneck resource.",
-"commonMistakes": ["Choosing Task Dependent purely because it seems 'simpler' without considering the shared-resource visibility this loses.", "Not recognizing the crane is shared across multiple activities, treating each caisson placement as an isolated modeling decision.", "Assuming resource loading is only about cost, not about capacity/availability visibility."],
-"redFlags": ["Cannot articulate any practical consequence of the choice beyond 'it changes how duration is calculated'."],
-"p6Checks": ["Resource dictionary entry for the crane, including its tidal-window calendar.", "Each caisson activity's Activity Type and assigned resources.", "Resource Usage Profile for the crane across all three activities to check for overlap/over-allocation.", "Whether the three caisson activities have any logic (predecessor/successor) forcing sequence independent of the crane, or whether sequencing relies solely on the shared resource."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "If you model it as Resource Dependent, would you still add a Finish-to-Start logic link between the three caisson activities, or rely purely on the shared crane resource to sequence them?", "purpose": "Tests understanding that resource-only sequencing without logic links can produce unstable schedules on reschedule."},
-{"trigger": "always", "prompt": "What would you check in the Resource Usage Profile to confirm the crane is not double-booked?", "purpose": "Tests practical verification habit, not just conceptual choice."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly favors Resource Dependent and explains why for a shared bottleneck resource."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Names the concrete consequence (undetected double-booking) of choosing wrong."},
-{"name": "reasoning", "maxScore": 5, "guidance": "Connects the modeling choice to what P6's resource tools can and cannot detect."}
-], "passingScore": 9},
-"weight": 1.5,
-"estimatedTimeSec": 210,
-"tags": ["resource dependent", "task dependent", "shared resource", "crane", "marine", "resource leveling"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-010",
-"category": "RES",
-"subcategory": "Resource Over-Allocation",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Selecting the appropriate next workflow step after identifying a resource over-allocation on the histogram",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "WHAT_NEXT",
-"scenario": "During a monthly schedule review of a hospital fit-out project, the Resource Usage Profile for 'HVAC Duct Installer' shows demand exceeding Max Units/Time (10 installers) in three separate weeks, peaking at 16 installers in week 9.",
-"question": "You have just identified this over-allocation. What is the next step in your workflow before presenting anything to the project manager?",
-"expectedAnswer": "Before recommending any fix, investigate the cause of the peak in week 9 specifically — check which activities are contributing to the demand, whether they have float that could allow resequencing, whether the Max Units/Time figure of 10 is still accurate, and whether the peak is a real capacity risk or an artifact of an outdated resource assignment.",
-"strongAnswer": "Adds that the next concrete step is typically to test P6 leveling (or manual resequencing) as a what-if, in a copy of the schedule, to see whether the over-allocation can be resolved within existing float without pushing the finish date, and to quantify the impact (in days of delay, or in additional crew cost) of each option before it goes to the PM.",
-"expertAnswer": "Frames this as preparing a decision package for the PM rather than a unilateral technical fix: present the root cause, 2-3 resolution options (add crew, resequence, accept a leveled delay) each with its cost/schedule tradeoff quantified, and a recommendation — since only the PM/commercial team can authorize added crew cost or accept a schedule slip.",
-"explanation": "The correct next step is diagnosis and option development before recommendation, not immediately running auto-leveling and reporting whatever P6 produces, and not escalating to the PM without first doing the analysis.",
-"reasoning": "A raw over-allocation flag is the start of an analysis, not the end of it. Understanding which activities and floats are involved lets the planner develop real options (resequence within float, add resources, or accept delay) with quantified tradeoffs, which is what makes the eventual PM conversation productive rather than just 'the histogram has a red spike'.",
-"commonMistakes": ["Escalating the raw histogram spike to the PM without any analysis or options.", "Running auto-leveling once and reporting the leveled finish date as the only option without considering alternatives.", "Assuming the fix must always be 'add more crew' without checking float first."],
-"redFlags": ["No mention of checking float or investigating root cause before proposing a fix."],
-"p6Checks": ["Resource Usage Profile drilled down to see which specific activities load 'HVAC Duct Installer' in week 9.", "Total Float on each contributing activity.", "Resource dictionary Max Units/Time basis for HVAC Duct Installer.", "What-if leveling run in a schedule copy to test impact."],
-"followUpQuestions": [
-{"trigger": "always", "prompt": "If resequencing within float fully resolves the peak with zero schedule impact, do you still need to inform the PM?", "purpose": "Tests judgment on what needs escalation versus routine resolution."},
-{"trigger": "if_correct", "prompt": "How would you quantify the cost tradeoff if the only real fix is adding two more installers for three weeks?", "purpose": "Tests ability to translate a schedule finding into a commercial input."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Describes a concrete diagnose-then-option workflow rather than jumping to escalation or a single fix."},
-{"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes what should be resolved independently vs escalated with options."}
-], "passingScore": 7},
-"weight": 1.0,
-"estimatedTimeSec": 150,
-"tags": ["over-allocation", "resource usage profile", "workflow", "hospital fit-out", "HVAC"],
-"references": ["PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-011",
-"category": "RES",
-"subcategory": "Resource Leveling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Recognizing that an activity can carry positive Total Float on the CPM network while still being effectively resource-critical",
-"difficulty": 4,
-"careerLevel": "SENIOR",
-"questionType": "IS_THIS_POSSIBLE",
-"scenario": "On an airport terminal fit-out, 'Ceiling Grid Installation – Concourse B' shows 12 days of Total Float on the unleveled CPM schedule. After the planner runs resource leveling to resolve an over-allocation of 'Ceiling Fitter' shared with two other concourses, this activity is delayed by the full 12 days and now sits with 0 days of float relative to its original finish date, effectively becoming as schedule-critical as any logic-driven critical activity.",
-"question": "Is it possible for an activity with genuine CPM-calculated positive Total Float to become effectively critical purely due to resource constraints? Explain, and state whether this is a flaw in the CPM calculation.",
-"expectedAnswer": "Yes, this is possible and is not a flaw in the CPM calculation. Total Float from the logic-only CPM pass measures schedule flexibility based purely on activity relationships and constraints, assuming unlimited resources; it does not account for finite shared-resource capacity. When resource leveling is applied, an activity can consume all of its logic-based float (or more, becoming a leveling-driven delay) simply because the shared resource is fully committed elsewhere first — this is 'resource-critical' rather than 'logic-critical', and both are real constraints on the project.",
-"strongAnswer": "Distinguishes clearly between the unleveled (logic-only) critical path and the resource-leveled critical path, noting that many scheduling standards and contracts care specifically about the logic-only CPM critical path for float/delay analysis purposes, so a planner should track and report both, and should flag resource-critical activities separately since consuming their float via leveling removes float that CPM analysis assumes is still available for other purposes (e.g., absorbing a future delay claim).",
-"expertAnswer": "Raises the practical and contractual implication: if this project uses float ownership/float consumption clauses, a leveling-driven consumption of 12 days of float on this activity (not caused by any delay event, but by the contractor's own resource-sharing decision) could complicate a later analysis of who 'used' that float, and recommends documenting the leveling basis and date at which it was applied so it is defensible if the float's disappearance is later scrutinized in a delay analysis.",
-"explanation": "Yes — CPM Total Float and resource-leveled float answer different questions. CPM float assumes unconstrained resources; leveling reflects real, finite shared-resource capacity, and an activity can lose most or all of its CPM float purely because of resource contention, without any change in logic or duration.",
-"reasoning": "Total Float on the unleveled schedule is purely a function of network logic and constraints (early dates vs late dates via forward/backward pass). Resource leveling is a separate step that delays activities to resolve resource conflicts, consuming float in the process — it does not alter the underlying logic-only float calculation, it just uses up the schedule flexibility that float represented. The two numbers measure different things and are both legitimate; neither is 'wrong'.",
-"commonMistakes": ["Assuming Total Float is a single, fixed, unambiguous number that must be the same before and after leveling.", "Concluding leveling must have introduced a scheduling error because float 'disappeared'.", "Not distinguishing logic-critical from resource-critical activities in reporting."],
-"redFlags": ["Insists float loss after leveling always indicates a mistake rather than a real resource constraint being reflected."],
-"p6Checks": ["Compare Total Float before leveling (logic-only, unleveled schedule copy) and after leveling.", "Resource Usage Profile for 'Ceiling Fitter' across all three concourses to confirm the shared-resource conflict.", "Leveling log/report to see exactly which activities were delayed and by how much."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "Would you report the leveled schedule or the logic-only schedule as the basis for float/delay analysis on this contract?", "purpose": "Tests awareness of the contractual/methodological question of which float basis governs delay analysis."},
-{"trigger": "always", "prompt": "How would you communicate to the PM that this activity is now effectively critical, even though the CPM report still shows some nominal float?", "purpose": "Tests ability to translate a technical distinction into an actionable management communication."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains the logic-only vs resource-leveled float distinction."},
-{"name": "reasoning", "maxScore": 5, "guidance": "Explains the mechanism (leveling consumes float, does not change logic-based float calculation)."},
-{"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the reporting/contractual implications of resource-critical vs logic-critical activities."}
-], "passingScore": 10},
-"weight": 1.5,
-"estimatedTimeSec": 210,
-"tags": ["total float", "resource leveling", "resource-critical", "critical path", "airport"],
-"references": ["PMI Practice Standard for Scheduling", "AACE RP 29R-03 Forensic Schedule Analysis"]
-},
-{
-"questionCode": "RES-012",
-"category": "RES",
-"subcategory": "Resource-Driven Scheduling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Identifying all factors that determine a Resource Dependent activity's calculated duration",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "MULTI_SELECT",
-"question": "For a Resource Dependent activity in P6 with a single assigned resource, which of the following factors directly affect the activity's calculated duration? (Select all that apply)",
-"options": [
-{"label": "A", "text": "The resource's assigned calendar (working days/hours available).", "isCorrect": true},
-{"label": "B", "text": "The total budgeted units assigned to that resource.", "isCorrect": true},
-{"label": "C", "text": "The resource's Units/Time (e.g., how many hours/day that resource is assigned at).", "isCorrect": true},
-{"label": "D", "text": "The alphabetical order of the resource's Resource ID in the dictionary.", "isCorrect": false},
-{"label": "E", "text": "The activity's Duration Type setting (e.g., Fixed Units, Fixed Duration & Units, Fixed Units/Time).", "isCorrect": true},
-{"label": "F", "text": "The color assigned to the resource in the Gantt chart.", "isCorrect": false}
-],
-"correctAnswer": ["A", "B", "C", "E"],
-"explanation": "Duration for a Resource Dependent activity is derived from how long it takes the assigned resource, working at its assigned Units/Time on its own calendar, to complete its total budgeted units — and the Duration Type setting governs how P6 recalculates duration, units, or units/time when one of the other values changes. Resource ID ordering and Gantt bar color are purely cosmetic/organizational and have no effect on the calculation.",
-"reasoning": "P6's resource-driven duration formula is essentially Duration = Budgeted Units / Units per Time, constrained by the resource's own calendar; Duration Type determines which of these three variables P6 holds fixed and which it recalculates when the schedule is updated or when resources are added/removed.",
-"commonMistakes": ["Selecting cosmetic fields (color, ID ordering) as if they affected calculation.", "Forgetting that Duration Type is itself a governing factor, not just a display setting.", "Overlooking that the resource's own calendar (not just the activity calendar) is what matters here."],
-"redFlags": ["Selects options with no functional bearing on scheduling calculations, suggesting confusion between display/organizational fields and calculation-driving fields."],
-"p6Checks": ["Activities view -> Resources tab: Budgeted Units, Units/Time per assignment.", "Resource's calendar assignment in the resource dictionary.", "Activity's Duration Type field (General tab or Status tab depending on P6 version)."],
-"followUpQuestions": [
-{"trigger": "always", "prompt": "If Duration Type is set to Fixed Duration & Units/Time, what happens to Budgeted Units if you shorten the activity's duration manually?", "purpose": "Tests deeper understanding of how Duration Type governs recalculation behavior."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 90,
-"tags": ["resource dependent", "duration type", "budgeted units", "units per time", "resource calendar"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-013",
-"category": "RES",
-"subcategory": "Level of Effort Activities",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Correctly structuring a Level of Effort activity to represent ongoing QA/QC supervision spanning multiple discrete work activities",
-"difficulty": 3,
-"careerLevel": "SENIOR",
-"questionType": "CASE_STUDY",
-"scenario": "On a marine jetty construction project, a QA/QC Engineer provides continuous inspection and documentation support across four sequential concrete pour packages (Pour 1 through Pour 4), each with its own start/finish dates spread over 5 months. The planner wants the schedule to show the QA/QC Engineer's presence and cost spanning the full inspection period, without that resource driving the critical path of the pour activities themselves.",
-"question": "How should the planner structure this in P6 — what activity type should the QA/QC support activity use, what should it be linked to, and what is the risk of getting this wrong?",
-"expectedAnswer": "The QA/QC support work should be modeled as a Level of Effort (LOE) activity type, tied via Start-to-Start from the first pour package's start and Finish-to-Finish to the last pour package's finish (or spanning all four via appropriate hammock-style logic), so its duration automatically derives from and stretches/shrinks with its driving predecessor/successor activities rather than being independently scheduled or resource-driven in the normal sense.",
-"strongAnswer": "Notes that LOE activities in P6 do not use normal duration-driven CPM logic the way Task/Resource Dependent activities do — their dates are calculated from the activities they are linked to — and that resources (the QA/QC Engineer's cost/hours) can still be loaded onto the LOE activity for cost and manpower reporting purposes even though the LOE activity itself does not drive the critical path of the pours.",
-"expertAnswer": "Flags the practical risk of getting this wrong: if the QA/QC activity is instead modeled as a normal Task/Resource Dependent activity with fixed dates or its own independent logic, it can either (a) incorrectly appear on or influence the critical path when it should not, or (b) fail to automatically adjust when a pour package slips, silently under- or over-stating QA/QC cost and duration in later updates — and that on some projects, if LOE is misused for something that should genuinely drive the schedule (e.g., an inspection that must complete before the next pour can start), that activity should NOT be LOE at all, since LOE activities are explicitly meant for support/oversight functions, not driving work.",
-"explanation": "Level of Effort (LOE) is the correct activity type for ongoing supervisory/support work whose duration should passively follow other activities rather than independently drive the schedule; linking it via Start-to-Start/Finish-to-Finish to the span of pour activities lets its duration self-adjust as those activities move.",
-"reasoning": "LOE activities in P6 calculate their own duration from their predecessor/successor relationships rather than from resource loading or manually entered duration — this is exactly the behavior needed for a support function that should track, not drive, the underlying work. Using a normal Task Dependent activity with manually set dates would require constant manual updates every time a pour package's schedule shifted, and risks becoming stale or, worse, inadvertently constraining the pours.",
-"commonMistakes": ["Modeling ongoing support work as a normal Task Dependent activity with fixed dates that must be manually maintained.", "Not linking the LOE activity's start/finish to the actual driving activities, causing it to become stale after schedule updates.", "Assuming LOE activities cannot carry resource/cost loading, when in fact they can and commonly do."],
-"redFlags": ["Does not know what an LOE activity type is or how its duration is calculated."],
-"p6Checks": ["Activity Type field set to Level of Effort (LOE).", "Predecessor relationship from Pour 1 start (Start-to-Start) and successor relationship to Pour 4 finish (Finish-to-Finish).", "Resources tab to confirm the QA/QC Engineer's units/cost are loaded on the LOE activity.", "Confirm the LOE activity does not itself appear as logic-driving on the critical path report."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "If Pour 3 is delayed by three weeks due to a rebar delivery issue, what happens automatically to the QA/QC LOE activity's finish date and cost?", "purpose": "Tests understanding that LOE dates (and by extension resource-loaded cost/hours if the curve/units scale with duration) recalculate automatically from the linked activities."},
-{"trigger": "always", "prompt": "Would you ever use LOE for a mandatory inspection hold-point that must complete before the next pour can proceed?", "purpose": "Tests whether the candidate understands LOE is inappropriate for schedule-driving inspection/hold-point activities."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "p6Understanding", "maxScore": 5, "guidance": "Correctly identifies LOE activity type and its S-S/F-F linking pattern."},
-{"name": "technicalAccuracy", "maxScore": 5, "guidance": "Explains why LOE duration is derived rather than independently scheduled."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Identifies the real risk of misusing a normal activity type for this purpose."}
-], "passingScore": 10},
-"weight": 1.5,
-"estimatedTimeSec": 210,
-"tags": ["level of effort", "LOE", "QA/QC", "hammock", "marine", "resource loading"],
-"references": ["Oracle Primavera P6 Professional User's Guide", "PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-014",
-"category": "RES",
-"subcategory": "Level of Effort Activities",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Recalling how Level of Effort activities behave with respect to Total Float and the critical path",
-"difficulty": 1,
-"careerLevel": "JUNIOR",
-"questionType": "MCQ",
-"question": "In Primavera P6, a Level of Effort (LOE) activity typically:",
-"options": [
-{"label": "A", "text": "Drives the critical path calculation the same way a normal Task Dependent activity does.", "isCorrect": false},
-{"label": "B", "text": "Has its dates derived from its linked predecessor/successor activities and does not itself drive network logic or the critical path.", "isCorrect": true},
-{"label": "C", "text": "Cannot have any resources or costs assigned to it.", "isCorrect": false},
-{"label": "D", "text": "Must always have zero duration.", "isCorrect": false}
-],
-"correctAnswer": "B",
-"explanation": "LOE activities derive their duration and dates from the activities they are linked to (commonly via Start-to-Start and Finish-to-Finish relationships spanning the work they support) rather than driving the schedule themselves, and they can carry resource/cost assignments like any other activity type.",
-"reasoning": "LOE is specifically designed for supervisory, oversight, or support-type work (e.g., project management, safety supervision, QA/QC) whose duration should passively track the activities it supports, not independently constrain or drive them.",
-"commonMistakes": ["Believing LOE activities cannot carry resources.", "Confusing LOE with a milestone (LOE has duration; milestones do not).", "Assuming LOE activities always show as critical because they often span the whole project."],
-"redFlags": ["No familiarity with LOE as an activity type at all."],
-"p6Checks": ["Activity Type field options in the General tab.", "Predecessor/Successor relationships typical for an LOE activity."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "Give an example of work that should NOT be modeled as LOE even though it seems like ongoing support.", "purpose": "Tests whether the candidate can distinguish appropriate from inappropriate LOE use."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 60,
-"tags": ["level of effort", "LOE", "activity type", "critical path"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-015",
-"category": "RES",
-"subcategory": "Resource Calendars",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Identifying a resource-calendar mismatch as the cause of an unexplained slip on a resource-loaded schedule update",
-"difficulty": 3,
-"careerLevel": "PLANNING_ENGINEER",
-"secondaryCareerLevels": ["SENIOR"],
-"questionType": "SCENARIO",
-"scenario": "A refinery turnaround schedule uses a 7-day project/activity calendar (round-the-clock shift work). A newly added 'Insulation Removal' resource was set up in the resource dictionary using the company's default 5-day standard calendar. The activity using this resource is Resource Dependent. After the next schedule update, the activity's remaining duration is noticeably longer than the planner expected given the remaining budgeted hours and crew size.",
-"question": "What is the likely cause, and what should the planner check and correct?",
-"expectedAnswer": "The likely cause is the resource calendar mismatch: the Insulation Removal resource was assigned a 5-day calendar by default while the project intends round-the-clock 7-day working, so for this Resource Dependent activity, P6 is calculating remaining duration using only 5 working days per week instead of 7, stretching the calculated duration. The planner should check the resource's assigned calendar in the resource dictionary and change it to the correct 7-day turnaround calendar (or a purpose-built shift calendar matching actual crew rostering).",
-"strongAnswer": "Notes this is a common and easy-to-miss error when new resources are added to an existing resource dictionary during a fast-paced turnaround, and recommends a standard QC check during setup: for every new resource added, confirm its calendar assignment matches the intended working pattern for that activity/discipline before the first schedule update is issued.",
-"expertAnswer": "Points out the broader risk: if this went undetected past this update, remaining-duration and forecast finish figures reported to the turnaround manager for this activity (and any successors) would have been wrong, potentially masking a false schedule risk or, worse, a false sense of comfort if the miscalculation happened to run the other direction (understating duration) — and recommends a periodic audit of resource calendar assignments across the resource dictionary, not just at initial setup, particularly after any bulk resource import.",
-"explanation": "Because the activity is Resource Dependent, duration is calculated using the resource's own calendar, not the activity/project calendar; a 5-day resource calendar on a round-the-clock 7-day turnaround activity will materially overstate elapsed duration relative to what the crew's real availability supports.",
-"reasoning": "The mismatch between the intended 7-day working pattern and the resource's actual 5-day calendar means P6 spreads the same budgeted hours across fewer available working periods per week, lengthening calculated duration — this is exactly the kind of setup error that resource-loaded, Resource Dependent scheduling is vulnerable to if resource calendars are not actively managed.",
-"commonMistakes": ["Assuming the activity calendar alone governs duration and overlooking resource calendar as a separate, independently-configured setting.", "Not checking new resources' calendar assignments when they are added mid-project.", "Attributing the duration increase to a real productivity problem before checking the calendar setup."],
-"redFlags": ["Concludes the crew must be underperforming without first checking calendar setup."],
-"p6Checks": ["Resource dictionary -> Insulation Removal resource -> assigned calendar.", "Compare to the project/activity calendar (7-day) intended for turnaround work.", "Activity Type confirmation (Resource Dependent) to confirm this mechanism applies.", "Check other newly added resources for the same calendar-assignment error."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "How would you prevent this error from recurring as more resources are added during the turnaround?", "purpose": "Tests process-improvement thinking, not just one-off fixes."},
-{"trigger": "always", "prompt": "If this activity were Task Dependent instead, would the resource calendar mismatch have caused the same duration error?", "purpose": "Reinforces the distinction between Task Dependent and Resource Dependent calendar sensitivity."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the resource calendar mismatch as the cause."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Names the concrete fix and a QC habit to prevent recurrence."}
-], "passingScore": 7},
-"weight": 1.0,
-"estimatedTimeSec": 180,
-"tags": ["resource calendar", "resource dependent", "turnaround", "refinery", "duration"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-016",
-"category": "RES",
-"subcategory": "Resource Leveling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Understanding the boundary between what resource leveling can and cannot override in P6",
-"difficulty": 1,
-"careerLevel": "JUNIOR",
-"questionType": "TRUE_FALSE",
-"question": "True or False: Running Resource Leveling in P6 can delay activities to resolve over-allocation, but by default it will not move an activity's Start date earlier than an applied 'Start On or After' constraint, nor will it typically move activities past a hard project Must-Finish-By constraint without flagging the resulting conflict.",
-"options": [
-{"label": "True", "text": "True", "isCorrect": true},
-{"label": "False", "text": "False", "isCorrect": false}
-],
-"correctAnswer": "True",
-"explanation": "Leveling delays activities within (and can consume) their available float to resolve resource conflicts, but it respects constraints in the sense that it will not schedule an activity earlier than a Start On or After constraint, and pushing past a hard finish constraint produces visible negative float / a constraint conflict rather than silently overriding the constraint.",
-"reasoning": "Leveling is a float-consuming, date-shifting operation layered on top of the CPM-calculated schedule; constraints remain in force as boundary conditions during and after leveling, so leveling's effect shows up as delayed activities and reduced/negative float against those constraints rather than the constraints themselves being silently removed or ignored.",
-"commonMistakes": ["Assuming leveling can freely override any constraint to 'make the histogram work'.", "Not realizing that a leveling-driven conflict with a hard finish constraint will surface as negative float rather than being hidden."],
-"redFlags": ["Believes leveling silently deletes or ignores constraints."],
-"p6Checks": ["Constraint type and date on affected activities before and after leveling.", "Total Float values after leveling to see if negative float appears against a Must-Finish-By milestone."],
-"followUpQuestions": [
-{"trigger": "always", "prompt": "If leveling produces negative float against a contractual milestone, what should the planner do next?", "purpose": "Tests understanding that leveling conflicts require judgment/escalation, not silent acceptance."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 60,
-"tags": ["resource leveling", "constraints", "negative float", "must finish by"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-017",
-"category": "RES",
-"subcategory": "Resource Leveling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Determining what to verify first after resource leveling pushes the project finish date",
-"difficulty": 3,
-"careerLevel": "SENIOR",
-"questionType": "WHAT_CHECK_FIRST",
-"scenario": "On a metro rail station box excavation and structure project, the planner ran resource leveling to resolve over-allocation of 'Tower Crane' shared across three adjacent pour zones. After leveling, the project finish date pushed out by 18 working days compared to the unleveled schedule.",
-"question": "Before reporting an 18-day schedule slip to the project director, what would you check first?",
-"expectedAnswer": "Check whether the 18-day push is genuinely unavoidable given real crane capacity (i.e., confirm the crane over-allocation and its magnitude are real, and that Max Units/Time for the crane resource correctly reflects actual site capacity) versus being an artifact of leveling settings — such as leveling priorities, the leveling date range, or 'level all resources' inadvertently including non-bottleneck resources — that may have produced a worse-than-necessary result.",
-"strongAnswer": "Also checks whether all three pour zones truly require the single tower crane resource loaded on them (versus, for example, one zone actually using a mobile crane that was incorrectly resource-loaded as the tower crane), and re-tests leveling with corrected priorities/settings and/or manual resequencing to see whether the 18-day push can be reduced.",
-"expertAnswer": "Frames the verification as protecting the credibility of the report: an 18-day slip attributed to 'resource leveling' will be read by a project director as a real capacity constraint requiring a decision (accept delay, add a second crane, resequence pours) — so before that conversation happens, confirms the leveling result is genuinely the best achievable outcome given real constraints, not an artifact of a misconfigured leveling run, since reporting an inflated slip and later correcting it downward damages the planner's credibility more than taking an extra day to verify first.",
-"explanation": "An 18-day push from leveling should be verified as a genuine resource-capacity outcome (correct Max Units/Time, correct leveling priorities/settings, correct resource assignments) before being reported as a schedule impact, since misconfigured leveling can produce an artificially large delay that a corrected run would not reproduce.",
-"reasoning": "Leveling results are only as good as their inputs: incorrect Max Units/Time, wrong leveling priorities, an overly broad leveling scope, or an incorrect resource assignment (e.g., loading the tower crane on an activity that actually uses a different crane) can all inflate the leveled delay beyond what real site capacity would require. Verifying these before reporting avoids presenting a misleading figure.",
-"commonMistakes": ["Reporting the raw leveled finish date to management without validating leveling inputs.", "Assuming any leveling-driven push is automatically a 'real' constraint rather than possibly a modeling artifact.", "Not checking whether all three pour zones actually compete for the same physical crane."],
-"redFlags": ["Escalates a leveling output directly to senior management without any verification step."],
-"p6Checks": ["Resource dictionary Max Units/Time for Tower Crane vs actual site crane count/capacity.", "Leveling Priorities configuration used for the run.", "Leveling options: date range and 'level all resources' vs targeted resource selection.", "Resource assignments on each of the three pour zone activities to confirm they genuinely share the same crane resource."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "After verifying the leveling result is genuine, what options would you present to the project director?", "purpose": "Tests ability to move from verification to a decision-ready recommendation."},
-{"trigger": "always", "prompt": "How would you explain to a non-technical stakeholder why a software 'leveling' function pushed the finish date by 18 days?", "purpose": "Tests communication skill translating a technical mechanism into plain language."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Identifies verifying leveling inputs/settings as the first check, not immediate escalation."},
-{"name": "professionalJudgment", "maxScore": 5, "guidance": "Explains why verification matters before reporting to senior management."},
-{"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete leveling settings/fields that could inflate the result."}
-], "passingScore": 9},
-"weight": 1.5,
-"estimatedTimeSec": 180,
-"tags": ["resource leveling", "tower crane", "metro rail", "over-allocation", "leveling priorities"],
-"references": ["PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-018",
-"category": "RES",
-"subcategory": "Resource Loading Calculations",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Calculating the crew size needed to complete a resource-loaded activity within a fixed duration window",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "NUMERICAL",
-"scenario": "An MEP fit-out package for a commercial office tower includes a 'Cable Tray Installation' activity budgeted at 1,200 labor-hours. The activity must be completed within a fixed 15-working-day window (dictated by an upstream ceiling-close milestone), and each electrician works an 8-hour shift per working day.",
-"question": "Assuming even productivity across the crew, calculate the minimum number of electricians required to complete the 1,200 labor-hours of work within the 15-working-day window.",
-"correctAnswer": 10,
-"explanation": "Required crew size = Total labor-hours / (Working days x hours/day per worker) = 1,200 / (15 x 8) = 1,200 / 120 = 10 electricians.",
-"reasoning": "The fixed duration window sets the total available labor-hour capacity per worker (15 days x 8 hours = 120 hours per electrician over the window). Dividing the total budgeted labor-hours by that per-worker capacity gives the minimum headcount needed to deliver the full quantity of work within the window, assuming full productivity and no losses.",
-"commonMistakes": ["Dividing 1,200 by 15 alone and forgetting to also divide by the 8-hour shift length, producing hours/day instead of headcount.", "Not recognizing this is the inverse of the standard duration-from-crew calculation.", "Ignoring that this is a minimum theoretical crew size assuming 100% productivity, with no allowance for productivity loss."],
-"redFlags": ["Cannot restructure the units/rate/duration relationship to solve for crew size instead of duration."],
-"p6Checks": ["Activity's Budgeted Units and the fixed duration window driving it (often a constraint or successor milestone).", "Resource assignment Units/Time needed to represent 10 electricians (80 hours/day total) if entering this into P6.", "Resource dictionary Max Units/Time for Electrician to confirm 10 is within available crew capacity."],
-"followUpQuestions": [
-{"trigger": "always", "prompt": "If the resource dictionary shows only 8 electricians are available company-wide for this trade during that window, what are your options?", "purpose": "Tests ability to connect a calculation result to a real resource-constraint decision."},
-{"trigger": "if_correct", "prompt": "Would you actually crew this at exactly 10, or add a margin? Why?", "purpose": "Tests practical judgment about planning to theoretical minimums versus building in productivity/absence buffer."}
-],
-"weight": 1.0,
-"estimatedTimeSec": 120,
-"tags": ["resource loading", "crew size calculation", "cable tray", "MEP fit-out", "budgeted units"],
-"references": ["Oracle Primavera P6 Professional User's Guide"]
-},
-{
-"questionCode": "RES-019",
-"category": "RES",
-"subcategory": "Resource-Driven Scheduling",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Explaining the schedule consequence of reducing crew size on a critical, Resource Dependent activity to a PM focused on cost savings",
-"difficulty": 5,
-"careerLevel": "MANAGER",
-"secondaryCareerLevels": ["LEAD"],
-"questionType": "MANAGEMENT_SCENARIO",
-"scenario": "On a critical-path, Resource Dependent 'Structural Steel Erection' activity for a warehouse and logistics facility, the current crew is 12 steel erectors delivering the activity in 20 working days. The project manager, under pressure to cut labor cost this month, asks the planning engineer to reduce the crew to 8 erectors on this activity without changing anything else in the plan, believing this simply saves cost with 'the schedule staying the same since the total work doesn't change.'",
-"question": "How would you respond to the PM, and what specifically would you show them to support your answer?",
-"expectedAnswer": "Explain that because this is a Resource Dependent activity on the critical path, reducing crew size will proportionally increase its calculated duration (fewer erectors need more elapsed time to complete the same total budgeted units), and because it is critical, that increase pushes the project finish date directly — this is not cost-neutral to schedule, and the PM's assumption is incorrect. Show the specific recalculated duration (roughly 20 x 12/8 = 30 working days, a 10-day extension) and its knock-on effect on the finish date and any milestones/contractual dates downstream.",
-"strongAnswer": "Also quantifies the full tradeoff for the PM: the direct labor cost saved by 4 fewer erectors versus the cost of a 10-day schedule extension (extended site overheads, potential liquidated damages exposure, delayed handover, knock-on effect on other trades' mobilization), framing this as a genuine cost-schedule tradeoff decision rather than a free efficiency, and offers alternatives (e.g., reduce crew on a different, non-critical activity with float instead).",
-"expertAnswer": "Recognizes and names the underlying governance point: labor cost decisions on critical-path Resource Dependent activities should not be made unilaterally by the PM without planning/controls input precisely because of this non-obvious schedule linkage, and recommends this be documented (e.g., in a change log or cost-schedule tradeoff memo) so that if the 10-day extension later triggers a cost or contractual consequence, there is a clear record that it was a deliberate, informed decision rather than an unanticipated side effect — and proactively checks whether reducing crew on ANY other floated, non-critical activities in the same trade could deliver comparable savings without a schedule hit.",
-"explanation": "Reducing crew on a critical, Resource Dependent activity is not cost-neutral to schedule: P6 will recalculate a longer duration for the same total budgeted units with fewer erectors, and because the activity is critical, that extension pushes the whole project finish — the planner's job is to quantify this clearly and present it as a decision, not silently execute the crew reduction or silently refuse it.",
-"reasoning": "Resource Dependent duration is inversely related to crew size for a fixed quantity of budgeted units (assuming constant individual productivity): duration scales up as crew size scales down. Because this specific activity sits on the critical path, any duration increase here has a one-to-one effect on project finish, unlike a similar reduction applied to a non-critical, float-bearing activity, which would have no schedule impact. The PM's mental model conflates 'total work doesn't change' with 'schedule doesn't change', missing that duration is the mediating variable.",
-"commonMistakes": ["Silently implementing the crew reduction without flagging the schedule impact.", "Refusing outright without quantifying the actual tradeoff for the PM to make an informed decision.", "Not distinguishing between critical and non-critical activities when advising on crew reductions."],
-"redFlags": ["Agrees the schedule 'stays the same' without doing the math.", "Does not consider or offer any alternative (e.g., cutting crew on a non-critical activity instead)."],
-"p6Checks": ["Activity Type (confirm Resource Dependent) and current Budgeted Units.", "Recalculate duration at reduced crew size using the same units/rate logic.", "Total Float = 0 confirmation that this activity is on the critical path.", "Project-level forecast finish date before/after the what-if crew change."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "The PM says 'fine, keep 12 people but only pay overtime to 8 of them' — does that change your schedule analysis?", "purpose": "Tests whether the candidate can distinguish headcount-driven duration effects from pure cost/pay-rate questions that don't affect schedule."},
-{"trigger": "always", "prompt": "How would you identify a non-critical activity with the same trade where crew could safely be reduced instead?", "purpose": "Tests ability to propose a genuinely cost-saving alternative that preserves schedule."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly recalculates the duration impact of the crew reduction."},
-{"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains why critical-path status makes this schedule-impacting rather than cost-neutral."},
-{"name": "professionalJudgment", "maxScore": 5, "guidance": "Frames this as an informed tradeoff decision for the PM, with a documented basis, rather than silent compliance or refusal."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Offers a concrete, quantified alternative or next step."}
-], "passingScore": 13},
-"weight": 2.0,
-"estimatedTimeSec": 240,
-"tags": ["resource dependent", "crew size", "critical path", "cost-schedule tradeoff", "structural steel", "warehouse"],
-"references": ["PMI Practice Standard for Scheduling", "PMBOK Guide"]
-},
-{
-"questionCode": "RES-020",
-"category": "RES",
-"subcategory": "Resource Over-Allocation",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Detecting a hidden shared-resource conflict across multiple activities that individually appear feasible",
-"difficulty": 4,
-"careerLevel": "LEAD",
-"secondaryCareerLevels": ["SENIOR"],
-"questionType": "PRACTICAL_SCENARIO",
-"scenario": "A hyperscale data center commissioning schedule has 'Commissioning Engineer - BMS' assigned to four separate Level 3 commissioning activities across four independent data halls, each scheduled by a different discipline lead planner in the same integrated schedule. Each activity individually shows adequate float and a feasible-looking date range in isolation. However, only one BMS commissioning engineer with the required OEM certification exists on the project.",
-"question": "How would resource loading and the Resource Usage Profile reveal a problem that reviewing each of the four activities individually would miss, and what would you recommend?",
-"expectedAnswer": "Each activity looked feasible in isolation because the reviewers only checked logic/dates per activity, not shared resource demand across activities; only by loading the same named 'Commissioning Engineer - BMS' resource onto all four activities and viewing the aggregated Resource Usage Profile does the over-allocation become visible — the profile would show periods where two or more halls need the single certified engineer simultaneously, which no amount of individual-activity date review would catch.",
-"strongAnswer": "Recommends running or reviewing the Resource Usage Profile specifically for this named/critical resource across the whole integrated schedule (not just within each discipline lead's silo), and treating single-person, uniquely-certified resources as a special review category during schedule integration, since a normal Max Units/Time of 1 will flag any overlap immediately once properly loaded.",
-"expertAnswer": "Identifies the organizational root cause: four different discipline leads independently scheduling the same scarce named resource without a shared, consolidated resource-loading review is a process gap, not just a technical one — recommends a resource-loading review specifically at schedule integration/consolidation stage (not left to individual discipline leads), and flags that this pattern (unique/scarce specialist resources spread across independently-planned work fronts) is a common blind spot on large multi-discipline projects and should be a standing checklist item at each integrated schedule update.",
-"explanation": "Resource over-allocation across independently-planned activities is invisible to per-activity logic review and only becomes visible when the shared resource is consistently loaded on all its activities and viewed in aggregate via the Resource Usage Profile — this is precisely the scenario resource loading and leveling tools exist to catch.",
-"reasoning": "CPM logic review checks predecessor/successor feasibility per activity or per path; it has no visibility into resource demand unless resources are loaded and reviewed in aggregate. A single specialist resource split across four independently-scheduled halls will only reveal a conflict when someone views total demand for that resource across the whole schedule at once, which is exactly what the Resource Usage Profile (grouped/filtered by that resource) is for.",
-"commonMistakes": ["Assuming individually-feasible activity dates guarantee overall schedule feasibility.", "Not consolidating or reviewing shared-resource demand across discipline-siloed schedule sections.", "Treating this as a one-off scheduling error rather than a systemic review gap."],
-"redFlags": ["No mention of checking the Resource Usage Profile or aggregate resource demand at all."],
-"p6Checks": ["Resource Usage Profile filtered to 'Commissioning Engineer - BMS' across the full integrated schedule.", "Resource dictionary Max Units/Time for this resource (should be 1, reflecting the single certified individual).", "Each of the four commissioning activities' Resources tab to confirm the same named resource is assigned.", "Schedule integration/consolidation review process to see whether cross-discipline shared-resource checks are a standing step."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "If leveling this conflict pushes one hall's commissioning past the contractual handover date, what would you do next?", "purpose": "Tests ability to move from detection to resolution with commercial awareness."},
-{"trigger": "always", "prompt": "How would you make sure this kind of conflict is caught earlier, before four separate discipline leads have already built out independent logic around it?", "purpose": "Tests process-improvement thinking for multi-discipline schedule integration."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Correctly explains why per-activity review misses this and how the Resource Usage Profile catches it."},
-{"name": "p6Understanding", "maxScore": 5, "guidance": "Names the specific P6 mechanism (resource loading + usage profile) that reveals the conflict."},
-{"name": "professionalJudgment", "maxScore": 5, "guidance": "Identifies the process/organizational fix, not just the one-time technical fix."}
-], "passingScore": 10},
-"weight": 1.5,
-"estimatedTimeSec": 210,
-"tags": ["resource over-allocation", "data center", "commissioning", "resource usage profile", "shared resource", "schedule integration"],
-"references": ["PMI Practice Standard for Scheduling"]
-},
-{
-"questionCode": "RES-021",
-"category": "RES",
-"subcategory": "Resource Dictionary Structure",
-"competency": "PROJECT_CONTROLS_EVM",
-"skill": "Explaining the purpose of hierarchical resource coding in the resource dictionary for reporting and rollup",
-"difficulty": 2,
-"careerLevel": "PLANNING_ENGINEER",
-"questionType": "P6_ANALYSIS",
-"scenario": "A contractor's resource dictionary lists over 300 individual resource IDs flat, with no hierarchy — e.g., 'Carpenter1', 'ElecFitter_A', 'Crane25T' all sit at the same level with no grouping by trade, discipline, or cost type. The cost controller wants a single report showing total planned and actual labor cost by discipline (Civil, MEP, Structural) across the whole project.",
-"question": "What is wrong with the current resource dictionary structure for this purpose, and how should it be restructured to support the requested report?",
-"expectedAnswer": "A flat, ungrouped resource dictionary cannot be rolled up by discipline without manual, error-prone mapping outside P6; it should be restructured into a hierarchy (parent nodes for each discipline such as Civil, MEP, Structural, with individual resources nested underneath, or supplemented with Resource Codes for discipline) so that Resource Usage Profile/Spreadsheet and cost reports can filter, group, and sum by discipline directly within P6.",
-"strongAnswer": "Distinguishes between using dictionary hierarchy (parent/child resource nodes) versus Resource Codes (a separate coding dimension) to achieve the grouping, noting Resource Codes are often more flexible since a resource can be grouped multiple ways (by discipline, by cost center, by trade) simultaneously without forcing a single rigid hierarchy, whereas dictionary hierarchy position is a single fixed grouping.",
-"expertAnswer": "Notes the practical migration challenge: retrofitting a hierarchy or codes onto 300 existing resources requires a one-time reclassification exercise (mapping every existing resource to its discipline) and a governance rule going forward (no new resource created without a discipline code/parent assignment) to prevent the flat-list problem recurring, and flags that historical actual-cost data already posted against the old flat structure may need re-tagging to be included correctly in the new rolled-up report.",
-"explanation": "P6 resource reporting rolls up along the resource dictionary's hierarchy and/or Resource Codes; a flat list with no grouping dimension cannot produce a discipline-level summary report without manual work outside the tool, so the fix is to introduce either a hierarchical parent/child structure or Resource Codes for discipline.",
-"reasoning": "Resource Usage Profile, Resource Usage Spreadsheet, and most P6 resource/cost reports support grouping and summarization by the resource hierarchy or by Resource Codes — without one of these dimensions populated, achieving a 'total cost by discipline' report requires exporting data and manually mapping each of 300 resources outside the system, which is slow and error-prone and breaks every time a new resource is added.",
-"commonMistakes": ["Assuming this can be solved purely by renaming resources rather than restructuring the dictionary/coding.", "Not knowing the difference between dictionary hierarchy and Resource Codes as two distinct grouping mechanisms.", "Underestimating the retrofitting effort on an already-populated 300-resource dictionary."],
-"redFlags": ["Proposes solving this entirely via manual spreadsheet exports as a permanent solution rather than fixing the underlying dictionary structure."],
-"p6Checks": ["Enterprise Data -> Resources dictionary hierarchy/tree structure.", "Enterprise Data -> Resource Codes dictionary.", "Resource Usage Spreadsheet grouping/filtering options to confirm discipline-level rollup works after restructuring.", "Existing resource assignments across activities to assess the scope of a reclassification exercise."],
-"followUpQuestions": [
-{"trigger": "if_correct", "prompt": "Would you recommend hierarchy, Resource Codes, or both? Justify your choice.", "purpose": "Tests deeper understanding of the tradeoffs between the two grouping mechanisms."},
-{"trigger": "always", "prompt": "How would you prevent the resource dictionary from becoming an ungrouped flat list again in six months?", "purpose": "Tests governance/process thinking beyond the one-time technical fix."}
-],
-"scoringRubric": {"dimensions": [
-{"name": "p6Understanding", "maxScore": 5, "guidance": "Correctly identifies hierarchy and/or Resource Codes as the fix."},
-{"name": "practicalApplication", "maxScore": 5, "guidance": "Describes a workable restructuring approach."},
-{"name": "completeness", "maxScore": 5, "guidance": "Addresses the retrofitting effort and ongoing governance, not just the end-state structure."}
-], "passingScore": 9},
-"weight": 1.0,
-"estimatedTimeSec": 180,
-"tags": ["resource dictionary", "resource codes", "hierarchy", "cost reporting", "rollup"],
-"references": ["Oracle Primavera P6 EPPM User's Guide"]
-}
+  {
+    "questionCode": "RES-001",
+    "category": "RES",
+    "subcategory": "Resource-Driven vs Task-Driven Scheduling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Distinguishing Task Dependent from Resource Dependent activity types and their effect on duration calculation in P6",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
+    "questionType": "MCQ",
+    "question": "In Primavera P6, an activity is set to 'Resource Dependent' and has two resources assigned: an in-house crew working a 6-day calendar and a specialty subcontractor working a 5-day calendar, each with different budgeted units. How does P6 determine the activity's duration?",
+    "options": [
+      {
+        "label": "A",
+        "text": "The activity duration always follows the activity's own calendar; resource calendars are cosmetic and never affect duration.",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "Duration is driven by whichever assigned resource takes the longest, given its own calendar and units, to complete its budgeted work — the most restrictive resource governs.",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "Duration is always the simple average of the two resources' calendars.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "Duration is fixed by Original Duration and cannot change once resources are assigned, regardless of activity type.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "For a Resource Dependent activity, P6 calculates duration from the assigned resources' calendars and remaining units rather than the activity calendar. When multiple resources are assigned, the one that needs the most calendar time to deliver its own budgeted units becomes the driving resource and sets the activity duration. Task Dependent activities, by contrast, always follow the activity calendar regardless of what resources are assigned.",
+    "reasoning": "P6's Activity Type field controls which calendar governs scheduling. Resource Dependent means each resource's own calendar and units are used to compute how long that resource needs; the longest of these becomes the activity duration. A 5-day subcontractor calendar with a large quantity of work can therefore out-drive a 6-day in-house crew with a smaller quantity, or vice versa.",
+    "commonMistakes": [
+      "Believing the activity calendar always governs duration irrespective of activity type.",
+      "Assuming duration is averaged across assigned resources.",
+      "Not realizing Task Dependent vs Resource Dependent is a per-activity setting rather than a project-wide scheduling option."
+    ],
+    "redFlags": [
+      "Cannot explain the practical difference between Task Dependent and Resource Dependent at all."
+    ],
+    "p6Checks": [
+      "Activities view -> General tab -> Activity Type field.",
+      "Resources tab for the activity to see each assigned resource and its calendar.",
+      "Duration Type field (Fixed Duration & Units, Fixed Units/Time, etc.) which further affects how added resources change duration."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If the activity type were Task Dependent instead, would adding a third, slower resource change the activity's duration?",
+        "purpose": "Tests whether the candidate understands Task Dependent activities ignore resource calendars for duration purposes."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What P6 field lets you fix the duration even when resources are added or removed?",
+        "purpose": "Tests awareness of Duration Type settings (Fixed Duration & Units/Time)."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "resource dependent",
+      "task dependent",
+      "activity type",
+      "resource calendar",
+      "duration calculation"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-002",
+    "category": "RES",
+    "subcategory": "Resource Calendars",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Explaining how an individual resource calendar interacts with the activity calendar during scheduling",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: For a Resource Dependent activity in P6, if the assigned resource's personal calendar has fewer working days per week than the activity's own calendar, the resource's calendar can extend the activity's calculated duration beyond what the activity calendar alone would produce.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": true
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "True",
+    "explanation": "On a Resource Dependent activity, remaining duration is calculated using the resource's own calendar to spread its remaining units. A resource with a more restrictive calendar (e.g., 5-day) than the activity calendar (e.g., 6-day) will need more elapsed calendar time to complete the same quantity of work, which lengthens the activity's calculated duration.",
+    "reasoning": "P6 does not ignore resource calendars for Resource Dependent activities; it uses them to convert budgeted/remaining units into elapsed duration. If the activity calendar allows Saturday work but the resource calendar does not, the resource simply cannot work that day, so its portion of the task stretches out, and since duration is resource-driven, the activity duration stretches with it.",
+    "commonMistakes": [
+      "Assuming the activity calendar always overrides resource calendars.",
+      "Not distinguishing this behavior from Task Dependent activities, where the activity calendar alone governs."
+    ],
+    "redFlags": [
+      "States resource calendars never affect duration under any activity type."
+    ],
+    "p6Checks": [
+      "Resources dictionary -> resource's assigned calendar.",
+      "Activities view -> Activity Type (must be Resource Dependent for this behavior).",
+      "Compare project/activity calendar working days vs the resource calendar working days."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Would this same effect occur if the activity were Task Dependent?",
+        "purpose": "Confirms the candidate ties the behavior specifically to Resource Dependent activity type."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "resource calendar",
+      "resource dependent",
+      "duration",
+      "calendars"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-003",
+    "category": "RES",
+    "subcategory": "Resource Over-Allocation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Diagnosing a resource over-allocation spike shown on a resource usage histogram before recommending a fix",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On a 14-story residential tower, the Resource Usage Profile for 'Formwork Carpenter' shows a spike to 22 carpenters in week 14 against a resource dictionary Max Units/Time of 14 carpenters (2 crews of 7). The spike coincides with slab pours on Levels 8, 9 and 10 all showing formwork activities scheduled in the same week.",
+    "question": "Before proposing any fix (leveling, resequencing, adding crews), what would you check first to understand why three levels of formwork converged into the same week?",
+    "expectedAnswer": "Check whether Levels 8, 9 and 10 formwork activities are logically independent (no predecessor/successor relationship forcing sequence) and whether they have float that let them drift into the same week after an upstream slip, versus whether they were always planned to run in parallel by design.",
+    "strongAnswer": "Also check the driving logic/relationships feeding into each level's formwork start (e.g., a shared predecessor like column/wall pour or crane availability), whether Max Units/Time in the resource dictionary reflects real site capacity or is outdated, and whether other trades are also mobilizing to the same floors in that week (broader congestion, not just this one resource).",
+    "expertAnswer": "Recognizes that fixing the histogram spike by leveling alone may just delay the project if all three levels are genuinely on parallel critical or near-critical paths, and that the real fix may require either adding a third crew (cost/schedule tradeoff), physically resequencing floor pours, or accepting a leveled delay — and frames the choice as a decision to be raised with the PM rather than a mechanical leveling exercise.",
+    "explanation": "A resource over-allocation spike is a symptom, not a diagnosis. The correct first step is tracing why the three floors converged in that specific week — logic-driven convergence (e.g., a shared predecessor slipped) behaves very differently from independently-planned parallel work, and the fix differs accordingly (resequence logic vs. add resources vs. accept a level-driven delay).",
+    "reasoning": "Resource histograms show the symptom (demand exceeding Max Units/Time) but not the cause. Tracing each level's formwork activity back through its predecessors reveals whether the convergence is a scheduling logic issue, a real capacity constraint from the original plan, or a knock-on effect of an earlier delay — each implying a different corrective action.",
+    "commonMistakes": [
+      "Jumping straight to running P6 resource leveling without understanding why the peak occurred.",
+      "Assuming the resource dictionary's Max Units/Time figure is necessarily correct without validating it against actual site capacity.",
+      "Treating over-allocation purely as a scheduling software problem rather than a planning/logic problem."
+    ],
+    "redFlags": [
+      "Recommends automatically increasing Max Units/Time to make the histogram 'look fine' without addressing whether that many carpenters can physically work the floors.",
+      "No mention of checking predecessor logic or float before proposing a fix."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile filtered to 'Formwork Carpenter' by week.",
+      "Each Level 8/9/10 formwork activity's Predecessors/Successors and Total Float.",
+      "Resource dictionary Max Units/Time value and its basis.",
+      "Activities view grouped by floor/zone to see if other trades are also stacked that week."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If all three levels turn out to be logically independent and only converged because Level 8 slipped two weeks, what leveling option in P6 would you use, and what tradeoff does it create?",
+        "purpose": "Tests understanding of P6 leveling priorities and the float-consumption tradeoff of leveling."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would you recommend leveling, adding a third crew, or resequencing? What would decide between them?",
+        "purpose": "Tests ability to connect diagnosis to a cost/schedule tradeoff decision, not just software mechanics."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "What does the resource histogram spike alone actually tell you, and what does it not tell you?",
+        "purpose": "Remedial prompt distinguishing symptom from cause."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Correctly identifies tracing predecessor logic and float as the first diagnostic step, not jumping to a fix."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why the cause changes the appropriate remedy."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "References concrete P6 views/fields used for the diagnosis."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "over-allocation",
+      "resource usage profile",
+      "leveling",
+      "formwork",
+      "max units per time"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-004",
+    "category": "RES",
+    "subcategory": "Resource Loading Calculations",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating a Resource Dependent activity's duration from budgeted units, crew size, and calendar",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "A rebar fixing activity on a highway bridge deck is budgeted at 960 labor-hours. It is Resource Dependent and assigned a single crew resource with Max Units/Time of 24 hours/day (3 fixers x 8-hour shifts) working a 6-day-per-week calendar.",
+    "question": "Assuming the crew works at its full budgeted Max Units/Time every working day with no interruptions, calculate the activity's duration in working days.",
+    "correctAnswer": 40,
+    "explanation": "Duration = Total budgeted units / Units per working day = 960 labor-hours / 24 labor-hours per day = 40 working days.",
+    "reasoning": "For a Resource Dependent activity assigned a single resource at constant Max Units/Time, P6 spreads the budgeted units evenly across the resource's calendar until the total is consumed. 960 hours divided by 24 hours/day of capacity yields 40 working days; the 6-day calendar determines which calendar dates those 40 working days fall on, but does not change the working-day count itself.",
+    "commonMistakes": [
+      "Dividing by 7 calendar days per week instead of working days, producing an incorrect elapsed-time answer instead of a working-duration answer.",
+      "Forgetting to convert crew size x shift hours into a daily unit rate before dividing.",
+      "Confusing labor-hours (960) with crew-days directly."
+    ],
+    "redFlags": [
+      "Cannot set up the units/rate/duration relationship without prompting."
+    ],
+    "p6Checks": [
+      "Activity's Budgeted Units field on the Resources tab.",
+      "Resource's Max Units/Time and the assignment's Units/Time (may differ if the assignment is not at full capacity).",
+      "Activity Type = Resource Dependent to confirm this calculation logic applies."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If a second identical crew were added at the same 24 hrs/day rate, would duration simply halve to 20 days? What P6 setting would determine that?",
+        "purpose": "Tests understanding of Duration Type (Fixed Units vs Fixed Duration & Units) governing whether adding resources shortens duration or increases total units."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would the answer change if the crew calendar included a public holiday during that 40-day window?",
+        "purpose": "Tests whether the candidate accounts for non-working exceptions within a calendar, not just the weekly pattern."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": [
+      "resource loading",
+      "duration calculation",
+      "budgeted units",
+      "resource dependent",
+      "rebar"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-005",
+    "category": "RES",
+    "subcategory": "Resource Dictionary Structure",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Designing a resource dictionary hierarchy using roles vs named resources for multi-project estimating and reporting",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "P6_ANALYSIS",
+    "scenario": "A contractor runs an EPDB (enterprise project database) spanning five concurrent oil & gas EPC projects. Currently every project planner creates their own free-text resource names (e.g., 'Welder1', 'PipeWelder_ProjectA'), making cross-project resource demand reporting impossible. Management wants to forecast total welder demand across all five projects six months out, before individual welders are even hired.",
+    "question": "How would you restructure the resource dictionary to fix this, and what is the role of P6 'Roles' versus named 'Resources' in your design?",
+    "expectedAnswer": "Establish a single enterprise-wide resource dictionary with a standardized hierarchy (e.g., by discipline/trade and craft code) shared across all five projects instead of per-project free-text names. Use Roles (e.g., 'Pipe Welder', 'Foreman - Piping') during early planning/estimating when specific individuals or crews are not yet known, since Roles represent a skill/function and can be assigned to activities to build the histogram before actual resource assignment; convert or supplement Roles with named Resources (e.g., specific crews or labor pools) as the projects mobilize and actual crews are confirmed.",
+    "strongAnswer": "Notes that Roles can carry their own default price/unit and can later be resolved to primary Resources, that Resource Codes (e.g., by project, discipline, cost center) should be applied so cross-project Resource Usage Profile/Spreadsheet can be filtered and summed by 'Pipe Welder' across all five EPDB projects, and that the resource dictionary should be built and governed centrally (not per-project) to keep IDs consistent.",
+    "expertAnswer": "Recognizes the organizational/process dimension: this requires a resource dictionary governance policy (who can create new resource IDs), a naming/coding standard enforced at EPDB level, and flags the risk that retrofitting a shared dictionary onto five live projects with inconsistent resource names will require a one-time cleanup/remapping exercise; also notes Roles-based demand forecasting is only as reliable as the assumed role price/unit and productivity assumptions used at that early stage.",
+    "explanation": "The core fix is centralizing the resource dictionary at the enterprise level with standardized IDs and codes, and using Roles for early, pre-mobilization demand planning since Roles represent skill categories independent of named individuals, while named Resources represent actual assigned crews/labor once known.",
+    "reasoning": "Free-text, per-project resource names defeat P6's rollup capability because the tool aggregates by resource ID; unless 'PipeWelder_ProjectA' and 'Welder1' resolve to the same underlying ID (or share a Resource Code), P6 cannot sum them. Roles exist precisely to let early planning proceed on skill categories before individuals are hired, and rolling Role-based demand up across five projects via a shared enterprise resource dictionary is exactly how P6 is designed to answer 'how many pipe welders do we need enterprise-wide in six months.'",
+    "commonMistakes": [
+      "Trying to solve this purely by renaming resources within each project without addressing enterprise-level governance.",
+      "Not knowing the distinction between Roles and Resources at all.",
+      "Assuming Resource Codes and Roles are the same feature."
+    ],
+    "redFlags": [
+      "Suggests each project should keep independent dictionaries and reconcile manually via spreadsheet exports as the long-term solution."
+    ],
+    "p6Checks": [
+      "Enterprise Data -> Resources (dictionary) hierarchy and structure.",
+      "Enterprise Data -> Roles and Role Rate assignments.",
+      "Resource Codes dictionary for cross-project grouping.",
+      "Resource Usage Spreadsheet/Profile filtered/grouped by Role or Resource Code across the EPDB."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Once real welders are hired and assigned by name, would you remove the Role assignment or keep both?",
+        "purpose": "Tests knowledge that a Role can remain as the 'Primary Role' alongside a named Resource for reporting continuity."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What risk does relying purely on Role-based forecasting introduce if actual crew productivity differs materially from the Role's assumed rate?",
+        "purpose": "Tests awareness that early estimates carry assumption risk that must be revisited as resources mobilize."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes Roles from Resources and Resource Codes."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a workable enterprise-level restructuring, not a per-project patch."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses both the technical fix and the governance/process dimension."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "resource dictionary",
+      "roles",
+      "resource codes",
+      "enterprise data",
+      "EPC",
+      "demand forecasting"
+    ],
+    "references": [
+      "Oracle Primavera P6 EPPM User's Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-006",
+    "category": "RES",
+    "subcategory": "Resource Curves",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Selecting an appropriate resource curve shape to model realistic unit distribution across an activity's duration",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "SCENARIO",
+    "scenario": "A 'Site Mobilization and Temporary Facilities' activity on a data center project is budgeted at 2,400 labor-hours over an 8-week duration. Site experience shows mobilization work (fencing, site offices, temporary power, access roads) is heaviest in the first two weeks and tapers off sharply as the permanent workforce ramps onto foundation work instead.",
+    "question": "Which type of resource curve should be applied to this activity's resource assignment, and why would applying the default linear curve misrepresent this activity's actual manpower loading?",
+    "expectedAnswer": "A front-loaded (front-end weighted) resource curve should be applied rather than the default linear curve, because the linear curve spreads the 2,400 hours evenly across all 8 weeks, whereas the real work is concentrated in the first two weeks and tapers off.",
+    "strongAnswer": "Explains that P6 allows custom or predefined non-linear curves (e.g., front-loaded, back-loaded, bell/normal, trapezoidal) to be assigned per resource assignment, that this affects both the resource histogram and any cost curve derived from it, and that getting this shape right matters for near-term cash flow and manpower forecasting, not just total budgeted units (which stay the same regardless of curve shape).",
+    "expertAnswer": "Notes that curve shape choice should be evidence-based (historical mobilization data or estimator input) rather than a default habit, that an incorrect curve shape does not change EV at completion but does distort period-by-period PV and therefore short-term SPI/CPI and cash flow forecasts, and that curve assumptions should be documented so later performance reviews are not misread as being 'ahead/behind' due to a modeling artifact rather than real performance.",
+    "explanation": "Resource/cost curves determine how an activity's total budgeted units are distributed across its duration for time-phased reporting; a linear curve is only appropriate when work genuinely proceeds at a constant rate, which mobilization activities typically do not.",
+    "reasoning": "The total budgeted units (2,400 hours) and total duration (8 weeks) are unaffected by curve choice — curve shape only redistributes when those units are considered 'earned' or 'planned' period by period. Using a linear curve on a front-loaded activity understates early-period planned/actual demand and overstates late-period demand, corrupting both the manpower histogram and any time-phased cost/EV reporting drawn from it.",
+    "commonMistakes": [
+      "Assuming curve shape changes total budgeted quantity or activity duration.",
+      "Leaving every resource assignment on the default linear curve regardless of the real work profile.",
+      "Confusing resource curves with resource leveling (a different P6 feature)."
+    ],
+    "redFlags": [
+      "Cannot explain what a resource curve actually controls in P6."
+    ],
+    "p6Checks": [
+      "Activity's Resources tab -> assignment's Curve field.",
+      "Enterprise Data -> Resource Curves dictionary for predefined and custom curve shapes.",
+      "Resource Usage Profile before/after applying the curve to visually confirm the distribution matches expected mobilization pattern."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Does changing the resource curve on this activity change its total budgeted cost or EV at completion?",
+        "purpose": "Tests that the candidate does not conflate time-phasing with total value."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you validate that a front-loaded curve, rather than some other shape, is the right one to use here?",
+        "purpose": "Tests whether curve selection is evidence-based rather than an arbitrary default."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies front-loaded curve as appropriate and explains the linear-curve mismatch."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Connects curve shape to real-world reporting/cash-flow consequences."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "resource curves",
+      "front-loaded curve",
+      "mobilization",
+      "resource histogram",
+      "data center"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-007",
+    "category": "RES",
+    "subcategory": "Resource Leveling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Diagnosing why P6 resource leveling delayed a critical-path activity instead of a float-bearing one",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a combined-cycle power plant project, the planner ran P6 resource leveling to resolve an over-allocation of 'Instrument Technician'. After leveling, an instrumentation activity on the critical path (0 days Total Float) was pushed back 6 working days, while a non-critical instrumentation activity with 15 days of Total Float on a parallel system was left untouched, even though delaying the float-bearing activity instead would have avoided any project delay.",
+    "question": "What in the P6 leveling setup most likely caused the scheduler to delay the critical activity instead of the one with float, and how would you fix it?",
+    "expectedAnswer": "The leveling Priorities list (used to decide which activity gets resource preference when demand exceeds Max Units/Time) was most likely not set to prioritize by Total Float (or was overridden by another priority field such as Activity ID or Early Start ranking) — with leveling priority not driven by float, P6 has no inherent preference for delaying the float-bearing activity over the critical one, so it may delay whichever activity happens to rank lower in the configured priority order.",
+    "strongAnswer": "Recommends re-running leveling with 'Total Float' set as (or included in) the leveling priority sort so P6 preferentially delays activities with more float first, and checking whether 'Level all resources' vs a filtered subset, and the leveling date range, were configured correctly; also checks whether 'Preserve scheduled early and late dates' / leveling only within float was enabled, which would have prevented the critical activity from being pushed at all.",
+    "expertAnswer": "Notes that automated leveling is a blunt instrument that treats float purely as schedule slack without weighing commercial/criticality judgment (e.ks., a float-bearing activity might itself be tied to a contractual milestone even though CPM shows float), so leveling results should always be reviewed activity-by-activity before acceptance rather than accepted wholesale, and that on a project this complex, manual/selective leveling of the specific over-allocated trade within a defined activity subset is often safer than a full project-wide auto-level.",
+    "explanation": "P6's leveling algorithm resolves resource conflicts using the configured Priorities list; if Total Float is not part of that priority ordering (or a higher-ranked criterion ties activities together differently), leveling can delay a zero-float critical activity while leaving genuine float on the table elsewhere. The fix is to correct the leveling priority configuration — typically ranking by Total Float ascending is not what you want; you generally want activities with the LEAST float to be leveled last (delayed least), so Total Float should be a leveling priority set to preserve critical work.",
+    "reasoning": "Leveling does not automatically 'know' which activities matter more; it mechanically applies whatever priority order is configured (by default this can include fields like Activity ID, which is essentially arbitrary) plus a Total Float option that must be explicitly enabled/ordered correctly. Getting the priority wrong produces exactly this symptom: a technically feasible float-preserving solution exists, but leveling picked a worse one because it wasn't told to prefer preserving critical-path activities.",
+    "commonMistakes": [
+      "Assuming P6 leveling always automatically protects the critical path by default.",
+      "Not checking the Leveling Priorities dialog before or after running leveling.",
+      "Accepting the leveled result without manually reviewing which activities moved."
+    ],
+    "redFlags": [
+      "Treats the leveling output as ground truth without questioning why a critical activity moved.",
+      "Does not know where leveling priorities are configured in P6."
+    ],
+    "p6Checks": [
+      "Tools -> Level Resources -> Priorities tab/dialog to review the sort order used.",
+      "Confirm 'Total Float' is included and correctly ordered in the priority list.",
+      "Check the leveling options: 'Level all resources' vs a filtered list, the leveling date range, and whether leveling is constrained to occur only within available float.",
+      "Compare Start/Finish dates before and after leveling for both the critical and float-bearing activities to confirm which one actually moved."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If Total Float is correctly prioritized but the critical activity is still delayed, what else could be going on?",
+        "purpose": "Tests whether the candidate considers resource calendar constraints or a genuine lack of an alternative feasible solution, not just priority misconfiguration."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would you accept an auto-leveled schedule without manual review on a project of this complexity? Why or why not?",
+        "purpose": "Tests professional judgment about the limits of automated leveling."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the leveling priority configuration as the likely root cause."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains mechanically why priority misconfiguration produces this exact symptom."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes leveling output requires manual review, not blind acceptance."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "resource leveling",
+      "leveling priorities",
+      "total float",
+      "critical path",
+      "power plant"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-008",
+    "category": "RES",
+    "subcategory": "Resource-Driven Duration Recalculation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying why adding a second, less available resource to a Resource Dependent activity unexpectedly lengthened its duration",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A 10-day 'Cable Pulling' activity in a substation project was Resource Dependent with a single electrician crew at full Max Units/Time. The planner then added a second resource — a specialist testing engineer who is only available 2 days per week per their resource calendar and has a much smaller quantity of budgeted hours. After scheduling, the activity's calculated duration jumped from 10 days to 26 days.",
+    "question": "What is the most likely cause of the duration jumping to 26 days after adding the testing engineer, and is this a scheduling error?",
+    "expectedAnswer": "This is not a scheduling error. For a Resource Dependent activity, P6 duration is governed by whichever assigned resource takes longest, given its own calendar and budgeted units, to complete its share of work; the testing engineer's very restrictive 2-day/week calendar means even a small quantity of budgeted hours takes many calendar weeks to complete, and since that now exceeds the electrician crew's 10-day need, the engineer becomes the driving resource and stretches the whole activity to 26 days.",
+    "strongAnswer": "Adds that this is a common real-world planning trap: assigning a resource with a restrictive calendar to a Resource Dependent activity can silently blow out duration even if that resource's total hours are small, and that the fix (if 26 days is not actually intended) is either to change the activity to Task Dependent so the testing engineer's calendar no longer drives overall duration, or to split the testing work into its own successor activity so it does not co-drive the pulling activity.",
+    "expertAnswer": "Notes the deeper planning lesson: activity type (Resource Dependent) should be a deliberate choice tied to which resource genuinely paces the work, and a planner should sanity-check any duration jump this large before accepting the schedule update, since an incorrect Resource Dependent setting silently corrupts durations across many activities in a resource-loaded schedule, not just this one, and is a common source of unexplained float/duration drift in periodic updates.",
+    "explanation": "The jump to 26 days is the expected mechanical consequence of Resource Dependent duration calculation once a second, more restrictive resource is added — it is not a bug, but it usually signals that either the activity type or the resource assignment structure needs review if 26 days was not intended.",
+    "reasoning": "Resource Dependent duration = max across assigned resources of (that resource's units / that resource's available capacity per its own calendar). The electrician crew alone needed 10 days; the testing engineer, working only 2 days/week, needs proportionally far more elapsed calendar time even for a small quantity, and because P6 takes the longest of the two, the engineer's constrained availability becomes the binding constraint.",
+    "commonMistakes": [
+      "Assuming this must be a data-entry error rather than correct mechanical behavior.",
+      "Not realizing a small quantity of work on a very restrictive calendar can still dominate a Resource Dependent duration calculation.",
+      "Failing to consider whether the testing engineer should instead be on a separate, logically-linked activity."
+    ],
+    "redFlags": [
+      "Immediately blames 'P6 is buggy' without working through the calculation logic."
+    ],
+    "p6Checks": [
+      "Activity Type field (confirm Resource Dependent).",
+      "Testing engineer's resource calendar and budgeted units on the assignment.",
+      "Compare each assigned resource's individually implied duration to identify which one is driving.",
+      "Consider whether Task Dependent activity type or splitting into two activities better represents the real work."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "What would you recommend to the planner if 26 days is not actually realistic for this activity?",
+        "purpose": "Tests ability to propose a concrete fix, not just diagnose the mechanism."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you catch this kind of duration blow-out during a routine schedule update review, before it reaches the client report?",
+        "purpose": "Tests quality-control habits for resource-loaded schedules."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "resource dependent",
+      "duration calculation",
+      "resource calendar",
+      "substation",
+      "cable pulling"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies that Resource Dependent duration is driven by the least-available/most-constrained resource limiting units/time."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the P6 duration recalculation mechanics, not just states the conclusion."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Correctly ties the behavior to Resource Dependent duration type and resource calendar/availability."
+        }
+      ],
+      "passingScore": 8
+    }
+  },
+  {
+    "questionCode": "RES-009",
+    "category": "RES",
+    "subcategory": "Resource-Driven vs Task-Driven Scheduling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Deciding whether a specialized, capacity-constrained activity should be modeled as Resource Dependent or Task Dependent",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "A marine quay-wall project has a 'Heavy Lift – Precast Caisson Placement' activity that can only proceed using the project's single 400-tonne floating crane, which is shared across three separate caisson placement activities scheduled sequentially. The crane's own resource calendar accounts for tidal working windows (only usable during specific tide states, roughly 4 hours per day).",
+    "question": "Would you model this activity as Resource Dependent (driven by the crane's calendar) or Task Dependent (driven by a fixed activity calendar you build to represent the tidal window)? Justify your choice and state the practical consequence of choosing wrong.",
+    "expectedAnswer": "Resource Dependent is generally preferable here because the crane genuinely paces the work — its tidal-window calendar should directly drive the activity's duration so that the schedule automatically reflects real crane availability, and any change to the crane's calendar (e.g., updated tide tables, crane downtime) automatically ripples into duration without manual activity-duration edits.",
+    "strongAnswer": "Notes the alternative is defensible too: building the tidal constraint directly into a dedicated activity calendar and using Task Dependent keeps duration fixed and predictable for reporting, at the cost of having to manually keep that calendar synchronized with the crane's real calendar and with the other two caisson activities sharing the same crane (risking the crane being modeled as available in two places at once if not resource-loaded).",
+    "expertAnswer": "Highlights the real deciding factor: because the crane is shared across three sequential activities and is a genuine bottleneck resource, only the Resource Dependent approach (with the crane loaded onto all three activities) lets P6 leveling detect and resolve the sharing conflict automatically; a Task Dependent approach with hand-built calendars cannot detect a double-booking of the same physical crane across activities, which is the practical consequence of choosing wrong — the schedule could show all three caisson placements as feasible in isolation while silently double-booking the single crane.",
+    "explanation": "The deciding factor is not just 'what governs duration' in isolation, but that the crane is a shared, capacity-constrained resource across multiple activities — only modeling it as a genuine Resource Dependent assignment on all three activities lets P6 (via the Resource Usage Profile and leveling) detect over-allocation of the single crane, which a Task Dependent / hand-built-calendar approach cannot do.",
+    "reasoning": "Task Dependent activities do not carry resource-availability logic between activities; if the crane calendar changes or the crane is needed elsewhere at an overlapping time, nothing in a Task Dependent schedule will flag it. Resource Dependent modeling with the crane resource assigned to all three activities makes the shared constraint visible and manageable through the standard resource tools (usage profile, leveling), which is the entire point of resource loading a schedule with a genuine bottleneck resource.",
+    "commonMistakes": [
+      "Choosing Task Dependent purely because it seems 'simpler' without considering the shared-resource visibility this loses.",
+      "Not recognizing the crane is shared across multiple activities, treating each caisson placement as an isolated modeling decision.",
+      "Assuming resource loading is only about cost, not about capacity/availability visibility."
+    ],
+    "redFlags": [
+      "Cannot articulate any practical consequence of the choice beyond 'it changes how duration is calculated'."
+    ],
+    "p6Checks": [
+      "Resource dictionary entry for the crane, including its tidal-window calendar.",
+      "Each caisson activity's Activity Type and assigned resources.",
+      "Resource Usage Profile for the crane across all three activities to check for overlap/over-allocation.",
+      "Whether the three caisson activities have any logic (predecessor/successor) forcing sequence independent of the crane, or whether sequencing relies solely on the shared resource."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you model it as Resource Dependent, would you still add a Finish-to-Start logic link between the three caisson activities, or rely purely on the shared crane resource to sequence them?",
+        "purpose": "Tests understanding that resource-only sequencing without logic links can produce unstable schedules on reschedule."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What would you check in the Resource Usage Profile to confirm the crane is not double-booked?",
+        "purpose": "Tests practical verification habit, not just conceptual choice."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly favors Resource Dependent and explains why for a shared bottleneck resource."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names the concrete consequence (undetected double-booking) of choosing wrong."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Connects the modeling choice to what P6's resource tools can and cannot detect."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "resource dependent",
+      "task dependent",
+      "shared resource",
+      "crane",
+      "marine",
+      "resource leveling"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-010",
+    "category": "RES",
+    "subcategory": "Resource Over-Allocation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Selecting the appropriate next workflow step after identifying a resource over-allocation on the histogram",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_NEXT",
+    "scenario": "During a monthly schedule review of a hospital fit-out project, the Resource Usage Profile for 'HVAC Duct Installer' shows demand exceeding Max Units/Time (10 installers) in three separate weeks, peaking at 16 installers in week 9.",
+    "question": "You have just identified this over-allocation. What is the next step in your workflow before presenting anything to the project manager?",
+    "expectedAnswer": "Before recommending any fix, investigate the cause of the peak in week 9 specifically — check which activities are contributing to the demand, whether they have float that could allow resequencing, whether the Max Units/Time figure of 10 is still accurate, and whether the peak is a real capacity risk or an artifact of an outdated resource assignment.",
+    "strongAnswer": "Adds that the next concrete step is typically to test P6 leveling (or manual resequencing) as a what-if, in a copy of the schedule, to see whether the over-allocation can be resolved within existing float without pushing the finish date, and to quantify the impact (in days of delay, or in additional crew cost) of each option before it goes to the PM.",
+    "expertAnswer": "Frames this as preparing a decision package for the PM rather than a unilateral technical fix: present the root cause, 2-3 resolution options (add crew, resequence, accept a leveled delay) each with its cost/schedule tradeoff quantified, and a recommendation — since only the PM/commercial team can authorize added crew cost or accept a schedule slip.",
+    "explanation": "The correct next step is diagnosis and option development before recommendation, not immediately running auto-leveling and reporting whatever P6 produces, and not escalating to the PM without first doing the analysis.",
+    "reasoning": "A raw over-allocation flag is the start of an analysis, not the end of it. Understanding which activities and floats are involved lets the planner develop real options (resequence within float, add resources, or accept delay) with quantified tradeoffs, which is what makes the eventual PM conversation productive rather than just 'the histogram has a red spike'.",
+    "commonMistakes": [
+      "Escalating the raw histogram spike to the PM without any analysis or options.",
+      "Running auto-leveling once and reporting the leveled finish date as the only option without considering alternatives.",
+      "Assuming the fix must always be 'add more crew' without checking float first."
+    ],
+    "redFlags": [
+      "No mention of checking float or investigating root cause before proposing a fix."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile drilled down to see which specific activities load 'HVAC Duct Installer' in week 9.",
+      "Total Float on each contributing activity.",
+      "Resource dictionary Max Units/Time basis for HVAC Duct Installer.",
+      "What-if leveling run in a schedule copy to test impact."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If resequencing within float fully resolves the peak with zero schedule impact, do you still need to inform the PM?",
+        "purpose": "Tests judgment on what needs escalation versus routine resolution."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you quantify the cost tradeoff if the only real fix is adding two more installers for three weeks?",
+        "purpose": "Tests ability to translate a schedule finding into a commercial input."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a concrete diagnose-then-option workflow rather than jumping to escalation or a single fix."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes what should be resolved independently vs escalated with options."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "over-allocation",
+      "resource usage profile",
+      "workflow",
+      "hospital fit-out",
+      "HVAC"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-011",
+    "category": "RES",
+    "subcategory": "Resource Leveling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing that an activity can carry positive Total Float on the CPM network while still being effectively resource-critical",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "On an airport terminal fit-out, 'Ceiling Grid Installation – Concourse B' shows 12 days of Total Float on the unleveled CPM schedule. After the planner runs resource leveling to resolve an over-allocation of 'Ceiling Fitter' shared with two other concourses, this activity is delayed by the full 12 days and now sits with 0 days of float relative to its original finish date, effectively becoming as schedule-critical as any logic-driven critical activity.",
+    "question": "Is it possible for an activity with genuine CPM-calculated positive Total Float to become effectively critical purely due to resource constraints? Explain, and state whether this is a flaw in the CPM calculation.",
+    "expectedAnswer": "Yes, this is possible and is not a flaw in the CPM calculation. Total Float from the logic-only CPM pass measures schedule flexibility based purely on activity relationships and constraints, assuming unlimited resources; it does not account for finite shared-resource capacity. When resource leveling is applied, an activity can consume all of its logic-based float (or more, becoming a leveling-driven delay) simply because the shared resource is fully committed elsewhere first — this is 'resource-critical' rather than 'logic-critical', and both are real constraints on the project.",
+    "strongAnswer": "Distinguishes clearly between the unleveled (logic-only) critical path and the resource-leveled critical path, noting that many scheduling standards and contracts care specifically about the logic-only CPM critical path for float/delay analysis purposes, so a planner should track and report both, and should flag resource-critical activities separately since consuming their float via leveling removes float that CPM analysis assumes is still available for other purposes (e.g., absorbing a future delay claim).",
+    "expertAnswer": "Raises the practical and contractual implication: if this project uses float ownership/float consumption clauses, a leveling-driven consumption of 12 days of float on this activity (not caused by any delay event, but by the contractor's own resource-sharing decision) could complicate a later analysis of who 'used' that float, and recommends documenting the leveling basis and date at which it was applied so it is defensible if the float's disappearance is later scrutinized in a delay analysis.",
+    "explanation": "Yes — CPM Total Float and resource-leveled float answer different questions. CPM float assumes unconstrained resources; leveling reflects real, finite shared-resource capacity, and an activity can lose most or all of its CPM float purely because of resource contention, without any change in logic or duration.",
+    "reasoning": "Total Float on the unleveled schedule is purely a function of network logic and constraints (early dates vs late dates via forward/backward pass). Resource leveling is a separate step that delays activities to resolve resource conflicts, consuming float in the process — it does not alter the underlying logic-only float calculation, it just uses up the schedule flexibility that float represented. The two numbers measure different things and are both legitimate; neither is 'wrong'.",
+    "commonMistakes": [
+      "Assuming Total Float is a single, fixed, unambiguous number that must be the same before and after leveling.",
+      "Concluding leveling must have introduced a scheduling error because float 'disappeared'.",
+      "Not distinguishing logic-critical from resource-critical activities in reporting."
+    ],
+    "redFlags": [
+      "Insists float loss after leveling always indicates a mistake rather than a real resource constraint being reflected."
+    ],
+    "p6Checks": [
+      "Compare Total Float before leveling (logic-only, unleveled schedule copy) and after leveling.",
+      "Resource Usage Profile for 'Ceiling Fitter' across all three concourses to confirm the shared-resource conflict.",
+      "Leveling log/report to see exactly which activities were delayed and by how much."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Would you report the leveled schedule or the logic-only schedule as the basis for float/delay analysis on this contract?",
+        "purpose": "Tests awareness of the contractual/methodological question of which float basis governs delay analysis."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you communicate to the PM that this activity is now effectively critical, even though the CPM report still shows some nominal float?",
+        "purpose": "Tests ability to translate a technical distinction into an actionable management communication."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains the logic-only vs resource-leveled float distinction."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the mechanism (leveling consumes float, does not change logic-based float calculation)."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes the reporting/contractual implications of resource-critical vs logic-critical activities."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "total float",
+      "resource leveling",
+      "resource-critical",
+      "critical path",
+      "airport"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "AACE RP 29R-03 Forensic Schedule Analysis"
+    ]
+  },
+  {
+    "questionCode": "RES-012",
+    "category": "RES",
+    "subcategory": "Resource-Driven Scheduling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying all factors that determine a Resource Dependent activity's calculated duration",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MULTI_SELECT",
+    "question": "For a Resource Dependent activity in P6 with a single assigned resource, which of the following factors directly affect the activity's calculated duration? (Select all that apply)",
+    "options": [
+      {
+        "label": "A",
+        "text": "The resource's assigned calendar (working days/hours available).",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "The total budgeted units assigned to that resource.",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "The resource's Units/Time (e.g., how many hours/day that resource is assigned at).",
+        "isCorrect": true
+      },
+      {
+        "label": "D",
+        "text": "The alphabetical order of the resource's Resource ID in the dictionary.",
+        "isCorrect": false
+      },
+      {
+        "label": "E",
+        "text": "The activity's Duration Type setting (e.g., Fixed Units, Fixed Duration & Units, Fixed Units/Time).",
+        "isCorrect": true
+      },
+      {
+        "label": "F",
+        "text": "The color assigned to the resource in the Gantt chart.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "explanation": "Duration for a Resource Dependent activity is derived from how long it takes the assigned resource, working at its assigned Units/Time on its own calendar, to complete its total budgeted units — and the Duration Type setting governs how P6 recalculates duration, units, or units/time when one of the other values changes. Resource ID ordering and Gantt bar color are purely cosmetic/organizational and have no effect on the calculation.",
+    "reasoning": "P6's resource-driven duration formula is essentially Duration = Budgeted Units / Units per Time, constrained by the resource's own calendar; Duration Type determines which of these three variables P6 holds fixed and which it recalculates when the schedule is updated or when resources are added/removed.",
+    "commonMistakes": [
+      "Selecting cosmetic fields (color, ID ordering) as if they affected calculation.",
+      "Forgetting that Duration Type is itself a governing factor, not just a display setting.",
+      "Overlooking that the resource's own calendar (not just the activity calendar) is what matters here."
+    ],
+    "redFlags": [
+      "Selects options with no functional bearing on scheduling calculations, suggesting confusion between display/organizational fields and calculation-driving fields."
+    ],
+    "p6Checks": [
+      "Activities view -> Resources tab: Budgeted Units, Units/Time per assignment.",
+      "Resource's calendar assignment in the resource dictionary.",
+      "Activity's Duration Type field (General tab or Status tab depending on P6 version)."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If Duration Type is set to Fixed Duration & Units/Time, what happens to Budgeted Units if you shorten the activity's duration manually?",
+        "purpose": "Tests deeper understanding of how Duration Type governs recalculation behavior."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 90,
+    "tags": [
+      "resource dependent",
+      "duration type",
+      "budgeted units",
+      "units per time",
+      "resource calendar"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-013",
+    "category": "RES",
+    "subcategory": "Level of Effort Activities",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Correctly structuring a Level of Effort activity to represent ongoing QA/QC supervision spanning multiple discrete work activities",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "CASE_STUDY",
+    "scenario": "On a marine jetty construction project, a QA/QC Engineer provides continuous inspection and documentation support across four sequential concrete pour packages (Pour 1 through Pour 4), each with its own start/finish dates spread over 5 months. The planner wants the schedule to show the QA/QC Engineer's presence and cost spanning the full inspection period, without that resource driving the critical path of the pour activities themselves.",
+    "question": "How should the planner structure this in P6 — what activity type should the QA/QC support activity use, what should it be linked to, and what is the risk of getting this wrong?",
+    "expectedAnswer": "The QA/QC support work should be modeled as a Level of Effort (LOE) activity type, tied via Start-to-Start from the first pour package's start and Finish-to-Finish to the last pour package's finish (or spanning all four via appropriate hammock-style logic), so its duration automatically derives from and stretches/shrinks with its driving predecessor/successor activities rather than being independently scheduled or resource-driven in the normal sense.",
+    "strongAnswer": "Notes that LOE activities in P6 do not use normal duration-driven CPM logic the way Task/Resource Dependent activities do — their dates are calculated from the activities they are linked to — and that resources (the QA/QC Engineer's cost/hours) can still be loaded onto the LOE activity for cost and manpower reporting purposes even though the LOE activity itself does not drive the critical path of the pours.",
+    "expertAnswer": "Flags the practical risk of getting this wrong: if the QA/QC activity is instead modeled as a normal Task/Resource Dependent activity with fixed dates or its own independent logic, it can either (a) incorrectly appear on or influence the critical path when it should not, or (b) fail to automatically adjust when a pour package slips, silently under- or over-stating QA/QC cost and duration in later updates — and that on some projects, if LOE is misused for something that should genuinely drive the schedule (e.g., an inspection that must complete before the next pour can start), that activity should NOT be LOE at all, since LOE activities are explicitly meant for support/oversight functions, not driving work.",
+    "explanation": "Level of Effort (LOE) is the correct activity type for ongoing supervisory/support work whose duration should passively follow other activities rather than independently drive the schedule; linking it via Start-to-Start/Finish-to-Finish to the span of pour activities lets its duration self-adjust as those activities move.",
+    "reasoning": "LOE activities in P6 calculate their own duration from their predecessor/successor relationships rather than from resource loading or manually entered duration — this is exactly the behavior needed for a support function that should track, not drive, the underlying work. Using a normal Task Dependent activity with manually set dates would require constant manual updates every time a pour package's schedule shifted, and risks becoming stale or, worse, inadvertently constraining the pours.",
+    "commonMistakes": [
+      "Modeling ongoing support work as a normal Task Dependent activity with fixed dates that must be manually maintained.",
+      "Not linking the LOE activity's start/finish to the actual driving activities, causing it to become stale after schedule updates.",
+      "Assuming LOE activities cannot carry resource/cost loading, when in fact they can and commonly do."
+    ],
+    "redFlags": [
+      "Does not know what an LOE activity type is or how its duration is calculated."
+    ],
+    "p6Checks": [
+      "Activity Type field set to Level of Effort (LOE).",
+      "Predecessor relationship from Pour 1 start (Start-to-Start) and successor relationship to Pour 4 finish (Finish-to-Finish).",
+      "Resources tab to confirm the QA/QC Engineer's units/cost are loaded on the LOE activity.",
+      "Confirm the LOE activity does not itself appear as logic-driving on the critical path report."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If Pour 3 is delayed by three weeks due to a rebar delivery issue, what happens automatically to the QA/QC LOE activity's finish date and cost?",
+        "purpose": "Tests understanding that LOE dates (and by extension resource-loaded cost/hours if the curve/units scale with duration) recalculate automatically from the linked activities."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would you ever use LOE for a mandatory inspection hold-point that must complete before the next pour can proceed?",
+        "purpose": "Tests whether the candidate understands LOE is inappropriate for schedule-driving inspection/hold-point activities."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Correctly identifies LOE activity type and its S-S/F-F linking pattern."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Explains why LOE duration is derived rather than independently scheduled."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Identifies the real risk of misusing a normal activity type for this purpose."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "level of effort",
+      "LOE",
+      "QA/QC",
+      "hammock",
+      "marine",
+      "resource loading"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-014",
+    "category": "RES",
+    "subcategory": "Level of Effort Activities",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recalling how Level of Effort activities behave with respect to Total Float and the critical path",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "MCQ",
+    "question": "In Primavera P6, a Level of Effort (LOE) activity typically:",
+    "options": [
+      {
+        "label": "A",
+        "text": "Drives the critical path calculation the same way a normal Task Dependent activity does.",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "Has its dates derived from its linked predecessor/successor activities and does not itself drive network logic or the critical path.",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "Cannot have any resources or costs assigned to it.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "Must always have zero duration.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "LOE activities derive their duration and dates from the activities they are linked to (commonly via Start-to-Start and Finish-to-Finish relationships spanning the work they support) rather than driving the schedule themselves, and they can carry resource/cost assignments like any other activity type.",
+    "reasoning": "LOE is specifically designed for supervisory, oversight, or support-type work (e.g., project management, safety supervision, QA/QC) whose duration should passively track the activities it supports, not independently constrain or drive them.",
+    "commonMistakes": [
+      "Believing LOE activities cannot carry resources.",
+      "Confusing LOE with a milestone (LOE has duration; milestones do not).",
+      "Assuming LOE activities always show as critical because they often span the whole project."
+    ],
+    "redFlags": [
+      "No familiarity with LOE as an activity type at all."
+    ],
+    "p6Checks": [
+      "Activity Type field options in the General tab.",
+      "Predecessor/Successor relationships typical for an LOE activity."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Give an example of work that should NOT be modeled as LOE even though it seems like ongoing support.",
+        "purpose": "Tests whether the candidate can distinguish appropriate from inappropriate LOE use."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "level of effort",
+      "LOE",
+      "activity type",
+      "critical path"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-015",
+    "category": "RES",
+    "subcategory": "Resource Calendars",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying a resource-calendar mismatch as the cause of an unexplained slip on a resource-loaded schedule update",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "SCENARIO",
+    "scenario": "A refinery turnaround schedule uses a 7-day project/activity calendar (round-the-clock shift work). A newly added 'Insulation Removal' resource was set up in the resource dictionary using the company's default 5-day standard calendar. The activity using this resource is Resource Dependent. After the next schedule update, the activity's remaining duration is noticeably longer than the planner expected given the remaining budgeted hours and crew size.",
+    "question": "What is the likely cause, and what should the planner check and correct?",
+    "expectedAnswer": "The likely cause is the resource calendar mismatch: the Insulation Removal resource was assigned a 5-day calendar by default while the project intends round-the-clock 7-day working, so for this Resource Dependent activity, P6 is calculating remaining duration using only 5 working days per week instead of 7, stretching the calculated duration. The planner should check the resource's assigned calendar in the resource dictionary and change it to the correct 7-day turnaround calendar (or a purpose-built shift calendar matching actual crew rostering).",
+    "strongAnswer": "Notes this is a common and easy-to-miss error when new resources are added to an existing resource dictionary during a fast-paced turnaround, and recommends a standard QC check during setup: for every new resource added, confirm its calendar assignment matches the intended working pattern for that activity/discipline before the first schedule update is issued.",
+    "expertAnswer": "Points out the broader risk: if this went undetected past this update, remaining-duration and forecast finish figures reported to the turnaround manager for this activity (and any successors) would have been wrong, potentially masking a false schedule risk or, worse, a false sense of comfort if the miscalculation happened to run the other direction (understating duration) — and recommends a periodic audit of resource calendar assignments across the resource dictionary, not just at initial setup, particularly after any bulk resource import.",
+    "explanation": "Because the activity is Resource Dependent, duration is calculated using the resource's own calendar, not the activity/project calendar; a 5-day resource calendar on a round-the-clock 7-day turnaround activity will materially overstate elapsed duration relative to what the crew's real availability supports.",
+    "reasoning": "The mismatch between the intended 7-day working pattern and the resource's actual 5-day calendar means P6 spreads the same budgeted hours across fewer available working periods per week, lengthening calculated duration — this is exactly the kind of setup error that resource-loaded, Resource Dependent scheduling is vulnerable to if resource calendars are not actively managed.",
+    "commonMistakes": [
+      "Assuming the activity calendar alone governs duration and overlooking resource calendar as a separate, independently-configured setting.",
+      "Not checking new resources' calendar assignments when they are added mid-project.",
+      "Attributing the duration increase to a real productivity problem before checking the calendar setup."
+    ],
+    "redFlags": [
+      "Concludes the crew must be underperforming without first checking calendar setup."
+    ],
+    "p6Checks": [
+      "Resource dictionary -> Insulation Removal resource -> assigned calendar.",
+      "Compare to the project/activity calendar (7-day) intended for turnaround work.",
+      "Activity Type confirmation (Resource Dependent) to confirm this mechanism applies.",
+      "Check other newly added resources for the same calendar-assignment error."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you prevent this error from recurring as more resources are added during the turnaround?",
+        "purpose": "Tests process-improvement thinking, not just one-off fixes."
+      },
+      {
+        "trigger": "always",
+        "prompt": "If this activity were Task Dependent instead, would the resource calendar mismatch have caused the same duration error?",
+        "purpose": "Reinforces the distinction between Task Dependent and Resource Dependent calendar sensitivity."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the resource calendar mismatch as the cause."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names the concrete fix and a QC habit to prevent recurrence."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "resource calendar",
+      "resource dependent",
+      "turnaround",
+      "refinery",
+      "duration"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-016",
+    "category": "RES",
+    "subcategory": "Resource Leveling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Understanding the boundary between what resource leveling can and cannot override in P6",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: Running Resource Leveling in P6 can delay activities to resolve over-allocation, but by default it will not move an activity's Start date earlier than an applied 'Start On or After' constraint, nor will it typically move activities past a hard project Must-Finish-By constraint without flagging the resulting conflict.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": true
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "True",
+    "explanation": "Leveling delays activities within (and can consume) their available float to resolve resource conflicts, but it respects constraints in the sense that it will not schedule an activity earlier than a Start On or After constraint, and pushing past a hard finish constraint produces visible negative float / a constraint conflict rather than silently overriding the constraint.",
+    "reasoning": "Leveling is a float-consuming, date-shifting operation layered on top of the CPM-calculated schedule; constraints remain in force as boundary conditions during and after leveling, so leveling's effect shows up as delayed activities and reduced/negative float against those constraints rather than the constraints themselves being silently removed or ignored.",
+    "commonMistakes": [
+      "Assuming leveling can freely override any constraint to 'make the histogram work'.",
+      "Not realizing that a leveling-driven conflict with a hard finish constraint will surface as negative float rather than being hidden."
+    ],
+    "redFlags": [
+      "Believes leveling silently deletes or ignores constraints."
+    ],
+    "p6Checks": [
+      "Constraint type and date on affected activities before and after leveling.",
+      "Total Float values after leveling to see if negative float appears against a Must-Finish-By milestone."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If leveling produces negative float against a contractual milestone, what should the planner do next?",
+        "purpose": "Tests understanding that leveling conflicts require judgment/escalation, not silent acceptance."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "resource leveling",
+      "constraints",
+      "negative float",
+      "must finish by"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-017",
+    "category": "RES",
+    "subcategory": "Resource Leveling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Determining what to verify first after resource leveling pushes the project finish date",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On a metro rail station box excavation and structure project, the planner ran resource leveling to resolve over-allocation of 'Tower Crane' shared across three adjacent pour zones. After leveling, the project finish date pushed out by 18 working days compared to the unleveled schedule.",
+    "question": "Before reporting an 18-day schedule slip to the project director, what would you check first?",
+    "expectedAnswer": "Check whether the 18-day push is genuinely unavoidable given real crane capacity (i.e., confirm the crane over-allocation and its magnitude are real, and that Max Units/Time for the crane resource correctly reflects actual site capacity) versus being an artifact of leveling settings — such as leveling priorities, the leveling date range, or 'level all resources' inadvertently including non-bottleneck resources — that may have produced a worse-than-necessary result.",
+    "strongAnswer": "Also checks whether all three pour zones truly require the single tower crane resource loaded on them (versus, for example, one zone actually using a mobile crane that was incorrectly resource-loaded as the tower crane), and re-tests leveling with corrected priorities/settings and/or manual resequencing to see whether the 18-day push can be reduced.",
+    "expertAnswer": "Frames the verification as protecting the credibility of the report: an 18-day slip attributed to 'resource leveling' will be read by a project director as a real capacity constraint requiring a decision (accept delay, add a second crane, resequence pours) — so before that conversation happens, confirms the leveling result is genuinely the best achievable outcome given real constraints, not an artifact of a misconfigured leveling run, since reporting an inflated slip and later correcting it downward damages the planner's credibility more than taking an extra day to verify first.",
+    "explanation": "An 18-day push from leveling should be verified as a genuine resource-capacity outcome (correct Max Units/Time, correct leveling priorities/settings, correct resource assignments) before being reported as a schedule impact, since misconfigured leveling can produce an artificially large delay that a corrected run would not reproduce.",
+    "reasoning": "Leveling results are only as good as their inputs: incorrect Max Units/Time, wrong leveling priorities, an overly broad leveling scope, or an incorrect resource assignment (e.g., loading the tower crane on an activity that actually uses a different crane) can all inflate the leveled delay beyond what real site capacity would require. Verifying these before reporting avoids presenting a misleading figure.",
+    "commonMistakes": [
+      "Reporting the raw leveled finish date to management without validating leveling inputs.",
+      "Assuming any leveling-driven push is automatically a 'real' constraint rather than possibly a modeling artifact.",
+      "Not checking whether all three pour zones actually compete for the same physical crane."
+    ],
+    "redFlags": [
+      "Escalates a leveling output directly to senior management without any verification step."
+    ],
+    "p6Checks": [
+      "Resource dictionary Max Units/Time for Tower Crane vs actual site crane count/capacity.",
+      "Leveling Priorities configuration used for the run.",
+      "Leveling options: date range and 'level all resources' vs targeted resource selection.",
+      "Resource assignments on each of the three pour zone activities to confirm they genuinely share the same crane resource."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "After verifying the leveling result is genuine, what options would you present to the project director?",
+        "purpose": "Tests ability to move from verification to a decision-ready recommendation."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you explain to a non-technical stakeholder why a software 'leveling' function pushed the finish date by 18 days?",
+        "purpose": "Tests communication skill translating a technical mechanism into plain language."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Identifies verifying leveling inputs/settings as the first check, not immediate escalation."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Explains why verification matters before reporting to senior management."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names concrete leveling settings/fields that could inflate the result."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "resource leveling",
+      "tower crane",
+      "metro rail",
+      "over-allocation",
+      "leveling priorities"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-018",
+    "category": "RES",
+    "subcategory": "Resource Loading Calculations",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating the crew size needed to complete a resource-loaded activity within a fixed duration window",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "An MEP fit-out package for a commercial office tower includes a 'Cable Tray Installation' activity budgeted at 1,200 labor-hours. The activity must be completed within a fixed 15-working-day window (dictated by an upstream ceiling-close milestone), and each electrician works an 8-hour shift per working day.",
+    "question": "Assuming even productivity across the crew, calculate the minimum number of electricians required to complete the 1,200 labor-hours of work within the 15-working-day window.",
+    "correctAnswer": 10,
+    "explanation": "Required crew size = Total labor-hours / (Working days x hours/day per worker) = 1,200 / (15 x 8) = 1,200 / 120 = 10 electricians.",
+    "reasoning": "The fixed duration window sets the total available labor-hour capacity per worker (15 days x 8 hours = 120 hours per electrician over the window). Dividing the total budgeted labor-hours by that per-worker capacity gives the minimum headcount needed to deliver the full quantity of work within the window, assuming full productivity and no losses.",
+    "commonMistakes": [
+      "Dividing 1,200 by 15 alone and forgetting to also divide by the 8-hour shift length, producing hours/day instead of headcount.",
+      "Not recognizing this is the inverse of the standard duration-from-crew calculation.",
+      "Ignoring that this is a minimum theoretical crew size assuming 100% productivity, with no allowance for productivity loss."
+    ],
+    "redFlags": [
+      "Cannot restructure the units/rate/duration relationship to solve for crew size instead of duration."
+    ],
+    "p6Checks": [
+      "Activity's Budgeted Units and the fixed duration window driving it (often a constraint or successor milestone).",
+      "Resource assignment Units/Time needed to represent 10 electricians (80 hours/day total) if entering this into P6.",
+      "Resource dictionary Max Units/Time for Electrician to confirm 10 is within available crew capacity."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the resource dictionary shows only 8 electricians are available company-wide for this trade during that window, what are your options?",
+        "purpose": "Tests ability to connect a calculation result to a real resource-constraint decision."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would you actually crew this at exactly 10, or add a margin? Why?",
+        "purpose": "Tests practical judgment about planning to theoretical minimums versus building in productivity/absence buffer."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": [
+      "resource loading",
+      "crew size calculation",
+      "cable tray",
+      "MEP fit-out",
+      "budgeted units"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-019",
+    "category": "RES",
+    "subcategory": "Resource-Driven Scheduling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Explaining the schedule consequence of reducing crew size on a critical, Resource Dependent activity to a PM focused on cost savings",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "On a critical-path, Resource Dependent 'Structural Steel Erection' activity for a warehouse and logistics facility, the current crew is 12 steel erectors delivering the activity in 20 working days. The project manager, under pressure to cut labor cost this month, asks the planning engineer to reduce the crew to 8 erectors on this activity without changing anything else in the plan, believing this simply saves cost with 'the schedule staying the same since the total work doesn't change.'",
+    "question": "How would you respond to the PM, and what specifically would you show them to support your answer?",
+    "expectedAnswer": "Explain that because this is a Resource Dependent activity on the critical path, reducing crew size will proportionally increase its calculated duration (fewer erectors need more elapsed time to complete the same total budgeted units), and because it is critical, that increase pushes the project finish date directly — this is not cost-neutral to schedule, and the PM's assumption is incorrect. Show the specific recalculated duration (roughly 20 x 12/8 = 30 working days, a 10-day extension) and its knock-on effect on the finish date and any milestones/contractual dates downstream.",
+    "strongAnswer": "Also quantifies the full tradeoff for the PM: the direct labor cost saved by 4 fewer erectors versus the cost of a 10-day schedule extension (extended site overheads, potential liquidated damages exposure, delayed handover, knock-on effect on other trades' mobilization), framing this as a genuine cost-schedule tradeoff decision rather than a free efficiency, and offers alternatives (e.g., reduce crew on a different, non-critical activity with float instead).",
+    "expertAnswer": "Recognizes and names the underlying governance point: labor cost decisions on critical-path Resource Dependent activities should not be made unilaterally by the PM without planning/controls input precisely because of this non-obvious schedule linkage, and recommends this be documented (e.g., in a change log or cost-schedule tradeoff memo) so that if the 10-day extension later triggers a cost or contractual consequence, there is a clear record that it was a deliberate, informed decision rather than an unanticipated side effect — and proactively checks whether reducing crew on ANY other floated, non-critical activities in the same trade could deliver comparable savings without a schedule hit.",
+    "explanation": "Reducing crew on a critical, Resource Dependent activity is not cost-neutral to schedule: P6 will recalculate a longer duration for the same total budgeted units with fewer erectors, and because the activity is critical, that extension pushes the whole project finish — the planner's job is to quantify this clearly and present it as a decision, not silently execute the crew reduction or silently refuse it.",
+    "reasoning": "Resource Dependent duration is inversely related to crew size for a fixed quantity of budgeted units (assuming constant individual productivity): duration scales up as crew size scales down. Because this specific activity sits on the critical path, any duration increase here has a one-to-one effect on project finish, unlike a similar reduction applied to a non-critical, float-bearing activity, which would have no schedule impact. The PM's mental model conflates 'total work doesn't change' with 'schedule doesn't change', missing that duration is the mediating variable.",
+    "commonMistakes": [
+      "Silently implementing the crew reduction without flagging the schedule impact.",
+      "Refusing outright without quantifying the actual tradeoff for the PM to make an informed decision.",
+      "Not distinguishing between critical and non-critical activities when advising on crew reductions."
+    ],
+    "redFlags": [
+      "Agrees the schedule 'stays the same' without doing the math.",
+      "Does not consider or offer any alternative (e.g., cutting crew on a non-critical activity instead)."
+    ],
+    "p6Checks": [
+      "Activity Type (confirm Resource Dependent) and current Budgeted Units.",
+      "Recalculate duration at reduced crew size using the same units/rate logic.",
+      "Total Float = 0 confirmation that this activity is on the critical path.",
+      "Project-level forecast finish date before/after the what-if crew change."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The PM says 'fine, keep 12 people but only pay overtime to 8 of them' — does that change your schedule analysis?",
+        "purpose": "Tests whether the candidate can distinguish headcount-driven duration effects from pure cost/pay-rate questions that don't affect schedule."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you identify a non-critical activity with the same trade where crew could safely be reduced instead?",
+        "purpose": "Tests ability to propose a genuinely cost-saving alternative that preserves schedule."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly recalculates the duration impact of the crew reduction."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains why critical-path status makes this schedule-impacting rather than cost-neutral."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Frames this as an informed tradeoff decision for the PM, with a documented basis, rather than silent compliance or refusal."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Offers a concrete, quantified alternative or next step."
+        }
+      ],
+      "passingScore": 13
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "resource dependent",
+      "crew size",
+      "critical path",
+      "cost-schedule tradeoff",
+      "structural steel",
+      "warehouse"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "RES-020",
+    "category": "RES",
+    "subcategory": "Resource Over-Allocation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Detecting a hidden shared-resource conflict across multiple activities that individually appear feasible",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "PRACTICAL_SCENARIO",
+    "scenario": "A hyperscale data center commissioning schedule has 'Commissioning Engineer - BMS' assigned to four separate Level 3 commissioning activities across four independent data halls, each scheduled by a different discipline lead planner in the same integrated schedule. Each activity individually shows adequate float and a feasible-looking date range in isolation. However, only one BMS commissioning engineer with the required OEM certification exists on the project.",
+    "question": "How would resource loading and the Resource Usage Profile reveal a problem that reviewing each of the four activities individually would miss, and what would you recommend?",
+    "expectedAnswer": "Each activity looked feasible in isolation because the reviewers only checked logic/dates per activity, not shared resource demand across activities; only by loading the same named 'Commissioning Engineer - BMS' resource onto all four activities and viewing the aggregated Resource Usage Profile does the over-allocation become visible — the profile would show periods where two or more halls need the single certified engineer simultaneously, which no amount of individual-activity date review would catch.",
+    "strongAnswer": "Recommends running or reviewing the Resource Usage Profile specifically for this named/critical resource across the whole integrated schedule (not just within each discipline lead's silo), and treating single-person, uniquely-certified resources as a special review category during schedule integration, since a normal Max Units/Time of 1 will flag any overlap immediately once properly loaded.",
+    "expertAnswer": "Identifies the organizational root cause: four different discipline leads independently scheduling the same scarce named resource without a shared, consolidated resource-loading review is a process gap, not just a technical one — recommends a resource-loading review specifically at schedule integration/consolidation stage (not left to individual discipline leads), and flags that this pattern (unique/scarce specialist resources spread across independently-planned work fronts) is a common blind spot on large multi-discipline projects and should be a standing checklist item at each integrated schedule update.",
+    "explanation": "Resource over-allocation across independently-planned activities is invisible to per-activity logic review and only becomes visible when the shared resource is consistently loaded on all its activities and viewed in aggregate via the Resource Usage Profile — this is precisely the scenario resource loading and leveling tools exist to catch.",
+    "reasoning": "CPM logic review checks predecessor/successor feasibility per activity or per path; it has no visibility into resource demand unless resources are loaded and reviewed in aggregate. A single specialist resource split across four independently-scheduled halls will only reveal a conflict when someone views total demand for that resource across the whole schedule at once, which is exactly what the Resource Usage Profile (grouped/filtered by that resource) is for.",
+    "commonMistakes": [
+      "Assuming individually-feasible activity dates guarantee overall schedule feasibility.",
+      "Not consolidating or reviewing shared-resource demand across discipline-siloed schedule sections.",
+      "Treating this as a one-off scheduling error rather than a systemic review gap."
+    ],
+    "redFlags": [
+      "No mention of checking the Resource Usage Profile or aggregate resource demand at all."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile filtered to 'Commissioning Engineer - BMS' across the full integrated schedule.",
+      "Resource dictionary Max Units/Time for this resource (should be 1, reflecting the single certified individual).",
+      "Each of the four commissioning activities' Resources tab to confirm the same named resource is assigned.",
+      "Schedule integration/consolidation review process to see whether cross-discipline shared-resource checks are a standing step."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If leveling this conflict pushes one hall's commissioning past the contractual handover date, what would you do next?",
+        "purpose": "Tests ability to move from detection to resolution with commercial awareness."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you make sure this kind of conflict is caught earlier, before four separate discipline leads have already built out independent logic around it?",
+        "purpose": "Tests process-improvement thinking for multi-discipline schedule integration."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Correctly explains why per-activity review misses this and how the Resource Usage Profile catches it."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names the specific P6 mechanism (resource loading + usage profile) that reveals the conflict."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Identifies the process/organizational fix, not just the one-time technical fix."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "resource over-allocation",
+      "data center",
+      "commissioning",
+      "resource usage profile",
+      "shared resource",
+      "schedule integration"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RES-021",
+    "category": "RES",
+    "subcategory": "Resource Dictionary Structure",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Explaining the purpose of hierarchical resource coding in the resource dictionary for reporting and rollup",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "A contractor's resource dictionary lists over 300 individual resource IDs flat, with no hierarchy — e.g., 'Carpenter1', 'ElecFitter_A', 'Crane25T' all sit at the same level with no grouping by trade, discipline, or cost type. The cost controller wants a single report showing total planned and actual labor cost by discipline (Civil, MEP, Structural) across the whole project.",
+    "question": "What is wrong with the current resource dictionary structure for this purpose, and how should it be restructured to support the requested report?",
+    "expectedAnswer": "A flat, ungrouped resource dictionary cannot be rolled up by discipline without manual, error-prone mapping outside P6; it should be restructured into a hierarchy (parent nodes for each discipline such as Civil, MEP, Structural, with individual resources nested underneath, or supplemented with Resource Codes for discipline) so that Resource Usage Profile/Spreadsheet and cost reports can filter, group, and sum by discipline directly within P6.",
+    "strongAnswer": "Distinguishes between using dictionary hierarchy (parent/child resource nodes) versus Resource Codes (a separate coding dimension) to achieve the grouping, noting Resource Codes are often more flexible since a resource can be grouped multiple ways (by discipline, by cost center, by trade) simultaneously without forcing a single rigid hierarchy, whereas dictionary hierarchy position is a single fixed grouping.",
+    "expertAnswer": "Notes the practical migration challenge: retrofitting a hierarchy or codes onto 300 existing resources requires a one-time reclassification exercise (mapping every existing resource to its discipline) and a governance rule going forward (no new resource created without a discipline code/parent assignment) to prevent the flat-list problem recurring, and flags that historical actual-cost data already posted against the old flat structure may need re-tagging to be included correctly in the new rolled-up report.",
+    "explanation": "P6 resource reporting rolls up along the resource dictionary's hierarchy and/or Resource Codes; a flat list with no grouping dimension cannot produce a discipline-level summary report without manual work outside the tool, so the fix is to introduce either a hierarchical parent/child structure or Resource Codes for discipline.",
+    "reasoning": "Resource Usage Profile, Resource Usage Spreadsheet, and most P6 resource/cost reports support grouping and summarization by the resource hierarchy or by Resource Codes — without one of these dimensions populated, achieving a 'total cost by discipline' report requires exporting data and manually mapping each of 300 resources outside the system, which is slow and error-prone and breaks every time a new resource is added.",
+    "commonMistakes": [
+      "Assuming this can be solved purely by renaming resources rather than restructuring the dictionary/coding.",
+      "Not knowing the difference between dictionary hierarchy and Resource Codes as two distinct grouping mechanisms.",
+      "Underestimating the retrofitting effort on an already-populated 300-resource dictionary."
+    ],
+    "redFlags": [
+      "Proposes solving this entirely via manual spreadsheet exports as a permanent solution rather than fixing the underlying dictionary structure."
+    ],
+    "p6Checks": [
+      "Enterprise Data -> Resources dictionary hierarchy/tree structure.",
+      "Enterprise Data -> Resource Codes dictionary.",
+      "Resource Usage Spreadsheet grouping/filtering options to confirm discipline-level rollup works after restructuring.",
+      "Existing resource assignments across activities to assess the scope of a reclassification exercise."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Would you recommend hierarchy, Resource Codes, or both? Justify your choice.",
+        "purpose": "Tests deeper understanding of the tradeoffs between the two grouping mechanisms."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you prevent the resource dictionary from becoming an ungrouped flat list again in six months?",
+        "purpose": "Tests governance/process thinking beyond the one-time technical fix."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Correctly identifies hierarchy and/or Resource Codes as the fix."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a workable restructuring approach."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses the retrofitting effort and ongoing governance, not just the end-state structure."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "resource dictionary",
+      "resource codes",
+      "hierarchy",
+      "cost reporting",
+      "rollup"
+    ],
+    "references": [
+      "Oracle Primavera P6 EPPM User's Guide"
+    ]
+  }
 ]

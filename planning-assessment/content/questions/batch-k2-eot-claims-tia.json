@@ -1,1 +1,579 @@
-[]
+[
+  {
+    "questionCode": "EOT-001",
+    "category": "EOT",
+    "subcategory": "Notice as Condition Precedent",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Separating the technical merit of a delay event from the contractual effect of a late or missing notice",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "On a road-widening contract, the contractor hits an unrecorded high-pressure gas main not shown on the utility drawings issued at tender. Excavation stops for 12 working days on the critical path while the utility owner relocates the line. The contract gives the engineer's representative sole risk for undisclosed utilities. The contract requires notice of a delay event 'within 14 days of the contractor becoming aware' of it. The contractor's site diary shows the clash was known on day 1, but the formal notice letter was not sent until day 40.",
+    "question": "As the person assessing this claim, how does the late notice affect the contractor's entitlement to an EOT, and what do you recommend?",
+    "expectedAnswer": "Treats this as two separate questions: (1) technical merit — the event is an employer-risk event and the critical-path impact appears to be genuinely 12 days, subject to verifying the analysis; (2) contractual entitlement — whether the 14-day notice clause operates as a strict condition precedent (claim barred if missed) or a procedural/administrative requirement depends entirely on the exact wording used ('shall give notice...as a condition precedent to entitlement' vs a bare obligation with no stated sanction). Recommends pulling the actual clause text before concluding either way rather than assuming the outcome from the scenario alone.",
+    "strongAnswer": "Notes that even where a notice clause functions as a condition precedent, the specific trigger date ('became aware') and what 'notice' must contain can be argued; also raises whether the contract or general principles allow a waiver/estoppel argument if the employer's team was itself aware of and responded to the delay (e.g. instructed the relocation) without objecting to the absence of formal notice at the time.",
+    "expertAnswer": "Recognizes this is contract- and jurisdiction-dependent and states the acceptable range of outcomes rather than a single answer: some forms bar the claim entirely for non-compliance, others require the employer to show actual prejudice from the lateness before the bar applies, and still others treat the notice obligation as directory only. Also weighs the practical/relationship dimension — a technically defensible strict rejection of a genuinely employer-caused delay can still be poor claims administration if it drives an adversarial dispute — while being clear this is a separate consideration from whether contractual entitlement exists.",
+    "explanation": "A schedule delay being real and employer-caused does not by itself create EOT entitlement; entitlement is a contractual question layered on top of the technical finding. Whether a late notice defeats an otherwise-meritorious claim turns on the precise clause wording and applicable contract law principles, not on the fairness of the outcome.",
+    "reasoning": "Two independent tests must both be satisfied for an EOT to be awarded on this basis: (a) causation — did the event actually delay the critical path, by how much, and (b) contractual compliance — did the contractor follow the procedural mechanism the contract sets as a precondition to relief. A strong technical case does not cure a procedural non-compliance, and a procedural compliance does not manufacture technical merit that isn't there.",
+    "commonMistakes": [
+      "Assuming that because the delay is clearly employer-caused, the EOT must be granted regardless of the notice breach.",
+      "Assuming late notice always and automatically bars the claim in every contract, without checking the actual clause.",
+      "Treating 'became aware' as the date of the formal notice letter rather than the date the site diary shows actual awareness."
+    ],
+    "redFlags": [
+      "Gives a definitive grant/reject answer without asking to see the notice clause wording.",
+      "Conflates 'the delay really happened' with 'the contractor is entitled to time for it'."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the clause is a strict condition precedent and the claim is technically barred, does that change whether the 12 days were actually critical-path delay?",
+        "purpose": "Tests that the candidate keeps technical and contractual findings separate even under pressure to merge them."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would change your answer if the employer's representative had instructed and monitored the utility relocation from day 2 without ever mentioning the missing notice?",
+        "purpose": "Probes understanding of waiver/estoppel-type arguments without requiring jurisdiction-specific law."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "Would you treat 'shall give notice' and 'shall give notice as a condition precedent to any entitlement' the same way?",
+        "purpose": "Remedial prompt distinguishing directory vs conditional obligations."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly separates technical causation finding from the notice-compliance question."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Does not overstate certainty; asks for the actual clause wording and states outcome depends on it."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Gives a workable recommendation for how to proceed with assessment despite the ambiguity."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "notice",
+      "condition precedent",
+      "EOT entitlement",
+      "time-bar",
+      "claims administration"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol"
+    ]
+  },
+  {
+    "questionCode": "EOT-002",
+    "category": "EOT",
+    "subcategory": "EOT Mechanics – Basic Entitlement Test",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Identifying the standard elements a contractor must establish to obtain an extension of time",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "JUNIOR",
+      "SENIOR"
+    ],
+    "questionType": "MCQ",
+    "question": "Which combination of elements does a contractor typically need to demonstrate to establish entitlement to an extension of time under a standard construction contract?",
+    "options": [
+      {
+        "label": "A",
+        "text": "Only that the completion date was missed, regardless of cause.",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "That an event occurred which the contract identifies as a relevant/excusable cause, that it affected an activity on the critical path (or reduced float to the point of causing delay to completion), and that any required notice/procedural steps were followed.",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "Only that the contractor incurred additional cost as a result of the delay.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "That the project as a whole is running behind the baseline schedule at the time of the event.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Entitlement to an EOT normally requires three things together: a qualifying (contractually relevant) cause, demonstrated critical-path effect (causation and quantum of delay to completion), and compliance with any contractual procedure such as notice and particulars. Missing the completion date alone, incurring cost alone, or general schedule slippage alone do not by themselves establish entitlement.",
+    "reasoning": "EOT clauses are conditional: they list qualifying events, require proof the event actually delayed the contractual completion date (not just consumed float or slowed a non-critical activity), and usually impose a notice/substantiation mechanism as a precondition. All three legs typically must be satisfied.",
+    "commonMistakes": [
+      "Believing any missed date automatically justifies an EOT.",
+      "Confusing cost entitlement with time entitlement as the same test.",
+      "Ignoring the need for critical-path (not just any) impact."
+    ],
+    "redFlags": [
+      "Cannot name causation or critical-path impact as a required element."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If an event delays a non-critical activity by 20 days but the activity had 25 days of float, is there EOT entitlement?",
+        "purpose": "Checks understanding that float absorption before criticality defeats time entitlement even where cost may still be arguable."
+      }
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 75,
+    "tags": [
+      "EOT basics",
+      "entitlement test",
+      "critical path",
+      "notice"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "SCL Delay and Disruption Protocol"
+    ]
+  },
+  {
+    "questionCode": "EOT-003",
+    "category": "EOT",
+    "subcategory": "Contemporaneous Records as Evidence",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Prioritizing contemporaneous project records over reconstructed narrative when substantiating an EOT claim",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "A contractor submits an EOT claim eight months after a claimed 18-day delay event (a late employer-furnished equipment delivery on a data center fit-out). The narrative is well-written and internally consistent, but it was drafted entirely after the fact by the commercial team, referencing the project schedule and a general description of 'ongoing coordination difficulties' during the period.",
+    "question": "Before forming a view on this claim's strength, what would you check first, and why does it matter?",
+    "expectedAnswer": "Would check first for contemporaneous evidence created at or near the time of the event: site diaries, daily reports, correspondence, meeting minutes, delivery/dispatch records, RFIs, and the actual schedule updates issued during the delay window — not the narrative written eight months later. A narrative alone, however well written, is reconstructed argument, not proof; contemporaneous records are what a forensic reviewer or tribunal will weigh most heavily because they were not created with the benefit of hindsight or a commercial motive.",
+    "strongAnswer": "Also checks whether the contemporaneous schedule updates from that period actually show the equipment delivery activity as driving the critical path at the time, and whether the contractor raised the issue contemporaneously (site diary entries, notices, minutes) rather than only realizing its significance in hindsight — since a delay that was not flagged as impactful at the time is harder to substantiate as truly critical.",
+    "expertAnswer": "Recognizes that absence of contemporaneous corroboration does not automatically defeat the claim (some tribunals/engineers will still weigh a well-reasoned retrospective analysis against as-built data), but it substantially weakens it and shifts the burden onto reconstructed logic that is more vulnerable to challenge; also checks for corroborating third-party evidence (supplier correspondence, delivery notes) that is independent of the contractor's own records and therefore more persuasive.",
+    "explanation": "Contemporaneous records anchor a delay claim to what was actually observed and reported as it happened, which is far more reliable and harder to challenge than a narrative built afterward from memory and the desired conclusion.",
+    "reasoning": "Evidentiary weight in delay analysis follows proximity in time to the event: records created during the event are less susceptible to hindsight bias, selective framing, or reverse-engineering a story to fit a desired quantum. Retrospective narratives, even accurate ones, invite the challenge that they were constructed to support a claim rather than to record fact.",
+    "commonMistakes": [
+      "Accepting a well-written retrospective narrative as sufficient substantiation on its own.",
+      "Not checking whether the delay was actually flagged as critical in the schedule updates issued during the period in question.",
+      "Treating the contractor's own after-the-fact commentary as equivalent in weight to contemporaneous third-party records."
+    ],
+    "redFlags": [
+      "Evaluates claim strength purely on narrative quality without asking for underlying contemporaneous documents.",
+      "Does not distinguish records created at the time from records created to support the claim."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the contemporaneous schedule updates never showed this equipment delivery as float-critical during the alleged delay window, what does that do to the claim?",
+        "purpose": "Tests whether the candidate uses contemporaneous schedule data to test, not just narrative plausibility."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Does the absence of a contemporaneous notice automatically mean there is no technical delay merit?",
+        "purpose": "Checks the candidate keeps evidentiary weakness separate from an absolute finding of no causation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete contemporaneous record types to check."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Explains why timing of record creation affects evidentiary weight."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects record-checking back to verifying actual critical-path causation, not just paperwork completeness."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "contemporaneous records",
+      "evidence",
+      "EOT substantiation",
+      "site diary",
+      "forensic delay analysis"
+    ],
+    "references": [
+      "AACE RP 29R-03 Forensic Schedule Analysis",
+      "SCL Delay and Disruption Protocol"
+    ]
+  },
+  {
+    "questionCode": "EOT-004",
+    "category": "EOT",
+    "subcategory": "Baseline vs Periodic Update as Evidence",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Choosing which schedule version (approved baseline vs a specific periodic update) is the correct evidentiary reference for a given delay window",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "P6_ANALYSIS",
+    "scenario": "A marine terminal project has an approved baseline (Rev 0), and 14 monthly progress updates since. A contractor is preparing an EOT claim for a piling-rig breakdown that occurred between the schedule status dates of update 9 and update 10. The planner analyzing the claim initially compares the piling activity's dates directly against the Rev 0 baseline to compute the delay to completion.",
+    "question": "Is comparing directly against the Rev 0 baseline the correct approach here? What schedule version should actually be used, and why?",
+    "expectedAnswer": "Comparing directly against the original Rev 0 baseline is generally not correct for an event occurring this late into the project, because eight prior updates' worth of progress, logic changes, re-sequencing, and other delays/accelerations have already occurred and are not reflected in Rev 0. The correct reference point is the last validated schedule update immediately before the event (update 9), reflecting actual progress and current logic as of that data date, with the piling breakdown then modeled as the delay event affecting that as-current network.",
+    "strongAnswer": "Notes that update 9 itself must first be checked for schedule quality (logic integrity, no unexplained float jumps, no out-of-sequence progress masking prior issues) before being relied on as the pre-impact baseline for this window; if update 9 is unreliable, the nearest reliable prior update should be used and the intervening period reconciled.",
+    "expertAnswer": "Recognizes this is a methodology choice with more than one defensible answer depending on the contractually agreed or generally accepted delay analysis method (e.g., a windows/time-slice approach explicitly using periodic updates vs. an as-planned-vs-as-built approach that may reference the baseline differently), and states that whichever is used should be applied consistently across the whole claim period rather than switching reference schedules window to window without justification, since inconsistent baselines are a common way analyses get discredited.",
+    "explanation": "Using the original baseline for an event deep into project execution ignores everything that happened in between, which can overstate or understate the event's true incremental impact on the completion date. The immediately preceding validated periodic update is the correct 'as-was' snapshot against which to measure this specific event's incremental effect.",
+    "reasoning": "Delay analysis under a windows-based approach measures the incremental change in critical path/completion forecast caused by inserting or removing a specific event within a discrete time window, using the schedule status as it existed at the start of that window as the control. Using a stale reference (the original baseline) conflates this event's impact with all prior, unrelated schedule movement.",
+    "commonMistakes": [
+      "Always comparing to the original approved baseline regardless of how far into the project the event occurred.",
+      "Not checking the schedule quality of the 'as-was' update before relying on it.",
+      "Mixing reference schedules inconsistently between different delay windows in the same claim."
+    ],
+    "redFlags": [
+      "Cannot explain why a stale baseline overstates or misstates an isolated event's impact.",
+      "Treats all schedule updates as equally reliable without a quality check."
+    ],
+    "p6Checks": [
+      "Open update 9 and update 10 and compare Data Dates, logic, and progress.",
+      "Check update 9 for schedule health flags (negative float, broken logic, excessive constraints) before using it as the pre-impact schedule.",
+      "Verify the piling activity and its downstream ties are consistent between update 9 and update 10 before attributing the completion shift to the breakdown alone."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What would you do if update 9 itself turns out to have unreliable logic (e.g., broken ties from a recent resequencing)?",
+        "purpose": "Tests whether the candidate knows to fall back to the nearest sound update rather than defaulting to the original baseline out of convenience."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would your answer change if the contract explicitly requires all delay analysis to be measured against the accepted baseline programme?",
+        "purpose": "Tests awareness that contract-specified methodology can override general best practice."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the immediately preceding update as the appropriate reference, not the original baseline."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names concrete checks on the reference update's data quality."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Notes methodology can be contract-dependent and stresses consistency across the analysis."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "baseline",
+      "periodic update",
+      "windows analysis",
+      "delay analysis methodology",
+      "data date"
+    ],
+    "references": [
+      "AACE RP 29R-03 Forensic Schedule Analysis"
+    ]
+  },
+  {
+    "questionCode": "EOT-005",
+    "category": "EOT",
+    "subcategory": "Technical Delay vs Contractual Entitlement",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Distinguishing a proven critical-path delay from an automatic entitlement to time relief",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "DECISION_MAKING",
+    "scenario": "On a hospital expansion project, a CPM analysis conclusively shows that a design clarification issued 55 days late by the architect delayed the critical path by 20 working days. The contractor's planning team wants to immediately issue a report stating '20 calendar days EOT due.' The contracts manager asks you to review before it goes out.",
+    "question": "What is your review comment, and what else must be confirmed before '20 days EOT due' can be stated as a conclusion?",
+    "expectedAnswer": "The technical finding (20 working days of proven critical-path delay caused by the late design clarification) is a necessary but not sufficient basis for stating entitlement. Before concluding '20 days EOT due,' must confirm: which party bears contractual risk for design clarification delays (is late information a listed relevant event?), whether notice/particulars requirements were met, whether the calculated working-day delay converts correctly to calendar days for the EOT award (contract-specific), and whether any concurrent contractor-risk delay existed in the same window that might reduce the award.",
+    "strongAnswer": "Also flags that 'EOT due' language prematurely asserts a conclusion that is properly the employer/engineer's determination, not the contractor's unilateral claim; recommends the report state the technical finding and the claimed entitlement as the contractor's position, not as an adjudicated fact, to avoid overstating certainty in a document that may be scrutinized later.",
+    "expertAnswer": "Notes that even a robust technical case supports a claim, not an entitlement — actual entitlement is only fixed once the administering party (engineer, project manager, or eventually a dispute forum) evaluates it; recommends restructuring the report to clearly separate the CPM finding, the contractual basis being relied upon, and the requested relief, since blending these into one assertive conclusion is both technically sloppy and weakens the claim's credibility if challenged.",
+    "explanation": "A CPM analysis proves causation and quantum of schedule impact; it does not by itself establish contractual entitlement, which depends on risk allocation, procedural compliance, and (until determined) remains the contractor's claimed position rather than a settled fact.",
+    "reasoning": "Confusing 'the delay is real and measurable' with 'the contractor is therefore owed time' skips the contractual layer of analysis entirely. Even a flawless CPM analysis can support a claim that is procedurally barred, contractually excluded, or subject to concurrency adjustment — all of which sit outside the CPM math.",
+    "commonMistakes": [
+      "Treating a technically sound delay analysis as automatically dispositive of entitlement.",
+      "Issuing claim documents using declarative language ('X days EOT due') rather than framing it as a substantiated request pending assessment.",
+      "Not checking for concurrent contractor-risk delay in the same window."
+    ],
+    "redFlags": [
+      "Signs off on '20 days EOT due' language without qualifying it as the contractor's position.",
+      "Cannot list any contractual precondition beyond the CPM finding itself."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the contractor's own formwork subcontractor was also behind schedule for unrelated reasons during the same 20-day window, does that change your recommendation?",
+        "purpose": "Tests whether the candidate proactively raises concurrency as a further check even when not prompted."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you rephrase the report's conclusion line to be technically accurate without overstating entitlement?",
+        "purpose": "Tests practical claim-drafting judgment, not just conceptual understanding."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Clearly separates CPM causation finding from contractual entitlement determination."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Flags the overstated/declarative claim language as a problem."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Lists multiple preconditions (risk allocation, notice, concurrency, unit conversion) not just one."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "technical vs contractual",
+      "EOT entitlement",
+      "claims drafting",
+      "concurrency",
+      "causation"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol",
+      "AACE RP 29R-03 Forensic Schedule Analysis"
+    ]
+  },
+  {
+    "questionCode": "EOT-006",
+    "category": "EOT",
+    "subcategory": "Concurrent Delay and Entitlement",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Applying the effect of true concurrent delay on time and cost entitlement without a single universal rule",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "On a petrochemical plant expansion, during weeks 30-33 the critical path runs through structural steel erection. In that same four-week window, two things happen simultaneously and independently: (1) the employer fails to issue an approved-for-construction revision to a tie-in drawing, stopping steel erection at one tie-in point, and (2) the contractor's steel subcontractor is short-staffed due to its own crew being pulled to another project, independently stopping erection at a different tie-in point that would otherwise have been critical. Either event alone, in isolation, would have delayed the critical path by the full four weeks.",
+    "question": "Is this true concurrent delay? What is the effect on the contractor's time entitlement, and separately, on its entitlement to prolongation costs for this window?",
+    "expectedAnswer": "Yes, on the facts given this is true (or 'genuine') concurrency: two unrelated causes, one an employer risk event and one a contractor risk event, each independently sufficient to cause the same period of critical delay. States that the time (EOT) and cost (prolongation) outcomes are commonly treated differently: many approaches support granting the EOT for the full period despite the concurrent contractor culpable delay (because the contractor should not be liable for liquidated damages for a period the employer also caused), while prolongation costs for that same period are frequently not recoverable by the contractor because the contractor would have incurred those time-related costs anyway due to its own concurrent delay.",
+    "strongAnswer": "Explicitly flags that this is one of the more contested/jurisdiction- and contract-dependent areas of delay analysis, and that other defensible positions exist (e.g., apportionment approaches that split the EOT or the cost between the parties based on relative causative potency, rather than an all-or-nothing rule); states that the specific contract wording (if it defines concurrency or its treatment) should override any general default.",
+    "expertAnswer": "Notes the critical importance of verifying 'true' concurrency on the facts before applying any rule — many claimed concurrency situations are not true concurrency once critical path timing is checked precisely (e.g., one event may have started or become critical a few days before the other, which is sequential/interacting delay, not concurrent, and materially changes the analysis); recommends first confirming via the schedule analysis that both causes were independently critical over the exact same period before applying any concurrency treatment at all.",
+    "explanation": "True concurrent delay exists only where two independent causes, on different (or the same) paths, are each independently critical over the same period. Its treatment is genuinely contested across contracts and methodologies: EOT relief is often granted despite concurrency (to avoid the employer levying damages for a period it also caused), but cost relief for the same period is treated differently in many approaches because compensability requires the delay to be caused solely by the compensable event.",
+    "reasoning": "Time and cost entitlement are not the same test. Time relief protects the contractor from liquidated damages exposure for a period genuinely affected by an employer-risk event, regardless of what else was also happening. Cost relief (prolongation) requires the contractor to show the additional time-related cost was actually caused by the compensable event — if the contractor was already going to incur that cost anyway due to its own concurrent delay, the 'but for' causal link to the employer event is broken for cost purposes even where it is not broken for time purposes.",
+    "commonMistakes": [
+      "Assuming concurrent delay automatically defeats the entire EOT claim.",
+      "Assuming concurrent delay automatically entitles the contractor to prolongation costs for the same period as the EOT.",
+      "Labeling any two delays happening in the same rough period as 'concurrent' without checking whether both were independently critical over the exact same days."
+    ],
+    "redFlags": [
+      "States a single universal rule for concurrency without acknowledging genuine debate/contract dependency.",
+      "Applies the same treatment to time and cost without distinguishing the two.",
+      "Does not verify true concurrency on the facts before applying a concurrency rule."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What specific schedule evidence would you need to confirm this is true concurrency rather than one event actually preceding and driving the other?",
+        "purpose": "Tests rigor in verifying concurrency rather than accepting the scenario's framing at face value."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would an apportionment approach split this four-week period, and what would it need to be based on?",
+        "purpose": "Tests knowledge of the alternative to all-or-nothing treatment."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "Why might granting the EOT but denying prolongation costs for the same period not be contradictory?",
+        "purpose": "Remedial prompt on the separate causal tests for time vs cost."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly separates the causal test for time entitlement from the causal test for cost entitlement."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Acknowledges genuine debate/contract dependency rather than asserting one universal rule."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly verifies/defines true concurrency before applying treatment."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 260,
+    "tags": [
+      "concurrent delay",
+      "concurrency",
+      "prolongation costs",
+      "EOT entitlement",
+      "apportionment"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol"
+    ]
+  },
+  {
+    "questionCode": "EOT-007",
+    "category": "EOT",
+    "subcategory": "Time Entitlement vs Cost Entitlement",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that a granted extension of time does not automatically carry an entitlement to prolongation costs",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR",
+      "MANAGER"
+    ],
+    "questionType": "MISSING_INFO",
+    "scenario": "The engineer has just certified a 25-calendar-day extension of time to a contractor on an airport taxiway resurfacing project, citing 'exceptionally adverse weather beyond what could reasonably have been anticipated' as the cause. The contractor's commercial team immediately submits an invoice for 25 days of prolongation costs (site overheads, equipment standing time, extended supervision) as a direct consequence of the EOT certificate.",
+    "question": "Is it safe to assume the 25 days of prolongation costs are automatically due because the EOT was granted? What information is missing before this can be assessed?",
+    "expectedAnswer": "No — an EOT and a compensable (cost-bearing) delay are not automatically the same thing; many contracts explicitly distinguish excusable-non-compensable events (contractor gets time relief only, e.g., exceptional weather in many standard forms) from excusable-compensable events (contractor gets time and money, typically employer-risk events like late information or variations). Missing information: what does this specific contract say the consequence of a weather-based EOT is — time only, or time and money? Also need to verify the claimed costs are actually attributable to this 25-day period and not costs the contractor would have incurred regardless.",
+    "strongAnswer": "Also notes that even where the contract does allow cost recovery for the relevant event type, the quantum still needs to be substantiated activity-by-activity/cost-by-cost (e.g., were all equipment items actually idle and not working on other unaffected activities during the period, was site overhead genuinely extended rather than already fixed-duration), rather than accepted as a flat pro-rata daily rate times 25 days.",
+    "expertAnswer": "Highlights that many standard contract structures deliberately treat weather as a neutral/excusable-only risk (each party bears its own costs, contractor gets time, no damages either way) specifically to avoid turning ordinary climate risk into a cost pass-through, and that granting time relief for such events is not an implicit finding of employer fault — so assuming compensability from the EOT grant reverses the correct default for this category of event absent contrary contract wording.",
+    "explanation": "Time relief (EOT) and cost relief (prolongation/compensation) are governed by potentially different tests within the same contract. A cause can be a valid ground for an EOT (protecting the contractor from liquidated damages) while simultaneously being excluded from cost recovery, most classically for neutral events like exceptional weather where neither party is at fault.",
+    "reasoning": "Contracts commonly categorize delay events into at least three buckets: culpable (contractor risk, no time or cost relief), excusable-compensable (employer risk, time and cost relief), and excusable-non-compensable (neutral risk like weather or force majeure, time relief only). The engineer's certificate confirming time relief says nothing on its own about which bucket applies for cost purposes unless the contract or the certificate itself addresses it.",
+    "commonMistakes": [
+      "Assuming any EOT automatically entitles the contractor to prolongation costs.",
+      "Treating 'exceptionally adverse weather' as inherently an employer-fault event.",
+      "Accepting a flat daily-rate prolongation claim without verifying which resources were genuinely idle."
+    ],
+    "redFlags": [
+      "States prolongation costs are due simply because 'the EOT was granted, so it's not the contractor's fault'.",
+      "Cannot name the excusable-compensable vs excusable-non-compensable distinction in any form."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What contract clause(s) would you go read right now to answer this, and what are you looking for in them?",
+        "purpose": "Tests whether the candidate knows exactly where to look rather than reasoning in the abstract."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If the contract is silent on the cost consequence of weather-based EOTs, how would you approach resolving that gap?",
+        "purpose": "Tests handling of genuine contractual ambiguity."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly identifies that time relief and cost relief can follow different tests for the same event."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies the specific missing information (contract's cost-consequence wording for this event category, and cost substantiation)."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Does not default to assuming compensability without checking."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "time vs cost entitlement",
+      "prolongation costs",
+      "excusable non-compensable",
+      "weather delay"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol"
+    ]
+  },
+  {
+    "questionCode": "EOT-008",
+    "category": "EOT",
+    "subcategory": "Contractual Risk Allocation",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that EOT risk-event categories are defined by the specific contract, not by a universal fixed list",
+    "difficulty": 1,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "JUNIOR"
+    ],
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: Every standard construction contract lists the exact same set of events as grounds for an extension of time, so a planning engineer can apply one fixed universal list across any contract without checking the specific document.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": false
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": true
+      }
+    ],
+    "correctAnswer": "False",
+    "explanation": "The specific events that qualify for an EOT (and whether each is time-only or time-and-cost) are defined by the individual contract and can vary significantly between standard forms and, especially, bespoke amended contracts. A planning engineer must check the actual contract's definitions and relevant-event clauses for each project rather than assuming a fixed universal list.",
+    "reasoning": "Risk allocation is a negotiated commercial term, not a technical constant. The same event (e.g., adverse weather, late employer information, a force majeure occurrence) can be treated very differently — excusable, non-excusable, compensable, non-compensable — from one contract to the next, including between two projects using the 'same' standard form if bespoke amendments have altered the relevant clauses.",
+    "commonMistakes": [
+      "Assuming familiarity with one contract's EOT clause list transfers directly to a different project without checking.",
+      "Treating heavily amended 'standard form' contracts as if the amendments didn't change the relevant-event list."
+    ],
+    "redFlags": [
+      "Cannot articulate that risk allocation is contract-specific when asked directly."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Where in a contract would you specifically look to find the list of qualifying delay events?",
+        "purpose": "Tests practical familiarity with locating relevant-event/EOT clauses rather than just conceptual awareness."
+      }
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "risk allocation",
+      "relevant events",
+      "EOT clause",
+      "contract-specific"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol"
+    ]
+  }
+]

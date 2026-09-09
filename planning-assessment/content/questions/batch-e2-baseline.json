@@ -1,0 +1,307 @@
+[
+  {
+    "questionCode": "BSC-001",
+    "category": "BSC",
+    "subcategory": "Baseline vs Current Schedule Fundamentals",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Distinguishing the fixed baseline schedule from the live, statused current schedule",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "TRUE_FALSE",
+    "scenario": "On a residential apartment complex, the project controls lead refers to 'the baseline' and 'the current schedule' as if they were two different things, and a new graduate engineer on the team assumes they are simply two names for the same P6 file, re-saved each month.",
+    "question": "True or False: The baseline schedule and the current schedule are the same file, and updating one automatically updates the other.",
+    "options": [
+      {"label": "A", "text": "True", "isCorrect": false},
+      {"label": "B", "text": "False", "isCorrect": true}
+    ],
+    "correctAnswer": "B",
+    "explanation": "The baseline is a fixed, dated snapshot of the schedule (dates, logic, durations, and often cost/resource loading) captured and approved at a specific point, typically at contract award or after a formally approved revision. The current schedule is the live, working schedule that is progressed and re-logic'd every reporting period as actual progress, delays, and changes occur. Variance reporting only has meaning because the baseline stays frozen while the current schedule moves — if the baseline moved every time the current schedule was updated, there would be nothing stable to measure variance against.",
+    "reasoning": "Baseline comparison (Start Variance, Finish Variance, Duration Variance, Float Variance, Progress Variance) is a subtraction between two independent objects: the frozen baseline dates/values and the current schedule's dates/values at the data date. If both objects updated together, every variance would permanently read zero regardless of actual performance, which would defeat the entire purpose of baselining.",
+    "commonMistakes": ["Believing 'baseline' just means 'last month's schedule'.", "Assuming re-saving the schedule file also refreshes the baseline automatically.", "Not realizing a baseline must be deliberately assigned/set and stays static until formally revised."],
+    "redFlags": ["Cannot explain why a baseline must stay fixed for variance reporting to mean anything."],
+    "p6Checks": ["Project > Baselines — confirm which baseline is currently assigned as the Project Baseline and when it was last created.", "Compare the Baseline Finish column against the current Finish column on a sample activity to confirm they differ where progress has occurred."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Under what circumstances would you deliberately reset the baseline to match the current schedule?", "purpose": "Tests understanding of legitimate re-baselining versus accidental baseline loss."},
+      {"trigger": "if_correct", "prompt": "If the baseline is never updated, what happens to variance reporting over a five-year program?", "purpose": "Tests awareness of the case for rolling/interim baselines on long programs."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 60,
+    "tags": ["baseline", "current schedule", "variance basics", "schedule fundamentals"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-002",
+    "category": "BSC",
+    "subcategory": "Finish Variance Calculation",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Calculating Finish Variance and stating its sign convention correctly",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "On a rural highway resurfacing contract, the activity 'Asphalt Overlay — Section 4' carries a Baseline Finish of 14-Mar and a Current Finish (per the latest schedule update) of 02-Apr, a gap of 19 calendar days.",
+    "question": "Calculate the Finish Variance for this activity in days, state the sign convention you used, and state whether this is favorable or unfavorable.",
+    "correctAnswer": "Finish Variance = +19 days (Current Finish − Baseline Finish = 02-Apr − 14-Mar); unfavorable (later than planned)",
+    "explanation": "Finish Variance = Current/Actual Finish − Baseline Finish = 19 days. Using the convention where a positive value means later than planned, +19 days is unfavorable: the activity is now forecast (or was actually) finished 19 days later than the baseline committed to.",
+    "reasoning": "Variance sign convention must be fixed and stated, because the two common conventions (Current − Baseline, or Baseline − Current) produce opposite signs for the same underlying fact. Reporting a variance number without stating which convention was used is a common source of miscommunication between project controls teams using different software defaults.",
+    "commonMistakes": ["Subtracting in the wrong order and reporting −19 as if it were favorable.", "Reporting only the number of days without stating whether that direction is favorable or unfavorable.", "Confusing calendar days with working days when the two dates span a weekend or holiday period."],
+    "redFlags": ["Cannot state which subtraction order they used."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Does a 19-day Finish Variance on this one activity necessarily mean the project finish date has also slipped 19 days?", "purpose": "Tests whether the candidate conflates activity-level variance with project-level delay before checking float and criticality."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 100,
+    "tags": ["finish variance", "baseline comparison", "sign convention", "highway"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-003",
+    "category": "BSC",
+    "subcategory": "Baseline Variance vs Current-Schedule Delay",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing that a favorable baseline Total Float comparison does not by itself rule out real current-period delay",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "scenario": "On an airport terminal expansion, the monthly report shows: Baseline Total Float on the critical path = 0 days (as expected, since it was the driving path at baseline). Current Total Float on today's critical path = 0 days. The project controls analyst tells the PM, 'Float Variance is zero, so there has been no schedule deterioration this period.'",
+    "question": "Is the analyst's conclusion correct? Explain what a zero Float Variance on the critical path can and cannot tell you.",
+    "explanation": "The analyst's conclusion is not safe. Total Float on the critical path is, by definition, at or near zero at both baseline and current status simply because it is the critical path — comparing 0 to 0 produces a Float Variance of zero almost by construction, regardless of how much the project has actually slipped. What that comparison misses entirely is the Finish Variance: if the current-schedule critical path now finishes 25 calendar days later than the baseline critical path finished, the project has genuinely deteriorated by 25 days even though float on the (new) critical path is still zero relative to itself. Float Variance on the critical path is close to a tautology and should never be used alone as evidence of 'no deterioration' — Finish Variance and a period-over-period comparison of the forecast completion date are the metrics that actually detect real slippage.",
+    "reasoning": "Total Float measures slack relative to whatever governs that path's late dates (often an imposed finish or contract date), not an absolute measure of health. A critical path is critical precisely because its float is at or near zero — so 'zero now, zero at baseline' is close to always true and carries almost no diagnostic content on its own. Real deterioration shows up in the finish date itself moving later, or in float on the driving path turning negative relative to a fixed contractual date, not in a same-to-same float comparison.",
+    "commonMistakes": ["Treating unchanged critical-path float as proof of no slippage.", "Not separately checking Finish Variance on the same activities.", "Assuming 'critical path' is a fixed, unchanging set of activities across reporting periods rather than checking whether the driving path itself has changed."],
+    "redFlags": ["Reports 'no deterioration' to management based on float comparison alone without checking finish dates."],
+    "p6Checks": ["Compare Baseline Finish to Current Finish on the project finish milestone directly, not just float.", "Trace whether the activities that made up the critical path at baseline are the same activities that are critical now — a changed driving path is itself a red flag.", "Check Total Float against the contractual/imposed finish date, not just internally against zero."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What single additional number would you ask the analyst for to settle this in one step?", "purpose": "Tests whether the candidate immediately reaches for Finish Variance on the project milestone."},
+      {"trigger": "if_correct", "prompt": "Could the critical path itself have changed between baseline and now, and if so, what does that imply about comparing float values directly?", "purpose": "Tests deeper understanding that path identity can shift, making float comparisons even less reliable."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains why critical-path float variance is near-tautological."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Identifies Finish Variance as the metric that actually detects deterioration."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names a concrete check to correct the analyst's report."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": ["float variance", "finish variance", "critical path", "airport", "misleading metric"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-004",
+    "category": "BSC",
+    "subcategory": "Baseline Variance vs Contractual Delay",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Distinguishing a technical baseline schedule variance from contractual delay entitlement",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MCQ",
+    "scenario": "On an offshore oil & gas topsides fabrication package, the current schedule shows the critical activity 'Module Sail-Away' with a Finish Variance of +40 days against the approved baseline. The fabrication yard immediately tells the client this proves they are entitled to a 40-day extension of time.",
+    "question": "Is the yard's claim of automatic entitlement technically correct based on the Finish Variance alone?",
+    "options": [
+      {"label": "A", "text": "No — Finish Variance is a purely technical schedule comparison; entitlement to an extension of time depends on contract terms, cause of the delay, notice provisions, and whether the delay affected the contract completion date, none of which the variance figure alone establishes.", "isCorrect": true},
+      {"label": "B", "text": "Yes — any positive Finish Variance on a critical activity automatically converts into an equivalent number of days of extension of time under standard construction contracts.", "isCorrect": false},
+      {"label": "C", "text": "No — Finish Variance can never be used as supporting evidence in an extension of time claim.", "isCorrect": false},
+      {"label": "D", "text": "Yes, but only if the variance exceeds 30 days, which is a universal contractual threshold for extension of time entitlement.", "isCorrect": false}
+    ],
+    "correctAnswer": "A",
+    "explanation": "A Finish Variance figure is a technical schedule-analysis output: it quantifies how far the current forecast/actual finish has moved from the baseline finish. It says nothing by itself about who caused the delay, whether proper notice was given under the contract, whether the delay was concurrent with contractor-caused delay, or whether the specific contract even ties baseline variance to entitlement at all. Entitlement to an extension of time is a contractual and causal question that requires a separate delay analysis tied to the contract's specific extension-of-time mechanism.",
+    "reasoning": "Technical schedule analysis (what happened, by how many days, on which path) is a necessary input to a delay claim but is never sufficient on its own — contracts typically require the contractor to demonstrate that the delay was caused by an employer risk event, was properly notified within a contractual time bar, and affected the critical path to the contract completion date (not just an internal baseline milestone). Conflating 'the schedule shows a variance' with 'therefore I am entitled to time' is one of the most common overreach errors in claims presentations.",
+    "commonMistakes": ["Treating any positive Finish Variance as automatic proof of entitlement.", "Assuming a specific day-count threshold is universal across contracts rather than contract-specific.", "Dismissing Finish Variance as irrelevant to a claim, when it is in fact a legitimate and often necessary supporting exhibit."],
+    "redFlags": ["States that a schedule variance number alone settles a contractual entitlement question.", "Cannot name any of the additional elements (causation, notice, critical path impact) required for entitlement."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What additional technical analysis, beyond the raw Finish Variance, would typically be required to support this claim?", "purpose": "Tests whether the candidate knows that a proper delay/impact analysis, not just a variance figure, is the real supporting evidence."}
+    ],
+    "weight": 1.5,
+    "estimatedTimeSec": 110,
+    "tags": ["finish variance", "extension of time", "entitlement", "oil and gas", "contract"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "BSC-005",
+    "category": "BSC",
+    "subcategory": "Start Variance vs Finish Variance Divergence",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Explaining how a late start can coexist with an on-time or early finish through duration compression or float consumption",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "PARADOX",
+    "scenario": "On a combined-cycle power plant civil package, the activity 'Turbine Pedestal Concrete Pour' shows a Start Variance of +22 days (started 22 days later than the baseline start) but a Finish Variance of only +2 days (finished only 2 days later than the baseline finish).",
+    "question": "How can an activity start 22 days late but finish only 2 days late? Is this necessarily good news?",
+    "explanation": "The most common explanation is duration compression: the actual/current duration was shorter than the baseline duration, either because the crew worked extended hours/shifts, added resources, used a faster method (e.g., a different formwork or curing system), or because the original baseline duration itself had contingency built in that was consumed to recover the late start. A second possible explanation is that the activity had positive float relative to a downstream milestone and the 'finish' being compared is against a target/imposed date rather than a logic-driven one. This is not automatically good news: if the recovery was achieved by compressing an activity that has little tolerance for compression (e.g., concrete curing time), it may signal a quality or safety risk that was accepted to protect the date, or it may have consumed float that was needed elsewhere, leaving the project more exposed to the next disruption.",
+    "reasoning": "Finish = Start + Duration (subject to calendar). If Start Variance is large and positive but Finish Variance is small, the actual/current Duration must be significantly shorter than the baseline Duration to make the arithmetic work — this is a direct, checkable relationship, not a coincidence, and should always be verified by pulling the Duration Variance for the same activity rather than assumed.",
+    "commonMistakes": ["Treating the small Finish Variance in isolation as good news without checking Duration Variance.", "Assuming the 22-day late start had no consequence anywhere else in the schedule (e.g., on resource continuity or successor readiness).", "Not questioning whether the compressed duration is physically credible (e.g., compressed concrete curing time) versus a statusing/reporting artifact."],
+    "redFlags": ["Reports only Finish Variance as the headline metric and omits Start Variance and Duration Variance entirely.", "Does not ask how the compression was physically achieved."],
+    "p6Checks": ["Pull Original Duration, Baseline Duration, and Actual/Remaining Duration side by side for this activity to quantify the compression.", "Check whether Actual Start and Actual Finish are populated (completed) or whether this is a forecast based on remaining duration.", "Check resource loading/histogram for this activity to see if crew size or shift pattern changed, which would explain a genuine compression."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If you find the compression was achieved by cutting the specified concrete curing period, what would you flag, and to whom?", "purpose": "Tests whether the candidate raises a quality/technical-risk flag rather than only a schedule observation."},
+      {"trigger": "always", "prompt": "Would your interpretation change if this activity had zero float at baseline versus 15 days of float at baseline?", "purpose": "Tests whether the candidate connects the late start to float consumption and its consequence for the rest of the path."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies duration compression as the arithmetic explanation."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Connects Start/Duration/Finish variance arithmetically rather than treating them as independent."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Questions whether the recovery is genuinely good news or conceals a risk."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": ["start variance", "finish variance", "duration variance", "power plant", "compression"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-006",
+    "category": "BSC",
+    "subcategory": "Multiple and Rolling Baselines",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Using multiple baseline slots (Original, Recovery, Interim) in P6 to preserve distinct comparison points without losing history",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "A hyperscale data center program was originally baselined at contract award (the 'Original Baseline'). Six months in, a 45-day contractor-caused slip triggered a client-approved Recovery Plan, which was formally accepted and is now being used for day-to-day progress tracking. The project controls manager wants to keep reporting variance against both the true original commitment and the accepted recovery plan.",
+    "question": "How would you set this up in P6 so both comparisons remain available every reporting period, and what would you name each baseline to avoid confusion?",
+    "explanation": "P6 supports multiple stored baselines per project (limited by license/edition, but typically several are available), only one of which is assigned as the 'Project Baseline' used for the default variance columns at any given time. The correct setup is to store the original contract-award schedule as one baseline (e.g., 'BL00 – Original Contract Baseline, dated [award date]') and store the newly approved recovery schedule as a second, separate baseline (e.g., 'BL01 – Approved Recovery Baseline, dated [approval date]'), then assign BL01 as the current Project Baseline for routine progress tracking while keeping BL00 available as a secondary/user baseline for reporting cumulative variance against the original commitment. Clear, dated naming conventions are essential — an undated or ambiguously named baseline is a recurring source of reporting errors on long programs with several revisions.",
+    "reasoning": "Reporting only against the most recent (recovery) baseline would silently erase the fact that 45 days were lost relative to the original contract commitment, which understates the project's true cumulative slippage to anyone who was not present for the recovery-plan approval; reporting only against the original baseline would ignore that the recovery plan is now the currently governing, client-approved plan for day-to-day management. Carrying both, clearly labeled and dated, lets the team report 'X days ahead/behind the approved Recovery Baseline, and Y days behind the Original Contract Baseline' in the same report — both numbers are legitimate and serve different audiences.",
+    "commonMistakes": ["Overwriting the original baseline with the recovery schedule, losing the original commitment reference entirely.", "Using undated, generically named baseline slots ('Baseline 1', 'Baseline 2') that become ambiguous after several revisions.", "Reporting only one of the two variances without explaining to the client which baseline it is measured against."],
+    "redFlags": ["Cannot explain the difference between the 'assigned Project Baseline' and other stored baselines in P6.", "Has no naming/dating convention for multiple baselines."],
+    "p6Checks": ["Project > Maintain Baselines — confirm both baselines exist as distinct, dated, clearly named entries.", "Project > Assign Baselines — confirm which baseline is assigned as the Project (Primary) Baseline for default variance columns, and which is assigned as the secondary/user baseline for comparison.", "Add both Baseline1 and Baseline2 variance column sets to the layout when reporting cumulative program slippage."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you explain to the client, in one paragraph, why two different 'behind schedule' numbers can both be correct at the same time?", "purpose": "Tests ability to communicate multi-baseline reporting without appearing to obscure bad news."},
+      {"trigger": "if_correct", "prompt": "If a second recovery plan is later approved, how would you extend this naming scheme?", "purpose": "Tests whether the candidate's convention scales rather than being a one-off fix."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Correctly describes P6's multiple-baseline mechanism and the assigned-baseline concept."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a concrete, scalable naming/dating convention."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Explains why both comparisons are legitimate and how to present them transparently."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["multiple baselines", "recovery baseline", "rolling baseline", "data center", "P6 baseline management"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-007",
+    "category": "BSC",
+    "subcategory": "Duration Variance Calculation",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Calculating Duration Variance and separating it from Finish Variance caused purely by a late start",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "On a marine port breakwater project, the activity 'Armor Stone Placement — Reach 3' had a Baseline Duration of 30 working days. At completion, the actual duration (Actual Finish minus Actual Start, in working days per the assigned calendar) was 38 working days.",
+    "question": "Calculate the Duration Variance in working days and state whether it is favorable or unfavorable.",
+    "correctAnswer": "Duration Variance = +8 working days (Actual Duration − Baseline Duration = 38 − 30); unfavorable (took longer than planned)",
+    "explanation": "Duration Variance = Actual/Current Duration − Baseline Duration = 38 − 30 = +8 working days. A positive value under this convention means the activity took longer to execute than the baseline allowed, which is unfavorable regardless of when it started or finished relative to the calendar.",
+    "reasoning": "Duration Variance isolates how long the activity actually took to execute once started, independent of when it started — this is a different diagnosis than Finish Variance, which can be driven purely by a late start with no change in how long the work itself took. Separating the two prevents wrongly blaming execution productivity for what was actually a late-start (access/predecessor) problem, or vice versa.",
+    "commonMistakes": ["Confusing Duration Variance with Finish Variance and assuming they must always tell the same story.", "Using calendar days when the activity's calendar is a working-day calendar with weekends/holidays excluded, producing an inconsistent figure.", "Not checking whether weather days or approved calendar exceptions were built into the baseline duration already."],
+    "redFlags": ["Cannot explain what distinguishes Duration Variance from Finish Variance in cause."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If Start Variance for this activity was 0 days, what would the 8-day Duration Variance alone tell you about where the problem lies?", "purpose": "Tests whether the candidate isolates productivity/execution cause from access/predecessor cause."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 100,
+    "tags": ["duration variance", "baseline comparison", "marine", "productivity"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-008",
+    "category": "BSC",
+    "subcategory": "Misleading Favorable Finish Variance",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing when a favorable Finish Variance is an artifact of an already-slipped baseline rather than genuine good performance",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "PARADOX",
+    "scenario": "On a hospital tower fit-out, the monthly dashboard proudly reports: 'Project finish Variance = −5 days (5 days ahead of baseline) — schedule performance is favorable.' What the dashboard does not show is that the currently assigned baseline was itself reset four months ago, absorbing an earlier 60-day slip into new target dates, with client approval recorded only as a verbal agreement in a meeting, not a signed instrument.",
+    "question": "Is the reported −5-day Finish Variance a reliable indicator of overall schedule performance? What is the risk of presenting it without qualification?",
+    "explanation": "The −5-day figure is arithmetically correct against the currently assigned baseline but is misleading as a standalone headline: it compares the current forecast only to a baseline that has already absorbed 60 days of prior slippage, so the true position relative to the original contractual commitment is roughly 55 days behind, not 5 days ahead. Presenting only the post-reset variance, especially where the reset's approval is undocumented, risks materially understating the project's real schedule position to the client and to senior management, and can look, in hindsight, like a deliberate attempt to reset the baseline specifically to manufacture a favorable-looking variance.",
+    "reasoning": "Variance is only as meaningful as the baseline it is measured against. A moved goalpost produces a favorable-looking number without any actual recovery of the lost time — the 60 days are still lost; they have simply been re-labeled as the new 'planned' position. This is exactly the baseline-integrity failure mode that makes governance around baseline changes (who approved it, when, under what authority) as important as the arithmetic itself.",
+    "commonMistakes": ["Reporting the current-baseline variance as the complete picture without checking baseline change history.", "Accepting a verbal or undocumented baseline reset as equivalent to a formally approved one.", "Assuming a favorable number is automatically good news without asking what it is measured against."],
+    "redFlags": ["Presents the post-reset variance to the client as the full story without disclosing the reset.", "Does not ask for documented approval of the baseline change before relying on it."],
+    "p6Checks": ["Project > Baselines — check the creation date and history of the currently assigned baseline versus the original.", "Compare the current forecast finish against the original (pre-reset) baseline finish to compute the true cumulative variance.", "Request the change-control record or correspondence approving the reset; verbal-only approval is a documentation gap to flag."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you present both numbers to the client so the report is transparent rather than appearing to hide the earlier slip?", "purpose": "Tests communication judgment around disclosing an uncomfortable truth constructively."},
+      {"trigger": "if_correct", "prompt": "If the 60-day reset had been formally approved via a signed change order, would your concern change?", "purpose": "Tests whether the candidate distinguishes the arithmetic issue from the governance issue."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the true ~55-day cumulative position versus the reported −5 days."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Flags both the reporting risk and the undocumented approval as separate concerns."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Proposes a transparent way to present both figures."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "tags": ["finish variance", "baseline reset", "hospital", "governance", "misleading metric"],
+    "references": ["PMI Practice Standard for Scheduling", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "BSC-009",
+    "category": "BSC",
+    "subcategory": "Progress Variance Fundamentals",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Defining Progress Variance as the gap between planned and actual percent complete at the data date",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "MCQ",
+    "scenario": "At the current data date on a warehouse fit-out package, the baseline schedule shows the package should be 60% complete by now, while the actual statused progress is 48% complete.",
+    "question": "What is the correct definition and value of the Progress Variance for this package, and what does a negative value indicate?",
+    "options": [
+      {"label": "A", "text": "Progress Variance = Actual % Complete − Planned % Complete (per baseline at the data date) = 48% − 60% = −12 percentage points, indicating the package is behind its planned rate of progress.", "isCorrect": true},
+      {"label": "B", "text": "Progress Variance = Planned % Complete ÷ Actual % Complete = 1.25, indicating the package is 25% ahead of plan.", "isCorrect": false},
+      {"label": "C", "text": "Progress Variance is only meaningful once the activity or package reaches 100% complete, so no figure can be calculated at this data date.", "isCorrect": false},
+      {"label": "D", "text": "Progress Variance = Actual % Complete − 100%, indicating how much work remains regardless of the baseline.", "isCorrect": false}
+    ],
+    "correctAnswer": "A",
+    "explanation": "Progress Variance is a simple percentage-point difference between where the baseline plan says the work should stand today and where it actually stands: 48% − 60% = −12 percentage points. A negative value means the work is behind the planned rate of progress at this data date; a positive value would mean it is ahead.",
+    "reasoning": "This is conceptually the same comparison as SPI in EVM terms but expressed directly in percent-complete points rather than cost-weighted dollars, which makes it easier to communicate to site supervisors and non-cost audiences even though it lacks EVM's ability to weight activities by relative value.",
+    "commonMistakes": ["Computing a ratio (Planned ÷ Actual) instead of a simple subtraction, which changes both the units and the intuitive meaning.", "Believing percent-complete comparisons are meaningless before physical completion.", "Confusing Progress Variance with Finish Variance — one is a percentage-point gap at a point in time, the other is a date gap."],
+    "redFlags": ["Cannot state the correct formula without prompting."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If this package has three sub-activities of very different sizes, why might a single blended −12-point figure hide important detail?", "purpose": "Tests awareness that percent-complete variance can mask activity-level composition, similar to the EVM volume-weighting issue."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 75,
+    "tags": ["progress variance", "percent complete", "warehouse", "baseline comparison"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "BSC-010",
+    "category": "BSC",
+    "subcategory": "Rolling Baselines Masking Cumulative Slippage",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Detecting cumulative program slippage that is hidden by a series of small, individually-approved rolling baseline updates",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "CASE_STUDY",
+    "scenario": "A regional light-rail extension program uses a rolling baseline policy: every quarter, the current schedule is re-approved as the new baseline for the following quarter's reporting, on the reasoning that this keeps variance reporting 'current and relevant.' Over eight consecutive quarters, each quarterly Finish Variance report shows between −2 and +3 days — consistently small and unremarkable. The original contract completion date, however, has effectively moved 140 days later than it was at financial close, entirely through the accumulation of these small quarterly resets.",
+    "question": "What does this pattern indicate, and what should a project controls professional recommend to the program sponsor?",
+    "explanation": "Each individual quarterly variance is small and, viewed in isolation, unremarkable — but a rolling baseline policy that resets every quarter systematically erases the cumulative signal, because each reset absorbs whatever slippage occurred that quarter into the new 'plan.' The 140-day drift relative to the true original (financial-close) baseline is real and material, but it never appears in any single quarterly report under this policy. The recommendation is not necessarily to abandon rolling/interim baselines, which have legitimate uses for short-term look-ahead management, but to always retain and report a fixed, unmoved reference baseline (e.g., the financial-close/contract baseline) alongside the rolling one, so cumulative drift remains visible even while short-term variance stays useful for near-term planning.",
+    "reasoning": "A rolling baseline is a legitimate tool for keeping near-term variance analysis meaningful on a long program, since comparing today's schedule to a five-year-old plan for short-interval work-face management is not very useful. But it has a structural blind spot: if the *only* baseline retained is the rolling one, cumulative drift becomes mathematically invisible by design, since each reset zeroes out the running total. This is a governance and reporting-design failure, not a one-off analytical error, and it is easy to defend in good faith ('we just want current, relevant metrics') while still producing a materially misleading picture to the sponsor over time.",
+    "commonMistakes": ["Concluding the program is healthy because recent quarterly variances are small, without checking cumulative drift against the original baseline.", "Treating rolling baselines and cumulative-reference baselines as mutually exclusive rather than complementary.", "Assuming a rolling baseline policy is inherently improper, when the real fix is simply to also retain the fixed original baseline."],
+    "redFlags": ["Reports only rolling-baseline variance to the sponsor without ever reconciling to the original contract/financial-close baseline.", "Cannot explain the structural mechanism by which repeated resets hide cumulative slippage."],
+    "p6Checks": ["Confirm whether the original financial-close baseline is still stored and available in P6, or whether it was overwritten by successive quarterly resets.", "If still available, compute Finish Variance directly against that original baseline to quantify true cumulative drift.", "Review the change-control record for each quarterly re-baseline to confirm each was genuinely approved and for a stated reason, not simply an automatic rollover."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you redesign the reporting so both the sponsor's need for current information and the need to see cumulative drift are both served?", "purpose": "Tests ability to propose a concrete two-baseline reporting structure rather than just diagnosing the problem."},
+      {"trigger": "if_correct", "prompt": "Would your recommendation differ if each quarterly reset had been driven by fully compensable, client-caused change rather than contractor performance issues?", "purpose": "Tests whether the candidate separates the reporting-design problem from the causation/entitlement question."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains the mechanism by which rolling resets hide cumulative slippage."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Distinguishes the legitimate use of rolling baselines from the reporting-design flaw."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Gives a constructive dual-baseline reporting recommendation to the sponsor."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["rolling baseline", "cumulative slippage", "light rail", "reporting design", "governance"],
+    "references": ["PMI Practice Standard for Scheduling", "GAO Schedule Assessment Guide"]
+  }
+]

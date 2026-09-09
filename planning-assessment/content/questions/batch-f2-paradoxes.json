@@ -814,9 +814,10 @@
     "scoringRubric": {
       "dimensions": [
         {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains float as chain-specific, not date-specific."},
-        {"name": "reasoning", "maxScore": 5, "guidance": "Provides a plausible concrete downstream-chain explanation."}
+        {"name": "reasoning", "maxScore": 5, "guidance": "Provides a plausible concrete downstream-chain explanation."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Correctly uses float rather than finish-date proximity to prioritize monitoring effort."}
       ],
-      "passingScore": 7
+      "passingScore": 10
     },
     "weight": 1,
     "estimatedTimeSec": 150,
@@ -1189,9 +1190,10 @@
     "scoringRubric": {
       "dimensions": [
         {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly concludes independent paths do not share float absent convergence."},
-        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the convergence/shared-resource conditions precisely."}
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the convergence/shared-resource conditions precisely."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete checks (predecessor/successor trace, shared milestone, resource assignments) to confirm independence."}
       ],
-      "passingScore": 7
+      "passingScore": 10
     },
     "weight": 1.5,
     "estimatedTimeSec": 180,
@@ -1845,5 +1847,464 @@
     "estimatedTimeSec": 240,
     "tags": ["critical path drag", "total float", "parallel critical paths", "acceleration", "crashing"],
     "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-041",
+    "category": "PARA",
+    "subcategory": "Divergent Critical Paths from Identical Data",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Explaining how two planners can derive different critical paths from the identical set of activities, durations, and relationships",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "In a joint venture consortium building a metro depot, two planning teams (one from each JV partner) each independently import the exact same XER file - identical activities, durations, relationships, and calendars - into their own P6 environments to reconcile the monthly schedule. Team A reports the critical path running through the traction power substation scope; Team B reports the critical path running through the depot workshop fit-out scope, from the same data.",
+    "question": "If both teams started from the exact same schedule data, how can they legitimately arrive at different critical paths? What would you check first to reconcile the discrepancy?",
+    "expectedAnswer": "This most likely stems from a difference in P6 scheduling options between the two environments applied to the same data - most commonly, a different setting for 'Define critical activities as' (Total Float <= 0 versus Total Float <= a different threshold, or 'on the Longest Path'), a different out-of-sequence progress handling option (Retained Logic vs Progress Override), a different multiple-float-paths calculation setting, or a different treatment of open ends/external relationships if the XER was filtered differently on import (e.g., one team imported linked external projects and the other did not). The data itself may be identical, but the calculation options are project-level settings that travel with each environment, not universally with the XER file's activity data.",
+    "strongAnswer": "A strong candidate lists a specific, prioritized checklist: first compare each team's Schedule Options (critical activity definition, out-of-sequence handling, multiple float paths settings), then confirm both are using the same data date, then check whether either team excluded, filtered, or modified any activities/relationships after import.",
+    "expertAnswer": "An expert notes that this exact scenario is a common and serious risk on JV or multi-party projects using a shared schedule for contractual reporting, and recommends the JV agree and document a single, shared set of scheduling options (not just shared data) as part of the project's schedule management plan, since two technically 'identical' schedules can still produce contractually significant differences in reported critical path and float without any data being wrong.",
+    "explanation": "P6's calculation of Total Float and critical path membership depends not only on the underlying activity, relationship, and calendar data, but also on several project-level Schedule Options that are stored separately from the XER's activity data and can differ between environments even when the same file was imported. These include the critical activity threshold definition, the out-of-sequence progress handling method, and settings governing how float is calculated across multiple, possibly disconnected, networks. Two teams with identical raw data but different option settings can legitimately calculate different Total Float values and, consequently, different critical paths.",
+    "reasoning": "The forward and backward pass algorithms are deterministic given identical inputs, but 'inputs' includes more than the visible activity table - it includes the calculation options selected in Schedule Options/Admin Preferences for that specific project in that specific database. If Team A's project has 'Total Float <= 0' as the critical definition while Team B's has a wider threshold, or if their out-of-sequence handling differs and out-of-sequence progress exists anywhere in the data, the two teams' calculated float profiles - and therefore critical path - can diverge even from bit-for-bit identical source data.",
+    "commonMistakes": [
+      "Assuming identical data guarantees identical calculated critical path.",
+      "Not knowing that scheduling options are stored at the project level, separate from imported activity data.",
+      "Jumping to 'someone must have changed the data' before checking calculation settings."
+    ],
+    "redFlags": [
+      "Candidate cannot name any P6 scheduling option that could cause this divergence.",
+      "Candidate assumes the two teams' discrepancy must indicate data corruption or manipulation without checking settings first."
+    ],
+    "p6Checks": [
+      "Compare each team's Schedule Options (critical activity definition/threshold) side by side.",
+      "Compare each team's out-of-sequence progress handling setting (Retained Logic vs Progress Override).",
+      "Confirm both environments use the same data date and the same treatment of any external/linked project relationships."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Once you find the setting difference, how would you formally document the agreed standard for future JV reporting?", "purpose": "Tests process/governance thinking beyond a one-time technical fix."},
+      {"trigger": "if_correct", "prompt": "Could this kind of divergence have contractual consequences if it affected a reported EOT calculation?", "purpose": "Tests awareness of the commercial stakes of scheduling option consistency in multi-party contexts."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies scheduling options as project-level settings independent of imported data."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names specific, correct P6 options that could cause the divergence."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recommends a governance-level fix (agreed shared standard), not just a one-off correction."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 210,
+    "tags": ["scheduling options", "critical path", "joint venture", "P6 configuration", "reconciliation"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-042",
+    "category": "PARA",
+    "subcategory": "Criticality of Zero-Duration Milestones",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Recognizing that a zero-duration, zero-cost milestone can still be a meaningful critical schedule indicator",
+    "difficulty": 2,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "MCQ",
+    "scenario": "A hospital equipment commissioning schedule includes a milestone, 'Regulatory Body Site Inspection Approved', with zero duration, no assigned resources, and no cost. It currently shows Total Float of -6 days.",
+    "question": "Since this milestone has no duration, no resources, and no cost, and does no 'work' itself, is its -6 days of Total Float meaningful, or can it be disregarded as a formality?",
+    "options": [
+      {"label": "A", "text": "It can be disregarded - only activities with real duration, resources, or cost can be meaningfully critical.", "isCorrect": false},
+      {"label": "B", "text": "It is meaningful - a milestone's Total Float reflects the state of everything feeding into it, and a negative-float milestone is a genuine indicator that the chain of real work leading up to it is already behind the date it needs to be achieved by.", "isCorrect": true},
+      {"label": "C", "text": "It is only meaningful if the milestone itself is late, not if it is merely showing negative float.", "isCorrect": false},
+      {"label": "D", "text": "Milestones cannot have Total Float at all since they have zero duration.", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "A milestone's zero duration, zero cost, and lack of resources do not exempt it from CPM float calculations - Total Float is a function of an activity's (or milestone's) position in the logic network relative to its governing constraint, not of whether it 'does work' itself. A milestone with -6 days of Total Float is a direct, meaningful signal that the entire chain of real, resourced activities feeding into it (site preparation, testing, documentation submission, etc.) is collectively running 6 days behind what is needed to achieve that inspection date - it is often one of the most important things to track precisely because it represents a hard external gate (a regulatory body's approval) that the project does not control.",
+    "reasoning": "Total Float for any schedule item, milestone or activity, is calculated the same way: Late Date minus Early Date, derived from the logic network. A milestone inherits its early date from whatever real activities feed into it and its late date from whatever constraint or downstream logic governs it; its lack of duration or cost is irrelevant to this calculation. Regulatory or external-gate milestones are frequently among the most consequential items to monitor precisely because they represent constraints the project team cannot directly accelerate through added resources.",
+    "commonMistakes": [
+      "Dismissing zero-duration, zero-cost milestones as unimportant 'bookkeeping' items.",
+      "Believing only resourced activities can be meaningfully critical.",
+      "Not recognizing external-gate milestones (regulatory, third-party) as high-priority monitoring items precisely because the project cannot unilaterally accelerate them."
+    ],
+    "redFlags": [
+      "Candidate suggests milestones are inherently less important to monitor than resourced activities.",
+      "Candidate cannot explain how a milestone's float reflects the state of its feeding chain."
+    ],
+    "p6Checks": [
+      "Trace the milestone's full predecessor chain to identify which real, resourced activities are driving the -6 days.",
+      "Check whether the regulatory inspection date itself carries a hard external constraint reflecting the authority's own scheduling limitations."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What would you prioritize investigating first among the activities feeding this milestone?", "purpose": "Tests ability to translate a milestone-level finding into upstream corrective action."}
+    ],
+    "estimatedTimeSec": 90,
+    "tags": ["milestones", "total float", "critical path", "regulatory approval", "CPM fundamentals"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-043",
+    "category": "PARA",
+    "subcategory": "Cost-Weighted vs Duration-Weighted Percent Complete",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Reconciling divergent overall project percent-complete figures produced by cost-weighted versus duration-weighted methodologies",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "On a resort hotel development, the monthly cost report states overall project percent complete as 55%, calculated as cumulative Actual Cost against total Budget at Completion (a cost-weighted method). The schedule report, generated independently from P6 using a duration-weighted S-curve, states overall percent complete as 70% for the same data date.",
+    "question": "Which figure is 'correct' - 55% cost-weighted or 70% duration-weighted - and how would you explain the 15-percentage-point gap to the project sponsor?",
+    "expectedAnswer": "Neither is inherently 'wrong'; they are two different, both legitimate, weighting methodologies answering different questions. The cost-weighted figure (55%) reflects the proportion of total budget consumed/earned, while the duration-weighted figure (70%) reflects the proportion of scheduled duration elapsed or activities completed, weighted by duration rather than cost. The gap typically arises when the remaining scope is disproportionately expensive relative to its remaining duration - for example, if high-cost, short-duration items (specialist FF&E procurement, kitchen equipment, elevators) are concentrated later in the schedule, duration-weighted percent complete will run ahead of cost-weighted percent complete, because a large fraction of the calendar has passed relative to a smaller fraction of the money.",
+    "strongAnswer": "A strong candidate recommends the sponsor be shown both figures together with a clear explanation of what each measures, rather than a single blended number, and notes that for financial/commercial reporting (progress payments, cash flow forecasting), the cost-weighted figure is typically the more decision-relevant one, while for schedule/time-risk reporting, duration-weighted or activity-based percent complete is more relevant.",
+    "expertAnswer": "An expert would additionally check whether the cost-weighted 55% appropriately reflects earned value (physical progress times budgeted cost) rather than simply actual cost incurred (which can itself be distorted by front-loaded billing or retention), and would recommend a proper EVM-based percent complete (BCWP/BAC) as the most defensible cost-side figure, in addition to explaining the duration-weighting gap, since conflating 'cost incurred' with 'value earned' is a separate, additional source of potential distortion beyond the weighting-method difference itself.",
+    "explanation": "Percent complete can be legitimately calculated using different weighting bases - cost (budget consumed or earned relative to total budget), duration (elapsed/completed duration relative to total planned duration), or activity count - and each will produce a different number whenever the mix of remaining scope is not proportionally balanced between cost and duration. A gap between cost-weighted and duration-weighted percent complete is not a data error by itself; it is a direct, calculable consequence of how the remaining scope's cost and duration are distributed, and understanding which items are driving the gap is more useful than treating either number as simply 'the' answer.",
+    "reasoning": "If remaining scope (30% of duration remaining under the schedule view, but 45% of budget remaining under the cost view) is concentrated in a smaller number of high-value, shorter-duration packages (elevators, FF&E, specialist equipment) toward the end of the project, then most of the calendar time will have elapsed (driving duration-weighted percent complete up) while a disproportionate share of the money is still to be spent (holding cost-weighted percent complete down) - both figures are internally consistent with their own methodology; they simply weight the same remaining scope differently.",
+    "commonMistakes": [
+      "Assuming one of the two percent-complete figures must be an error.",
+      "Reporting only one figure to the sponsor without explaining the methodology difference when both exist.",
+      "Not identifying which specific remaining scope items are driving the gap."
+    ],
+    "redFlags": [
+      "Candidate cannot explain that different weighting methodologies can legitimately produce different percent-complete figures.",
+      "Candidate picks whichever figure is more favorable without explaining the discrepancy."
+    ],
+    "p6Checks": [
+      "Confirm the specific weighting methodology (cost, duration, activity count, or units) used to generate the schedule's percent complete figure.",
+      "Identify the specific remaining scope items driving the cost/duration imbalance (high-value, low-duration items concentrated late in the schedule).",
+      "Check whether the cost-side figure reflects earned value (BCWP) or merely actual cost incurred, which are not the same thing."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Which figure would you recommend using for the bank/lender's monthly draw-down certification, and why?", "purpose": "Tests judgment on selecting the appropriate metric for a specific stakeholder and purpose."},
+      {"trigger": "if_correct", "prompt": "How would you check whether the 55% cost-weighted figure is genuinely earned value or just cash spent?", "purpose": "Tests awareness of the earned-value-vs-actual-cost distinction as a separate potential source of distortion."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains both figures as legitimate, differently-weighted measures."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Identifies the remaining-scope cost/duration imbalance as the specific mechanism."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Recommends presenting both figures with methodology explained, tailored to audience."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["percent complete", "cost-weighted", "duration-weighted", "S-curve", "reporting"],
+    "references": ["PMBOK Guide"]
+  },
+  {
+    "questionCode": "PARA-044",
+    "category": "PARA",
+    "subcategory": "Calendar Reassignment Changing Float With No Date Changes",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Explaining how reassigning an activity's calendar alone can change its calculated Total Float without any logic or duration edits",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "PARADOX",
+    "scenario": "A cross-border pipeline schedule has an activity, 'Tie-In Weld - KP 145', originally assigned to a 6-day-per-week calendar (matching the country segment it is physically in), showing Total Float of 9 days. A planner reassigns the activity to the standard 5-day-per-week project calendar used elsewhere on the pipeline (a data entry correction, since the activity is actually located in a segment with a 5-day working week per local labor law), with absolutely no change to any relationship, lag, or duration value. Total Float recalculates to 4 days.",
+    "question": "How can simply changing which calendar is assigned to an activity alter its Total Float, with no relationship, lag, or duration values touched at all?",
+    "expectedAnswer": "Total Float is measured in working-time units relative to the calendar governing the float calculation (commonly the activity's own calendar, or a combination of the activity's and its successors' calendars depending on the project's float calculation option). Switching Tie-In Weld from a 6-day to a 5-day calendar means the same number of calendar days between its early and late dates now contains fewer available working periods, so the same absolute slack window is 'worth' fewer working-day units of float under the new calendar - even though no date, duration, or relationship was directly edited.",
+    "strongAnswer": "A strong candidate explains this with the specific mechanic: Total Float in P6 can be calculated in units of the activity's own calendar (a common option), so if the gap between Early Finish and Late Finish spans, say, 11 calendar days, that gap contains about 9 working days on a 6-day calendar but only about 8 working days on a 5-day calendar (before accounting for exactly where weekends fall) - the recalculation to 4 days (rather than a purely proportional drop) reflects the specific placement of non-working days within that particular window, which is why the change is not simply a fixed ratio.",
+    "expertAnswer": "An expert flags the broader implication: since this correction reduced float from 9 to 4 days, if any other activities on this pipeline segment were also incorrectly assigned the wrong (6-day) calendar, their float and criticality determination could be similarly overstated project-wide, and recommends a full calendar assignment audit across all activities in that country segment as a direct follow-up, since a systematic calendar misassignment could be masking real criticality across many activities, not just this one.",
+    "explanation": "Total Float, when calculated in the activity's own calendar units (a standard P6 option), depends directly on how many working periods exist within the calendar-day gap between the activity's early and late dates. Changing the assigned calendar from a 6-day to a 5-day working week, without touching any date, duration, or relationship, changes how many working-time units fit within that same calendar-day window, and therefore changes the calculated Total Float - because float is fundamentally a working-time measure, not a pure calendar-day measure, and the calendar defines what counts as working time.",
+    "reasoning": "If Early Finish and Late Finish are 13 calendar days apart, a 6-day working calendar contains roughly 11 working days in that window, while a 5-day working calendar contains roughly 9 working days in the same window (before accounting for the exact placement of specific weekends and holidays, which explains why the actual before/after numbers - 9 versus 4 - are not simply proportional). The activity's true calendar-day position in the network did not move; only the yardstick used to measure the gap in working-time terms changed.",
+    "commonMistakes": [
+      "Assuming Total Float can only change if a date, duration, or relationship is directly edited.",
+      "Not recognizing that float is a working-time measure dependent on the governing calendar, not a pure calendar-day count.",
+      "Treating the recalculated float as evidence of a scheduling error rather than a legitimate calendar-driven recalculation."
+    ],
+    "redFlags": [
+      "Candidate cannot explain that Total Float is calculated in working-time units governed by a specific calendar.",
+      "Candidate assumes the recalculation must be a bug."
+    ],
+    "p6Checks": [
+      "Verify which calendar (Activity, Project, or Resource) governs the Total Float calculation option used on this project.",
+      "Confirm the calendar reassignment correctly reflects the activity's actual physical location and applicable local working-week practice.",
+      "Audit other activities in the same country segment for potentially incorrect calendar assignments."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What would you check next across the rest of the pipeline schedule after finding this misassignment?", "purpose": "Tests whether the candidate generalizes a single finding into a broader data quality audit."},
+      {"trigger": "if_correct", "prompt": "How would you explain to a client why yesterday's report showed 9 days of float and today's shows 4, with no schedule change reported?", "purpose": "Tests clear communication of a technically subtle but legitimate recalculation to a non-technical audience."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains float as a calendar/working-time-dependent measure."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Demonstrates specific knowledge of calendar-based float calculation mechanics."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Recommends a broader calendar assignment audit as a follow-up."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["calendars", "total float", "working days", "pipeline", "P6 configuration"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-045",
+    "category": "PARA",
+    "subcategory": "Unchanged Critical Path Despite Major Logic Revision",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Correctly interpreting an unchanged critical path after a substantial logic revision as expected, not automatically reassuring",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A residential tower schedule undergoes a major detailing exercise: 25 new activities and 40 new relationships are added to represent MEP coordination and inspection sequencing in greater detail. After the revision, the critical path - same activities, same total duration - is identical to before the revision.",
+    "question": "Is an unchanged critical path after this scale of logic revision itself evidence that the schedule review was thorough and the project's true risk profile is well understood, or does it require further scrutiny?",
+    "expectedAnswer": "An unchanged critical path after this kind of revision is plausible and, on its own, unremarkable - if the 25 new activities and 40 new relationships were all inserted into non-critical or float-rich portions of the network (a common and expected outcome of adding coordination detail to already-parallel MEP scope), the driving chain would legitimately remain unaffected. However, this fact alone does not confirm the review was thorough - it could equally mean the review simply never reached or reconsidered the critical path itself, or that the added detail, despite its volume, happened not to touch the parts of the schedule that actually matter for the finish date. Further scrutiny is warranted specifically on whether the critical path's own activities and logic were reviewed with the same rigor as the newly detailed areas.",
+    "strongAnswer": "A strong candidate explicitly recommends checking whether any of the new relationships touch or connect into the critical path chain at all, and separately confirms whether the critical path activities themselves received any review or updated detail in this exercise, since a large, unrelated detailing effort elsewhere in the network says nothing about the critical path's own quality.",
+    "expertAnswer": "An expert treats 'no change to the critical path' as a null result requiring the same level of scrutiny as any other outcome - neither inherently good news nor bad news - and would specifically ask what proportion of the new activities and relationships are within N days of the critical path (near-critical), since a revision that added significant detail everywhere except near the critical path may indicate the review team focused effort where it was easiest, not where risk was highest.",
+    "explanation": "A network's critical path length depends only on the longest chain of durations and relationships; adding detail to parallel, non-critical portions of the schedule has no mechanical reason to change it, and this outcome is neither surprising nor automatically evidence of either a well- or poorly-executed review. The correct response is to verify specifically whether the critical path itself was scrutinized and refined with comparable rigor, rather than inferring the quality of that scrutiny from an unrelated, unchanged summary statistic.",
+    "reasoning": "The critical path is determined by the single longest path through the network from start to finish; activities and relationships added entirely within already-non-critical chains cannot, by construction, extend or alter that longest path unless they happen to create new connections that push a previously non-critical chain to become longer than the existing critical path. With 25 activities and 40 relationships added without altering the critical path's total length, it is likely (though not certain without checking) that none of the additions created such a new, longer chain - which is an entirely mechanical, expected outcome once the location of the additions (non-critical MEP coordination detail) is considered.",
+    "commonMistakes": [
+      "Treating 'critical path unchanged after a major revision' as automatic proof the revision was thorough or the project is well understood.",
+      "Treating it as automatically suspicious without checking where the new detail was actually added.",
+      "Not verifying whether the critical path itself received comparable review attention."
+    ],
+    "redFlags": [
+      "Candidate assumes an unchanged critical path is inherently reassuring without further checks.",
+      "Candidate cannot explain the mechanical reason why non-critical-area additions would not change the critical path."
+    ],
+    "p6Checks": [
+      "Confirm which portions of the network (critical, near-critical, or float-rich) the 25 new activities and 40 new relationships were added into.",
+      "Check whether any new relationship connects into or near the critical path chain, even if it did not ultimately change its length.",
+      "Verify whether the critical path's own activities received any review, refinement, or added detail in this exercise."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What specific check would confirm whether the critical path itself was adequately reviewed in this exercise?", "purpose": "Tests ability to propose a concrete verification step rather than accepting the null result at face value."},
+      {"trigger": "if_correct", "prompt": "If you find none of the new detail touches the critical path or near-critical activities, what would you recommend as a next step?", "purpose": "Tests follow-through into recommending focused review effort on the areas that actually matter."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains the mechanical reason the critical path can remain unchanged."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Does not over-interpret the unchanged result as automatically reassuring."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete verification step focused on the critical path itself."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["critical path", "logic revision", "schedule detail", "schedule review", "MEP coordination"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-046",
+    "category": "PARA",
+    "subcategory": "Reconciling Subcontractor Standalone Delay Claims Against Integrated Impact",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Reconciling a subcontractor's large standalone delay claim against a much smaller impact shown by the integrated project schedule",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "A precast concrete supply and erection subcontractor submits a claim for 45 calendar days of delay, based on a standalone bar chart of their own scope showing a string of owner/main-contractor-caused hold points. The main contractor's integrated, whole-project CPM schedule, incorporating the same events alongside all other trades and paths, shows only 10 days of actual impact to the project's overall completion date from the same events.",
+    "question": "How can the same underlying delay events produce a 45-day claim on a standalone subcontractor program but only a 10-day impact in the integrated project schedule? How would you approach resolving this discrepancy, and what governs which figure is contractually relevant?",
+    "expectedAnswer": "A standalone subcontractor program, viewed in isolation, typically has its own internal logic and float structure based only on that subcontractor's own scope; delay events affecting it can appear to consume the full stated duration against ITS OWN milestones without accounting for float the subcontractor's path actually held relative to the OVERALL project's controlling path, or without accounting for other, unrelated float or acceleration elsewhere in the integrated schedule that absorbed most of the impact before it reached project completion. The 45-day figure likely reflects delay to the subcontractor's own (possibly already float-consuming or non-critical relative to the whole project) activities, not delay to the project's governing critical path; the 10-day figure reflects the actual impact after accounting for float, concurrent unrelated progress, and the full network of interdependencies. Which figure is contractually relevant depends entirely on the specific contract: many subcontracts tie the subcontractor's entitlement to actual impact on the project's critical path (or on the subcontractor's own agreed milestones, which is different), so this must be checked, not assumed either way.",
+    "strongAnswer": "A strong candidate proposes a specific reconciliation approach: request the subcontractor's full logic-linked schedule (not just a bar chart) and integrate it properly into the main CPM network with correct relationships to the rest of the project, then run a proper time-impact or as-built-versus-as-planned analysis showing exactly how much of the 45 days is float absorption, concurrent unrelated delay, or genuinely critical impact, rather than accepting either party's number without a defensible methodology.",
+    "expertAnswer": "An expert would insist on identifying the specific delay analysis methodology being used by each party (e.g., impacted as-planned versus time impact analysis versus windows/collapsed as-built) since the two approaches can produce materially different results even from identical facts, and would flag that a subcontractor's standalone, unintegrated bar chart is inherently unreliable for quantifying project-level impact because it cannot see or account for float, concurrency, or other paths - while cautioning that the main contractor's 10-day figure must also be independently verified (not simply accepted) since either party has an incentive to present the more favorable figure, and would recommend an independent, jointly-reviewed integrated analysis as the only credible basis for resolving the dispute.",
+    "explanation": "A subcontractor's standalone program, disconnected from the rest of the project's logic network, cannot correctly reflect how much float that subcontractor's activities actually held relative to the true governing (project-wide) critical path, nor can it reflect whether other unrelated activity elsewhere in the project absorbed the practical effect of the delay before it reached the finish date. The integrated CPM schedule, properly built with all trades and paths linked together, is generally the more reliable basis for quantifying actual project-level impact, but its result (10 days) is only as trustworthy as the integration was done correctly and neutrally - this is fundamentally a delay-analysis methodology question, and the answer must state that entitlement and quantum depend on the specific contract's requirements and an appropriately rigorous, ideally independently verified, analysis.",
+    "reasoning": "If the subcontractor's precast erection path had, say, 25 days of float relative to the project's true critical path (because other trades were further behind at the time), then a 45-day series of hold points on that path would only consume the available float plus whatever exceeded it - in this case, roughly 20 days beyond the float, still not necessarily equal to 10, since further absorption or overlap with subsequent recovery elsewhere in the schedule could still reduce the ultimate measured impact to project completion to the reported 10 days. The subcontractor's standalone chart, lacking this project-wide float and interdependency context, has no way to reflect any of this and will tend to overstate impact whenever real float existed.",
+    "commonMistakes": [
+      "Accepting either the subcontractor's 45-day figure or the main contractor's 10-day figure without independently verifying the methodology behind each.",
+      "Assuming a standalone subcontractor program is an adequate basis for quantifying project-level delay impact.",
+      "Concluding entitlement is automatically limited to the smaller (or larger) of the two figures without checking the specific contract terms."
+    ],
+    "redFlags": [
+      "Candidate accepts one party's figure uncritically without proposing an independent verification methodology.",
+      "Candidate does not distinguish delay to the subcontractor's own milestones from delay to the project's governing critical path.",
+      "Candidate gives a flat answer on entitlement without referencing that it depends on the specific contract and delay analysis methodology used."
+    ],
+    "p6Checks": [
+      "Request the subcontractor's full logic-linked schedule and properly integrate it into the main project network with correct cross-trade relationships.",
+      "Trace the subcontractor's path's Total Float relative to the project's true governing critical path both before and during the delay events.",
+      "Run a defensible time-impact or windows analysis on the properly integrated schedule to independently quantify actual project-level impact."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What delay analysis methodology would you propose using to resolve this dispute, and why is it more appropriate than either party's current approach?", "purpose": "Tests knowledge of recognized forensic schedule analysis methodologies and their appropriate application."},
+      {"trigger": "if_correct", "prompt": "If the subcontract entitles the subcontractor to an EOT based on delay to 'the subcontractor's own critical path' rather than the project's critical path, how would that change your analysis?", "purpose": "Tests the candidate's ability to adapt technical analysis to a specific, alternative contractual entitlement basis."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains why standalone and integrated schedules can produce very different impact figures."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the float-absorption/interdependency mechanism with a concrete, plausible numeric walk-through."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "States entitlement depends on the specific contract and methodology; does not accept either party's figure uncritically."}
+      ],
+      "passingScore": 11
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["delay claims", "integrated schedule", "subcontractor claims", "time impact analysis", "float absorption"],
+    "references": ["SCL Delay and Disruption Protocol", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "PARA-047",
+    "category": "PARA",
+    "subcategory": "Positive Float on an Overdue-Looking Activity",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Explaining how a not-yet-started activity with a past-due early start can still legitimately show positive Total Float",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "In a shopping mall retail unit fit-out schedule, the activity 'Install Storefront Glazing - Unit 22' has a baseline Early Start of three weeks before the current data date, but it has not yet started (0% complete, Actual Start blank). Despite this, its Total Float shows +11 days.",
+    "question": "Is it inconsistent for an activity whose planned start date has already passed to still show positive Total Float? Explain what is happening and what you would verify.",
+    "expectedAnswer": "This is not inherently inconsistent. Once an activity has not started by its planned early start, most scheduling engines (including P6, when rescheduling with a data date) recalculate its Early Start forward to at least the current data date (since it cannot start in the past), and recalculate Total Float as the difference between this new, forward-shifted Early Start/Finish and the Late Start/Finish still governed by its downstream logic. If enough slack remains between the new (later) early dates and the late dates required by its successors, the activity can still show positive float even though, informally, it 'looks overdue' relative to its original baseline planned start.",
+    "strongAnswer": "A strong candidate is careful to separate two different comparisons: baseline-vs-actual status (which correctly shows this activity as behind its original plan) versus current Total Float (which reflects the CURRENT schedule's remaining slack after re-dating to the data date) - both can be true and non-contradictory at once, since they answer different questions.",
+    "expertAnswer": "An expert would still flag this as worth investigating operationally even though it is not a calculation inconsistency - three weeks of unexplained non-start on an activity, even one with float remaining, often indicates a resourcing, procurement, or access issue that should be identified now rather than waiting until float is exhausted, and would recommend checking Actual Start eligibility, resource/material availability, and any predecessor status specifically before accepting the 'no urgency, there's still float' read of the situation.",
+    "explanation": "When a schedule is updated with a new data date, any activity that has not started by its previous early start date has its Early Start recalculated forward (it cannot logically start before the current data date, since time has moved on). This shift changes the calculated Total Float, which is simply the difference between the (now later) early dates and the late dates still required by the network's downstream logic - as long as the successor chain has enough remaining slack to absorb this shift, positive float can persist even though the activity's original baseline start date has already passed.",
+    "reasoning": "If Unit 22 Glazing's downstream logic (subsequent fit-out trades, final inspection, handover) has enough slack that its Late Finish is still comfortably beyond what the new, data-date-shifted Early Finish requires, Total Float remains positive under the current schedule, even though comparing today's date to the original baseline Early Start shows the activity is 'late to start' in a baseline-comparison sense. The two facts - baseline lateness and current positive float - are both correct and are not in conflict, because they measure different things (comparison to the original plan versus current remaining slack).",
+    "commonMistakes": [
+      "Assuming positive Total Float and a past-due baseline start date cannot coexist.",
+      "Treating positive float as proof there is no urgency to start the activity.",
+      "Not distinguishing baseline-comparison status from current schedule float."
+    ],
+    "redFlags": [
+      "Candidate cannot explain how Early Start recalculates forward to the data date for a not-yet-started activity.",
+      "Candidate treats the situation as purely a data error without considering the legitimate mechanical explanation."
+    ],
+    "p6Checks": [
+      "Confirm the activity's Early Start has recalculated forward to at or after the current data date.",
+      "Check the successor chain's remaining slack to confirm the positive float figure is consistent with the network.",
+      "Investigate the operational reason for the three-week non-start (resource, material, access, predecessor) regardless of the float calculation being correct."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What would you investigate to understand why this activity has not started, independent of the float calculation being technically correct?", "purpose": "Tests operational follow-through beyond confirming the CPM mechanics are consistent."},
+      {"trigger": "if_correct", "prompt": "How would you explain this to a site manager who sees 'overdue' in the baseline comparison and assumes the schedule must be wrong?", "purpose": "Tests communication of a subtle scheduling mechanic to a non-planning audience."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains data-date-driven forward recalculation of Early Start."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Distinguishes baseline-comparison status from current float clearly."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Recommends operational investigation despite the float being technically consistent."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["total float", "data date", "early start", "not started activity", "schedule update"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-048",
+    "category": "PARA",
+    "subcategory": "Near-Critical Risk vs Completed Zero-Float Activities",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Judging relative schedule risk between a completed zero-float activity and an in-progress near-critical activity",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TRUE_FALSE",
+    "scenario": "A project controls team is prioritizing which activities to monitor most closely this week. Activity X is 100% complete, was on the critical path throughout execution (Total Float = 0), and is now finished. Activity Y is 35% complete, in progress, shows Total Float = 2 days, and involves a specialist trade with a history of productivity variability on this project.",
+    "question": "True or False: Activity X, having been on the critical path with zero float, represents a greater ongoing schedule risk to the project than Activity Y, which currently shows a small positive float of 2 days.",
+    "options": [
+      {"label": "True", "text": "True", "isCorrect": false},
+      {"label": "False", "text": "False", "isCorrect": true}
+    ],
+    "correctAnswer": "False",
+    "explanation": "Activity X, being 100% complete, carries no further schedule risk at all - its outcome is locked in and it can no longer slip, regardless of what its historical float value was during execution. Activity Y, despite carrying a small positive float (2 days) rather than zero, is still in progress, involves a trade with demonstrated productivity variability, and has real remaining risk of further slippage that could consume its modest float and become critical. Total Float describes calculated schedule position, not risk exposure directly; a completed activity's historical float is no longer informative about future risk, while an in-progress near-critical activity with known variability is a genuinely higher forward-looking risk despite its 'less critical' float label.",
+    "reasoning": "Schedule risk is fundamentally forward-looking - it concerns the probability and consequence of future variance. A completed activity has zero remaining variance possible; its float value is now purely historical. An in-progress activity with only 2 days of float and known productivity variability has a real, non-trivial probability of consuming that float and becoming critical, which is the essence of schedule risk. Prioritizing monitoring effort based purely on a static float label (0 vs 2) without considering activity status and risk profile is a common analytical error.",
+    "commonMistakes": [
+      "Equating a low or zero historical Total Float value with ongoing risk regardless of completion status.",
+      "Not incorporating activity status (complete vs in-progress) into a risk prioritization judgment.",
+      "Ignoring known productivity or trade-specific risk factors when comparing float values."
+    ],
+    "redFlags": [
+      "Candidate recommends monitoring completed activities as closely as in-progress ones based purely on historical float.",
+      "Candidate cannot articulate why forward-looking risk, not historical float, should drive monitoring priority."
+    ],
+    "p6Checks": [
+      "Filter monitoring/watch lists to in-progress and not-started activities only, using float and risk history together, rather than a pure float sort across all activities regardless of status.",
+      "Cross-reference near-critical in-progress activities against known productivity or resourcing risk factors for the responsible trade."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you build a weekly monitoring priority list that correctly reflects this distinction?", "purpose": "Tests ability to design a practical, risk-appropriate monitoring process rather than a naive float sort."}
+    ],
+    "estimatedTimeSec": 120,
+    "tags": ["schedule risk", "total float", "near-critical", "monitoring priority", "risk assessment"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-049",
+    "category": "PARA",
+    "subcategory": "Multi-Project Float Calculation Options",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Explaining how a shared-resource multi-project scheduling option can change Total Float for activities in a specific project without any local edits",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "A utility contractor manages three separate substation build-out projects (as three separate P6 projects) sharing a common pool of specialized commissioning engineers, opened together in a single EPS. Total Float on 'Protection Relay Testing - Substation C' was previously 12 days when Substation C's project was scheduled in isolation. After the scheduler changes the project group's calculation setting from 'Calculate float based on finish date of each project' to 'Calculate float based on a common finish date for all projects', with no local data changes to Substation C's own project, its Total Float recalculates to -3 days.",
+    "question": "How can a project-group-level calculation setting change Total Float on an activity in a specific project, without any edit to that project's own activities, relationships, or durations?",
+    "expectedAnswer": "P6's multi-project scheduling options determine what constraint the backward pass uses when multiple open projects are scheduled together. 'Calculate float based on finish date of each project' backward-passes each project independently from its own finish milestone, giving each project's activities float relative only to their own project's finish. 'Calculate float based on a common finish date for all projects' instead backward-passes every open project from whichever project finishes latest among the group, effectively imposing the latest project's finish date as a shared constraint on every project in the group. If Substation C's own project would otherwise finish comfortably, but another substation project in the same EPS group finishes later, switching to the common-finish-date option makes that other project's later finish the governing constraint for Substation C's float calculation too - explaining the swing from +12 to -3 days without any change to Substation C's own data.",
+    "strongAnswer": "A strong candidate explicitly identifies which of the three projects has the latest finish date and confirms that it is now acting as the shared constraint, and notes this setting is specifically relevant (and often intentionally used) when projects genuinely share constrained resources, since it surfaces resource-driven cross-project risk that isolated per-project scheduling would hide.",
+    "expertAnswer": "An expert would ask why the group's setting was changed at all, and for what reporting purpose - if the three substations are genuinely contractually and operationally independent (separate clients, separate finish obligations) despite sharing a resource pool, showing Substation C with a false -3 days driven by an unrelated project's finish date could be as misleading as the prior isolated calculation was in hiding the shared-resource risk; they would recommend using the shared-resource insight (from resource leveling across the EPS) for internal capacity planning while keeping each project's contractually reported float based on its own finish date, rather than blending the two purposes into one number.",
+    "explanation": "When multiple P6 projects are opened together for scheduling (a common practice for resource-sharing analysis), a group-level option determines whether each project's Total Float is calculated purely relative to its own finish milestone, or relative to a shared, common finish date derived from the latest-finishing project in the group. This is a scheduling configuration choice, entirely separate from any project's own data, and switching it can dramatically change calculated float for every project in the group, including ones whose own local schedule and finish date did not change at all.",
+    "reasoning": "Under 'finish date of each project', Substation C's backward pass starts from Substation C's own finish milestone, giving float relative only to its own +12-day position. Under 'common finish date for all projects', the backward pass instead starts from whichever project in the open group finishes latest - if Substation A or B finishes, say, 15 days later than Substation C's own planned finish, that later date becomes the shared anchor, and Substation C's activities are now measured against that later, shared constraint, which can flip previously comfortable float into negative float purely as a function of another project's schedule position.",
+    "commonMistakes": [
+      "Assuming Total Float can only change through edits to an activity's own project data.",
+      "Not knowing that multi-project scheduling options exist and can override single-project float calculations.",
+      "Using the common-finish-date setting for contractual reporting purposes when it was intended only for internal resource capacity analysis."
+    ],
+    "redFlags": [
+      "Candidate has no awareness of multi-project scheduling options in P6.",
+      "Candidate cannot explain how another project's finish date could become the governing constraint for a different project's float."
+    ],
+    "p6Checks": [
+      "Check the EPS/project group's multi-project scheduling option (finish date of each project vs common finish date for all projects).",
+      "Identify which project in the open group has the latest finish date if the common-finish-date option is in use.",
+      "Confirm the intended reporting purpose (internal resource risk analysis vs contractual project-specific reporting) before choosing which setting to use for a given report."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Which setting would you recommend for this contractor's monthly client-facing report on Substation C specifically, and why?", "purpose": "Tests judgment on matching the calculation method to the reporting purpose and audience."},
+      {"trigger": "if_correct", "prompt": "How would you use the common-finish-date view constructively, even if it's not the right basis for client reporting?", "purpose": "Tests ability to extract genuine value (shared-resource risk insight) from a setting while using it appropriately."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains the multi-project float calculation option mechanism."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Demonstrates specific, correct knowledge of the two named P6 settings."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recommends matching the calculation setting to the reporting purpose rather than using one blindly."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 210,
+    "tags": ["multi-project scheduling", "total float", "shared resources", "P6 configuration", "EPS"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PARA-050",
+    "category": "PARA",
+    "subcategory": "Perfect Metrics Masking Late Delivery",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Synthesizing multiple schedule and cost health indicators to explain how an apparently flawless status report can still precede a significantly late delivery",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "CASE_STUDY",
+    "scenario": "A pharmaceutical manufacturing facility project reports, at 75% duration elapsed: zero activities with negative Total Float anywhere in the schedule; 100% of milestones achieved on or ahead of their baseline dates to date; cumulative SPI = 1.00 and cumulative CPI = 1.00. Eight months later, the facility is handed over 60 calendar days later than the original baseline finish date, with no single dramatic event cited as the cause.",
+    "question": "Given a report showing zero negative float, a perfect milestone-hit record, and both SPI and CPI exactly at 1.00, how could this project still deliver 60 days late with no single major event to explain it? Identify at least three distinct, plausible contributing mechanisms and explain how you would design a status reporting process to catch this pattern earlier.",
+    "expectedAnswer": "A competent answer identifies multiple plausible mechanisms rather than a single cause, for example: (1) the schedule's logic quality itself may have been poor (missing logic, open ends, or generously-set baseline durations) such that 'zero negative float' reflected an artificially slack network rather than genuine health, masking true risk on paths that were never properly logic-tied to the finish; (2) a perfect milestone-hit record can result from milestones being defined loosely or re-baselined/re-dated quietly period over period rather than genuinely held to the original baseline, so 'on or ahead of baseline' compared against a moving baseline is not a meaningful signal; (3) SPI and CPI exactly at 1.00 for an extended period is itself statistically unusual and can indicate the underlying EVM data (percent complete inputs, budget baseline) was not being rigorously updated or was smoothed/estimated rather than measured, hiding real variance; and (4) remaining, not-yet-detailed scope (commissioning, validation, regulatory qualification activities typical of a pharmaceutical facility) may not have been adequately planned in detail early on, so problems that eventually caused the 60-day slip were not yet visible in a schedule that had not yet been built out to reflect that later-stage complexity.",
+    "strongAnswer": "A strong candidate connects these mechanisms together into a coherent narrative (e.g., a schedule with loose logic and re-baselined milestones would naturally also tend to show suspiciously flat SPI/CPI, since none of the underlying metrics were being rigorously challenged) and proposes specific process controls: independent schedule quality audits (DCMA-style checks) run periodically regardless of how 'good' the summary metrics look, a locked baseline with any milestone re-dating requiring formal change control and visible disclosure, and EVM percent-complete inputs tied to objective, physical measurement rather than self-reported estimates.",
+    "expertAnswer": "An expert specifically flags pharmaceutical/validated-facility projects as prone to this exact pattern because late-stage commissioning, qualification, and regulatory validation activities are often under-detailed early in the schedule (planned as placeholder durations) precisely because their scope cannot be fully defined until design and construction mature - meaning early reporting periods can look artificially clean while the genuinely hard, uncertain scope has simply not yet been schedule-modeled in enough detail to reveal its risk; they would recommend mandatory progressive elaboration checkpoints (requiring commissioning/validation scope to be detailed to a minimum level by a defined project milestone) specifically to prevent this blind spot, in addition to the general schedule and EVM integrity controls.",
+    "explanation": "A status report with uniformly perfect-looking indicators across multiple independent dimensions (float, milestones, SPI, CPI) simultaneously is itself an unusual result that should prompt scrutiny rather than comfort, because real projects with genuine execution complexity almost always show some variance somewhere. The most likely explanations are not that the project was flawlessly executed, but that one or more of the underlying data sources feeding these metrics (schedule logic quality, baseline integrity, percent-complete measurement rigor, or the level of detail in not-yet-reached scope) was not capturing real variance, allowing genuine risk - particularly in complex, hard-to-detail late-stage scope typical of a regulated facility - to remain invisible until it materialized as the 60-day slip.",
+    "reasoning": "Each of the four metrics cited can independently be rendered artificially favorable: a poorly logic-tied schedule can show no negative float without reflecting true risk; milestones can be hit 'on time' if their dates were quietly adjusted rather than held to a fixed baseline; SPI/CPI exactly at 1.00 for extended periods is a statistical anomaly consistent with estimated (not measured) progress inputs; and schedule detail for complex, hard-to-plan late-stage scope (commissioning, validation) is often thin early on, meaning its eventual problems simply were not yet represented in the schedule at all during the reporting period being reviewed. Any one of these alone could explain part of the gap; together, they describe a reporting environment where genuine variance had no channel through which to become visible until very late.",
+    "commonMistakes": [
+      "Assuming uniformly perfect metrics must reflect a genuinely well-executed project.",
+      "Proposing only a single cause rather than considering multiple, compounding contributing mechanisms.",
+      "Not recognizing that late-stage, hard-to-detail scope (commissioning/validation) is a common blind spot in early reporting periods."
+    ],
+    "redFlags": [
+      "Candidate accepts the described report as evidence of strong project health without qualification.",
+      "Candidate proposes only one mechanism and does not consider schedule logic quality, baseline integrity, and EVM data rigor together.",
+      "Candidate has no concrete process-control recommendation to prevent recurrence."
+    ],
+    "p6Checks": [
+      "Run a full schedule quality audit (missing logic, open ends, hard constraints, duration reasonableness) independent of what the summary float statistic shows.",
+      "Compare the current baseline against the original as-approved baseline for any undisclosed milestone re-dating over the project's history.",
+      "Review the level of schedule detail for late-stage commissioning/validation scope relative to its actual complexity and risk."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Design a specific set of two or three independent checks a project controls function should run monthly, regardless of how favorable the headline metrics look, to catch this pattern earlier.", "purpose": "Tests ability to design a robust, skeptical reporting process rather than relying on face-value summary metrics."},
+      {"trigger": "if_correct", "prompt": "How would you have specifically flagged the risk in commissioning/validation scope during the early reporting periods, when it was still under-detailed?", "purpose": "Tests judgment on managing schedule risk in scope that cannot yet be fully detailed, a common senior-level challenge on regulated or complex facilities."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies multiple plausible, technically sound mechanisms."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Connects the mechanisms into a coherent explanation of how they compound."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Covers schedule quality, baseline integrity, and EVM data rigor, not just one dimension."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Proposes concrete, senior-level process controls to prevent recurrence."}
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 270,
+    "tags": ["schedule health", "EVM", "baseline integrity", "reporting integrity", "commissioning", "case study"],
+    "references": ["PMBOK Guide", "PMI Practice Standard for Scheduling", "DCMA 14-Point Assessment"]
   }
 ]

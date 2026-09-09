@@ -1,0 +1,704 @@
+[
+  {
+    "questionCode": "PF-001",
+    "category": "PF",
+    "subcategory": "Purpose of Planning",
+    "competency": "PLANNING_CPM",
+    "skill": "Articulating the primary purpose of a project schedule beyond contractual compliance",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "MCQ",
+    "question": "What is the primary purpose of developing a project schedule during the planning phase of a construction project?",
+    "options": [
+      {"label": "A", "text": "To satisfy a contractual submittal requirement so that interim payment applications can be certified", "isCorrect": false},
+      {"label": "B", "text": "To provide a realistic, logic-based roadmap for sequencing and coordinating the work, and a baseline against which actual progress can later be measured", "isCorrect": true},
+      {"label": "C", "text": "To calculate the final contract price so the estimating department can close out the tender", "isCorrect": false},
+      {"label": "D", "text": "To create a record that can be used to assign blame if the project finishes late", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "A schedule's core purpose is planning and control: it models how the work will actually be executed (sequence, logic, resources, durations) so the team can coordinate trades, procurement and site logistics, and it becomes the baseline used to measure and forecast progress. Contractual submittal (A) is a real obligation but a byproduct, not the reason the schedule exists; cost calculation (C) and after-the-fact blame assignment (D) are not planning functions.",
+    "reasoning": "Planning precedes and drives scheduling: the planning process defines scope, methodology and sequence, and the schedule is the time-based expression of that plan. Its value is forward-looking (coordination, resourcing, risk identification) and diagnostic (progress measurement against baseline), not merely administrative.",
+    "commonMistakes": ["Treating the schedule as a paperwork deliverable required only for payment certification.", "Believing the schedule's main job is cost calculation rather than time and sequence."],
+    "redFlags": ["Cannot name any use of the schedule beyond 'submitting it to the client'."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Who are the different consumers of a project schedule, and does each of them need the same level of detail?", "purpose": "Tests whether the candidate connects purpose to audience and level of detail."},
+      {"trigger": "if_incorrect", "prompt": "If the schedule were only a contractual document, would it need logic links and float at all?", "purpose": "Nudges the candidate toward the coordination/control function of scheduling."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": ["purpose of planning", "baseline", "project controls fundamentals"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-002",
+    "category": "PF",
+    "subcategory": "WBS Fundamentals",
+    "competency": "PLANNING_CPM",
+    "skill": "Defining a Work Breakdown Structure correctly as a deliverable/scope decomposition, not an activity list",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "MCQ",
+    "question": "Which statement best describes a Work Breakdown Structure (WBS)?",
+    "options": [
+      {"label": "A", "text": "A chronological list of all activities in the order they will be executed", "isCorrect": false},
+      {"label": "B", "text": "A hierarchical decomposition of the total scope of work into smaller, manageable, deliverable-oriented components", "isCorrect": true},
+      {"label": "C", "text": "A list of resources and the costs assigned to each one for the project", "isCorrect": false},
+      {"label": "D", "text": "The organizational chart showing project reporting lines and responsibilities", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "The WBS decomposes project scope (deliverables) into a hierarchy, not time sequence. A chronological activity list (A) describes a schedule; a resource/cost list (C) is closer to a cost breakdown structure or resource plan; an organizational reporting structure (D) is the OBS (Organization Breakdown Structure), a different tool entirely.",
+    "reasoning": "WBS, OBS, CBS and the schedule serve different purposes: WBS = what work exists (scope), OBS = who is responsible, CBS = how cost is tracked, schedule = when work happens. Confusing these leads to a project structure where cost, schedule and scope cannot be reconciled against one another.",
+    "commonMistakes": ["Calling the activity list in P6 'the WBS'.", "Believing the WBS must be in chronological order."],
+    "redFlags": ["Cannot distinguish WBS from the schedule at all."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Should the WBS in the schedule always be identical to the cost breakdown structure used by finance?", "purpose": "Tests understanding of WBS/CBS alignment and coding integration."},
+      {"trigger": "if_incorrect", "prompt": "If you deleted every date and duration from the schedule, what would be left that still describes the project's scope?", "purpose": "Guides the candidate toward the scope-decomposition definition."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": ["WBS", "scope decomposition", "OBS", "CBS"],
+    "references": ["PMI Practice Standard for Scheduling", "PMBOK Guide"]
+  },
+  {
+    "questionCode": "PF-003",
+    "category": "PF",
+    "subcategory": "Planning vs Scheduling",
+    "competency": "PLANNING_CPM",
+    "skill": "Distinguishing the planning process (methodology and judgment) from scheduling (mechanical encoding into a CPM tool)",
+    "difficulty": 2,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "SCENARIO",
+    "scenario": "A junior planner on a new mid-rise residential building has just been handed Primavera P6 and told to 'do the planning.' He opens P6, imports the activity list from a previous, dissimilar project, links the activities with default Finish-to-Start relationships, and assigns durations from memory — all without discussing site methodology, access constraints, or crane logistics with the construction team.",
+    "question": "Explain the difference between 'planning' and 'scheduling' using this situation, and identify specifically what the junior planner skipped.",
+    "expectedAnswer": "Planning is the thinking process — defining construction methodology, work sequence, constructability, resourcing strategy, constraints and stakeholder input — that must happen before or alongside building the network. Scheduling is the mechanical act of encoding that plan into a CPM tool (activities, logic, durations, calendars) so it can calculate dates and float. The planner skipped the planning step entirely: he never established the actual construction methodology with the site/construction team, never validated whether the reused activity list and logic even fit this project's building type, access, or crane strategy, and jumped straight into data entry.",
+    "strongAnswer": "Notes the need for a constructability review, discussion with site engineers/subcontractors and procurement before logic is built, and flags that durations 'from memory' are not estimated from productivity/quantities and are therefore unsubstantiated.",
+    "expertAnswer": "Points out the commercial risk: the output will look like a legitimate schedule (it has a critical path and dates) but is not defensible — it does not reflect actual buildability, may mislead the client and site team, and if relied upon for baseline approval could become a liability in a future delay claim because the logic was copied, not engineered.",
+    "explanation": "Scheduling without planning produces a document that calculates dates but does not represent how the work will really be built. The critical failure here is process, not software skill: no methodology review, no validation of reused logic, no stakeholder input.",
+    "reasoning": "A CPM schedule is only as good as the plan it encodes. Sequence, durations and calendars must originate from a defined construction methodology, resourcing strategy and site constraints; when they instead come from a dissimilar past project and 'memory', the mathematically correct critical path is built on an unvalidated foundation.",
+    "commonMistakes": ["Believing that entering activities correctly into P6 is the same as having planned the project.", "Assuming default Finish-to-Start logic is always an acceptable starting point without review.", "Not questioning whether a reused activity list applies to a different building type or site."],
+    "redFlags": ["Cannot articulate any planning activity that should happen before data entry.", "Treats 'planning' and 'using P6' as synonyms."],
+    "p6Checks": ["Review whether activity durations are linked to quantities/productivity rather than typed in from memory.", "Check whether logic reflects actual constructability (e.g., crane reach, access sequencing) rather than generic FS chains."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "What would you do differently in week one on this project before opening P6 at all?", "purpose": "Tests whether the candidate can describe a real planning kick-off process."},
+      {"trigger": "always", "prompt": "Is it ever acceptable to reuse a schedule template from a past project as a starting point?", "purpose": "Tests judgment about template reuse vs blind copying — templates are fine as a checklist, not as unvalidated logic."},
+      {"trigger": "if_incorrect", "prompt": "If two planners typed the exact same activities into P6, could one have 'planned' and the other not?", "purpose": "Forces the candidate to separate the tool from the thinking behind it."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly separates planning (process/judgment) from scheduling (tool/mechanics)."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why skipping methodology discussion undermines the schedule's validity, not just that it was skipped."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete missing planning steps (constructability review, site/subcontractor input, quantity-based durations)."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.2,
+    "estimatedTimeSec": 180,
+    "tags": ["planning vs scheduling", "constructability", "methodology", "CPM fundamentals"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-004",
+    "category": "PF",
+    "subcategory": "Types of Schedules",
+    "competency": "PLANNING_CPM",
+    "skill": "Identifying the purpose of a short-interval look-ahead schedule relative to the master programme",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "MCQ",
+    "scenario": "On a highway resurfacing and drainage project, the project controls team issues a rolling '3-Week Look-Ahead Schedule' to site superintendents every Friday, in addition to the overall master programme.",
+    "question": "What is the main purpose of this 3-week look-ahead schedule?",
+    "options": [
+      {"label": "A", "text": "To replace the master programme, since it is more current", "isCorrect": false},
+      {"label": "B", "text": "To give short-term, higher-detail visibility of imminent work so crews, equipment and materials can be mobilized and coordinated correctly", "isCorrect": true},
+      {"label": "C", "text": "To report earned value performance to the client's finance department", "isCorrect": false},
+      {"label": "D", "text": "To record final as-built completion dates for close-out reporting", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "A look-ahead schedule is a short-term, more detailed extract of the master programme used for tactical, near-term coordination — crew mobilization, equipment and material logistics, and constraint/interface resolution for the next few weeks. It does not replace the master programme (A), which remains the contractual baseline reference; it is not an EVM reporting tool (C) or an as-built record (D).",
+    "reasoning": "Different schedule types serve different time horizons and audiences: the master/baseline programme is strategic and contractual (months to project duration), the detailed control schedule manages the full current scope, and the look-ahead is tactical and operational (days to a few weeks), typically produced and reviewed weekly with site supervision.",
+    "commonMistakes": ["Believing the look-ahead schedule supersedes the baseline for contractual purposes.", "Confusing a look-ahead schedule with a progress/EVM report."],
+    "redFlags": ["Cannot explain why a separate short-term schedule is needed if a master programme already exists."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Who typically attends the meeting where a 3-week look-ahead is reviewed, and what decisions come out of it?", "purpose": "Tests practical familiarity with how look-aheads are actually used on site."},
+      {"trigger": "if_incorrect", "prompt": "If the look-ahead and the master programme show different dates for the same activity, which one should site work to, and why might they differ?", "purpose": "Surfaces understanding of update cadence and reconciliation between schedule tiers."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": ["look-ahead schedule", "master programme", "schedule tiers", "highway"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-005",
+    "category": "PF",
+    "subcategory": "Level of Detail",
+    "competency": "PLANNING_CPM",
+    "skill": "Pushing back constructively on an inappropriate level-of-detail request before building the baseline network",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On a hyperscale data center fit-out, the client's project director instructs the planning team to break every MEP room build-out into activities no longer than half a day (e.g., 'Pull single cable tray run — Room 4B, Run 12'), which would produce an estimated 40,000 activities for a 14-month programme.",
+    "question": "Before building the baseline schedule to this level of detail, what would you check or ask first?",
+    "expectedAnswer": "Check what the schedule will actually be used for and by whom — is this genuinely needed for baseline/contractual reporting, or is it a personal preference for visibility? Confirm whether this granularity is a contractual requirement (e.g., specification-mandated) or informal. Check whether the project controls team has the resourcing to realistically status and update tens of thousands of activities every reporting period, since an unmaintainable schedule quickly goes stale and becomes unreliable. Check whether this level of detail would obscure the true critical path.",
+    "strongAnswer": "References the general guidance that baseline/control-schedule activity durations are typically kept in the range of roughly one to a few reporting periods (e.g., 1-4 weeks) so the schedule stays maintainable, and explains the trade-off between granular control and update reliability — too many short activities increases data-entry burden, increases the chance of stale or inaccurate updates, and buries the driving path in noise.",
+    "expertAnswer": "Proposes a tiered schedule architecture that satisfies both needs without breaking the CPM baseline: keep the baseline/master control schedule at a defensible activity duration and level of detail (e.g., per room or per system, not per cable-tray run), and produce a separate short-interval / weekly work plan (or a look-ahead schedule) at the fine granularity the director wants, refreshed frequently and disconnected from the contractual baseline logic chain — giving visibility without turning the baseline itself into an unmanageable dataset.",
+    "explanation": "Excessive activity granularity in a baseline/control schedule is a common level-of-detail failure: it feels like more control but usually produces less, because the schedule becomes too large to update reliably and the critical path becomes hard to trace. The fix is not to refuse the client's need for visibility, but to meet it with the right tool — a short-interval plan — rather than distorting the master control schedule.",
+    "reasoning": "Level of detail should be driven by what decisions the schedule needs to support and by the team's capacity to maintain it, not by a desire for maximum visibility. A control schedule exists to manage the critical path and major interfaces; task-level detail belongs in short-interval planning tools closer to execution.",
+    "commonMistakes": ["Building the schedule to the requested detail without questioning maintainability.", "Refusing outright instead of proposing a workable alternative (tiered schedule structure)."],
+    "redFlags": ["Agrees to any level of detail requested without considering update burden or critical path clarity.", "Has no concept of a 'reasonable' activity duration range for a control schedule."],
+    "p6Checks": ["Review Activity Duration distribution (histogram) to sanity-check average activity length against the reporting cycle.", "Check whether a separate WBS node / project or layout is used to isolate short-interval detail from the baseline critical path."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "How would you explain this trade-off to the client's project director in a way that doesn't sound like you are refusing their request?", "purpose": "Tests communication and stakeholder-management skill alongside the technical judgment."},
+      {"trigger": "always", "prompt": "Is there ever a legitimate case for very short baseline activity durations?", "purpose": "Tests nuance — e.g., short-duration, high-risk, tightly sequenced work like a shutdown or tie-in may justify finer detail."},
+      {"trigger": "if_incorrect", "prompt": "If every one of 40,000 activities needs a % complete update every week, what does that imply about who does that work and how reliable it will be?", "purpose": "Leads the candidate toward the maintainability argument."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Identifies concrete questions to ask before building the schedule."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the maintainability/critical-path-clarity trade-off, not just 'that's too much detail'."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Proposes a constructive alternative rather than simple refusal or simple compliance."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Covers both the baseline/control schedule and a separate mechanism (look-ahead/short-interval) for the requested visibility."}
+      ],
+      "passingScore": 12
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 200,
+    "tags": ["level of detail", "activity duration", "short-interval planning", "data center"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-006",
+    "category": "PF",
+    "subcategory": "Coding Structures Fundamentals",
+    "competency": "PLANNING_CPM",
+    "skill": "Designing an activity ID / coding structure that supports filtering, sorting and reporting rather than arbitrary sequential numbering",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "SCENARIO",
+    "scenario": "On a marine quay wall construction project, the contractor's planner has coded every activity with a purely sequential Activity ID (A1000, A1010, A1020, A1030 …) with no relationship to area, discipline or construction phase. As the schedule grows past 2,000 activities, the project controls manager warns this will cause problems.",
+    "question": "Explain why a purely sequential activity ID scheme becomes a problem as the schedule grows, and describe a better coding structure for this quay wall project.",
+    "expectedAnswer": "Sequential IDs carry no information, so activities cannot be meaningfully filtered, sorted or grouped by area (e.g., chainage/zone), discipline (marine works, civil, MEP) or phase (piling, capping beam, paving) without relying entirely on activity codes or manual tagging elsewhere. Reporting, progress curves by zone, and mapping to the WBS all become harder. Inserting new activities later also breaks any implied ordering in the numbers. A better structure encodes meaningful segments into the ID, e.g. a scheme like [Area/Chainage]-[Discipline]-[Sequence], such as CH100-PIL-010, CH100-CAP-010, CH200-PIL-010, so IDs are self-describing and sortable by zone and discipline.",
+    "strongAnswer": "Distinguishes Activity ID structure from Activity Codes: even with a smarter ID scheme, cross-cutting attributes (responsible engineer, subcontractor, phase, milestone type) are better handled with dedicated Activity Codes rather than overloading the ID; recommends the coding standard be defined and documented at project set-up, before the network is built, in the planning/execution plan.",
+    "expertAnswer": "Notes the downstream commercial and program-level implications: a defensible, area/discipline-based structure supports progress reporting and productivity analysis by zone, makes as-built reconstruction and delay analysis by area far more tractable, and — if the contractor runs multiple similar marine projects — enables a standardized coding convention across the program for benchmarking and lessons learned.",
+    "explanation": "A coding structure is infrastructure for the whole life of the schedule: it should let anyone filter, group, and report on the data in the ways the project actually needs (by area, discipline, phase) without hunting through thousands of unrelated IDs. This is set up once, early, and is expensive to fix retroactively.",
+    "reasoning": "As datasets grow, retrievability depends on structure, not memory. A coding convention that encodes area/discipline/sequence turns the Activity ID itself into a sortable, filterable key, while dedicated Activity Codes handle attributes that cut across multiple areas or disciplines.",
+    "commonMistakes": ["Believing Activity IDs are just arbitrary labels with no design considerations.", "Trying to solve every reporting need only through Activity Codes without also giving the ID itself a logical structure.", "Not realizing that inserting IDs later can break an implied numeric order."],
+    "redFlags": ["Cannot explain any practical downside of purely sequential IDs.", "Proposes renumbering thousands of live activities mid-project without acknowledging the disruption/history-tracking risk of doing so."],
+    "p6Checks": ["Activities view — group and sort by Activity ID to see whether the ID itself yields a meaningful structure.", "Activity Codes dictionary — check whether Area, Discipline and Phase codes exist and are consistently assigned."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the project is already at 2,000 activities with sequential IDs, would you recommend renumbering now? What are the risks of doing so?", "purpose": "Tests judgment about disruption vs benefit of mid-project restructuring, including impact on progress history and baseline comparisons."},
+      {"trigger": "always", "prompt": "What is the difference between an Activity ID convention and an Activity Code, and when would you use each?", "purpose": "Confirms the candidate understands both mechanisms rather than conflating them."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains the limitation of purely sequential IDs and proposes a workable structured scheme."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Connects the coding structure to concrete downstream needs (filtering, reporting, WBS mapping)."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a specific, realistic coding example appropriate to a marine project."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.2,
+    "estimatedTimeSec": 200,
+    "tags": ["coding structure", "activity ID", "activity codes", "marine", "WBS"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-007",
+    "category": "PF",
+    "subcategory": "Planning Process and Lifecycle",
+    "competency": "PLANNING_CPM",
+    "skill": "Describing the sequence of planning activities across a project's lifecycle from contract award to close-out",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "CASE_STUDY",
+    "scenario": "A planning engineer joins a newly awarded EPC gas processing plant contract on day one after contract signature. The client requires a baseline programme submission within 60 days and monthly progress reporting thereafter for the 30-month execution period.",
+    "question": "Outline, in order, the key stages of the planning process this engineer should expect to lead or contribute to from contract award through to project close-out, and briefly state what each stage produces.",
+    "expectedAnswer": "A competent answer sequences roughly: (1) Contract and scope review — extract schedule-related obligations, milestones, liquidated damages provisions and reporting requirements; (2) Development of the WBS and coding structure / planning basis, aligned with engineering, procurement and construction disciplines; (3) Development of the baseline/master schedule (typically multi-level: Level 1 summary, Level 2/3 detailed control) with input from engineering, procurement, construction and commissioning leads; (4) Internal review, resource/logic sanity-check, and client submission/approval of the baseline; (5) Periodic progress monitoring and schedule updates against that baseline once execution starts; (6) Short-interval/look-ahead planning during execution for near-term coordination; (7) Assessment of the schedule impact of changes/variations as they arise; (8) Recovery/mitigation planning if the project falls behind; (9) As-built schedule development and close-out/lessons-learned at project completion.",
+    "strongAnswer": "Adds that a Basis of Schedule (or Basis of Planning) document should be produced alongside the baseline explaining assumptions, methodology, calendars, and exclusions, and that the schedule should be resource- and/or cost-loaded to integrate with progress measurement and EVM, and coordinated with the procurement and engineering deliverable schedules typical of EPC work.",
+    "expertAnswer": "Notes that from day one the schedule should be built and maintained with claims/dispute defensibility in mind — contemporaneous updates, documented basis for logic and durations, and alignment with contractual milestones and liquidated-damages trigger dates — and that early schedule risk analysis (e.g., a qualitative or quantitative schedule risk assessment) should inform float allocation and contingency before the baseline is locked, not after problems emerge.",
+    "explanation": "The planning lifecycle is not a single event (submit a baseline and move on); it is a continuous cycle spanning contract review, baseline development, execution monitoring, change management and close-out. A planning engineer who only knows how to build a baseline, and not how to sustain the planning process through execution, will struggle on a real project.",
+    "reasoning": "Each lifecycle stage produces an artifact the next stage depends on: the WBS/coding structure underpins the baseline network; the baseline underpins progress measurement; progress measurement (with variance) underpins recovery planning and change assessment; and the maintained, updated schedule underpins the eventual as-built record used for close-out and any subsequent claims.",
+    "commonMistakes": ["Treating baseline submission as the end of the planning job rather than the start of the monitoring cycle.", "Omitting the contract/milestone review step and jumping straight to building activities in P6.", "Forgetting close-out/as-built development as part of the planning function."],
+    "redFlags": ["Cannot describe any activity after baseline approval — implies no understanding of progress monitoring or change management.", "No mention of reviewing contractual schedule obligations before building the network."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Which of these stages would you consider highest risk to get wrong, and why?", "purpose": "Tests prioritization and risk judgment beyond rote sequencing."},
+      {"trigger": "if_partial", "prompt": "What happens to the planning function once the baseline is approved — does the job stop there?", "purpose": "Probes whether the candidate understands planning as an ongoing lifecycle rather than a one-time deliverable."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "completeness", "maxScore": 5, "guidance": "Covers stages from contract review through close-out, not just baseline development."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies what each stage produces and its dependency on prior stages."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Answer reflects realistic EPC project practice, not a generic textbook list."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 240,
+    "tags": ["planning lifecycle", "baseline schedule", "EPC", "basis of schedule", "close-out"],
+    "references": ["PMI Practice Standard for Scheduling", "AACE International Recommended Practices"]
+  },
+  {
+    "questionCode": "PF-008",
+    "category": "PF",
+    "subcategory": "Work Sequencing Basics",
+    "competency": "PLANNING_CPM",
+    "skill": "Correctly stating the behavior of a Finish-to-Start relationship without lag",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "TRUE_FALSE",
+    "scenario": "On a commercial office fit-out, 'Install Ductwork' and 'Insulate Ductwork' are linked with a Finish-to-Start (FS) relationship with zero lag.",
+    "question": "True or False: With this Finish-to-Start relationship, the successor activity ('Insulate Ductwork') can only begin after the predecessor ('Install Ductwork') has fully finished, unless a lag or lead is applied to change that.",
+    "options": [
+      {"label": "True", "text": "True", "isCorrect": true},
+      {"label": "False", "text": "False", "isCorrect": false}
+    ],
+    "correctAnswer": "True",
+    "explanation": "A Finish-to-Start relationship means the successor's start is logically tied to the predecessor's finish. With zero lag, 'Insulate Ductwork' cannot start until 'Install Ductwork' is complete. Applying a positive lag would delay the successor's start further; applying a negative lag (a lead) would allow the successor to start before the predecessor fully finishes, overlapping the two activities.",
+    "reasoning": "This is the basic definition of the FS relationship type in CPM scheduling, the most common and default relationship type in tools like Primavera P6. Understanding it correctly is foundational to reading any logic network.",
+    "commonMistakes": ["Confusing FS with Start-to-Start (SS), believing the successor can start any time after the predecessor starts.", "Assuming a lag is always present by default."],
+    "redFlags": ["Cannot state the basic definitions of FS, SS, FF, SF relationship types."],
+    "p6Checks": ["Activities view — Relationships tab to confirm relationship type (FS/SS/FF/SF) and lag/lead value between the two activities."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "In this ductwork example, would you ever want to apply a negative lag (lead) here, and what would that mean practically on site?", "purpose": "Tests whether the candidate can connect logic mechanics to real construction sequencing (e.g., insulating completed sections while later sections are still being installed)."},
+      {"trigger": "if_incorrect", "prompt": "What does the 'S' and 'F' stand for on each side of 'FS', and which side refers to the predecessor?", "purpose": "Remedial check on basic relationship terminology."}
+    ],
+    "weight": 0.8,
+    "estimatedTimeSec": 45,
+    "tags": ["finish-to-start", "relationship types", "logic", "MEP"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-009",
+    "category": "PF",
+    "subcategory": "Stakeholder Needs",
+    "competency": "PLANNING_CPM",
+    "skill": "Structuring a single schedule dataset to serve multiple stakeholder audiences at different levels of detail and cadence",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "A national retail chain is rolling out 20 new stores as interior fit-out projects. Head office wants one high-level schedule showing only the 20 store-opening dates. Regional construction managers each want a detailed, trade-by-trade schedule for the stores in their region. The fit-out subcontractors want a daily task list for their current store only.",
+    "question": "How would you structure your scheduling deliverables to meet all three stakeholder needs without ending up with disconnected schedules that show conflicting dates?",
+    "expectedAnswer": "Maintain one integrated schedule database (a single source of truth), structured with a WBS hierarchy that rolls up from individual store trade activities to regional groupings to a portfolio-level summary. Produce each stakeholder's view as a filtered/summarized layout or report generated from that same dataset rather than as a separately maintained file: a portfolio milestone view for head office (store opening dates only), a detailed trade-level layout per region for construction managers, and a short-interval/daily look-ahead extracted per store for subcontractors. Because all three come from the same underlying data, updating progress once keeps every view consistent.",
+    "strongAnswer": "Describes using an EPS/WBS hierarchy (or equivalent project/sub-project structure) with activity codes for region and store, and layouts/filters rather than separate schedule files, so that summarizing for head office is a matter of a filtered/grouped view, not a re-typed report. Notes the different update cadences appropriate to each audience (e.g., monthly for head office, weekly for regional CMs, daily for subcontractors on their store).",
+    "expertAnswer": "Frames this as a governance issue as much as a technical one: multiple independently maintained schedules for the same scope inevitably drift apart and undermine credibility with the client and subcontractors when their numbers disagree. Describes a change-control discipline so all views are refreshed from the same updated dataset on a defined cycle, and flags that head office milestone dates should always be traceable back to the underlying detailed logic that drives them, not entered independently.",
+    "explanation": "The core risk in multi-stakeholder programmes is maintaining several logically separate schedules that inevitably diverge. The fix is architectural: one dataset, multiple views/layouts tailored to each audience's needed level of detail and update frequency.",
+    "reasoning": "Different stakeholders need different levels of detail and different reporting cadences, but they are all describing the same underlying scope of work. If each view is derived from a single logic-linked dataset, they remain reconcilable by construction; if each is built and updated independently, they will diverge and create conflicting information, damaging credibility.",
+    "commonMistakes": ["Proposing three separate schedule files maintained independently.", "Focusing only on level of detail and ignoring the different update cadences each audience actually needs.", "Not addressing how consistency is maintained over time as the project progresses."],
+    "redFlags": ["Cannot explain how to prevent the three views from showing conflicting dates over time.", "Suggests manually re-typing summary dates into a separate head-office report."],
+    "p6Checks": ["EPS/WBS structure — confirm stores and regions are represented hierarchically so summary bars roll up correctly.", "Layouts/Filters — confirm distinct saved layouts exist per audience rather than separate projects/files for the same scope."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "What happens if a regional construction manager needs to add site-specific activities that don't apply to other stores — how do you keep that from breaking the portfolio-level rollup?", "purpose": "Tests whether the candidate understands WBS design for a repeating-scope programme."},
+      {"trigger": "always", "prompt": "If head office's opening-date view and a regional CM's detailed view start showing different dates for the same store, what would that tell you had gone wrong?", "purpose": "Tests understanding of single-source-of-truth failure modes."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a workable single-dataset, multi-view architecture rather than separate files."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why divergent independently-maintained schedules are a problem."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Addresses stakeholder communication and governance, not just the technical mechanism."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Addresses all three stakeholder groups and their differing detail/cadence needs."}
+      ],
+      "passingScore": 12
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 220,
+    "tags": ["stakeholder needs", "level of detail", "WBS", "rollout programme", "fit-out"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-010",
+    "category": "PF",
+    "subcategory": "WBS Fundamentals",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing recurring schedule/cost reconciliation failures caused by an unaligned WBS and cost breakdown structure",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a combined-cycle power plant project, the project controls (schedule) team maintains a WBS organized by system — turbine island, HRSG, balance of plant, electrical. The cost control team maintains a cost breakdown structure organized purely by contract package and vendor purchase order. Every month, reconciling schedule progress percentages with cost/earned value figures takes the team several days of manual mapping and still produces mismatches.",
+    "question": "What is the root cause of this recurring reconciliation problem, and how should it be fixed going forward?",
+    "expectedAnswer": "The root cause is that the schedule WBS and the cost breakdown structure were developed independently at project set-up, with no common structure or cross-reference between them — each department built its own breakdown to suit its own convenience. The fix is to establish (retroactively map, and mandate going forward) a unified coding structure: either align the WBS and CBS directly, or maintain a formal, controlled cross-reference/mapping table between schedule WBS elements and cost accounts, ideally set up before the baseline is issued so activities can be resource- and cost-loaded consistently from day one.",
+    "strongAnswer": "Recommends integrating the two through the scheduling tool itself — assigning cost accounts/resources to activities in P6 so that earned value is generated directly from schedule progress rather than reconciled manually after the fact — removing the monthly manual mapping exercise altogether.",
+    "expertAnswer": "Identifies this as a common project controls maturity failure on EPC/heavy industrial projects, ties it to weak Performance Measurement Baseline (PMB) governance, and notes that fixing it mid-project is not simply 're-code everything' — it requires a controlled crosswalk table, a decision on which structure remains the 'master' reference, and careful handling so historical progress and cost history are not lost or misrepresented by the change.",
+    "explanation": "This is a structural, not a data-entry, problem: no coding scheme was agreed between disciplines at project initiation, so schedule and cost data speak two different languages that must be manually translated every reporting cycle, with inevitable errors.",
+    "reasoning": "Reliable, low-effort schedule/cost integration depends on a shared structure (WBS = CBS, or a documented, maintained mapping) established before the baseline. Without it, every reporting cycle requires ad hoc reconciliation, which is slow, error-prone, and gets worse as the project grows.",
+    "commonMistakes": ["Blaming individual reporting errors rather than the underlying structural misalignment.", "Proposing to 'just try harder' at manual reconciliation rather than fixing the structure.", "Suggesting a full WBS rebuild without considering the disruption to progress and cost history."],
+    "redFlags": ["Cannot identify the structural cause and instead focuses only on symptoms (the mismatch itself).", "Proposes changing structures mid-project with no regard for preserving historical data integrity."],
+    "p6Checks": ["WBS structure vs Cost Accounts — check whether Cost Accounts assigned to activities correspond to the finance team's cost breakdown.", "Resource assignments — check whether activities are resource/cost loaded at all, which is a prerequisite for schedule-driven earned value."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "The project is already 40% complete — would you recommend restructuring the WBS now, or building a mapping table instead? What are the trade-offs?", "purpose": "Tests judgment about disruption risk versus benefit for a mid-project structural fix."},
+      {"trigger": "always", "prompt": "Whose responsibility should it be to define the coding structure at project start — planning, cost control, or both jointly?", "purpose": "Tests understanding of cross-functional project controls governance."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the unaligned WBS/CBS as the root cause, not a symptom."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains how the lack of a shared structure produces the recurring manual-reconciliation problem."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete, realistic fix (mapping table or structural alignment, ideally schedule-driven EV)."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 200,
+    "tags": ["WBS", "cost breakdown structure", "project controls integration", "power plant", "earned value"],
+    "references": ["PMI Practice Standard for Scheduling", "PMBOK Guide"]
+  },
+  {
+    "questionCode": "PF-011",
+    "category": "PF",
+    "subcategory": "Purpose and Role of Planning",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing how the planning engineer's role and the schedule's purpose shift between the tender/bid stage and the execution stage",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "SCENARIO",
+    "scenario": "A planning engineer built the tender-stage programme for a light rail extension to support a competitive bid. That programme used optimistic activity durations and did not reflect confirmed subcontractor resourcing. The same engineer is now retained by the contractor for the execution phase after contract award, and the project director asks him to 'just start managing progress against the tender programme.'",
+    "question": "How does the planning engineer's role now differ from during tender, and what should be done with the tender programme before it is relied on to manage the project?",
+    "expectedAnswer": "During tender, the schedule's purpose is largely persuasive and competitive — demonstrating a credible but favorable completion date to win the bid, within tender time constraints, sometimes without fully confirmed resourcing. During execution, the schedule's purpose becomes operational and control-oriented — it must accurately reflect real resource availability, confirmed subcontractor mobilization dates and actual constructability, because it will now be used to genuinely manage and measure the project and to report progress to the client. The tender programme should not simply be adopted as the execution baseline: it must be reviewed, challenged and redeveloped with the real site team, subcontractors and procurement to produce an executable baseline before being used for progress control.",
+    "strongAnswer": "Notes that tender programmes often carry compressed durations, aggressive overlaps or optimistic logic to look attractive during bid evaluation, and that adopting such a programme unchanged as the operational baseline risks setting an unachievable target from day one, damaging team credibility and inviting disputes when it is inevitably missed.",
+    "expertAnswer": "Flags the contractual dimension: many contracts require the 'Contract Programme' to be derived from or consistent with the programme submitted at tender, particularly where it was incorporated into the contract documents. Re-baselining the execution logic must therefore be handled carefully and transparently — documented, and where necessary formally agreed or submitted to the client as the first baseline update — rather than silently changed, to avoid the appearance of unilaterally building in float or altering commitments without approval.",
+    "explanation": "The schedule is not a fixed artifact carried unchanged from bid to completion; its purpose and the rigor required of it change fundamentally once it becomes the tool used to actually run and be measured against the project.",
+    "reasoning": "A tender programme is built under bid-stage incentives (win the work, show a competitive date) and bid-stage information limits (incomplete subcontractor commitments). An execution baseline is built under different incentives (deliver the project, be measured fairly) and should be built on validated, current information. Treating the two as interchangeable ignores this shift in purpose and evidentiary basis.",
+    "commonMistakes": ["Assuming the tender programme can be used unchanged simply because it 'won the job'.", "Not recognizing any contractual sensitivity around silently changing durations/logic that were part of the tender submission.", "Believing the planning engineer's job is finished once the tender is won."],
+    "redFlags": ["Adopts the tender programme as the execution baseline without any review or validation.", "Unilaterally rewrites tender logic/durations without documenting or communicating the change to the client."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the re-developed execution baseline shows a later completion date than the tender programme, how would you handle that conversation with the client?", "purpose": "Tests commercial and stakeholder-management awareness beyond the technical redevelopment step."},
+      {"trigger": "always", "prompt": "Should the tender programme ever be used for anything once execution begins?", "purpose": "Tests whether the candidate understands it can remain a useful reference/comparator even though it should not be relied on operationally as-is."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why tender-stage and execution-stage schedules serve different purposes and carry different assumptions."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the tender programme should not be adopted unchanged, and why."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes a realistic path to redeveloping an executable baseline (site team, subcontractor, procurement input)."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Addresses the contractual sensitivity of changing a programme that may be referenced in the contract."}
+      ],
+      "passingScore": 12
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 210,
+    "tags": ["role of planning", "tender programme", "baseline development", "rail", "contract programme"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-012",
+    "category": "PF",
+    "subcategory": "Types of Schedules",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing that schedule terminology like 'master schedule' is ambiguous across tiers and requires clarification before it can be assessed",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MISSING_INFO",
+    "scenario": "A client representative on an offshore wind farm cable-laying project emails the planning engineer a single question: 'Is the master schedule still valid?' No further context is given.",
+    "question": "What information would you need before you could give a meaningful answer, and why does the specific type/tier of schedule being asked about matter here?",
+    "expectedAnswer": "Before answering, you would need to know: (1) which schedule they mean by 'master schedule' — the term is used loosely and could mean the original approved baseline, or the current live/updated control schedule, or a high-level summary programme, each of which would have a different answer; (2) the data date of the version in question, since 'valid' as of last month may not be true today; (3) what 'valid' means to the person asking — logically sound (no open ends/out-of-sequence issues, i.e., a schedule quality question), still achievable (forecast finish within contractual requirements), or unchanged since baseline approval; (4) whether any approved changes/variations exist that would legitimately have updated it since the last version they saw. The type of schedule matters because a high-level master/summary schedule can still show an on-track overall milestone while the underlying detailed schedule reveals emerging problems, or vice versa — so answering about the wrong tier could give a misleading impression either way.",
+    "strongAnswer": "Notes that 'master schedule' is commonly used inconsistently across the industry (sometimes meaning the baseline, sometimes the current live schedule, sometimes a Level 1 summary), so a competent planner should proactively clarify terminology with the client rather than guess, especially before making a validity statement that could be relied on.",
+    "expertAnswer": "Points out the risk of answering this kind of vague question casually: if 'valid' is later interpreted by the client as a formal confirmation the project is on track, and it turns out the detailed schedule already shows slippage, that casual answer can create credibility or even contractual exposure. Recommends replying with a scoping question before answering substantively.",
+    "explanation": "This question tests whether the candidate recognizes ambiguous, underspecified requests rather than answering confidently based on assumptions — a core professional skill, since schedule terminology is not used consistently across the industry.",
+    "reasoning": "'Master schedule', 'baseline', 'current schedule' and 'control schedule' are related but distinct concepts. Without pinning down which one and which version/data date is meant, and what 'valid' is meant to measure, any answer risks addressing the wrong document or the wrong question entirely.",
+    "commonMistakes": ["Answering 'yes' or 'no' immediately without asking which schedule or version is meant.", "Assuming 'master schedule' always means the original baseline.", "Not considering that 'valid' could mean several different things (logic-sound vs still-achievable vs unchanged)."],
+    "redFlags": ["Gives a definitive validity answer with no clarifying questions at all.", "Cannot articulate that 'master schedule' is an ambiguous term in practice."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If it turns out they mean the original tender-stage programme from 18 months ago, is 'is it still valid' even the right question to be answering?", "purpose": "Tests whether the candidate can redirect toward a more useful comparison (e.g., current schedule vs baseline variance) rather than answering a poorly-framed question literally."},
+      {"trigger": "always", "prompt": "How would you phrase your reply to the client to get the clarification you need without seeming evasive?", "purpose": "Tests communication skill alongside technical judgment."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "reasoning", "maxScore": 5, "guidance": "Identifies the specific ambiguities (which schedule, which version, what 'valid' means) rather than a vague 'need more info'."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Covers schedule tier, version/data date, and definition of validity as distinct missing pieces."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the risk of answering a loosely-framed client question without clarification."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.1,
+    "estimatedTimeSec": 150,
+    "tags": ["master schedule", "schedule tiers", "terminology", "offshore wind", "client communication"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-013",
+    "category": "PF",
+    "subcategory": "Schedule Development Approach",
+    "competency": "PLANNING_CPM",
+    "skill": "Choosing between top-down and bottom-up (rolling wave) schedule development based on design maturity",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "DECISION_MAKING",
+    "scenario": "A contractor has just been awarded a new container terminal berth construction contract. The tender documents specify only the major contractual milestones (mobilization, piling complete, quay deck complete, mechanical/electrical systems complete, terminal operational readiness). Detailed design is only about 30% complete at contract award, and detailed subcontractor packages for crane rail systems and terminal MEP have not yet been tendered.",
+    "question": "Would you develop the baseline schedule top-down or bottom-up in this situation, and why? Describe how you would actually proceed.",
+    "expectedAnswer": "With detailed design only 30% complete and key subcontractor packages not yet tendered, a fully bottom-up build (detailed activities per discipline first, then aggregated) is not feasible — there isn't enough firm scope information yet. The appropriate approach is top-down initially: start from the contractual milestones and known overall methodology, build a Level 1/2 summary/control schedule with duration estimates based on quantities, methodology assumptions and industry benchmarks/historical productivity, and then progressively decompose specific packages into full bottom-up detail as design and subcontractor scope are finalized (a rolling-wave approach) — detailing the near-term piling and civil work first while leaving MEP and crane rail at summary level until their design/tender matures.",
+    "strongAnswer": "Explicitly names this technique as 'rolling wave planning' / progressive elaboration, and specifies that the schedule (or an accompanying basis of schedule) should clearly flag which sections are still preliminary/design-dependent so stakeholders don't mistake early summary-level estimates for firm detailed commitments.",
+    "expertAnswer": "Addresses the contractual and risk dimension: because durations for undesigned scope are assumption-based, there should be a clear record of the basis and contingency used, and an agreed mechanism (with the client) for updating those durations as design and subcontractor packages firm up — so that later changes to previously-estimated durations are recognized as legitimate progressive elaboration and not mistaken for contractor-caused delay or an attempt to quietly extend the programme.",
+    "explanation": "Development approach should match the information actually available. Forcing a bottom-up build before design and subcontractor scope exist produces false precision; a purely top-down schedule with no plan to add detail later fails to give operational control once work starts. Rolling wave planning is the standard resolution.",
+    "reasoning": "Bottom-up detail requires firm scope (drawings, quantities, subcontractor productivity data) that doesn't yet exist for 70% of the design and for un-tendered packages; building fictitious detail there creates a false sense of precision. Top-down milestone-driven planning works with the information that does exist (contractual dates, known methodology, benchmarks) and defers detail to when it becomes real, which is the essence of progressive elaboration.",
+    "commonMistakes": ["Insisting on full bottom-up detail immediately regardless of design maturity, inventing detailed activities not yet supported by real scope.", "Building only a top-down schedule with no stated plan or trigger for adding detail later as design matures.", "Not documenting that estimated durations for undesigned scope are assumptions."],
+    "redFlags": ["Cannot explain how or when the schedule will be detailed further as design progresses.", "Presents assumption-based estimated durations for undesigned scope as if they were firm commitments."],
+    "p6Checks": ["WBS structure — check whether it supports adding detail later without restructuring (e.g., placeholder summary activities per undesigned package).", "Activity Codes/flags — check whether a 'Preliminary/Design-TBC' status code exists to distinguish estimated from confirmed scope."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "At what trigger point (design % complete, subcontractor award, etc.) would you go back and detail out the MEP and crane rail packages?", "purpose": "Tests whether the candidate has a concrete rolling-wave update mechanism, not just the concept."},
+      {"trigger": "always", "prompt": "How would you explain to the client why parts of the baseline schedule are still at summary level when they expect a fully detailed baseline?", "purpose": "Tests stakeholder communication of a legitimate but potentially unwelcome limitation."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies rolling-wave/top-down-then-progressive-detail as the appropriate approach given low design maturity."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why bottom-up detail is not yet feasible for undesigned scope."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes a concrete mechanism/trigger for adding detail as design and subcontractor packages mature."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Addresses documenting assumptions and managing client expectations about the basis of estimated durations."}
+      ],
+      "passingScore": 12
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 220,
+    "tags": ["rolling wave planning", "top-down scheduling", "bottom-up scheduling", "progressive elaboration", "marine", "port"],
+    "references": ["PMI Practice Standard for Scheduling", "PMBOK Guide"]
+  },
+  {
+    "questionCode": "PF-014",
+    "category": "PF",
+    "subcategory": "Work Sequencing Basics",
+    "competency": "PLANNING_CPM",
+    "skill": "Performing a forward pass through a short chain of activities including a Finish-to-Start relationship with a positive lag",
+    "difficulty": 2,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "NUMERICAL",
+    "scenario": "A building foundation package has four activities on Finish-to-Start logic, day-1 start convention (first activity Early Start = Day 1): 'Excavate' (Duration 5 days, starts Day 1), 'Blinding Concrete' (Duration 1 day), 'Reinforcement & Formwork' (Duration 4 days), 'Pour Footing' (Duration 2 days). A 2-day curing lag is required between Blinding Concrete finishing and Reinforcement & Formwork starting (an FS relationship with a 2-day lag). All other relationships are FS with zero lag.",
+    "question": "Using the day-1 start convention, calculate the Early Finish of 'Pour Footing'.",
+    "options": [
+      {"label": "A", "text": "Day 12", "isCorrect": false},
+      {"label": "B", "text": "Day 13", "isCorrect": false},
+      {"label": "C", "text": "Day 14", "isCorrect": true},
+      {"label": "D", "text": "Day 16", "isCorrect": false}
+    ],
+    "correctAnswer": "C",
+    "explanation": "Excavate: ES=1, EF=1+5-1=5. Blinding Concrete: ES=6, EF=6+1-1=6. Reinforcement & Formwork (FS +2 day lag from Blinding): ES=6+2+1=9, EF=9+4-1=12. Pour Footing (FS, zero lag): ES=13, EF=13+2-1=14. Early Finish of Pour Footing = Day 14.",
+    "reasoning": "Under the day-1 (inclusive) convention, EF = ES + Duration - 1 for each activity, and the next activity's ES = prior EF + 1 (plus any additional lag). The 2-day lag between Blinding Concrete and Reinforcement & Formwork adds two full days beyond the normal FS handover before Reinforcement can start, which carries through to the final Early Finish.",
+    "commonMistakes": ["Forgetting to add the 2-day lag between Blinding Concrete and Reinforcement & Formwork, landing on Day 12.", "Adding the lag but miscounting the day-1 convention by one day, landing on Day 13.", "Double-counting the lag (applying it twice or adding an extra day), landing on Day 16."],
+    "redFlags": ["Cannot correctly incorporate a lag into a forward-pass calculation."],
+    "p6Checks": ["Activities view — Relationships tab to confirm the FS relationship type and the 2-day lag value are entered correctly between Blinding Concrete and Reinforcement & Formwork."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the 2-day requirement were instead modeled as a 2-day 'Concrete Curing' activity inserted into the chain rather than a lag, would the Early Finish of Pour Footing change? What are the trade-offs of each approach?", "purpose": "Tests understanding of when to use a lag versus an explicit activity for a real physical constraint like curing time."},
+      {"trigger": "if_incorrect", "prompt": "Walk through the forward pass one activity at a time, and pay close attention to what the 2-day lag actually adds to the chain.", "purpose": "Diagnoses where the lag handling breaks down."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": ["forward pass", "finish-to-start", "lag", "curing", "building foundations"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-015",
+    "category": "PF",
+    "subcategory": "Coding Structures Fundamentals",
+    "competency": "PLANNING_CPM",
+    "skill": "Designing a coding structure that separates ID-embedded attributes from Activity Code attributes to support multiple independent reporting axes",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "SCENARIO",
+    "scenario": "A hyperscale data center campus has six buildings (DC1-DC6), each with power, mechanical and IT fit-out disciplines, and a phased handover plan organized into three delivery 'waves' that each cut across multiple buildings and disciplines (e.g., Wave 1 includes DC1 power, DC2 mechanical, and part of DC3 IT fit-out). Management wants to be able to filter and report progress by building, by discipline, and by handover wave, independently of one another.",
+    "question": "Design a coding approach (Activity ID pattern plus Activity Codes) that would let the team filter and report by all three dimensions. Explain your structure and why you chose it.",
+    "expectedAnswer": "Building and discipline can reasonably be embedded in a structured Activity ID for readability and natural sorting, e.g. DC3-ELE-0100 (Data Center 3, Electrical, sequence 0100), since every activity belongs to exactly one building and one discipline. Handover Wave, however, should NOT be baked into the ID, because it cuts across buildings and disciplines and does not align with a fixed ID prefix — it should be a dedicated Activity Code with values Wave 1/2/3, assigned per activity, so the team can filter or group by wave independently of the ID structure, and so activities can be reassigned between waves (as plans change) without renumbering.",
+    "strongAnswer": "Explicitly distinguishes which attributes are stable/hierarchical (Building, Discipline — good candidates for the WBS and/or ID prefix) from which are cross-cutting and more likely to change (Wave — better as an Activity Code), and recommends the WBS mirror Building/System while Discipline and Wave are handled via Activity Codes for flexible, independent filtering.",
+    "expertAnswer": "Notes the risk of over-fitting the ID structure to today's known reporting needs: if a future 'Wave 4' or a new cross-cutting reporting need (e.g., by commissioning system) emerges, Activity Codes are cheap to add or reassign, whereas restructuring the WBS or renumbering thousands of live Activity IDs is disruptive and risks breaking historical progress and baseline comparisons. Recommends keeping the ID and WBS reserved for genuinely stable, hierarchical attributes and using codes liberally for anything that might shift.",
+    "explanation": "Good coding design recognizes that not every attribute belongs in the same place: stable, hierarchical, non-overlapping attributes (like building and discipline here) suit the WBS/Activity ID; volatile or cross-cutting attributes (like a wave that spans buildings and disciplines) suit Activity Codes, which support independent, flexible filtering without restructuring the network.",
+    "reasoning": "An Activity ID or WBS position can only represent one fixed hierarchy at a time. Forcing a cross-cutting, changeable attribute like handover wave into that fixed hierarchy either breaks the hierarchy's natural structure or requires constant renumbering as waves are reassigned. Activity Codes exist precisely to let independent, non-hierarchical or hierarchical-but-separate attributes be filtered and reported without touching the ID or WBS.",
+    "commonMistakes": ["Trying to encode all three attributes (building, discipline, wave) into a single rigid ID string, which breaks down as soon as wave assignments change.", "Using only Activity Codes for everything and giving the ID no logical structure at all, losing the readability/sorting benefit of a structured ID.", "Not recognizing that wave assignments are more likely to change than building or discipline."],
+    "redFlags": ["Proposes renumbering activity IDs whenever a wave assignment changes.", "Cannot explain why wave should be treated differently from building/discipline in the coding design."],
+    "p6Checks": ["Activity Codes dictionary — confirm a 'Handover Wave' code (or equivalent) exists as a distinct, assignable field separate from the Activity ID and WBS.", "WBS structure — confirm it mirrors Building (and possibly System), the more stable hierarchical attributes."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If management later decides to report by commissioning system as well, how easily does your structure accommodate that new requirement?", "purpose": "Tests whether the proposed design is genuinely extensible or just happens to fit the three known dimensions."},
+      {"trigger": "always", "prompt": "Would you make Discipline part of the WBS instead of the ID, and how would you decide?", "purpose": "Tests understanding of the trade-off between WBS hierarchy and Activity ID/Code placement for the same attribute."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly separates ID/WBS-suitable attributes from Activity-Code-suitable attributes."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why the cross-cutting, changeable wave attribute belongs in a code rather than the ID."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a concrete, realistic ID pattern and code scheme for this data center campus."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 210,
+    "tags": ["coding structure", "activity codes", "WBS", "data center", "handover"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-016",
+    "category": "PF",
+    "subcategory": "Planning vs Scheduling",
+    "competency": "PLANNING_CPM",
+    "skill": "Stating the core conceptual distinction between planning and scheduling",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "MCQ",
+    "question": "Which of the following best distinguishes 'planning' from 'scheduling' in project controls practice?",
+    "options": [
+      {"label": "A", "text": "Planning is performed by managers; scheduling is performed entirely by software", "isCorrect": false},
+      {"label": "B", "text": "Planning determines the strategy, methodology and sequence of the work; scheduling is the process of assigning time-based dates and calculating a timeline (typically using a CPM tool) based on that plan", "isCorrect": true},
+      {"label": "C", "text": "Planning happens only before the project starts; scheduling happens only after construction begins", "isCorrect": false},
+      {"label": "D", "text": "The two terms are interchangeable and describe the same activity in professional practice", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "Planning is the strategic, methodology-driven thinking process (what will be built, in what sequence, using what resources and constraints); scheduling is the technical process of turning that plan into a time-based, calculated network. Planning is not confined to pre-construction (C) — it continues throughout execution as methods and sequences are refined — and the two terms are related but not identical (D), nor is scheduling purely a software function performed independently of human judgment (A).",
+    "reasoning": "Distinguishing these two terms correctly is foundational: a person can be highly skilled at building a technically correct CPM network (scheduling) while having done no real planning (methodology, constructability, resourcing strategy) at all, which is precisely the failure mode this category tests throughout.",
+    "commonMistakes": ["Treating 'planning' and 'using P6' as synonyms.", "Believing planning stops once construction begins."],
+    "redFlags": ["Cannot articulate any distinction between the two terms at all."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Can someone be a competent scheduler but a poor planner? What would that look like in practice?", "purpose": "Tests whether the candidate can apply the distinction to a real competency gap, not just recite the definition."},
+      {"trigger": "if_incorrect", "prompt": "If a project's methodology changes mid-construction, is that a scheduling decision or a planning decision?", "purpose": "Guides the candidate toward recognizing planning as an ongoing strategic process."}
+    ],
+    "weight": 0.8,
+    "estimatedTimeSec": 60,
+    "tags": ["planning vs scheduling", "definitions", "fundamentals"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-017",
+    "category": "PF",
+    "subcategory": "WBS Fundamentals",
+    "competency": "PLANNING_CPM",
+    "skill": "Evaluating whether a WBS axis choice matches the project's actual delivery/handover strategy",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "A design-and-build hospital project's WBS breaks scope purely by engineering discipline at the top level — Structural, Mechanical, Electrical, Architectural — mirroring how the design consultants are organized. There is no physical area, building wing, or floor breakdown anywhere in the WBS. The project has four wings that must each be substantially completed and handed over on separate dates for phased clinical commissioning.",
+    "question": "Is it acceptable to structure the WBS this way given the phased wing-by-wing handover requirement? What problems, if any, would this create?",
+    "expectedAnswer": "It is not inherently wrong to use discipline as an organizing axis, but a WBS with ONLY a discipline breakdown, and no area/wing breakdown at all, will be poorly suited to a project that must be measured and handed over wing by wing. Progress, milestones and completion cannot be naturally tracked or reported by physical area — 'is Wing A ready for handover' becomes an ad hoc cross-cutting query across every discipline branch instead of a natural WBS rollup. This creates real problems: no clean area-based progress S-curves, no straightforward way to isolate Wing A's remaining scope from Wing B's, and complicated snagging/inspection and commissioning tracking by zone.",
+    "strongAnswer": "Recommends restructuring so the WBS's primary axis matches whichever dimension needs schedule-level rollup and milestone tracking — here, Wing/Area, because of the phased handover requirement — nesting discipline beneath area (Wing A > Structural/Mechanical/Electrical) or, alternatively, keeping discipline as the WBS and adding Area as a dedicated Activity Code, depending on which axis needs the cleaner native rollup.",
+    "expertAnswer": "States the general rule of thumb: the WBS top levels should reflect how the project will be measured, contracted, or handed over — since handover here is phased by wing, area/wing should dominate the WBS hierarchy, with discipline handled via Activity Codes for cross-cutting filtering. Notes this is a very common real-world mistake, because the WBS is often built to mirror the design team's organizational chart or discipline silos rather than the construction and handover strategy that will actually govern how the project is delivered and measured.",
+    "explanation": "A WBS is meant to reflect how the project's scope will be managed and measured, not simply how the people producing the design happen to be organized. When the two diverge — as they do here, where handover is area-based but the WBS is discipline-based — the WBS actively works against the project's real reporting needs.",
+    "reasoning": "WBS rollups are hierarchical: an element's completion status is a function of its children. If area/wing is not a WBS node anywhere, wing-level completion cannot be read directly from the WBS hierarchy at all and must be reconstructed manually every time, which is slow, error-prone, and easy to get wrong at a clinically sensitive handover milestone.",
+    "commonMistakes": ["Assuming a discipline-based WBS is simply 'a different valid choice' with no real downside for a phased-handover project.", "Not recognizing that WBS structure should be driven by the project's delivery/handover/measurement strategy rather than the design team's organization.", "Proposing to fix this only through filters/reports without addressing the underlying WBS hierarchy."],
+    "redFlags": ["Sees no problem at all with a purely discipline-based WBS on a phased-handover project.", "Cannot articulate what 'WBS should match how the project is measured' means in practice."],
+    "p6Checks": ["WBS hierarchy — check whether Area/Wing nodes exist anywhere in the structure.", "Milestones — check whether wing-handover milestones can be traced to a clean rollup of underlying activities, or require manual cross-referencing across disciplines."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "The project is already 25% complete with the discipline-only WBS in place — would you restructure it now, and how would you do so without losing progress history?", "purpose": "Tests judgment about mid-project WBS restructuring risk versus benefit."},
+      {"trigger": "always", "prompt": "In what type of project would a purely discipline-based WBS actually be the right choice?", "purpose": "Tests nuance — e.g., a single-building, single-handover project with no phased delivery may not need an area axis at all."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the mismatch between the WBS axis and the phased handover requirement."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the rollup/reporting consequence of omitting area from the WBS, not just states it's a problem."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete restructuring or coding fix."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 200,
+    "tags": ["WBS design", "phased handover", "hospital", "area-based reporting"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-018",
+    "category": "PF",
+    "subcategory": "Stakeholder Needs",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing whether a stakeholder-detail complaint stems from wrong schedule tier issued versus genuinely missing detail",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On a rural roads improvement project, a paving subcontractor tells the main contractor's planning engineer that the schedule they were issued is useless for their own planning purposes — it just shows a single 40-day bar labeled 'Pavement Works – Section 2' with no further breakdown.",
+    "question": "What would you check first before deciding how to respond to the subcontractor's complaint?",
+    "expectedAnswer": "First, check what level of detail the subcontractor was actually given — confirm which tier of schedule was issued (a master/summary schedule versus the detailed control schedule) since the subcontractor may only have received the top-tier summary when a more detailed schedule already exists and simply wasn't distributed to them. Second, if no such detail exists yet, confirm that as a genuine gap: a subcontractor-level breakdown (individual chainage sections, lifts/layers, paver runs) may never have been developed. Third, clarify what the subcontractor actually needs the schedule for (material delivery windows, lane closure sequencing, crew/paver mobilization) to judge what level of detail would genuinely be useful, rather than assuming more detail is automatically better.",
+    "strongAnswer": "Distinguishes two different root causes requiring different fixes: 'wrong document was issued' (fix: issue the existing detailed schedule to the subcontractor) versus 'the detail genuinely doesn't exist yet' (fix: develop it, ideally collaboratively with the subcontractor's input on their own means, methods and production rates).",
+    "expertAnswer": "Notes that specialist trade subcontractors are often the best source of realistic productivity and sequencing input for their own scope, so the detailed pavement schedule should ideally be developed WITH the subcontractor rather than handed down unilaterally. Also ties this to coordination and claims-avoidance: a subcontractor who can show they were never given a usable, coordinated schedule has grounds to argue the main contractor failed to provide adequate coordination information, which can support time and cost claims later.",
+    "explanation": "A stakeholder detail complaint can have two very different causes — the right document exists but wasn't issued, or the detail genuinely was never developed — and diagnosing which one is happening should come before deciding on a fix.",
+    "reasoning": "Level of detail complaints are a stakeholder-needs mismatch, and mismatches can arise either from a distribution/communication failure (right artifact, wrong audience) or a genuine content gap (the artifact doesn't exist). Treating both the same way risks either re-issuing something inadequate or unnecessarily rebuilding something that already exists.",
+    "commonMistakes": ["Assuming more detail must be built from scratch without first checking whether a suitable detailed schedule already exists internally.", "Dismissing the complaint without investigating what decisions the subcontractor actually needs the schedule to support.", "Not considering that the subcontractor's own input might be the best source for the missing detail."],
+    "redFlags": ["Responds to the complaint without first checking what schedule tier was actually issued.", "Treats the request as simply 'give them more activities' without asking what those activities need to support."],
+    "p6Checks": ["Confirm whether a detailed WBS/activity layout for Section 2 pavement works already exists in the master project file but was filtered out of the subcontractor's issued extract.", "Check activity durations/granularity for the pavement scope against what other similarly-detailed sections of the schedule use."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the detailed breakdown does exist internally but was never issued, what does that suggest about the project's schedule distribution process more broadly?", "purpose": "Tests whether the candidate connects a single incident to a possible systemic distribution/process gap."},
+      {"trigger": "always", "prompt": "How would you decide the right level of detail to develop with the subcontractor, rather than just adding as many activities as they ask for?", "purpose": "Tests whether the candidate avoids over-correcting into excessive detail (echoes the level-of-detail trade-off)."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Identifies concrete checks (which tier was issued, whether detail exists) before proposing a fix."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Distinguishes distribution failure from genuine content gap as different root causes."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the value of subcontractor input and the coordination/claims implications."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.2,
+    "estimatedTimeSec": 180,
+    "tags": ["stakeholder needs", "level of detail", "roads", "subcontractor coordination"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "PF-019",
+    "category": "PF",
+    "subcategory": "Planning Process and Lifecycle",
+    "competency": "PLANNING_CPM",
+    "skill": "Describing how the planning basis and schedule structure should mature from FEED through FID into a resource-loaded EPC execution baseline, with appropriate governance",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "CASE_STUDY",
+    "scenario": "A contractor's FEED (Front-End Engineering Design) team has been carrying a Level 1/2, milestone-driven estimate schedule for a refinery upgrade project, built on preliminary scope and benchmarked durations with significant contingency. The client has now taken Final Investment Decision (FID) and the project is transitioning into full EPC execution under the same contractor.",
+    "question": "Describe how the planning basis and schedule structure should evolve from the FEED-stage schedule to the EPC execution baseline, and what governance should be in place at this transition.",
+    "expectedAnswer": "The FEED-stage schedule (Level 1/2, milestone-driven, assumption-heavy, carrying significant contingency) must be rebuilt/expanded into a detailed, resource- and cost-loaded Level 3/4 execution baseline reflecting the actual engineering deliverable list, procurement long-lead item schedule, construction work packages and commissioning sequence — developed with input from each discipline lead and validated for constructability and real resource availability, not benchmark assumptions. Governance at the transition should include a formal baseline review/challenge session before the new baseline is issued and the client is asked to accept it (an Integrated Baseline Review or equivalent), alignment of the new baseline's milestones with the contractual milestones and liquidated-damages trigger dates, and a defined change-control process for any baseline revisions going forward.",
+    "strongAnswer": "Adds that FEED-stage contingency (which was largely qualitative/percentage-based) should be converted into quantified schedule risk allowance through a schedule risk analysis at the EPC baseline stage, and that the schedule structure should be integrated with the cost estimate's own maturity transition (e.g., moving from a lower-maturity estimate class to a higher-maturity one), so schedule and cost contingency are not developed independently of one another.",
+    "expertAnswer": "Discusses the organizational handover risk: FEED-stage schedule authors and EPC execution planners are sometimes different teams (or even different companies in some contracting structures), so the critical assumptions and basis-of-schedule rationale behind the FEED schedule must be formally captured and handed over, validated, and either confirmed or explicitly revised — not silently inherited as if still valid. Flags the commercial risk of the EPC baseline being committed to before design and subcontract scope maturity actually supports resource-loaded certainty, and recommends the baseline's contingency be explicitly aligned with the current risk register rather than carried over unchanged from FEED.",
+    "explanation": "FEED and EPC execution schedules serve fundamentally different purposes and require different levels of rigor: FEED supports investment decision-making with wide assumption ranges, while the EPC baseline becomes the instrument used to actually manage delivery and measure contractual performance, including LD exposure. Treating the FEED schedule as 'good enough' to just carry forward skips essential validation and risk-quantification steps.",
+    "reasoning": "Each stage's schedule is fit for a different decision: FEED schedules support FID with appropriately wide contingency bands; EPC baselines must support day-to-day execution control and contractual measurement, which demands validated resource loading, discipline input, and a governance gate (review/challenge) before commitment, because the consequences of an unrealistic EPC baseline (LD exposure, credibility loss, disputes) are much higher than an unrealistic FEED estimate.",
+    "commonMistakes": ["Assuming the FEED schedule can simply be 'detailed a bit more' rather than substantively re-planned with real discipline and subcontractor input.", "Omitting any formal review/challenge gate before the EPC baseline is issued.", "Not addressing how FEED-stage contingency should be converted into EPC-stage schedule risk allowance."],
+    "redFlags": ["Treats the FEED schedule as directly reusable for EPC execution with only minor edits.", "No mention of aligning the new baseline to contractual milestones and LD trigger dates.", "No governance/review step before baseline commitment."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the resulting EPC baseline shows a later completion date than the FEED-stage estimate that supported FID, how would you expect that conversation with the client to go, and what would you need to have ready?", "purpose": "Tests commercial/contractual awareness of the consequences of schedule maturation revealing a less favorable date."},
+      {"trigger": "always", "prompt": "Who should own the FEED-to-EPC schedule handover — the original FEED planning team, the EPC execution team, or both jointly — and why does that matter?", "purpose": "Tests understanding of organizational continuity risk in large EPC transitions."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "completeness", "maxScore": 5, "guidance": "Covers schedule structure maturation, resource loading, discipline input, and a governance/review gate."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why FEED and EPC baseline schedules require different levels of rigor rather than treating the transition as cosmetic."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Addresses risk/contingency conversion and the handover/continuity risk between FEED and EPC teams."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes a realistic, concrete governance mechanism (e.g., baseline review, milestone alignment, change control)."}
+      ],
+      "passingScore": 13
+    },
+    "weight": 1.7,
+    "estimatedTimeSec": 260,
+    "tags": ["FEED", "EPC baseline", "planning lifecycle", "schedule risk", "refinery", "oil and gas"],
+    "references": ["PMI Practice Standard for Scheduling", "AACE International Recommended Practices"]
+  },
+  {
+    "questionCode": "PF-020",
+    "category": "PF",
+    "subcategory": "Level of Detail",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing an uncontrolled level-of-detail/activity-proliferation failure and its effect on update reliability and critical path stability",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "A 45-story residential tower's detailed construction schedule has grown to over 15,000 activities by the time structural works reach level 20, because planners have been adding a new activity for almost every minor task raised in weekly site meetings, with no review or control over the additions. The last three weekly updates have each taken more than four working days to complete, and the reported critical path has flipped between three different trades in the past month with no apparent real change on site.",
+    "question": "What is really going wrong here, and how would you get this schedule back under control?",
+    "expectedAnswer": "The schedule has lost discipline over level of detail — uncontrolled activity proliferation, not a genuine underlying change in project logic or performance. This causes two compounding problems: updates become unreliable and slow because far too much manual status entry is required each week (increasing the chance of missed or inaccurate updates), and the calculated critical path becomes unstable because a large number of low-value, loosely-defined activities with thin or duplicated logic introduce spurious near-critical paths that shift due to minor status-entry noise rather than real schedule dynamics. The fix is to establish and enforce a level-of-detail standard/duration threshold going forward, consolidate or summarize low-value/repetitive activities (e.g., representing repetitive per-floor tasks with a summary activity or a linked typical-floor template rather than one-off ad hoc activities), and route task-level detail raised in site meetings into a separate short-interval/weekly work plan that sits outside the CPM baseline network rather than being added to it directly.",
+    "strongAnswer": "Notes that before drawing firm conclusions about which trade is 'really' driving the critical path, the existing schedule's logic quality should first be audited (checking for dangling activities, out-of-sequence progress, missing predecessors/successors, and open ends), since a flipping critical path is often a symptom of accumulated logic-quality problems compounding the sheer volume problem, not two separate issues.",
+    "expertAnswer": "Frames this as a governance failure as much as a technical one — there was no change-control gate on adding activities to the live schedule — and recommends a going-forward process where any new activity addition mid-project requires planning-lead review against the agreed level-of-detail standard, combined with periodic schedule health/quality audits (e.g., a DCMA 14-point-style check) to catch runaway activity counts, logic gaps, and constraint misuse before they compound into an unmanageable and unreliable dataset.",
+    "explanation": "This is a classic level-of-detail governance failure: ad hoc, uncontrolled activity addition over time degrades both the practical maintainability of the schedule and the mathematical stability/credibility of its critical path output, even though nothing about the actual project logic has fundamentally changed.",
+    "reasoning": "A CPM network's critical path calculation is only as stable and meaningful as the logic quality and appropriateness of detail behind it. Excess low-value activities with weak or duplicated logic add noise that can shift the calculated critical/near-critical path without any real change on site, while also multiplying the manual effort needed for each update cycle, degrading both accuracy and timeliness of reporting.",
+    "commonMistakes": ["Treating the flipping critical path as necessarily reflecting real, meaningful shifts in project risk, without first questioning schedule/logic quality.", "Proposing to solve slow updates only by adding more staff, rather than addressing the root cause of excessive, uncontrolled detail.", "Deleting activities ad hoc to reduce count without first establishing a proper level-of-detail standard or auditing which activities are actually low-value."],
+    "redFlags": ["Accepts the flipping critical path at face value as a genuine finding without questioning schedule quality.", "Has no concept of a level-of-detail standard or change-control gate for adding activities mid-project."],
+    "p6Checks": ["Activities view — review activity duration distribution for an unusually large number of very short, low-value activities.", "Schedule log / Schedule Options — check Total Float and Longest Path settings, and review recent updates for out-of-sequence progress or logic changes coinciding with critical path shifts.", "Run a schedule quality/health check (e.g., missing logic, high duration variance, excessive constraints) to identify structural issues contributing to instability."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "How would you decide which of the 15,000 activities can be safely consolidated or summarized without losing genuinely necessary control information?", "purpose": "Tests practical judgment on executing a clean-up without throwing away real value."},
+      {"trigger": "always", "prompt": "If you propose routing site-meeting task requests into a separate short-interval plan, how do you make sure genuinely critical-path-relevant items still get captured in the baseline network?", "purpose": "Tests whether the candidate's fix risks losing real logic-relevant information, not just noise."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies uncontrolled activity proliferation/level-of-detail failure as the root cause of both symptoms."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains how excess low-value activities degrade both update reliability and critical path stability."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes concrete, workable remediation (level-of-detail standard, consolidation, short-interval plan separation)."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the need for an audit before conclusions, and for ongoing governance to prevent recurrence."}
+      ],
+      "passingScore": 13
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 230,
+    "tags": ["level of detail", "activity proliferation", "critical path stability", "schedule quality", "high-rise"],
+    "references": ["PMI Practice Standard for Scheduling", "DCMA 14-Point Assessment"]
+  }
+]
