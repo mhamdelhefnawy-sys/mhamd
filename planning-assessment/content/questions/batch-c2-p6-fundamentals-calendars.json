@@ -987,55 +987,63 @@
     "skill": "Knowing P6's default Duration Type and its basic effect",
     "difficulty": 2,
     "careerLevel": "JUNIOR",
-    "questionType": "MCQ",
-    "question": "Which Duration Type is P6's default for new activities, and what does it hold constant?",
-    "options": [
-      {
-        "label": "A",
-        "text": "Fixed Units/Time – each resource's assignment rate (units per time period) stays constant as Duration or total Units change",
-        "isCorrect": true
-      },
-      {
-        "label": "B",
-        "text": "Fixed Duration & Units – both Duration and total Units stay constant, and each resource's rate adjusts",
-        "isCorrect": false
-      },
-      {
-        "label": "C",
-        "text": "Fixed Units – total budgeted Units stay constant regardless of Duration changes",
-        "isCorrect": false
-      },
-      {
-        "label": "D",
-        "text": "Fixed Duration & Units/Time – both Duration and the resource rate are locked, only total Units can move",
-        "isCorrect": false
-      }
-    ],
-    "correctAnswer": "A",
-    "explanation": "Fixed Units/Time is P6's default Duration Type. It keeps each assigned resource's Units/Time (their rate, e.g., 8h per day) constant; changing the activity's Duration recalculates total budgeted Units to match, and changing total Units recalculates Duration, but the per-resource rate itself does not change automatically.",
-    "reasoning": "P6 offers four Duration Types (Fixed Units/Time, Fixed Duration & Units/Time, Fixed Units, Fixed Duration & Units), each fixing a different pair of {Duration, Units, Units/Time} and letting the third vary; Fixed Units/Time is applied automatically unless the project default or the activity is changed.",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "A junior planner creates a brand-new activity on a warehouse racking installation project and, without touching the Duration Type field at all, assigns one Installation Crew resource at 8h/d with Original Duration 4d. The site supervisor later asks the planner to add a second crew, expecting the duration to roughly halve, but it doesn't change at all.",
+    "question": "What field should the planner check first to understand why the duration didn't change, and what is it most likely set to given the planner never touched it?",
+    "explanation": "The planner should first check the activity's Duration Type field on the General tab. Since it was never manually changed, it is almost certainly still sitting at Fixed Units/Time – P6's default Duration Type for every new activity unless the project default or the activity itself is deliberately changed. Fixed Units/Time keeps each resource's Units/Time (rate) constant; adding a second crew at the same 8h/d rate does not by itself force Duration to shrink under this type, which explains why the supervisor's expectation of automatic compression wasn't met.",
+    "reasoning": "P6 offers four Duration Types (Fixed Units/Time, Fixed Duration & Units/Time, Fixed Units, Fixed Duration & Units), each fixing a different pair of {Duration, Units, Units/Time} and letting the third vary; because Fixed Units/Time is applied automatically to new activities, an untouched activity's behavior when resources are added is governed by that default unless someone deliberately chose otherwise.",
     "commonMistakes": [
       "Assuming Fixed Duration & Units/Time is the default because it is the most commonly discussed type in training materials.",
-      "Confusing Duration Type with Activity Type."
+      "Confusing Duration Type with Activity Type when diagnosing this symptom.",
+      "Assuming adding any resource always shortens duration regardless of Duration Type."
     ],
-    "redFlags": [],
+    "redFlags": [
+      "Changes the Duration Type immediately without first confirming what it currently is, risking an unintended side effect on other resource assignments."
+    ],
     "p6Checks": [
-      "Project Details > Defaults tab – Duration Type field.",
-      "Activity Details > General tab – Duration Type dropdown on an individual activity."
+      "Activity Details > General tab – Duration Type dropdown, to confirm the current setting.",
+      "Project Details > Defaults tab – Duration Type field, to confirm what new activities inherit by default.",
+      "Activity Details > Resources tab – observe what actually changed (likely total Units, not Duration) after the second crew was added."
     ],
     "followUpQuestions": [
       {
         "trigger": "always",
-        "prompt": "How would you change the default so all new activities on this project use a different Duration Type?",
+        "prompt": "Which Duration Type would need to be selected for adding a crew to actually shorten the duration?",
+        "purpose": "Tests whether the candidate can name Fixed Units as the compression-capable alternative."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you change the default so all new activities on this project use a different Duration Type going forward?",
         "purpose": "Tests practical knowledge of where the project-level default is set."
       }
     ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies Duration Type as the field to check and Fixed Units/Time as the likely default."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Explains why Fixed Units/Time doesn't compress duration when a resource is added."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names the correct field/tab to verify before making any changes."
+        }
+      ],
+      "passingScore": 9
+    },
     "weight": 1.0,
-    "estimatedTimeSec": 60,
+    "estimatedTimeSec": 120,
     "tags": [
       "duration type",
       "fixed units/time",
-      "project defaults"
+      "project defaults",
+      "resource assignment"
     ]
   },
   {
@@ -1846,50 +1854,54 @@
     "skill": "Locating where Primary and Secondary constraints are applied to an activity",
     "difficulty": 2,
     "careerLevel": "JUNIOR",
-    "questionType": "MCQ",
-    "question": "Where in the Activity Details does a planner assign a constraint (and its date) to an individual activity in P6?",
-    "options": [
-      {
-        "label": "A",
-        "text": "Status tab – Primary Constraint and Secondary Constraint fields, each with an associated constraint date",
-        "isCorrect": true
-      },
-      {
-        "label": "B",
-        "text": "Codes tab – by selecting a special 'Constraint' Activity Code value",
-        "isCorrect": false
-      },
-      {
-        "label": "C",
-        "text": "Relationships tab – by marking a relationship as 'Constrained'",
-        "isCorrect": false
-      },
-      {
-        "label": "D",
-        "text": "Notebook tab – by typing the constraint description as free text",
-        "isCorrect": false
-      }
-    ],
-    "correctAnswer": "A",
-    "explanation": "Constraints are applied on the Status tab of Activity Details, where a planner selects a Primary Constraint type (e.g., Start On, Finish On or Before, Mandatory Start) and its date, and can also set a Secondary Constraint with its own type and date. An activity can carry both a Primary and a Secondary constraint at the same time, which together bound its calculated dates.",
+    "questionType": "SCENARIO",
+    "scenario": "A client's contract requires that activity 'Handover Building Permit Submission' must not be submitted before a specific regulatory date, and separately must not slip past a second, later drop-dead date under any circumstances. A planner new to P6 isn't sure whether this needs one constraint or two, or where to enter them.",
+    "question": "Can P6 represent both a not-before date and a not-after date on the same activity, and where would the planner set this up?",
+    "expectedAnswer": "Yes. The planner should use Activity Details > Status tab, where an activity can carry both a Primary Constraint and a Secondary Constraint simultaneously, each with its own type and date. A 'Start On or After' (or similar) constraint set to the regulatory not-before date, combined with a 'Finish On or Before' (or a Mandatory Finish, depending on how strictly it must be enforced) constraint set to the drop-dead date, together bound the activity within that required window.",
+    "strongAnswer": "Notes the practical distinction between the softer 'On or Before/After' constraints (which still allow the schedule logic to move the date earlier/later within the bound) versus a Mandatory constraint (which forces the exact date regardless of logic), and recommends choosing based on how strictly the drop-dead date must be enforced.",
+    "expertAnswer": "Cautions that stacking two constraints on one activity should be used sparingly and documented clearly (e.g., in the Notebook), since constrained activities are a common source of schedule quality findings in an independent review, and an unexplained dual constraint can look like a data-entry artifact rather than a deliberate contractual requirement if not annotated.",
+    "explanation": "Constraints are applied on the Status tab of Activity Details, where a planner selects a Primary Constraint type and date, and can also set a Secondary Constraint with its own type and date – both apply simultaneously to bound the activity's calculated dates from two directions at once, exactly matching a 'not before X, not after Y' contractual requirement.",
     "reasoning": "P6 keeps constraint assignment as structured, calculated-impact fields (not free text or codes) because constraints directly participate in the forward/backward pass date calculation, unlike Activity Codes or Notebook entries which are purely descriptive/classification data with no scheduling effect.",
     "commonMistakes": [
-      "Confusing constraints with Activity Codes or Notebook topics, which have no effect on CPM calculation.",
-      "Assuming only one constraint (Primary) can ever be applied per activity."
+      "Assuming only one constraint (Primary) can ever be applied per activity, and that a two-sided date window isn't possible.",
+      "Confusing constraints with Activity Codes or Notebook topics, which have no effect on CPM calculation."
     ],
-    "redFlags": [],
+    "redFlags": [
+      "Attempts to represent the two-sided requirement using two separate milestone activities and a Notebook note instead of using the Primary/Secondary constraint fields that exist for exactly this purpose."
+    ],
     "p6Checks": [
-      "Activity Details > Status tab – Primary/Secondary Constraint dropdowns and date fields."
+      "Activity Details > Status tab – Primary Constraint and Secondary Constraint dropdowns and date fields.",
+      "Notebook tab – document the contractual reason for the constraints so a later reviewer understands why they're there."
     ],
     "followUpQuestions": [
       {
         "trigger": "always",
-        "prompt": "Why would an activity need both a Primary and a Secondary constraint at the same time?",
-        "purpose": "Tests understanding of combined constraint use cases, e.g., a date window bounded on both sides."
+        "prompt": "What is the practical difference between a 'Finish On or Before' constraint and a 'Mandatory Finish' constraint for the drop-dead date?",
+        "purpose": "Tests understanding of constraint strictness and its effect on schedule logic."
       }
     ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies Primary and Secondary constraints on the Status tab as the mechanism."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names appropriate constraint types for a not-before and not-after date window."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Recommends documenting the reason for the dual constraint."
+        }
+      ],
+      "passingScore": 9
+    },
     "weight": 1.0,
-    "estimatedTimeSec": 45,
+    "estimatedTimeSec": 150,
     "tags": [
       "constraints",
       "status tab",
@@ -2278,40 +2290,21 @@
     "skill": "Knowing the basic workflow for customizing displayed columns in the Activities view",
     "difficulty": 1,
     "careerLevel": "JUNIOR",
-    "questionType": "MCQ",
-    "question": "What is the correct way to add a new column (e.g., 'Free Float') to the Activities view table in P6?",
-    "options": [
-      {
-        "label": "A",
-        "text": "Open the Columns dialog (View > Columns, or right-click a column heading and choose Columns), then move 'Free Float' from the Available Options list into the Selected Options list",
-        "isCorrect": true
-      },
-      {
-        "label": "B",
-        "text": "Create a new User Defined Field named 'Free Float'",
-        "isCorrect": false
-      },
-      {
-        "label": "C",
-        "text": "Add 'Free Float' as a new Activity Code value",
-        "isCorrect": false
-      },
-      {
-        "label": "D",
-        "text": "Edit the project's WBS structure to expose additional fields",
-        "isCorrect": false
-      }
-    ],
-    "correctAnswer": "A",
-    "explanation": "Native P6 fields like Free Float are already built into the application and simply need to be added to the visible column list via the Columns dialog; there is no need to create a UDF or Activity Code, since 'Free Float' is not custom data – it's a standard calculated field P6 already tracks.",
-    "reasoning": "The Columns dialog controls which of P6's many available fields (native and custom) are currently displayed in the Activities table, in what order, and with what column width/title – it is entirely separate from creating new custom data fields like UDFs.",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A junior planner wants to see each activity's Free Float on a piping fabrication schedule but cannot find it anywhere in the Activities view table. They ask a colleague whether they need to create a new User Defined Field called 'Free Float' to capture it.",
+    "question": "Is creating a UDF the right approach, and what is the most likely reason Free Float isn't already showing in the table?",
+    "explanation": "No, creating a UDF is not the right approach and would be unnecessary duplicate effort – Free Float is already a native, built-in P6 field, not custom data. The most likely reason it isn't currently visible is simply that the column hasn't been added to the current layout yet; the planner should open the Columns dialog (View > Columns, or right-click a column heading and choose Columns) and move 'Free Float' from the Available Options list into the Selected Options list, rather than creating a new custom field to duplicate something P6 already calculates.",
+    "reasoning": "The Columns dialog controls which of P6's many available fields (native and custom) are currently displayed in the Activities table – it is entirely separate from creating new custom data fields like UDFs, which exist only for data P6 doesn't already track natively.",
     "commonMistakes": [
-      "Confusing displaying an existing native field with creating new custom data via a UDF.",
+      "Confusing 'a field isn't currently displayed' with 'a field doesn't exist', leading to unnecessary UDF creation.",
       "Believing WBS structure changes affect which columns are visible."
     ],
-    "redFlags": [],
+    "redFlags": [
+      "Creates a duplicate UDF for a native field, which would confuse future users about which 'Free Float' field is the real calculated value."
+    ],
     "p6Checks": [
-      "View > Columns (or right-click a column heading) – Available Options / Selected Options list to add or remove columns."
+      "View > Columns (or right-click a column heading) – Available Options / Selected Options list to add or remove columns.",
+      "Confirm the schedule has been run (F9) at least once, since Free Float, like Total Float, will show blank until then."
     ],
     "followUpQuestions": [
       {
@@ -2320,12 +2313,34 @@
         "purpose": "Tests understanding that truly custom data requires creating a UDF first, then adding it as a column."
       }
     ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies Free Float as a native field needing only a Columns dialog change, not a UDF."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Gives the concrete fix (Columns dialog) and notes the F9 dependency."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Distinguishes native calculated fields from custom UDF data."
+        }
+      ],
+      "passingScore": 9
+    },
     "weight": 1.0,
-    "estimatedTimeSec": 45,
+    "estimatedTimeSec": 90,
     "tags": [
       "columns",
       "activities view",
-      "layout"
+      "layout",
+      "free float",
+      "UDF"
     ]
   },
   {

@@ -1439,5 +1439,416 @@
     "estimatedTimeSec": 220,
     "tags": ["stale schedule", "TIA red flags", "pre-impact schedule", "review technique"],
     "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-011",
+    "category": "TIA",
+    "subcategory": "Common TIA Error – Double Counting Overlapping Fragnets",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Detecting and correcting double counting when multiple related events are modeled independently against the same starting schedule and then summed",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a district cooling plant project, the contractor submits two separate TIA reports for what it frames as two distinct employer-caused events: Event A (an 8-day delay from a late chiller foundation drawing) and Event B (a 6-day delay from a design change to the same chiller foundation's anchor bolt pattern). Both fragnets are modeled independently against the same pre-impact schedule (the same data date) rather than sequentially against each other, and the contractor sums the two independent results (8 + 6 = 14 days) as the total claimed impact.",
+    "question": "What is the risk with this approach, and how should it be corrected?",
+    "expectedAnswer": "Modeling two events affecting the same activity/area independently against the same, unchanged pre-impact schedule and then simply summing the two isolated results risks double counting, because each fragnet's impact was calculated as if the other event had not happened — the true combined effect of both events together on the network is very likely less than the simple sum of their two isolated impacts, since they affect the same activity/area and would interact/overlap once both are actually present. The correct approach is to model the two events sequentially into the same schedule (insert Event A first, recalculate, then insert Event B into the already-impacted schedule, recalculate again) and take the net cumulative impact of both combined, rather than summing two independently calculated, isolated results.",
+    "strongAnswer": "Notes that the order in which the two events are inserted (A then B, or B then A) can matter and should be based on the actual chronological order the events occurred, not an order chosen for convenience or to maximize the result; recommends disclosing the chronological insertion order and justifying it.",
+    "expertAnswer": "Highlights that this exact independent-then-sum error is one of the most common and most damaging TIA mistakes precisely because each individual fragnet, viewed alone, can look perfectly correct — the flaw only appears when checking whether the two analyses were run against the same starting point rather than sequentially; recommends this be a standard cross-check whenever more than one TIA/fragnet touches the same activity or area within an overlapping period, and that the combined/net result (not the sum of isolated results) is what should be presented as the claimed impact.",
+    "explanation": "Independently modeling two events that affect the same schedule area against an unchanged starting point and then summing the results risks overstating the true combined impact through double counting; sequential insertion into a cumulatively updated schedule is required to capture the genuine net effect.",
+    "reasoning": "CPM impact is path-dependent — once one event has already shifted the network, a second event affecting the same area may add less (or occasionally more) incremental delay than it would have added in isolation against the original, unimpacted schedule, because float and path relationships have already changed; summing two isolated calculations ignores this interaction.",
+    "commonMistakes": [
+      "Modeling multiple related events independently against the same starting schedule and simply summing results.",
+      "Not checking whether two claimed events affect the same activity/area within an overlapping period.",
+      "Choosing an insertion order for convenience rather than actual chronology."
+    ],
+    "redFlags": ["Presents a summed total of independently-calculated fragnet impacts touching the same activity without checking for double counting."],
+    "p6Checks": [
+      "Confirm whether Event A and Event B's fragnets touch the same activities or network area.",
+      "Re-run the analysis by inserting Event A first, recalculating, then inserting Event B into the already-impacted schedule, and compare the sequential net result to the naive sum.",
+      "Verify the insertion order matches the actual chronological order the two events occurred."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the sequential analysis shows a combined net impact of 10 days instead of the naive 14-day sum, what happened to the other 4 days?", "purpose": "Tests understanding of float/path interaction as the mechanism behind the discrepancy."},
+      {"trigger": "if_correct", "prompt": "How would you explain to the contractor's commercial team why 14 days cannot be claimed even though both events are genuinely real and employer-caused?", "purpose": "Tests ability to communicate a technical correction that reduces a claimed figure."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Identifies double counting as the core risk of independent-then-sum modeling."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains the path-dependent mechanism causing sub-additivity."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes the correct sequential-insertion method and chronological ordering."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 240,
+    "tags": ["double counting", "sequential fragnet insertion", "TIA errors", "overlapping events"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-012",
+    "category": "TIA",
+    "subcategory": "Common TIA Error – Incorrect Logic Ties Creating Artificial Float or Criticality",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Detecting a fragnet logic tie that substitutes an artificial relationship type for the genuine physical/construction dependency",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "On a highway bridge widening project, a planner builds a fragnet for a 10-day employer-caused delay to a bridge bearing supply and, to make the insertion 'cleaner,' ties the fragnet's predecessor relationship using a Start-to-Start link with a generous 20-day lag to the existing bearing installation activity instead of the genuine Finish-to-Start dependency that actually governs (the new bearings cannot physically be installed until the old ones are removed and the seat is prepared, which is what the original logic correctly showed).",
+    "question": "What is wrong with this logic choice, and what effect is it likely to have on the calculated result?",
+    "expectedAnswer": "Substituting a Start-to-Start-with-lag relationship for the genuine Finish-to-Start dependency does not represent the real physical/construction logic (bearing installation genuinely cannot start until the preceding removal/seat-preparation work is finished) — this kind of artificial logic tie can generate artificial float or mask true criticality, producing a calculated impact that doesn't reflect how the work would actually have to proceed; the fragnet must use the same real logic type (finish-to-start in this case, matching the physical construction sequence) as the activity it is replacing/feeding, not a different relationship type chosen to make the network 'cleaner' to build or to produce a more favorable number.",
+    "strongAnswer": "Notes this error is particularly dangerous because start-to-start-with-lag relationships can be tuned to produce almost any desired float/criticality outcome, making it a subtle way (deliberate or accidental) to distort results, and recommends any analyst reviewing a TIA specifically compare the fragnet's relationship types and lags against the genuine construction logic of the activities it touches, not just check that dates line up.",
+    "expertAnswer": "Highlights that logic-tie manipulation (using non-standard relationship types or lags not reflecting genuine construction constraints) is one of the most scrutinized areas in adversarial delay analysis review precisely because it's both powerful (can swing results significantly) and detectable (comparing against known construction methodology and the original, pre-fragnet logic of the activity being replaced); recommends documenting and justifying every relationship type and lag value used in a fragnet with reference to the real physical/construction constraint it represents.",
+    "explanation": "A fragnet's logic ties must reflect the genuine physical/construction constraints of the work, matching the relationship types used in the real, original network for equivalent activities, rather than being chosen for convenience or to influence the outcome.",
+    "reasoning": "Relationship type and lag directly determine how a fragnet's duration propagates through the network and interacts with float; using an artificial relationship type not grounded in actual construction methodology can create or hide float/criticality that doesn't correspond to how the work would genuinely have to be sequenced.",
+    "commonMistakes": [
+      "Using start-to-start or finish-to-finish with-lag relationships in a fragnet 'for convenience' without checking that they represent genuine construction logic.",
+      "Not comparing the fragnet's relationship types against the original network's logic for the same or equivalent activities.",
+      "Treating any relationship type that produces plausible-looking dates as acceptable regardless of physical accuracy."
+    ],
+    "redFlags": [
+      "Cannot explain why the relationship type chosen matches or doesn't match genuine construction sequencing.",
+      "Defends an artificial logic tie as an acceptable simplification."
+    ],
+    "p6Checks": [
+      "Compare the fragnet's relationship types and lags against the original network's logic for the activity being replaced or fed.",
+      "Confirm the relationship type reflects genuine physical/construction constraints (e.g., finish-to-start for physically sequential work) rather than an arbitrary start-to-start/finish-to-finish-with-lag choice.",
+      "Test sensitivity: re-run with the correct finish-to-start logic and compare the calculated impact to the start-to-start-with-lag version to quantify the distortion."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If switching the logic tie from a 20-day-lag start-to-start relationship to the correct finish-to-start relationship changes the calculated impact from 10 days to 17 days, what does that tell you about the materiality of getting logic ties right?", "purpose": "Tests appreciation of how much logic choice can swing results."},
+      {"trigger": "if_correct", "prompt": "How would you word a review comment on this fragnet if you found this issue as an independent checker?", "purpose": "Tests practical review-communication skill."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the artificial logic tie as the source of distortion."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Explains how relationship type and lag affect float/criticality propagation."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete sensitivity check comparing correct vs artificial logic."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 230,
+    "tags": ["logic ties", "artificial float", "relationship types", "TIA errors", "construction methodology"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-013",
+    "category": "TIA",
+    "subcategory": "Common TIA Error – Ignoring Concurrent Unrelated Delays",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Testing for and disclosing a known potentially concurrent contractor-risk cause before relying on a TIA's calculated employer-caused impact",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "CASE_STUDY",
+    "scenario": "On an offshore platform topside fabrication yard project, the contractor's TIA models a 12-day employer-caused delay to a structural steel connection detail approval, showing a clean 12-day completion impact. The TIA report does not mention that, during the exact same period, the contractor's own crane subcontractor was independently unavailable for 9 of those 12 days due to a mechanical breakdown, which — on separate review of the schedule — appears to have also been sitting on what would have been the critical path for the same structural steel activities had the design delay not occurred.",
+    "question": "What is the problem with the TIA as submitted, and what analysis is needed before the 12-day figure can be relied upon?",
+    "expectedAnswer": "The TIA as submitted appears to ignore a potentially genuinely concurrent, contractor-risk cause (the crane breakdown) that may have independently affected the same critical activities over much of the same period; presenting a clean, unqualified 12-day employer-caused impact without addressing this is incomplete and potentially misleading, since if the crane breakdown would independently have caused critical delay for 9 of the same 12 days regardless of the design delay, a proper concurrency analysis is required before concluding the full 12 days should be treated as employer-caused for cost purposes (and possibly, depending on the treatment adopted, even for the time entitlement conclusion, if the contract has specific concurrency provisions). Needs: a check of whether the crane breakdown would independently have been critical over the same days absent the design delay (a 'but-for' test on the contractor-risk cause), and if so, application of whatever concurrency treatment is appropriate under the contract for the overlapping period.",
+    "strongAnswer": "Notes that a rigorous TIA should proactively test for and disclose known concurrent causes rather than waiting for a reviewer to find them — omitting a known, potentially material concurrent cause from the report, whether deliberate or an oversight, seriously undermines the credibility of the whole analysis once discovered, and recommends the analyst always ask 'what else was happening in this window that could independently affect the same activities' as a standard TIA step.",
+    "expertAnswer": "Highlights that this is a compounding of two things: (1) a substantive concurrency issue affecting the correct EOT/cost outcome, and (2) a disclosure/credibility issue from omitting known contrary evidence from the report — an analyst has a professional obligation to present a complete, balanced analysis, not simply the most favorable defensible number, and an opposing party discovering an undisclosed concurrent cause independently will reasonably question the good faith of the entire submission, not just this one figure; recommends the report explicitly address the crane breakdown, test true concurrency, and state the resulting treatment with the reasoning shown.",
+    "explanation": "A TIA that fails to identify, test, and disclose a known potentially concurrent contractor-risk cause affecting the same activities in the same window is incomplete and risks both a wrong technical conclusion and a credibility/professional-integrity problem once the omission is discovered.",
+    "reasoning": "TIA is meant to isolate a specific event's own causal contribution to critical-path delay; if another cause was independently capable of producing the same critical delay over the same period, the true incremental contribution of the analyzed event may be less than the fragnet alone suggests, and the analysis is incomplete without addressing this directly.",
+    "commonMistakes": [
+      "Omitting known concurrent causes from the TIA report, whether to simplify the analysis or to present a more favorable number.",
+      "Not testing whether a contractor-risk cause was independently capable of causing the same critical delay.",
+      "Assuming a TIA only needs to model the event being claimed without regard to other things happening at the same time."
+    ],
+    "redFlags": ["Presents a clean impact figure while aware of a plausible, undisclosed, independently critical concurrent cause on the same activities."],
+    "p6Checks": [
+      "Check whether the crane subcontractor's affected activities were on the critical (or would-be critical) path over the same days absent the design delay.",
+      "Model the crane breakdown as its own fragnet/what-if scenario to test whether it independently would have caused critical delay over some or all of the same 12 days.",
+      "Cross-reference contemporaneous records (maintenance logs, daily reports) to confirm the breakdown's actual duration and affected scope."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the crane breakdown is found to have been independently critical for 9 of the 12 days, how does that change the claimed employer-caused impact and, separately, the cost entitlement for that period?", "purpose": "Tests application of the time-vs-cost concurrency distinction to a concrete TIA result."},
+      {"trigger": "if_correct", "prompt": "What does the omission of this issue from the original TIA report do to the credibility of the rest of the analysis?", "purpose": "Tests professional judgment about disclosure and analyst integrity."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly identifies the need to test whether the crane breakdown was independently critical over the same period."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Addresses the disclosure/integrity dimension, not just the technical concurrency test."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Describes a full but-for test and the resulting time-vs-cost treatment."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 260,
+    "tags": ["concurrent delay", "TIA omission", "disclosure", "but-for test", "analyst integrity"],
+    "references": ["SCL Delay and Disruption Protocol", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-014",
+    "category": "TIA",
+    "subcategory": "TIA vs Retrospective Windows Analysis – Method Selection",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Selecting between prospective-style and retrospective windows-based delay analysis after a project has already reached completion",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "A water pipeline project just reached substantial completion, 45 days later than planned, with numerous delay events (weather, employer variations, contractor resourcing issues) spread across the project. The claims team is deciding whether to prepare the delay analysis as a series of prospective TIAs for each individual event (as if performed in real time) or as a single retrospective windows analysis using the actual periodic updates issued throughout the project.",
+    "question": "What would you check first to decide which approach is appropriate here, and what are the trade-offs?",
+    "expectedAnswer": "Would check first: (1) what the contract specifies or implies about the required/preferred delay analysis methodology, if anything; (2) the quality and completeness of the periodic updates actually issued during the project (a windows approach depends on having a reasonably complete, good-quality series of accepted updates spanning the delay period); and (3) whether performing individual prospective-style TIAs now, after the fact, would essentially just be a retrospective reconstruction dressed as prospective analysis, given the project has already finished. Trade-offs: a retrospective windows analysis using the real periodic updates as they were actually issued generally has strong evidentiary credibility (using contemporaneous data) and can efficiently handle multiple events across the project, but depends on update quality/frequency; recreating individual TIAs after the fact for events that have already concluded loses the main practical advantage of TIA (real-time decision support) and doesn't offer clearly superior evidentiary weight to windows analysis if done after the fact.",
+    "strongAnswer": "Notes that the two methods are not mutually exclusive — a windows analysis can itself use fragnet-style event insertion within each window to isolate individual event impacts, so the real decision is less 'TIA versus windows' as absolute alternatives and more about which structure best organizes multiple events across accepted periodic data now that the project is complete; recommends checking update quality first since a windows approach is only as good as the update series underlying it.",
+    "expertAnswer": "Highlights that method selection should also consider what a reviewing engineer, adjudicator, or tribunal in the relevant context is likely to find persuasive and any generally accepted forensic schedule analysis guidance relevant to the situation (retrospective analysis after project completion, using a full data set, is a well-established category), and that switching methodologies mid-analysis without justification (e.g., some events analyzed as if in real time, others fully retrospectively) risks looking inconsistent or result-driven; recommends committing to one consistent, disclosed methodology for the whole claim.",
+    "explanation": "Since the project has already reached substantial completion, a genuinely prospective, real-time TIA approach is no longer literally available for past events; the practical choice is between a retrospective windows analysis (if update quality supports it) or another retrospective method, and the decision should be driven by data quality, contract requirements, and consistency, not simply by label preference.",
+    "reasoning": "TIA's core value (informing decisions in real time before the outcome is known) doesn't apply once the project is finished; a retrospective method that uses the genuine, contemporaneous periodic updates as the evidentiary backbone is generally more appropriate and credible once full as-built and update data exists.",
+    "commonMistakes": [
+      "Choosing prospective-style TIA for a claim prepared entirely after project completion without recognizing this is functionally retrospective reconstruction, not real-time methodology.",
+      "Not checking update quality/frequency before committing to a windows approach.",
+      "Mixing methodologies across different events in the same claim without justification."
+    ],
+    "redFlags": ["Insists on individually reconstructed prospective TIAs for a fully completed project without acknowledging this is effectively retrospective work."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the periodic updates are found to be sparse (only issued every 3 months) or of poor quality, how does that change your methodology recommendation?", "purpose": "Tests whether the candidate adapts method choice to actual data quality rather than a fixed preference."},
+      {"trigger": "if_correct", "prompt": "Could a windows analysis itself use fragnet-style insertion within each window? What would that look like here?", "purpose": "Tests understanding that the two methods can be combined rather than treated as strict alternatives."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Selects a methodology based on data quality and contract requirements rather than a fixed preference."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete checks (update quality/frequency, contract wording) before committing to an approach."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains why prospective, real-time TIA is no longer literally available after project completion."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["TIA", "windows analysis", "methodology selection", "retrospective analysis"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-015",
+    "category": "TIA",
+    "subcategory": "Step-by-Step TIA Worked Case Study",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Executing a complete TIA process end to end (pre-impact schedule selection, fragnet construction, insertion, calculation) and separating the technical output from the contractual entitlement conclusion",
+    "difficulty": 5,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["SENIOR", "MANAGER"],
+    "questionType": "CASE_STUDY",
+    "scenario": "On a commercial office tower project, the pre-impact accepted schedule update (data date = day 200) shows: activity 'Curtain Wall Panel Fabrication Approval' is on the critical path with 0 days total float, planned to finish on day 210, driving 'Curtain Wall Installation – Floors 10-20' (60-day duration, finish-to-start logic, no lag) which drives the project finish milestone on day 340 with 0 float throughout (curtain wall is the critical path all the way to finish). On day 202, the employer's design consultant rejects the panel fabrication drawings and requires a resubmission; approval is finally re-issued on day 224 — a 22-working-day delay to the approval activity, verified through correspondence. No other schedule changes occurred in this window; float and logic elsewhere are unaffected.",
+    "question": "Walk through the TIA process step by step for this event: build the fragnet, insert it correctly, and state the calculated completion impact. Then state, separately, what would still need to be confirmed before that impact figure could be relied upon as EOT entitlement.",
+    "expectedAnswer": "Step 1 (pre-impact schedule): confirm the day-200 update is appropriate as the reference (it is, matching the true event start closely). Step 2 (fragnet construction): the delay is essentially an extension/addition to the existing 'Panel Fabrication Approval' activity — the fragnet should extend its duration/finish by the verified 22 working days (or insert a discrete 'design consultant rejection/resubmission delay' fragnet activity between the original approval finish and its real successor), tied with the same finish-to-start logic that already governs into curtain wall installation. Step 3 (insertion and calculation): since the approval activity had 0 float and directly, solely drives curtain wall installation which itself drives the finish milestone with 0 float throughout, the 22-day extension propagates with no absorption — the calculated completion impact is 22 working days, moving the forecast finish from day 340 to day 362 (adjusted for the applicable calendar). Step 4 (result statement): the TIA's technical output is 22 working days of calculated critical-path/completion impact caused by this specific event, modeled on the day-200 pre-impact schedule. What still needs confirming before this becomes an EOT conclusion: whether the design rejection is a contractually qualifying event (was it truly an employer/consultant-risk event, or could some or all of the rejection be attributable to a contractor submission deficiency?), whether notice/particulars requirements were met, whether the 22 working days converts correctly to the contract's stated EOT unit, and whether any concurrent contractor-risk cause existed in the same window that hasn't been checked yet.",
+    "strongAnswer": "Notes the importance of verifying whether the resubmission requirement was itself entirely due to the consultant's own error/preference change versus (even partly) a genuine non-compliance in the contractor's original submission — since if the original submission had defects, some or all of the 22 days could be recharacterized as contractor-risk (or shared) rather than purely employer-caused, which would change the entitlement conclusion even though the technical 22-day schedule impact calculation itself would be unaffected.",
+    "expertAnswer": "Highlights that because this fragnet sits on a single-path, zero-float chain (approval to curtain wall to finish, all zero float throughout), this is one of the cleaner, less contested types of TIA scenarios technically — but stresses that 'technically clean' does not mean 'entitlement is automatic,' reinforcing that even in the simplest, most defensible technical case, the contractual qualifying-event and procedural questions remain fully open and must be worked through separately; recommends the report clearly present the 22-day figure as the calculated schedule impact and separately, explicitly, flag the outstanding contractual questions rather than blending them into one declarative entitlement statement.",
+    "explanation": "This worked example shows a technically straightforward TIA (single zero-float chain, no absorption or amplification) that nonetheless still requires a full separate contractual assessment before its technical output can be described as an EOT entitlement.",
+    "reasoning": "The calculated 22-day impact follows directly from the network mechanics (zero float throughout the single driving path means the full fragnet duration passes straight through to the finish milestone with no absorption); this mechanical clarity is independent of, and does not resolve, the separate questions of contractual qualifying-event status, notice compliance, and concurrency that determine actual entitlement.",
+    "commonMistakes": [
+      "Presenting the 22-day figure directly as '22 days EOT due' without addressing the contractual questions.",
+      "Not checking whether the original submission itself may have had defects contributing to the rejection.",
+      "Assuming a technically clean calculation automatically means a technically and contractually uncontested claim."
+    ],
+    "redFlags": ["Concludes the case study by stating entitlement is confirmed based on the schedule calculation alone."],
+    "p6Checks": [
+      "Confirm the day-200 update's total float on the approval-to-finish chain is genuinely zero throughout, with no float pockets that would absorb part of the 22 days.",
+      "Verify the finish-to-start logic and lag values along the chain match the original, unmodified network.",
+      "Recalculate the forward pass after insertion and confirm the finish milestone shift equals the fragnet duration exactly, consistent with a single zero-float driving chain."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If it turns out the contractor's original panel fabrication submission was missing a required certification, how does that change your entitlement conclusion even though the 22-day technical calculation stays the same?", "purpose": "Tests separation of technical calc from qualifying-cause determination even in a clean numeric case."},
+      {"trigger": "if_correct", "prompt": "How would you present the fragnet and its result in a report so that a reviewer can independently verify the zero-float, no-absorption finding?", "purpose": "Tests practical report transparency for a technically clean but still-contested case."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly calculates the 22-day impact given the zero-float single-path chain."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes each TIA step concretely: reference schedule, fragnet construction, insertion, calculation."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Separates the technical calculation from the qualifying-cause determination."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Lists the specific outstanding contractual questions (qualifying event, notice, concurrency, unit conversion)."}
+      ],
+      "passingScore": 13
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 280,
+    "tags": ["TIA worked example", "fragnet", "zero float chain", "step-by-step", "EOT vs technical impact"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis", "SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "TIA-016",
+    "category": "TIA",
+    "subcategory": "Fragnet Duration Estimation Methodology",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Choosing an evidence-based duration source for a fragnet activity over an unmet contractual target or an unsubstantiated estimate",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "On an urban rail depot project, a planner needs to estimate the duration for a fragnet activity representing 'employer approval of revised platform screen door interface drawing.' Three possible duration sources are available: (1) the contract's stated default review period for standard submittals (14 calendar days), (2) the actual average turnaround the same employer's team has taken on the 30 prior submittals on this project (23 calendar days), and (3) the specific individual's stated informal verbal estimate ('should take about a week, don't worry').",
+    "question": "Which duration source would you use for the fragnet, and what is your reasoning?",
+    "expectedAnswer": "Generally, the actual historical average turnaround on this specific project (23 days) is the more defensible, evidence-based choice for a fragnet duration, since it reflects the real, demonstrated pattern of this employer's review performance on this project rather than either an unenforced contractual target that has not actually been met in practice, or an informal, unsubstantiated verbal estimate; the contractual default (14 days) may still be relevant to note (e.g., as the basis for a separate argument that the employer is itself in breach if consistently exceeding its own contractual turnaround), but using it as the fragnet's modeled duration when actual performance has consistently been different would understate the realistic impact. The informal verbal estimate (about a week) carries essentially no evidentiary weight and should not be used as a modeled duration.",
+    "strongAnswer": "Notes that using actual historical performance (23 days) is itself something that should be disclosed and justified with the underlying data (the 30 prior submittals' actual turnaround times) so the assumption is transparent and checkable, rather than simply asserted; also flags that if the specific submittal here is genuinely different in complexity/scope from the historical average, that should be considered rather than mechanically applying the average without judgment.",
+    "expertAnswer": "Highlights that this choice can matter significantly to the claimed quantum and is exactly the kind of assumption an opposing analyst will test, so the fragnet report should show the full historical data set (not just the average) and explain why it's a better predictor than the contractual default, while separately noting that the fact of consistent contractual non-compliance (14 days promised, 23 actually taken) may itself support an argument that the employer's slow performance generally, not just this one instance, has been contributing to project delay — a broader point beyond this single fragnet.",
+    "explanation": "A fragnet duration should be based on the best available real evidence of how the relevant process actually performs, generally favoring demonstrated historical actual performance over either an unmet contractual target or an unsubstantiated informal estimate, while remaining alert to whether the specific instance is genuinely comparable to the historical pattern.",
+    "reasoning": "TIA credibility depends on defensible, evidence-based inputs; a contractual default that has not been met in practice is a weaker predictor of actual behavior than a demonstrated pattern from the same project and same personnel, and an informal verbal estimate has essentially no evidentiary foundation at all.",
+    "commonMistakes": [
+      "Defaulting to the contractual review period regardless of actual demonstrated performance.",
+      "Using an informal verbal estimate as a modeled duration.",
+      "Not disclosing the data source and reasoning behind the chosen duration."
+    ],
+    "redFlags": ["Cannot justify the chosen duration source with reference to actual evidence."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If this specific submittal is unusually complex compared to the 30 prior ones, should you still use the flat 23-day average?", "purpose": "Tests judgment about applying historical averages versus adjusting for specific circumstances."},
+      {"trigger": "if_correct", "prompt": "How would you present the underlying 30-submittal data set in the TIA report to support the 23-day figure?", "purpose": "Tests practical evidentiary disclosure."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Selects actual historical performance over an unmet contractual target or an unsubstantiated estimate."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Recommends disclosing the underlying data supporting the chosen duration."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly ranks the three duration sources by evidentiary strength."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": ["fragnet duration", "historical data", "evidence-based estimating", "submittal turnaround"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-017",
+    "category": "TIA",
+    "subcategory": "Prospective (Real-Time) Use vs Forensic (After-the-Fact) Use of TIA",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Adapting TIA preparation to use available as-built data for validation when the analysis is being prepared forensically, after project completion",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "MISSING_INFO",
+    "scenario": "A planning engineer is asked to 'do a TIA' for an event that occurred 2 years ago on a now-completed industrial plant project, as part of a final account dispute. They begin building a fragnet exactly as they would during live project execution, without considering anything else.",
+    "question": "What is missing from their approach, and how should preparing a TIA for a forensic, after-the-fact purpose differ from preparing one during live project execution?",
+    "expectedAnswer": "What's missing is recognition that, with the project complete, there is now full as-built data available for the entire post-event period — the analysis should take advantage of that by cross-checking the fragnet-based forecast impact against what is actually known to have happened (actual dates, actual mitigation, actual subsequent events), rather than modeling purely as a blind, real-time forecast as if the outcome were still unknown; a forensic TIA can and should be reconciled against, and explained in light of, the complete as-built record, while a live, real-time TIA necessarily cannot do this because the future hasn't happened yet.",
+    "strongAnswer": "Notes that despite having as-built data available, the forensic TIA should still generally be built from the correct pre-impact schedule at the time of the event (not the final as-built schedule) to properly isolate the event's own causal contribution, but then should be checked against/explained relative to the full as-built record as a validation step — using hindsight to validate and explain, not to silently substitute for, the fragnet-based causal calculation.",
+    "expertAnswer": "Highlights that mixing up these two purposes (building a purely prospective-style fragnet analysis in a forensic context without any reconciliation to known as-built outcomes, or conversely building a purely retrospective as-built comparison and calling it a TIA) produces a weaker analysis than one that deliberately combines both: the fragnet-based causal isolation reconciled against the full as-built record — recommends explicitly stating in the report which purpose is being served and how the as-built data was used to test the result.",
+    "explanation": "Preparing a TIA for a completed project as part of a later dispute has full as-built data available that a live, real-time TIA does not, and a thorough forensic TIA should use that data to validate and explain the fragnet-based result, not ignore it and proceed exactly as if performed in real time.",
+    "reasoning": "The whole point of using known as-built information after the fact is to strengthen and test the analysis; failing to reconcile a forensic TIA against the known outcome wastes available evidence and produces an analysis vulnerable to being contradicted by facts the analyst had access to but didn't use.",
+    "commonMistakes": [
+      "Building a forensic TIA exactly as if performed live, ignoring available as-built data entirely.",
+      "Replacing the fragnet-based causal calculation entirely with as-built comparison and calling the result a TIA when it is really a different method.",
+      "Not stating which purpose (real-time decision support vs after-the-fact dispute evidence) the analysis is serving."
+    ],
+    "redFlags": ["Shows no awareness that as-built data is available and relevant when preparing an after-the-fact TIA."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you use the known as-built record to validate or challenge your fragnet-based forecast result in this forensic context?", "purpose": "Tests practical understanding of reconciliation, not just conceptual awareness."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the availability and relevance of as-built data in a forensic TIA."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Identifies the missing reconciliation step, not just the missing data."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes a concrete way to use as-built data to validate the fragnet result."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 190,
+    "tags": ["forensic TIA", "prospective vs retrospective", "as-built reconciliation", "dispute evidence"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-018",
+    "category": "TIA",
+    "subcategory": "Fragnet Tied to Multiple Downstream Paths",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Modeling a shared-cause fragnet feeding multiple downstream paths with differing float, and correctly determining the path-specific net impact",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "On an integrated resort development, a fragnet is needed for a 13-day employer-caused delay to a shared central plant equipment delivery that feeds three separate building blocks (Block A, B, and C), each of which has its own downstream MEP commissioning sequence with different amounts of existing float (Block A: 2 days float, Block B: 0 days float/critical, Block C: 9 days float, all measured on the pre-impact schedule immediately before the event).",
+    "question": "How should this fragnet be tied into the network given it feeds three separate downstream paths with different float values, and what result would you expect?",
+    "expectedAnswer": "The fragnet should be tied with correct logic (matching real dependency) to all three downstream commissioning sequences it genuinely feeds (Block A, B, and C), not just to whichever path is currently critical — since the delay is a genuine shared-cause event affecting all three; once inserted and recalculated, expect the impact to differ by block based on each path's pre-existing float: Block B (0 days float, already critical) would show close to the full 13-day impact passed through to its own commissioning/completion milestone; Block A (2 days float) would show roughly 11 days of net impact (13 minus the 2 days of float absorbed); Block C (9 days float) would show roughly 4 days of net impact (13 minus 9 days of float absorbed) — assuming no other complicating factors, each block's own downstream network absorbs float independently before the shared cause becomes critical to that block specifically.",
+    "strongAnswer": "Notes that if Blocks A, B, and C have separate contractual completion milestones, each block's own calculated net impact (11, 13, and 4 days respectively) would be the relevant figure for that block's own EOT assessment, rather than reporting a single blended number for the whole project; if there is only one overall project completion date, the governing figure for overall completion would be the maximum of the three (Block B's approximately 13 days, since it has the least float), subject to confirming Block B genuinely drives overall project completion.",
+    "expertAnswer": "Highlights the importance of confirming the actual physical/logical dependency of each block's commissioning on the shared plant delivery rather than assuming a uniform relationship, and of re-verifying float values used are from the correct pre-impact schedule immediately before the event, not stale; also flags that if the three blocks converge back into a single overall project completion milestone, the relevant EOT for the whole project is generally governed by whichever block's chain is most critical (least float), not an average or sum across the three — recommends explicitly tracing which specific chain actually drives the overall project finish milestone after the fragnet is inserted.",
+    "explanation": "A fragnet feeding multiple downstream paths with different float amounts should be modeled with correct logic to every path it genuinely affects, and the resulting net impact will generally differ per path based on each path's own float, with the least-float (most critical) path governing the shared/overall completion outcome if the paths converge to one project finish.",
+    "reasoning": "Total float acts as a buffer specific to each individual path; a shared-cause delay hitting multiple downstream paths simultaneously does not produce identical impact on each — each path absorbs the shared delay according to its own float before any completion-date effect appears, so the net effect is path-specific even though the cause is common.",
+    "commonMistakes": [
+      "Tying the fragnet only to whichever path currently looks critical and ignoring the others.",
+      "Assuming a shared-cause event produces the same day-count impact across all downstream paths.",
+      "Not distinguishing sectional/separate completion dates from a single overall project finish when reporting the results."
+    ],
+    "redFlags": ["Reports a single flat 13-day impact across all three blocks without accounting for their differing float."],
+    "p6Checks": [
+      "Confirm the fragnet has correct logic ties to all three block-specific downstream commissioning sequences, not just one.",
+      "Verify pre-impact total float values for each of the three paths immediately before the event are current and correct.",
+      "After insertion, trace which specific chain (Block A, B, or C) actually drives the overall project completion milestone, if there is a single overall finish."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If Blocks A, B, and C each have their own separate sectional completion date and liquidated damages rate, how would you report the EOT for each?", "purpose": "Tests direct connection to the sectional completion/apportionment principle in a fragnet context."},
+      {"trigger": "if_correct", "prompt": "If there is only one overall project finish milestone, why would the overall project EOT equal Block B's impact rather than the sum of all three blocks' impacts?", "purpose": "Tests understanding that a single converging milestone is governed by the most critical path, not an aggregate."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly calculates the path-specific net impact for each block based on its own float."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains why a shared cause produces differing path-specific effects."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Correctly ties the fragnet to all three real downstream paths and traces the governing chain for overall completion."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 250,
+    "tags": ["multiple predecessors", "shared cause delay", "float absorption", "fragnet logic", "sectional impact"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-019",
+    "category": "TIA",
+    "subcategory": "Interpreting Post-Fragnet Negative Float – Technical Result vs Contractual Conclusion",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Preventing a TIA report from stating that a calculated schedule impact 'confirms' contractual entitlement without qualifying the outstanding contractual conditions",
+    "difficulty": 5,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["MANAGER"],
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "On a petrochemical storage terminal project, after correctly inserting a fragnet for a 17-day employer-caused instrumentation cable delay into the appropriate pre-impact schedule, the recalculated network shows the driving path now carries -17 days of total float relative to the contract Date for Completion, and the forecast finish moves 17 days beyond that date. The contractor's report states: 'The TIA confirms the contractor is entitled to a 17-day EOT.'",
+    "question": "Is this conclusion correctly stated? What, if anything, is missing or overstated?",
+    "expectedAnswer": "The TIA correctly and technically demonstrates a 17-day calculated critical-path/completion impact from this specific event — that part is a sound technical finding — but the report's conclusion overstates the position by declaring contractual 'entitlement' directly from the technical result; the negative float and forecast shift are the schedule-engineering output, not a self-executing contractual entitlement determination, which still depends on confirming the event is a contractually qualifying cause, that notice/particulars requirements were satisfied, and that no concurrency or other reducing factor applies. The report should be revised to state the technical finding (17-day calculated impact) as the calculated basis for a claimed 17-day EOT, pending confirmation of the remaining contractual conditions, rather than asserting entitlement as settled fact from the TIA alone.",
+    "strongAnswer": "Notes that this is the same core discipline emphasized generally in delay-claims work applied specifically here to TIA language — a well-executed, technically sound TIA is necessary evidence supporting a claim but does not itself adjudicate entitlement, and claim documents should be worded to reflect that distinction precisely so they aren't read as overreaching if scrutinized later.",
+    "expertAnswer": "Highlights that using declarative, adjudicative language ('confirms...entitled to') in a document prepared by the contractor's own team, about the contractor's own claim, is a credibility and drafting problem independent of the technical merit — a reviewing engineer, opposing expert, or tribunal will read that kind of overreach as a sign the document conflates advocacy with objective analysis, which can undermine confidence in the technical content even where the technical content itself is sound; recommends separating the report clearly into a technical section (the TIA calculation and its basis) and a claims section (the contractual argument and requested relief), each appropriately worded to its actual epistemic status.",
+    "explanation": "A correctly performed TIA showing negative float and a forecast completion shift is strong technical evidence of critical-path impact, but stating it 'confirms entitlement' collapses the separate technical and contractual determinations into one overstated conclusion.",
+    "reasoning": "Negative float and a forecast finish shift are outputs of CPM logic given the inputs modeled; contractual entitlement requires satisfying the contract's own separate tests (qualifying cause, procedure, concurrency) which the CPM calculation itself cannot confirm or deny.",
+    "commonMistakes": [
+      "Treating a technically sound TIA result as automatically and fully dispositive of contractual entitlement.",
+      "Using declarative 'confirms entitlement' language in claim documents.",
+      "Not distinguishing the calculated technical finding from the contractual conclusion in report structure."
+    ],
+    "redFlags": ["Signs off on 'confirms entitlement' language without qualifying it against the outstanding contractual conditions."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you rewrite the report's concluding sentence to be technically accurate?", "purpose": "Tests practical claim-drafting judgment."},
+      {"trigger": "if_correct", "prompt": "Does this distinction matter more, less, or the same whether the report is being prepared for internal use, for submission to the engineer, or for a tribunal?", "purpose": "Tests awareness that audience affects how carefully this line must be drawn, though it should always be drawn."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Separates the CPM/negative-float technical finding from the contractual entitlement conclusion."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Flags the overstated 'confirms entitlement' language as a drafting problem."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete, accurately-worded revision to the report's conclusion."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["negative float", "TIA conclusion", "entitlement language", "claims drafting"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "TIA-020",
+    "category": "TIA",
+    "subcategory": "TIA Output vs Contractual Entitlement",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that a TIA's calculated schedule impact is necessary evidence but not sufficient proof of contractual EOT entitlement on its own",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: A properly executed Time Impact Analysis that shows a calculated X-day shift in the forecast completion date is, by itself, sufficient to establish the contractor's full contractual entitlement to an X-day extension of time, without needing to separately confirm the contractual qualifying cause, notice compliance, or concurrency.",
+    "options": [
+      {"label": "True", "text": "True", "isCorrect": false},
+      {"label": "False", "text": "False", "isCorrect": true}
+    ],
+    "correctAnswer": "False",
+    "explanation": "A TIA is a technical schedule-analysis tool that quantifies the calculated critical-path/completion impact of a modeled event; it does not, by itself, establish contractual entitlement, which additionally requires the event to be a contractually qualifying cause, compliance with any notice/procedural requirements, and consideration of concurrency or other reducing factors — the technical result is necessary evidence, not sufficient proof of entitlement on its own.",
+    "reasoning": "Entitlement is a contractual determination layered on top of the technical schedule finding; the TIA's CPM calculation cannot, by its nature, evaluate contract clauses, risk allocation, or procedural compliance.",
+    "commonMistakes": ["Treating any TIA output as automatically equivalent to a settled EOT entitlement figure."],
+    "redFlags": ["Cannot articulate what else, beyond the TIA calculation itself, is needed to establish entitlement."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Name the three things beyond the TIA calculation itself that typically still need to be confirmed before entitlement is settled.", "purpose": "Reinforces the core checklist (qualifying cause, notice/procedure, concurrency) in the candidate's own words."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 70,
+    "tags": ["TIA", "entitlement", "qualifying cause", "notice", "concurrency"],
+    "references": ["SCL Delay and Disruption Protocol"]
   }
 ]

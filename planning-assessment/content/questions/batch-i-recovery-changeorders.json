@@ -755,14 +755,14 @@
           "guidance": "Correctly names and uses the relevant P6 resource tools."
         },
         {
-          "name": "technicalAccuracy",
+          "name": "causeAndEffect",
           "maxScore": 5,
-          "guidance": "Correctly interprets the over-allocation and its schedule consequence."
+          "guidance": "Correctly interprets the over-allocation and explains its schedule consequence."
         },
         {
-          "name": "practicalApplication",
+          "name": "professionalJudgment",
           "maxScore": 5,
-          "guidance": "Proposes workable remediation options."
+          "guidance": "Does not accept automatic leveling output uncritically; recommends manual review and a capacity-constrained committed date."
         }
       ],
       "passingScore": 10
@@ -1972,12 +1972,17 @@
           "guidance": "Names concrete P6 mechanics (activity codes, relationships, recalculation)."
         },
         {
-          "name": "practicalApplication",
+          "name": "causeAndEffect",
           "maxScore": 5,
-          "guidance": "Avoids placeholder-bar and baseline-overwrite pitfalls."
+          "guidance": "Explains why placeholder bars or baseline overwrites distort float/critical-path reporting."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Reports discrepancies between the calculated impact and the negotiated figure honestly rather than forcing a match."
         }
       ],
-      "passingScore": 10
+      "passingScore": 13
     },
     "weight": 1.5,
     "estimatedTimeSec": 210,
