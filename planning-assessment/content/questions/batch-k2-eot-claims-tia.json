@@ -7,9 +7,7 @@
     "skill": "Separating the technical merit of a delay event from the contractual effect of a late or missing notice",
     "difficulty": 3,
     "careerLevel": "SENIOR",
-    "secondaryCareerLevels": [
-      "LEAD"
-    ],
+    "secondaryCareerLevels": ["LEAD"],
     "questionType": "DELAY_CLAIM_SCENARIO",
     "scenario": "On a road-widening contract, the contractor hits an unrecorded high-pressure gas main not shown on the utility drawings issued at tender. Excavation stops for 12 working days on the critical path while the utility owner relocates the line. The contract gives the engineer's representative sole risk for undisclosed utilities. The contract requires notice of a delay event 'within 14 days of the contractor becoming aware' of it. The contractor's site diary shows the clash was known on day 1, but the formal notice letter was not sent until day 40.",
     "question": "As the person assessing this claim, how does the late notice affect the contractor's entitlement to an EOT, and what do you recommend?",
@@ -46,36 +44,16 @@
     ],
     "scoringRubric": {
       "dimensions": [
-        {
-          "name": "causeAndEffect",
-          "maxScore": 5,
-          "guidance": "Correctly separates technical causation finding from the notice-compliance question."
-        },
-        {
-          "name": "professionalJudgment",
-          "maxScore": 5,
-          "guidance": "Does not overstate certainty; asks for the actual clause wording and states outcome depends on it."
-        },
-        {
-          "name": "practicalApplication",
-          "maxScore": 5,
-          "guidance": "Gives a workable recommendation for how to proceed with assessment despite the ambiguity."
-        }
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly separates technical causation finding from the notice-compliance question."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Does not overstate certainty; asks for the actual clause wording and states outcome depends on it."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a workable recommendation for how to proceed with assessment despite the ambiguity."}
       ],
       "passingScore": 9
     },
     "weight": 1.5,
     "estimatedTimeSec": 240,
-    "tags": [
-      "notice",
-      "condition precedent",
-      "EOT entitlement",
-      "time-bar",
-      "claims administration"
-    ],
-    "references": [
-      "SCL Delay and Disruption Protocol"
-    ]
+    "tags": ["notice", "condition precedent", "EOT entitlement", "time-bar", "claims administration"],
+    "references": ["SCL Delay and Disruption Protocol"]
   },
   {
     "questionCode": "EOT-002",
@@ -85,33 +63,14 @@
     "skill": "Identifying the standard elements a contractor must establish to obtain an extension of time",
     "difficulty": 2,
     "careerLevel": "PLANNING_ENGINEER",
-    "secondaryCareerLevels": [
-      "JUNIOR",
-      "SENIOR"
-    ],
+    "secondaryCareerLevels": ["JUNIOR", "SENIOR"],
     "questionType": "MCQ",
     "question": "Which combination of elements does a contractor typically need to demonstrate to establish entitlement to an extension of time under a standard construction contract?",
     "options": [
-      {
-        "label": "A",
-        "text": "Only that the completion date was missed, regardless of cause.",
-        "isCorrect": false
-      },
-      {
-        "label": "B",
-        "text": "That an event occurred which the contract identifies as a relevant/excusable cause, that it affected an activity on the critical path (or reduced float to the point of causing delay to completion), and that any required notice/procedural steps were followed.",
-        "isCorrect": true
-      },
-      {
-        "label": "C",
-        "text": "Only that the contractor incurred additional cost as a result of the delay.",
-        "isCorrect": false
-      },
-      {
-        "label": "D",
-        "text": "That the project as a whole is running behind the baseline schedule at the time of the event.",
-        "isCorrect": false
-      }
+      {"label": "A", "text": "Only that the completion date was missed, regardless of cause.", "isCorrect": false},
+      {"label": "B", "text": "That an event occurred which the contract identifies as a relevant/excusable cause, that it affected an activity on the critical path (or reduced float to the point of causing delay to completion), and that any required notice/procedural steps were followed.", "isCorrect": true},
+      {"label": "C", "text": "Only that the contractor incurred additional cost as a result of the delay.", "isCorrect": false},
+      {"label": "D", "text": "That the project as a whole is running behind the baseline schedule at the time of the event.", "isCorrect": false}
     ],
     "correctAnswer": "B",
     "explanation": "Entitlement to an EOT normally requires three things together: a qualifying (contractually relevant) cause, demonstrated critical-path effect (causation and quantum of delay to completion), and compliance with any contractual procedure such as notice and particulars. Missing the completion date alone, incurring cost alone, or general schedule slippage alone do not by themselves establish entitlement.",
@@ -121,28 +80,14 @@
       "Confusing cost entitlement with time entitlement as the same test.",
       "Ignoring the need for critical-path (not just any) impact."
     ],
-    "redFlags": [
-      "Cannot name causation or critical-path impact as a required element."
-    ],
+    "redFlags": ["Cannot name causation or critical-path impact as a required element."],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "If an event delays a non-critical activity by 20 days but the activity had 25 days of float, is there EOT entitlement?",
-        "purpose": "Checks understanding that float absorption before criticality defeats time entitlement even where cost may still be arguable."
-      }
+      {"trigger": "always", "prompt": "If an event delays a non-critical activity by 20 days but the activity had 25 days of float, is there EOT entitlement?", "purpose": "Checks understanding that float absorption before criticality defeats time entitlement even where cost may still be arguable."}
     ],
     "weight": 1.0,
     "estimatedTimeSec": 75,
-    "tags": [
-      "EOT basics",
-      "entitlement test",
-      "critical path",
-      "notice"
-    ],
-    "references": [
-      "PMI Practice Standard for Scheduling",
-      "SCL Delay and Disruption Protocol"
-    ]
+    "tags": ["EOT basics", "entitlement test", "critical path", "notice"],
+    "references": ["PMI Practice Standard for Scheduling", "SCL Delay and Disruption Protocol"]
   },
   {
     "questionCode": "EOT-003",
@@ -152,9 +97,7 @@
     "skill": "Prioritizing contemporaneous project records over reconstructed narrative when substantiating an EOT claim",
     "difficulty": 3,
     "careerLevel": "SENIOR",
-    "secondaryCareerLevels": [
-      "LEAD"
-    ],
+    "secondaryCareerLevels": ["LEAD"],
     "questionType": "WHAT_CHECK_FIRST",
     "scenario": "A contractor submits an EOT claim eight months after a claimed 18-day delay event (a late employer-furnished equipment delivery on a data center fit-out). The narrative is well-written and internally consistent, but it was drafted entirely after the fact by the commercial team, referencing the project schedule and a general description of 'ongoing coordination difficulties' during the period.",
     "question": "Before forming a view on this claim's strength, what would you check first, and why does it matter?",
@@ -173,50 +116,21 @@
       "Does not distinguish records created at the time from records created to support the claim."
     ],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "If the contemporaneous schedule updates never showed this equipment delivery as float-critical during the alleged delay window, what does that do to the claim?",
-        "purpose": "Tests whether the candidate uses contemporaneous schedule data to test, not just narrative plausibility."
-      },
-      {
-        "trigger": "if_correct",
-        "prompt": "Does the absence of a contemporaneous notice automatically mean there is no technical delay merit?",
-        "purpose": "Checks the candidate keeps evidentiary weakness separate from an absolute finding of no causation."
-      }
+      {"trigger": "always", "prompt": "If the contemporaneous schedule updates never showed this equipment delivery as float-critical during the alleged delay window, what does that do to the claim?", "purpose": "Tests whether the candidate uses contemporaneous schedule data to test, not just narrative plausibility."},
+      {"trigger": "if_correct", "prompt": "Does the absence of a contemporaneous notice automatically mean there is no technical delay merit?", "purpose": "Checks the candidate keeps evidentiary weakness separate from an absolute finding of no causation."}
     ],
     "scoringRubric": {
       "dimensions": [
-        {
-          "name": "practicalApplication",
-          "maxScore": 5,
-          "guidance": "Names concrete contemporaneous record types to check."
-        },
-        {
-          "name": "professionalJudgment",
-          "maxScore": 5,
-          "guidance": "Explains why timing of record creation affects evidentiary weight."
-        },
-        {
-          "name": "causeAndEffect",
-          "maxScore": 5,
-          "guidance": "Connects record-checking back to verifying actual critical-path causation, not just paperwork completeness."
-        }
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete contemporaneous record types to check."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Explains why timing of record creation affects evidentiary weight."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Connects record-checking back to verifying actual critical-path causation, not just paperwork completeness."}
       ],
       "passingScore": 9
     },
     "weight": 1.5,
     "estimatedTimeSec": 210,
-    "tags": [
-      "contemporaneous records",
-      "evidence",
-      "EOT substantiation",
-      "site diary",
-      "forensic delay analysis"
-    ],
-    "references": [
-      "AACE RP 29R-03 Forensic Schedule Analysis",
-      "SCL Delay and Disruption Protocol"
-    ]
+    "tags": ["contemporaneous records", "evidence", "EOT substantiation", "site diary", "forensic delay analysis"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis", "SCL Delay and Disruption Protocol"]
   },
   {
     "questionCode": "EOT-004",
@@ -226,9 +140,7 @@
     "skill": "Choosing which schedule version (approved baseline vs a specific periodic update) is the correct evidentiary reference for a given delay window",
     "difficulty": 3,
     "careerLevel": "SENIOR",
-    "secondaryCareerLevels": [
-      "LEAD"
-    ],
+    "secondaryCareerLevels": ["LEAD"],
     "questionType": "P6_ANALYSIS",
     "scenario": "A marine terminal project has an approved baseline (Rev 0), and 14 monthly progress updates since. A contractor is preparing an EOT claim for a piling-rig breakdown that occurred between the schedule status dates of update 9 and update 10. The planner analyzing the claim initially compares the piling activity's dates directly against the Rev 0 baseline to compute the delay to completion.",
     "question": "Is comparing directly against the Rev 0 baseline the correct approach here? What schedule version should actually be used, and why?",
@@ -252,49 +164,21 @@
       "Verify the piling activity and its downstream ties are consistent between update 9 and update 10 before attributing the completion shift to the breakdown alone."
     ],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "What would you do if update 9 itself turns out to have unreliable logic (e.g., broken ties from a recent resequencing)?",
-        "purpose": "Tests whether the candidate knows to fall back to the nearest sound update rather than defaulting to the original baseline out of convenience."
-      },
-      {
-        "trigger": "if_correct",
-        "prompt": "Would your answer change if the contract explicitly requires all delay analysis to be measured against the accepted baseline programme?",
-        "purpose": "Tests awareness that contract-specified methodology can override general best practice."
-      }
+      {"trigger": "always", "prompt": "What would you do if update 9 itself turns out to have unreliable logic (e.g., broken ties from a recent resequencing)?", "purpose": "Tests whether the candidate knows to fall back to the nearest sound update rather than defaulting to the original baseline out of convenience."},
+      {"trigger": "if_correct", "prompt": "Would your answer change if the contract explicitly requires all delay analysis to be measured against the accepted baseline programme?", "purpose": "Tests awareness that contract-specified methodology can override general best practice."}
     ],
     "scoringRubric": {
       "dimensions": [
-        {
-          "name": "technicalAccuracy",
-          "maxScore": 5,
-          "guidance": "Correctly identifies the immediately preceding update as the appropriate reference, not the original baseline."
-        },
-        {
-          "name": "p6Understanding",
-          "maxScore": 5,
-          "guidance": "Names concrete checks on the reference update's data quality."
-        },
-        {
-          "name": "professionalJudgment",
-          "maxScore": 5,
-          "guidance": "Notes methodology can be contract-dependent and stresses consistency across the analysis."
-        }
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the immediately preceding update as the appropriate reference, not the original baseline."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete checks on the reference update's data quality."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Notes methodology can be contract-dependent and stresses consistency across the analysis."}
       ],
       "passingScore": 9
     },
     "weight": 1.5,
     "estimatedTimeSec": 220,
-    "tags": [
-      "baseline",
-      "periodic update",
-      "windows analysis",
-      "delay analysis methodology",
-      "data date"
-    ],
-    "references": [
-      "AACE RP 29R-03 Forensic Schedule Analysis"
-    ]
+    "tags": ["baseline", "periodic update", "windows analysis", "delay analysis methodology", "data date"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
   },
   {
     "questionCode": "EOT-005",
@@ -304,9 +188,7 @@
     "skill": "Distinguishing a proven critical-path delay from an automatic entitlement to time relief",
     "difficulty": 4,
     "careerLevel": "LEAD",
-    "secondaryCareerLevels": [
-      "MANAGER"
-    ],
+    "secondaryCareerLevels": ["MANAGER"],
     "questionType": "DECISION_MAKING",
     "scenario": "On a hospital expansion project, a CPM analysis conclusively shows that a design clarification issued 55 days late by the architect delayed the critical path by 20 working days. The contractor's planning team wants to immediately issue a report stating '20 calendar days EOT due.' The contracts manager asks you to review before it goes out.",
     "question": "What is your review comment, and what else must be confirmed before '20 days EOT due' can be stated as a conclusion?",
@@ -325,50 +207,21 @@
       "Cannot list any contractual precondition beyond the CPM finding itself."
     ],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "If the contractor's own formwork subcontractor was also behind schedule for unrelated reasons during the same 20-day window, does that change your recommendation?",
-        "purpose": "Tests whether the candidate proactively raises concurrency as a further check even when not prompted."
-      },
-      {
-        "trigger": "if_correct",
-        "prompt": "How would you rephrase the report's conclusion line to be technically accurate without overstating entitlement?",
-        "purpose": "Tests practical claim-drafting judgment, not just conceptual understanding."
-      }
+      {"trigger": "always", "prompt": "If the contractor's own formwork subcontractor was also behind schedule for unrelated reasons during the same 20-day window, does that change your recommendation?", "purpose": "Tests whether the candidate proactively raises concurrency as a further check even when not prompted."},
+      {"trigger": "if_correct", "prompt": "How would you rephrase the report's conclusion line to be technically accurate without overstating entitlement?", "purpose": "Tests practical claim-drafting judgment, not just conceptual understanding."}
     ],
     "scoringRubric": {
       "dimensions": [
-        {
-          "name": "causeAndEffect",
-          "maxScore": 5,
-          "guidance": "Clearly separates CPM causation finding from contractual entitlement determination."
-        },
-        {
-          "name": "professionalJudgment",
-          "maxScore": 5,
-          "guidance": "Flags the overstated/declarative claim language as a problem."
-        },
-        {
-          "name": "completeness",
-          "maxScore": 5,
-          "guidance": "Lists multiple preconditions (risk allocation, notice, concurrency, unit conversion) not just one."
-        }
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Clearly separates CPM causation finding from contractual entitlement determination."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Flags the overstated/declarative claim language as a problem."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Lists multiple preconditions (risk allocation, notice, concurrency, unit conversion) not just one."}
       ],
       "passingScore": 10
     },
     "weight": 2.0,
     "estimatedTimeSec": 220,
-    "tags": [
-      "technical vs contractual",
-      "EOT entitlement",
-      "claims drafting",
-      "concurrency",
-      "causation"
-    ],
-    "references": [
-      "SCL Delay and Disruption Protocol",
-      "AACE RP 29R-03 Forensic Schedule Analysis"
-    ]
+    "tags": ["technical vs contractual", "EOT entitlement", "claims drafting", "concurrency", "causation"],
+    "references": ["SCL Delay and Disruption Protocol", "AACE RP 29R-03 Forensic Schedule Analysis"]
   },
   {
     "questionCode": "EOT-006",
@@ -378,9 +231,7 @@
     "skill": "Applying the effect of true concurrent delay on time and cost entitlement without a single universal rule",
     "difficulty": 5,
     "careerLevel": "MANAGER",
-    "secondaryCareerLevels": [
-      "LEAD"
-    ],
+    "secondaryCareerLevels": ["LEAD"],
     "questionType": "DELAY_CLAIM_SCENARIO",
     "scenario": "On a petrochemical plant expansion, during weeks 30-33 the critical path runs through structural steel erection. In that same four-week window, two things happen simultaneously and independently: (1) the employer fails to issue an approved-for-construction revision to a tie-in drawing, stopping steel erection at one tie-in point, and (2) the contractor's steel subcontractor is short-staffed due to its own crew being pulled to another project, independently stopping erection at a different tie-in point that would otherwise have been critical. Either event alone, in isolation, would have delayed the critical path by the full four weeks.",
     "question": "Is this true concurrent delay? What is the effect on the contractor's time entitlement, and separately, on its entitlement to prolongation costs for this window?",
@@ -400,54 +251,22 @@
       "Does not verify true concurrency on the facts before applying a concurrency rule."
     ],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "What specific schedule evidence would you need to confirm this is true concurrency rather than one event actually preceding and driving the other?",
-        "purpose": "Tests rigor in verifying concurrency rather than accepting the scenario's framing at face value."
-      },
-      {
-        "trigger": "if_correct",
-        "prompt": "How would an apportionment approach split this four-week period, and what would it need to be based on?",
-        "purpose": "Tests knowledge of the alternative to all-or-nothing treatment."
-      },
-      {
-        "trigger": "if_incorrect",
-        "prompt": "Why might granting the EOT but denying prolongation costs for the same period not be contradictory?",
-        "purpose": "Remedial prompt on the separate causal tests for time vs cost."
-      }
+      {"trigger": "always", "prompt": "What specific schedule evidence would you need to confirm this is true concurrency rather than one event actually preceding and driving the other?", "purpose": "Tests rigor in verifying concurrency rather than accepting the scenario's framing at face value."},
+      {"trigger": "if_correct", "prompt": "How would an apportionment approach split this four-week period, and what would it need to be based on?", "purpose": "Tests knowledge of the alternative to all-or-nothing treatment."},
+      {"trigger": "if_incorrect", "prompt": "Why might granting the EOT but denying prolongation costs for the same period not be contradictory?", "purpose": "Remedial prompt on the separate causal tests for time vs cost."}
     ],
     "scoringRubric": {
       "dimensions": [
-        {
-          "name": "causeAndEffect",
-          "maxScore": 5,
-          "guidance": "Correctly separates the causal test for time entitlement from the causal test for cost entitlement."
-        },
-        {
-          "name": "professionalJudgment",
-          "maxScore": 5,
-          "guidance": "Acknowledges genuine debate/contract dependency rather than asserting one universal rule."
-        },
-        {
-          "name": "technicalAccuracy",
-          "maxScore": 5,
-          "guidance": "Correctly verifies/defines true concurrency before applying treatment."
-        }
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly separates the causal test for time entitlement from the causal test for cost entitlement."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Acknowledges genuine debate/contract dependency rather than asserting one universal rule."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly verifies/defines true concurrency before applying treatment."}
       ],
       "passingScore": 10
     },
     "weight": 2.0,
     "estimatedTimeSec": 260,
-    "tags": [
-      "concurrent delay",
-      "concurrency",
-      "prolongation costs",
-      "EOT entitlement",
-      "apportionment"
-    ],
-    "references": [
-      "SCL Delay and Disruption Protocol"
-    ]
+    "tags": ["concurrent delay", "concurrency", "prolongation costs", "EOT entitlement", "apportionment"],
+    "references": ["SCL Delay and Disruption Protocol"]
   },
   {
     "questionCode": "EOT-007",
@@ -457,10 +276,7 @@
     "skill": "Recognizing that a granted extension of time does not automatically carry an entitlement to prolongation costs",
     "difficulty": 4,
     "careerLevel": "LEAD",
-    "secondaryCareerLevels": [
-      "SENIOR",
-      "MANAGER"
-    ],
+    "secondaryCareerLevels": ["SENIOR", "MANAGER"],
     "questionType": "MISSING_INFO",
     "scenario": "The engineer has just certified a 25-calendar-day extension of time to a contractor on an airport taxiway resurfacing project, citing 'exceptionally adverse weather beyond what could reasonably have been anticipated' as the cause. The contractor's commercial team immediately submits an invoice for 25 days of prolongation costs (site overheads, equipment standing time, extended supervision) as a direct consequence of the EOT certificate.",
     "question": "Is it safe to assume the 25 days of prolongation costs are automatically due because the EOT was granted? What information is missing before this can be assessed?",
@@ -479,48 +295,21 @@
       "Cannot name the excusable-compensable vs excusable-non-compensable distinction in any form."
     ],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "What contract clause(s) would you go read right now to answer this, and what are you looking for in them?",
-        "purpose": "Tests whether the candidate knows exactly where to look rather than reasoning in the abstract."
-      },
-      {
-        "trigger": "if_correct",
-        "prompt": "If the contract is silent on the cost consequence of weather-based EOTs, how would you approach resolving that gap?",
-        "purpose": "Tests handling of genuine contractual ambiguity."
-      }
+      {"trigger": "always", "prompt": "What contract clause(s) would you go read right now to answer this, and what are you looking for in them?", "purpose": "Tests whether the candidate knows exactly where to look rather than reasoning in the abstract."},
+      {"trigger": "if_correct", "prompt": "If the contract is silent on the cost consequence of weather-based EOTs, how would you approach resolving that gap?", "purpose": "Tests handling of genuine contractual ambiguity."}
     ],
     "scoringRubric": {
       "dimensions": [
-        {
-          "name": "causeAndEffect",
-          "maxScore": 5,
-          "guidance": "Correctly identifies that time relief and cost relief can follow different tests for the same event."
-        },
-        {
-          "name": "completeness",
-          "maxScore": 5,
-          "guidance": "Identifies the specific missing information (contract's cost-consequence wording for this event category, and cost substantiation)."
-        },
-        {
-          "name": "professionalJudgment",
-          "maxScore": 5,
-          "guidance": "Does not default to assuming compensability without checking."
-        }
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly identifies that time relief and cost relief can follow different tests for the same event."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Identifies the specific missing information (contract's cost-consequence wording for this event category, and cost substantiation)."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Does not default to assuming compensability without checking."}
       ],
       "passingScore": 9
     },
     "weight": 1.5,
     "estimatedTimeSec": 200,
-    "tags": [
-      "time vs cost entitlement",
-      "prolongation costs",
-      "excusable non-compensable",
-      "weather delay"
-    ],
-    "references": [
-      "SCL Delay and Disruption Protocol"
-    ]
+    "tags": ["time vs cost entitlement", "prolongation costs", "excusable non-compensable", "weather delay"],
+    "references": ["SCL Delay and Disruption Protocol"]
   },
   {
     "questionCode": "EOT-008",
@@ -530,22 +319,12 @@
     "skill": "Recognizing that EOT risk-event categories are defined by the specific contract, not by a universal fixed list",
     "difficulty": 1,
     "careerLevel": "PLANNING_ENGINEER",
-    "secondaryCareerLevels": [
-      "JUNIOR"
-    ],
+    "secondaryCareerLevels": ["JUNIOR"],
     "questionType": "TRUE_FALSE",
     "question": "True or False: Every standard construction contract lists the exact same set of events as grounds for an extension of time, so a planning engineer can apply one fixed universal list across any contract without checking the specific document.",
     "options": [
-      {
-        "label": "True",
-        "text": "True",
-        "isCorrect": false
-      },
-      {
-        "label": "False",
-        "text": "False",
-        "isCorrect": true
-      }
+      {"label": "True", "text": "True", "isCorrect": false},
+      {"label": "False", "text": "False", "isCorrect": true}
     ],
     "correctAnswer": "False",
     "explanation": "The specific events that qualify for an EOT (and whether each is time-only or time-and-cost) are defined by the individual contract and can vary significantly between standard forms and, especially, bespoke amended contracts. A planning engineer must check the actual contract's definitions and relevant-event clauses for each project rather than assuming a fixed universal list.",
@@ -554,26 +333,1111 @@
       "Assuming familiarity with one contract's EOT clause list transfers directly to a different project without checking.",
       "Treating heavily amended 'standard form' contracts as if the amendments didn't change the relevant-event list."
     ],
-    "redFlags": [
-      "Cannot articulate that risk allocation is contract-specific when asked directly."
-    ],
+    "redFlags": ["Cannot articulate that risk allocation is contract-specific when asked directly."],
     "followUpQuestions": [
-      {
-        "trigger": "always",
-        "prompt": "Where in a contract would you specifically look to find the list of qualifying delay events?",
-        "purpose": "Tests practical familiarity with locating relevant-event/EOT clauses rather than just conceptual awareness."
-      }
+      {"trigger": "always", "prompt": "Where in a contract would you specifically look to find the list of qualifying delay events?", "purpose": "Tests practical familiarity with locating relevant-event/EOT clauses rather than just conceptual awareness."}
     ],
     "weight": 1.0,
     "estimatedTimeSec": 60,
-    "tags": [
-      "risk allocation",
-      "relevant events",
-      "EOT clause",
-      "contract-specific"
+    "tags": ["risk allocation", "relevant events", "EOT clause", "contract-specific"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-009",
+    "category": "EOT",
+    "subcategory": "Delay Window / Time-Slice Boundary Selection",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing how the choice of delay-window boundaries in a time-slice methodology can distort attribution of a single continuous causative event",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["MANAGER"],
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "On an LNG plant expansion, the contractor's claims team divides a 14-month EOT claim period into monthly windows aligned to the project's monthly schedule updates. One window boundary falls in the middle of a two-week employer-caused delay to a critical valve skid delivery, splitting that single continuous delay across two windows: the last few days appear at the tail of one window and the remainder at the start of the next.",
+    "question": "How would you assess whether the chosen windows are appropriate here, what problem can arise from a window boundary that splits a single continuous delay event, and what would you check?",
+    "expectedAnswer": "Window boundaries should generally align with points where the schedule status/critical path materially changed, not be selected purely because they match a convenient monthly update cycle. Splitting one continuous causative event across two artificial windows can distort each window's independent critical-path attribution, potentially making the event look less critical or less significant in each half than it truly was as a single continuous driver. Would check that this single event is analyzed once, as a whole, using the pre-impact critical path taken from the schedule immediately preceding the true start of the event, rather than from an arbitrary interior date that happens to fall mid-event.",
+    "strongAnswer": "Checks whether windows were chosen based on the analyst's convenience (matching monthly billing/update cycles) versus principled points where critical path or as-built conditions materially changed; recommends re-drawing the window boundary at the actual start of the valve skid delay, or if the standard update-based windows must be kept for consistency, explicitly noting the split in the report and tracking the event as one continuous item across the window notes rather than as two unrelated partial events.",
+    "expertAnswer": "Notes that windows-based (time-slice) methodology inherently forces choices about window boundaries and that reasonable analysts can differ, but a boundary that happens to split a single causative event exactly where it minimizes the computed criticality period in each half is a classic manipulation risk that a reviewer should specifically test for by re-running the analysis with boundaries aligned to the actual cause/effect start and comparing whether the result changes materially.",
+    "explanation": "In a windows/time-slice analysis, each window's critical path is derived from that window's own schedule status; splitting one continuous causative event across two windows can make it appear non-critical or secondary in each half instead of showing it as a single continuous critical driver, distorting the substantiated result.",
+    "reasoning": "Time-slice methodology attributes delay based on which activities are critical within each discrete window; because criticality is assessed per window, cutting a single event's duration across a boundary breaks the continuity of the causal chain the analysis is meant to demonstrate, and can understate (or in other configurations overstate) that event's true contribution to the completion date.",
+    "commonMistakes": [
+      "Mechanically using update dates as window boundaries without checking whether an event straddles a boundary.",
+      "Treating each half of a split event as separately weaker evidence rather than recognizing it as one continuous delay.",
+      "Not flagging when a window choice happens to minimize the computed impact of an event."
     ],
-    "references": [
-      "SCL Delay and Disruption Protocol"
-    ]
+    "redFlags": [
+      "Accepts window boundaries without questioning whether they were chosen for convenience or advantage.",
+      "Cannot explain how window choice affects critical-path attribution of a straddling event."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If moving the window boundary to align with the actual start of the valve skid delay changes the computed critical delay by 6 days, which result should govern the claim?", "purpose": "Tests whether the candidate favors principled boundary selection over administrative convenience."},
+      {"trigger": "if_correct", "prompt": "Would this specific problem exist under an as-planned vs as-built method instead of windows? Why or why not?", "purpose": "Tests comparative understanding of how different methodologies handle continuous events differently."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains how window boundaries can distort attribution of a single continuous event."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the manipulation risk of convenience-based boundaries without overstating certainty."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete corrective approach (re-drawing the boundary or explicitly tracking the split event)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["delay windows", "time slice", "window boundary", "critical path", "windows analysis"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis", "SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-010",
+    "category": "EOT",
+    "subcategory": "Float Consumption Before Criticality",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that a delay to an activity with available float does not automatically translate into completion delay or EOT entitlement",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "On a data center project, the contractor claims a 10-day EOT for a 10-day delay to 'Generator Yard Civil Works' caused by a late employer-issued drawing revision. At the time the drawing was issued late, the activity had 14 days of total float remaining according to the last accepted update. The schedule update issued after the event still shows the project finish date unchanged, and total float on the affected path is still positive at +4 days.",
+    "question": "What is the most likely explanation for why this event, despite being real and employer-caused, does not currently support a 10-day EOT? What check would confirm this?",
+    "expectedAnswer": "The activity had float when impacted, so the 10-day delay to that activity was substantially or entirely absorbed by float rather than pushing the completion date — entitlement to EOT requires the event to have consumed available float and driven the finish/contract completion date, not merely delayed a specific activity or consumed part of a float cushion. Since post-event float remains positive (+4 days), the current-schedule evidence indicates no completion-date impact yet, only float erosion (from 14 days down to roughly 4). Check: verify total float before and after on the driving path, confirm the finish milestone/date-for-completion did not move, and quantify float consumed (here approximately 10 days consumed, but ending still positive at +4 days, so not yet critical).",
+    "strongAnswer": "Notes that even though there is no EOT entitlement yet, float erosion of this magnitude could still be relevant evidence for a future claim if further employer delay occurs on the same path, or could raise a separate question about recovering the value of float consumed depending on the contract's float-ownership terms; also flags checking whether float belongs contractually to whoever uses it first ('first come first served') versus a shared/project resource, since this affects framing even where no EOT is due now.",
+    "expertAnswer": "Highlights the danger of blanket 'float belongs to the project' assumptions — some contracts/analysts treat float as available to either party on a first-come basis while others treat it as a shared project resource to be protected; recommends checking the contract's float ownership clause (if any) since it can affect whether the contractor has any basis to raise this event now, even without a net EOT, and how a later, second employer-caused delay on the same path should be assessed.",
+    "explanation": "An event delaying an activity that still has float when hit does not automatically cause completion delay; EOT entitlement generally requires the event to affect the actual critical path and drive the completion date, not merely absorb float.",
+    "reasoning": "Total float is the buffer before an activity becomes critical; consuming float without exhausting it does not shift downstream/project finish dates, so causation to project completion (a required element of EOT entitlement) is not met on the facts shown.",
+    "commonMistakes": [
+      "Assuming any real employer-caused delay to any activity automatically equals days of EOT.",
+      "Not checking float before/after the event.",
+      "Conflating activity-level delay with project-level completion delay."
+    ],
+    "redFlags": ["Recommends granting 10 days of EOT without checking float or finish-date movement."],
+    "p6Checks": [
+      "Compare Total Float on the affected path in the update immediately before and immediately after the event.",
+      "Check whether the project/contract finish milestone date moved between the two updates.",
+      "Trace the driving relationship for the finish milestone to confirm which path is actually critical post-event."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If a second employer-caused delay of 6 more days later hits the same path, what happens to this earlier float consumption?", "purpose": "Tests understanding of cumulative float erosion across successive events."},
+      {"trigger": "if_correct", "prompt": "Does the contractor have any basis at all to raise this event now, even without EOT entitlement?", "purpose": "Probes cost/float-ownership nuance beyond the pure time question."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly explains float absorption as the reason no completion delay occurred."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Quantifies float consumed vs remaining correctly."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete before/after float and finish-date checks."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": ["float consumption", "criticality", "EOT entitlement", "total float", "causation"],
+    "references": ["PMI Practice Standard for Scheduling", "SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-011",
+    "category": "EOT",
+    "subcategory": "Contractor's Duty to Mitigate",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Applying a reasonable-endeavours mitigation obligation to reduce an otherwise-valid EOT without overstating the contractor's duty",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "On a highway bridge project, a 21-day employer-caused delay (late issuance of an approved rebar shop drawing) stops post-tensioning works. The contractor could have mitigated roughly 8 of those days by resequencing to advance an unrelated non-critical deck-pour activity into the gap and later swapping crews back, at no extra cost, but chose not to, citing 'not our responsibility to fix the employer's delay.' The contract contains a general obligation to 'use reasonable endeavours to mitigate the effects of delay.'",
+    "question": "How should the mitigation obligation affect the EOT assessment here, and what would you determine the contractor is entitled to?",
+    "expectedAnswer": "A 'reasonable endeavours to mitigate' clause generally does not require heroic or costly measures, but it does require reasonably available steps that do not add cost or risk; resequencing an available non-critical activity at no additional cost is a plausible example of reasonable mitigation the contractor should have taken. If it is established that the 8 days were readily achievable through ordinary resequencing without added cost or risk, the assessed EOT should likely be reduced by that mitigable amount (net approximately 13 days), while making clear this determination depends on how 'reasonable endeavours' is interpreted and whether the mitigation option was genuinely available at zero cost/risk at the time, not just apparent in hindsight.",
+    "strongAnswer": "Cautions against applying hindsight bias — must test whether the mitigation option was reasonably identifiable to the contractor's planner at the time, with the information available then, not just something that appears obvious on later review; also notes that even if mitigation was available, the contract may still require compensation if resources were diverted at some cost, versus a genuinely cost-neutral case with no cost implication.",
+    "expertAnswer": "Flags that the burden of proving a mitigation opportunity existed and was reasonable typically falls on whoever asserts it (often the employer/certifier reducing the claim), and that mitigation clauses generally do not require the contractor to accelerate, work outside its planned means, or take on additional risk — only reasonably available steps within the ordinary course; recommends documenting the specific resequencing option, its feasibility as of the time, and its cost neutrality before applying any reduction, to avoid an unsupportable determination.",
+    "explanation": "Mitigation obligations are usually to take reasonable, not extraordinary, steps to reduce delay effects; assessed properly and evidenced, a failure to take an available no-cost, reasonably identifiable mitigation step can reduce (but not usually eliminate) the EOT otherwise due.",
+    "reasoning": "EOT entitlement is for the net effect of the delay after accounting for what the contractor reasonably should have avoided through ordinary mitigation; conflating 'a mitigation obligation exists' with 'the contractor is at fault for not preventing all delay' overstates the clause, while ignoring it entirely understates a fair assessment.",
+    "commonMistakes": [
+      "Assuming mitigation obligations require the contractor to accelerate or spend money.",
+      "Ignoring mitigation duties entirely and granting the full 21 days without inquiry.",
+      "Applying hindsight-based mitigation opportunities without checking they were realistically identifiable at the time."
+    ],
+    "redFlags": [
+      "Reduces the EOT to zero for 'failure to mitigate'.",
+      "Cannot distinguish reasonable endeavours from an absolute duty to prevent all delay."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the resequencing option would have required paying overtime to the deck-pour crew, would your answer change?", "purpose": "Tests understanding of cost-neutral vs costly mitigation."},
+      {"trigger": "if_correct", "prompt": "Who bears the burden of proving the mitigation opportunity existed and was reasonable?", "purpose": "Tests procedural/evidentiary awareness."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Applies a reasonable, not absolute, mitigation standard."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly nets the mitigable portion from the gross delay."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Requires evidence the mitigation option was genuinely available and cost-neutral at the time."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["mitigation", "reasonable endeavours", "EOT reduction", "resequencing"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-012",
+    "category": "EOT",
+    "subcategory": "Global / Total Time Claims and Cause-Effect Linkage",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Identifying an unparticularized global/total-time claim and requiring event-by-event cause-and-effect substantiation",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On an offshore wind substation project, the contractor submits an EOT claim for the entire 95-day overrun, listing 14 disruption events (design changes, weather, permitting delays, subcontractor issues) over the project's life, but the submission does not link any specific event to any specific period of critical delay — it simply asserts that the cumulative effect of 'numerous employer-caused issues' caused the full 95-day overrun and asks the engineer to award the whole amount.",
+    "question": "What would you check first before assessing this claim, and what is the fundamental problem with the way it has been presented?",
+    "expectedAnswer": "This is presented as something close to a 'global' or 'total time' claim — asserting an aggregate result without demonstrating the causal link between each specific event and specific periods of critical-path delay. Before assessing, would check whether each of the 14 events can individually be traced, via contemporaneous schedule updates, to actual critical-path impact and quantified separately; a global claim of this kind is generally weak/vulnerable because it does not rule out contractor-culpable causes (none of which have been excluded) as also contributing to the same 95 days, and most EOT mechanisms require cause-and-effect substantiation per event, not an aggregate assertion.",
+    "strongAnswer": "Notes that some methodologies/tribunals do accept a form of composite/global claim in narrow circumstances (e.g., where it is genuinely impracticable to disentangle interlinked causes), but only after the claimant has made a genuine attempt to particularize and has excluded its own culpable causes from contributing to the overrun — the burden is on the contractor to show this, not assumed; would ask the contractor to first attempt an event-by-event windows analysis before accepting any global treatment.",
+    "expertAnswer": "Recognizes that 'global claim' describes an evidentiary approach, not an automatic bar — but a claimant relying on one carries a heavier burden to show individualized proof is truly impracticable and that none of the loss is attributable to its own risk events; recommends the engineer request the underlying schedule updates and ask the contractor to re-submit on a windows or as-planned-vs-as-built basis with individual event linkage, rather than either rubber-stamping or flatly rejecting the global claim outright.",
+    "explanation": "A claim that asserts an aggregate delay outcome without linking specific causes to specific critical-path periods lacks the cause-and-effect substantiation most EOT provisions require, and does not exclude the contractor's own contribution to the overrun.",
+    "reasoning": "EOT entitlement requires proof, for the specific days claimed, that a qualifying event caused critical-path delay of that duration; bundling multiple events into one number without individual causal linkage makes it impossible to verify that the days claimed correspond to the events cited rather than to unrelated (possibly contractor-risk) causes also present in the same period.",
+    "commonMistakes": [
+      "Accepting an unparticularized aggregate claim because the underlying events individually sound legitimate.",
+      "Not asking for event-by-event linkage before forming a view.",
+      "Assuming a global claim is automatically invalid rather than recognizing it is disfavored/high-burden rather than per se barred."
+    ],
+    "redFlags": [
+      "Assesses/awards a lump-sum EOT based on a listed narrative without requesting critical-path linkage for each event.",
+      "Treats 'many real issues occurred' as sufficient proof of full entitlement."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the contractor genuinely cannot disentangle the events because records were poorly kept, does that help or hurt their claim?", "purpose": "Tests understanding of the burden-of-proof consequences of poor documentation."},
+      {"trigger": "if_correct", "prompt": "What would you ask the contractor to resubmit, specifically?", "purpose": "Tests practical claims-administration follow-through."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Identifies the missing event-to-critical-path linkage as the core defect."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Neither rubber-stamps nor flatly rejects the global claim; recognizes it as high-burden."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Names concrete substantiation the contractor should be asked to provide."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 240,
+    "tags": ["global claim", "total time claim", "cause and effect", "claim substantiation", "burden of proof"],
+    "references": ["SCL Delay and Disruption Protocol", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "EOT-013",
+    "category": "EOT",
+    "subcategory": "Sequential Delay vs True Concurrency (Dominant Cause)",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Distinguishing sequential/interacting delay from true concurrency using day-level critical-path timing rather than calendar proximity",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "On a water treatment plant project, the contractor is 30 days late finishing and claims full time relief citing 'concurrent delay' — pointing to an employer-caused delay in issuing a chlorine-dosing skid drawing that ran during the same general month as its own subcontractor's late curtain-wall (unrelated scope) delay. Detailed CPM review shows the employer's drawing delay began impacting the critical path on day 142 and made that path critical from day 142; the curtain-wall delay only began impacting an at-that-time non-critical path on day 151, and that path only became critical on day 168 — after the employer's own delay had already been resolved.",
+    "question": "Is this genuinely concurrent delay? Explain your reasoning, and how would you expect the EOT assessment to differ from a true-concurrency case?",
+    "expectedAnswer": "No, not true concurrency on these facts — the two causes did not independently drive the same critical path over the same period; the employer event was critical first (from day 142) while the curtain-wall issue only became critical later (day 168), after the employer's own delay had already been resolved, i.e., this is sequential/interacting delay rather than simultaneous independent criticality. Because it is sequential, the standard concurrency debate about splitting/apportioning does not apply in the same way; instead, each period should be assessed on its own actual critical cause, which supports an EOT for the days genuinely driven by the employer's delay (day 142 onward, until resolved) without needing to address concurrency reduction, while the later curtain-wall-driven delay is analyzed as a separate, likely contractor-risk, period.",
+    "strongAnswer": "Notes the importance of precise dating (which activity/path was critical, on which specific days) rather than 'same general month' framing, which is how many overstated concurrency arguments get made; flags that some contractors deliberately frame sequential delays as 'concurrent' because it sounds like a stronger defense against liquidated damages, so precise CPM dating is the key discriminator.",
+    "expertAnswer": "Notes that even where true concurrency does not exist, some methodologies apply a 'dominant cause' approach when multiple causes are present but not equally/independently critical — asking which cause was the more significant/proximate driver — and that outcomes can still differ from a simple sequential-only view depending on the approach adopted; states that whichever approach is used should be disclosed and applied consistently rather than switched to favor a particular result.",
+    "explanation": "True concurrency requires two causes independently critical over the same days; delays merely occurring within the same broad time period, one after another, are sequential/interacting delays and should be assessed by determining which cause was actually critical during which specific days, not treated as concurrent.",
+    "reasoning": "The definition and consequences of concurrency depend on precise, day-level critical-path timing, not calendar proximity; sequential delay analysis reallocates responsibility period-by-period based on which cause was actually driving the critical path at each point.",
+    "commonMistakes": [
+      "Accepting 'concurrent' framing whenever two issues occur in roughly the same period.",
+      "Not checking exact critical-path start dates for each cause.",
+      "Assuming sequential delay gets the same treatment as true concurrent delay."
+    ],
+    "redFlags": ["Agrees the delays are concurrent without checking day-level critical-path evidence for each."],
+    "p6Checks": [
+      "Trace when each event's activity first appears on the longest/critical path in successive updates.",
+      "Confirm exact dates the driving relationship changed from one path to another.",
+      "Check whether the first event was already resolved before the second became critical."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What evidence would definitively prove or disprove true concurrency here?", "purpose": "Tests evidentiary rigor beyond accepting the scenario's framing."},
+      {"trigger": "if_correct", "prompt": "If the two paths had both been critical from day 142 through day 168, how would your answer change?", "purpose": "Tests recognition of the true-concurrency alternative case."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies sequential, not true concurrent, delay based on the day-level timing given."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Assesses each period against its own actual dominant/critical cause."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Distinguishes framing/advocacy from precise CPM evidence."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 240,
+    "tags": ["concurrency", "sequential delay", "dominant cause", "critical path timing"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-014",
+    "category": "EOT",
+    "subcategory": "Constructive Acceleration",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Analyzing the elements and evidentiary requirements of a constructive-acceleration situation arising from an unanswered EOT claim",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "CASE_STUDY",
+    "scenario": "On a metro rail signalling package, the contractor submits a well-substantiated 40-day EOT claim for employer-caused signalling design delays, with full contemporaneous records and timely notice. The engineer neither grants nor rejects the claim for 5 months, while continuing to enforce the original contract completion date and referencing potential liquidated damages exposure in project meetings. Facing this pressure, the contractor adds night shifts and extra crews at its own cost to recover the 40 days without any instruction to accelerate.",
+    "question": "Analyze this situation — what is the technical/contractual concept at play, what would the contractor need to show to pursue recovery for the acceleration costs, and what should the engineer have done differently?",
+    "expectedAnswer": "This describes a potential 'constructive acceleration' situation: the contractor had a valid, substantiated EOT entitlement, made a proper claim, but the certifier failed to grant a timely extension while maintaining pressure to meet the original date, forcing the contractor to accelerate at its own cost to avoid exposure it should not have borne. To pursue recovery, the contractor would typically need to show: (1) the underlying delay was genuinely excusable and would have entitled it to an EOT, (2) it gave proper notice/made a proper application, (3) the certifier failed, refused, or unreasonably delayed a decision, (4) the employer/engineer maintained or implied a requirement to meet the original date despite this, and (5) the contractor did in fact incur additional cost to accelerate as a result. The engineer should have assessed and determined the EOT claim within the contractually required (or a reasonable) timeframe, and if unable to fully evaluate immediately, should have granted at least a fair interim/provisional extension rather than leaving the original date in force under pressure.",
+    "strongAnswer": "Notes constructive acceleration is a legally and factually contested concept and not universally recognized as a standalone doctrine — some contracts/legal systems require an actual instruction to accelerate for cost recovery, others accept the constructive-acceleration argument; states the acceptable range of outcomes depends heavily on governing law and specific contract wording (e.g., some contracts include an express duty on the certifier to determine EOT claims within a stated period, which strengthens the contractor's position considerably if breached).",
+    "expertAnswer": "Highlights that documentation is critical to this type of claim: the contractor needs contemporaneous evidence that it communicated the acceleration decision was being taken specifically because of the unanswered EOT claim and completion-date pressure (not just decided unilaterally for its own commercial reasons), and needs to quantify the acceleration cost distinctly from ordinary costs, ideally with a request for direction from the engineer on record before or during the acceleration effort; also flags the practical/relationship dimension — a certifier that lets valid claims sit unanswered for months creates exactly this kind of dispute exposure regardless of the ultimate legal outcome.",
+    "explanation": "Constructive acceleration addresses the situation where a contractor is effectively forced to accelerate its own performance, at its own initial cost, because a valid time extension was not granted (or not granted in time), while the original completion obligation continued to be enforced.",
+    "reasoning": "The concept exists because it would be unfair for an owner/certifier to benefit from denying or delaying a meritorious EOT determination while still holding the contractor to the original date; but its recognition and the proof burden required vary, so it cannot be assumed to automatically succeed — the merits of the underlying EOT, the certifier's conduct, and contemporaneous evidence linking the acceleration decision to the unanswered claim all matter.",
+    "commonMistakes": [
+      "Assuming any self-funded recovery effort by a contractor automatically counts as recoverable constructive acceleration.",
+      "Not checking whether the underlying EOT claim was actually meritorious first.",
+      "Ignoring the contemporaneous evidence requirement linking the acceleration decision to the unanswered claim and completion-date pressure."
+    ],
+    "redFlags": [
+      "States constructive acceleration claims always succeed or never succeed as an absolute rule.",
+      "Cannot list the elements needed to support such a claim."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the underlying 40-day EOT claim turns out on review to only be worth 25 days, what happens to the acceleration cost claim?", "purpose": "Tests understanding that the acceleration claim is capped by the actual merit of the underlying EOT."},
+      {"trigger": "if_correct", "prompt": "What should the contractor have put in writing before starting the night shifts?", "purpose": "Tests practical claims-protection judgment."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Links the acceleration decision to the unanswered EOT claim and completion-date pressure."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Frames constructive acceleration as contested/evidence-dependent rather than an automatic entitlement."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Lists the required elements and what the engineer should have done differently."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 260,
+    "tags": ["constructive acceleration", "EOT determination delay", "liquidated damages", "acceleration cost"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-015",
+    "category": "EOT",
+    "subcategory": "EOT Determination Timeliness and Interim Awards",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Responding proactively and with documentation discipline when a contractually required EOT determination deadline is missed",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "WHAT_NEXT",
+    "scenario": "On a desalination plant project, the contractor submits a fully particularized EOT claim for 18 days (verified employer-caused delay to seawater intake pipe procurement approval). The contract requires the engineer to respond within 21 days of receiving full particulars. Day 21 passes with no response, and the project is now approaching the original contract completion date, with liquidated damages exposure building for the contractor if no extension is confirmed.",
+    "question": "As the party administering the schedule/claims on the contractor's side, what do you do next?",
+    "expectedAnswer": "Would formally follow up in writing referencing the specific clause and the missed deadline, requesting an immediate determination or a stated reason for the delay, and would document contemporaneously that the claim remains outstanding through no fault of the contractor; would also check what the contract says happens on a missed determination deadline (some contracts deem the claim granted as submitted if not responded to in time, others do not) and act accordingly, rather than waiting passively while liquidated damages exposure continues to build.",
+    "strongAnswer": "Recommends escalating through the contractually specified dispute/notice channels if the deadline continues to be missed, and keeping a clear paper trail — this is exactly the kind of situation that later supports a constructive-acceleration or prevention-based argument if the contractor is forced to accelerate or bears liquidated damages unfairly — while continuing to update the schedule to show the claimed EOT as pending/under review rather than silently absorbing it into the forecast.",
+    "expertAnswer": "Notes some contracts include a deeming provision (failure to respond within the period is deemed acceptance of the claimed EOT) which, if present, must be actively raised/relied upon rather than assumed to happen automatically; also flags that even without a deeming clause, pressing the point formally in writing protects the contractor's position in any later dispute over liquidated damages or acceleration costs, and documents the employer's/engineer's delay in responding for that purpose.",
+    "explanation": "An unresolved EOT determination close to a completion date exposes the contractor to liquidated damages risk it should not necessarily bear; proactive, documented follow-up preserves both the entitlement and the record needed if the delay in determination itself becomes an issue.",
+    "reasoning": "Passive waiting while a contractual determination deadline is missed risks conflating 'no formal EOT granted yet' with 'no EOT is due,' which can wrongly expose the contractor to liquidated damages or force it into an undocumented, weaker acceleration position later.",
+    "commonMistakes": [
+      "Assuming the claim is effectively dead if not responded to by the deadline.",
+      "Not checking for a deeming provision.",
+      "Failing to keep contemporaneous records of the follow-up and the employer's non-response."
+    ],
+    "redFlags": ["Takes no action and simply waits, with no written follow-up or escalation."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What written record would you create today to protect the contractor's position while waiting for a determination?", "purpose": "Tests practical documentation habit, not just conceptual awareness."},
+      {"trigger": "if_correct", "prompt": "If the contract has no deeming provision at all, does that change your urgency in escalating?", "purpose": "Tests whether escalation is contract-dependent or a baseline good practice regardless."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes concrete, timely written follow-up and escalation steps."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Checks for a deeming provision rather than assuming a default outcome."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Addresses both the immediate action and the documentation/record-keeping dimension."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": ["EOT determination", "deeming provision", "claims administration", "follow-up"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-016",
+    "category": "EOT",
+    "subcategory": "Sectional Completion and EOT Apportionment Across Sections",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that a shared-cause delay affecting multiple contractually sectioned completion dates does not automatically produce an identical EOT for every section",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "MISSING_INFO",
+    "scenario": "A mixed-use development has three contractually defined sections (Section A retail podium, Section B office tower, Section C parking structure), each with its own sectional completion date and separate liquidated damages rate. A 15-day employer-caused delay to a shared site access road affects mobilization for all three sections simultaneously at the start of the project.",
+    "question": "What additional information do you need before determining how many days of EOT to award to each section, and why might a flat 15 days to each section not be correct?",
+    "expectedAnswer": "Need the section-specific critical-path networks and their individual completion logic — even though the shared access road delay hits all three sections' mobilization at the same time, each section may have a different amount of downstream float/buffer before that specific delay becomes critical to that section's own completion date; also need to know whether the sections share any common critical-path activities besides the access road, and whether the contract defines how a common-cause delay affecting multiple sections should be apportioned (some contracts require separate EOT assessment per section's own critical path, not a blanket application of the same day count to all sections).",
+    "strongAnswer": "Notes it is entirely possible for the 15-day delay to translate into, say, 15 days on Section C (parking, immediately dependent on the road with little downstream float) but only 6 days on Section A (retail, which has significant float from other early activities before the road becomes critical to its path) and 0 days on Section B if that section's critical path runs through an unrelated long-lead item unaffected in the relevant window; recommends running each section's network independently.",
+    "expertAnswer": "Highlights the commercial materiality of getting this right given the differing liquidated damages rates per section — an incorrect blanket 15-days-to-all-sections approach could both overcompensate one section and undercompensate another — and that this is exactly the kind of scenario where a single combined schedule with proper section-level critical-path segregation (via separate calendars/summary structures or filtered path analysis) is essential rather than relying on a single overall project critical path number.",
+    "explanation": "A shared-cause delay affecting a start-of-project shared activity does not necessarily produce identical entitlement across sections with separate completion obligations; each section's own critical path and available float govern its own EOT.",
+    "reasoning": "EOT is measured against the specific completion obligation being delayed; where a contract defines multiple sectional completions, the causal chain from the shared event to each section's own critical path must be independently traced rather than assuming a shared root cause implies a shared, identical time effect.",
+    "commonMistakes": [
+      "Applying the same day count to every section without checking each section's own critical path.",
+      "Ignoring separate liquidated damages rates and sectional completion definitions.",
+      "Treating a shared-cause event as necessarily producing a shared-duration effect."
+    ],
+    "redFlags": ["Recommends 15 days to all three sections without asking to see each section's network."],
+    "p6Checks": [
+      "Filter/trace the critical path specifically toward each sectional completion milestone.",
+      "Check total float on each section's path immediately before the access-road delay.",
+      "Confirm whether sections share resources/logic beyond the road itself that could also transmit the delay."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If Section B's critical path shows 20 days of float ahead of where the road delay bites, what is Section B's EOT?", "purpose": "Tests direct application of the float principle in a sectional context."},
+      {"trigger": "if_correct", "prompt": "How would you present the three different section-level EOT figures if the contract doesn't explicitly say how to handle a shared-cause event across sections?", "purpose": "Tests practical reporting judgment under contractual silence."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Traces the shared cause to each section's own critical path independently."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Identifies the specific missing per-section network and float information."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Explains a concrete method for assessing each section separately."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 230,
+    "tags": ["sectional completion", "EOT apportionment", "critical path", "liquidated damages"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-017",
+    "category": "EOT",
+    "subcategory": "Retrospective vs Prospective EOT Assessment Approach",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that prospective and retrospective delay analysis approaches answer different questions and are not expected to reconcile to an identical result",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "P6_ANALYSIS",
+    "scenario": "On a refinery turnaround/expansion project, two competing EOT assessments are prepared for the same 12-day employer-caused instrument-air-system redesign delay: Assessment 1 (prospective) inserts the redesign delay as a fragnet into the schedule update immediately preceding the event and calculates the forecast impact on completion at that point in time; Assessment 2 (retrospective) is prepared after project completion and compares the actual as-built critical path against what would have happened absent the event, using hindsight knowledge of everything that occurred afterward, including some unrelated later contractor-caused delays.",
+    "question": "Would you expect these two approaches to necessarily produce the same number of days, and what does each capture that the other does not?",
+    "expectedAnswer": "No, they are not guaranteed to produce the same number, because they capture different things: the prospective approach measures what the delay was forecast to do to completion based on information and schedule logic known at that time, while the retrospective approach measures what actually happened, including all subsequent events (including unrelated later contractor delays) that could have changed which path ultimately governed actual completion. A retrospective analysis risks either understating this event's own impact (if later events on a different path became the actual controlling delay to completion) or requires deliberately isolating this event's specific contribution from the noise of everything else that happened afterward.",
+    "strongAnswer": "Notes both are recognized, legitimate methodology families (prospective, e.g. time impact analysis; retrospective, e.g. as-planned-vs-as-built, collapsed as-built, windows) and the 'right' one is often specified or implied by the contract, by when the analysis is being done, and by data availability; states that when both are available for the same event, discrepancies should be investigated and explained, not just averaged or ignored, since they can reveal whether the event's forecast impact was later overtaken by other events.",
+    "expertAnswer": "Highlights that a purely retrospective approach performed with complete hindsight can be criticized for using information the parties did not have at the time (relevant for real-time EOT determination) but can be more accurate about what genuinely determined actual completion; a purely prospective approach avoids hindsight bias but can be wrong if later, unforeseen events changed the controlling path; recommends being explicit about which question is being answered — 'what was reasonably foreseeable to delay completion at the time' vs 'what actually determined the final completion date' — since these are different questions that the two methods answer.",
+    "explanation": "Prospective and retrospective delay analysis methods answer subtly different questions and are not interchangeable; producing different day counts for the same event is expected, not necessarily an error in either.",
+    "reasoning": "Prospective methods model impact using only information available up to the point of the event, isolating that event's own forecast effect; retrospective methods use the complete, final as-built record, which captures the effect of everything that actually happened afterward, potentially masking or amplifying a single event's true standalone contribution depending on what else occurred.",
+    "commonMistakes": [
+      "Assuming both methods must reconcile to an identical number and treating any discrepancy as proof one is wrong.",
+      "Using retrospective hindsight information inside what is meant to be a prospective, real-time EOT determination.",
+      "Not stating which underlying question the chosen method actually answers."
+    ],
+    "redFlags": [
+      "Cannot explain why the two methods might legitimately diverge.",
+      "Insists one method is universally 'the correct one' regardless of contract or purpose."
+    ],
+    "p6Checks": [
+      "Confirm the update used as the pre-impact schedule for the prospective fragnet insertion.",
+      "For the retrospective analysis, confirm the as-built dates and check for any unrelated later critical delays on the same or a different path.",
+      "Compare the two computed impacts and investigate rather than average any material difference."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the contract requires real-time EOT determination during the project, which method is actually usable at the time the decision must be made?", "purpose": "Tests practical timing constraint awareness."},
+      {"trigger": "if_correct", "prompt": "What later unrelated event could explain Assessment 2 showing fewer days of impact than Assessment 1?", "purpose": "Tests concrete understanding of how hindsight can mask an event's contribution."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains why prospective and retrospective results can legitimately differ."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Names a plausible mechanism (later unrelated events) for the divergence."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "States which question each method actually answers rather than declaring one universally correct."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 240,
+    "tags": ["prospective analysis", "retrospective analysis", "TIA", "as-built", "delay analysis methodology"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis", "SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-018",
+    "category": "EOT",
+    "subcategory": "Documentary Particulars Beyond Bare Notice",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Distinguishing the notice trigger from the separate substantiation/particulars requirement in an EOT claim",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "MISSING_INFO",
+    "scenario": "On a warehouse automation fit-out, the contractor sends a one-line notice email: 'Please be advised of delay due to late client-furnished conveyor motors, EOT reserved.' No supporting information follows for 10 weeks despite the contract requiring notice 'together with, or followed as soon as practicable by, particulars of the causes and estimated effect.'",
+    "question": "Is the bare notice email, by itself, sufficient to substantiate an EOT claim, and what's missing?",
+    "expectedAnswer": "The notice email likely satisfies only the initial notification trigger (if the clause treats notice and particulars as separate steps), but is not sufficient substantiation on its own; missing particulars would typically include which specific activities/milestones are affected and how, the actual/anticipated delay duration to the critical path, supporting records showing the cause and its timing (e.g., original committed and revised motor delivery dates, purchase order/expediting correspondence), and a schedule-based demonstration of impact. Without particulars, an assessor cannot verify causation or quantum even if the notice itself was timely.",
+    "strongAnswer": "Notes the distinction between notice being a condition precedent (its lateness/absence can bar the claim entirely) versus particulars being a substantiation requirement (their absence weakens or defeats the claim on the merits but is a different kind of failure) — recommends checking the specific clause to see whether 'particulars' are also time-bound/conditions precedent or simply expected supporting evidence.",
+    "expertAnswer": "Flags the practical claims-management point that formally requesting particulars in writing (rather than silently waiting or silently rejecting) protects the assessing party's position and starts a clear record of the contractor's ongoing failure to substantiate, which matters if the claim is later pursued in dispute resolution; also notes some contracts allow assessment based on available/best information if particulars are never fully provided, rather than automatic rejection.",
+    "explanation": "A bare notice of an intention to claim is not the same as substantiation; most EOT mechanisms require particulars (evidence and quantum) to actually process and value the claim.",
+    "reasoning": "Notice serves to alert the other party early that a claim may arise; particulars serve the evidentiary function of actually proving causation and quantum — conflating the two understates what's needed to secure an award.",
+    "commonMistakes": [
+      "Treating the notice email alone as a complete, ready-to-assess claim.",
+      "Not distinguishing the notice step from the particulars/substantiation step.",
+      "Failing to formally request particulars in writing."
+    ],
+    "redFlags": ["Assesses or dismisses the claim based on the notice email alone without requesting the missing particulars."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the contract sets no separate deadline for particulars, does that mean the contractor can submit them at any time without consequence?", "purpose": "Tests understanding that unreasonable delay in particulars can still weaken evidentiary weight even without a hard deadline."},
+      {"trigger": "if_correct", "prompt": "What would you write in a formal request for particulars to this contractor?", "purpose": "Tests practical claims-administration follow-through."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "completeness", "maxScore": 5, "guidance": "Lists the specific missing particulars (activities affected, duration, supporting records, schedule demonstration)."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Separates the notice-compliance question from the substantiation question."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete next step (formal request for particulars)."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.0,
+    "estimatedTimeSec": 180,
+    "tags": ["notice", "particulars", "substantiation", "claims administration"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-019",
+    "category": "EOT",
+    "subcategory": "EOT and Pre-Existing Contractor Culpable Delay",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Assessing entitlement to a new, independent employer-caused critical delay increment without wrongly netting it against pre-existing contractor-culpable delay",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "On a cold storage facility project, at the start of week 20 the contractor is already 9 days behind its own baseline on the critical path due entirely to its own underperformance (culpable, contractor-risk delay, uncontested). In week 21, the employer issues a variation that independently adds 6 days of new critical-path scope, measured against the schedule as it stood at that time (already reflecting the contractor's 9-day slippage). There is no other delay in this period.",
+    "question": "What is the contractor's EOT entitlement for the variation, and how does the pre-existing 9 days of contractor-culpable delay affect the analysis?",
+    "expectedAnswer": "Generally, the contractor is entitled to an EOT for the genuine additional critical-path time the variation itself adds — 6 days — regardless of the fact that it was already 9 days behind due to its own fault; the two are analytically separate: the employer-risk event (variation) added 6 days of new scope to the critical path, a discrete, measurable, employer-caused delay, and that entitlement is not usually erased or offset by unrelated pre-existing contractor delay (the contractor still bears responsibility for its own 9 days separately). Being already behind schedule does not disentitle the contractor to time for a subsequent, independent, genuinely critical employer-caused addition.",
+    "strongAnswer": "Cautions that this outcome depends on the analysis correctly confirming the 6 days is a genuinely independent, additive critical-path impact (measured against the schedule as it stood at that time, already reflecting the contractor's own 9-day slippage) rather than being reduced because 'the project was already going to be late anyway' — a common but incorrect argument sometimes advanced by certifiers to deny entitlement in this fact pattern.",
+    "expertAnswer": "Notes some analysts/certifiers wrongly attempt to net or offset the two delays against each other, arguing the contractor 'used up' the benefit of being on time already — this conflates two unrelated causal chains and is generally not supportable; the correct approach values the variation's stand-alone critical-path effect on the schedule as it currently stands and grants that discrete increment, while completion is still, overall, contractor-culpable-late for the pre-existing 9 days plus whatever portion of the 6 new days isn't independently excused.",
+    "explanation": "Pre-existing contractor-culpable delay does not offset or reduce entitlement to a later, independent, genuinely critical employer-caused delay; the two causal chains are assessed separately even though they affect the same overall completion date.",
+    "reasoning": "EOT entitlement attaches to the incremental critical-path effect actually and independently caused by the qualifying event, measured against the schedule as it stood immediately before that event (which already reflects prior contractor slippage); it is not a comparison against the original baseline or a net settlement of who was 'more' at fault overall.",
+    "commonMistakes": [
+      "Assuming pre-existing contractor delay disqualifies or reduces entitlement to a later unrelated employer-caused delay.",
+      "Attempting to net the two delays against each other.",
+      "Confusing 'already going to be late anyway' with 'the new event caused no additional delay'."
+    ],
+    "redFlags": ["Denies or reduces the 6-day EOT because 'the contractor was already 9 days behind anyway.'"],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the variation had instead only added 6 days of non-critical scope given the schedule's state at that point, would the answer change?", "purpose": "Tests that entitlement still depends on the variation actually being critical, not just present."},
+      {"trigger": "if_correct", "prompt": "Does this 6-day EOT reduce the liquidated damages the contractor otherwise owes for the pre-existing 9 days?", "purpose": "Tests understanding of how the two periods interact for liquidated-damages purposes."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly treats the two causal chains (culpable and employer-caused) as independent."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Measures the variation's impact against the schedule as it stood at the time, not the original baseline."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Rejects the netting/offset argument with clear reasoning."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 240,
+    "tags": ["culpable delay", "negative float", "additive delay", "EOT entitlement", "netting"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-020",
+    "category": "EOT",
+    "subcategory": "Retained Logic vs Progress Override Effect on EOT Evidence",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Identifying how the out-of-sequence progress calculation method can distort critical-path evidence relied upon for an EOT claim",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On an airport terminal expansion, the planner scheduling a claim-support update discovers the live project schedule has been run with 'Progress Override' for the last 11 updates, meaning out-of-sequence progress didn't reinstate original logic ties, letting some substantially incomplete predecessor activities finish their remaining duration in parallel with successors that should have depended on them. The contractor wants to use these 11 updates as the basis for a windows-based EOT claim.",
+    "question": "What problem does this create for using these updates as delay-analysis evidence, and what would you do about it?",
+    "expectedAnswer": "Progress Override can mask true logic-driven delay by allowing successors to proceed in the calculation even though their real predecessors are still open, understating float consumption and potentially hiding which activities were actually critical during those periods; using these updates as-is for a windows analysis risks materially misrepresenting the critical-path history. Would recommend re-running (or having re-run) the affected updates under Retained Logic (or otherwise correcting the out-of-sequence progress properly) to see whether the critical-path picture changes, and would flag/disclose this data-quality issue rather than silently relying on the as-issued updates.",
+    "strongAnswer": "Notes neither Retained Logic nor Progress Override is universally 'more correct' — Retained Logic can itself distort results by forcing unrealistic logic ties on work that is legitimately complete out of sequence — so the right response is to understand why the out-of-sequence progress happened on each instance (a genuine resequencing decision vs a data/logic problem) rather than mechanically switching the whole schedule to the other setting; recommends investigating case-by-case.",
+    "expertAnswer": "Highlights that this is exactly the kind of schedule-quality issue that discredits an entire claim if an opposing analyst or reviewer catches it — recommends performing a schedule health check across all 11 updates (checking for other issues: negative lags used to force out-of-sequence work, broken logic, excessive constraints) before relying on them as pre-impact/evidentiary schedules at all, since a claim built on updates with unexplained progress-calculation anomalies is vulnerable to being discredited wholesale rather than just on this one point.",
+    "explanation": "The scheduling option used to calculate out-of-sequence progress (Retained Logic vs Progress Override) can materially change which activities appear critical and how much float is shown, so it must be understood and, where it distorts the picture, corrected or explained before the updates are relied on as delay-analysis evidence.",
+    "reasoning": "Progress Override lets a successor's remaining duration run in parallel with an unfinished predecessor rather than waiting for the logic tie to be satisfied, which can hide the true float/criticality state of the predecessor's remaining work and therefore misstate which path was actually driving completion during that period.",
+    "commonMistakes": [
+      "Using schedule updates for delay analysis without checking which out-of-sequence progress setting was used.",
+      "Assuming Retained Logic is always the 'correct' setting to switch to without checking each instance.",
+      "Not disclosing a known data-quality issue in the evidentiary schedules."
+    ],
+    "redFlags": ["Proceeds with the windows analysis on the 11 updates without investigating the Progress Override issue at all."],
+    "p6Checks": [
+      "Tools/Schedule Options → check whether 'Retained Logic' or 'Progress Override' was selected for each update run.",
+      "Identify specific instances of out-of-sequence progress and check whether Progress Override changed the computed critical path there.",
+      "Re-run the affected updates under Retained Logic as a sensitivity check and compare critical path/float results."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If re-running under Retained Logic changes the critical path in 3 of the 11 updates, how does that affect the claim you can support?", "purpose": "Tests whether the candidate follows through on the practical consequence, not just identifies the issue."},
+      {"trigger": "if_correct", "prompt": "How would you explain this data-quality finding to the contractor's commercial team, who want to submit the claim as-is?", "purpose": "Tests communication of a technical finding with commercial consequences."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Correctly explains the mechanical difference between Retained Logic and Progress Override and its effect on float/criticality."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Identifies the specific risk to the windows analysis from this data-quality issue."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete remediation (re-run/sensitivity check, disclosure) rather than ignoring the issue."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 230,
+    "tags": ["retained logic", "progress override", "out-of-sequence progress", "schedule quality", "delay analysis evidence"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "EOT-021",
+    "category": "EOT",
+    "subcategory": "EOT Entitlement Test – Basic Float Netting",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Correctly netting an event's duration against pre-existing float to determine the delay to completion",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "Prior to an employer-caused delay event on a school building project, the affected activity path has 7 days of total float. The employer-caused event delays the affected activity by 19 working days.",
+    "question": "Based on float consumption alone (ignoring any other contractual conditions), how many working days of critical-path/completion delay does this event cause?",
+    "correctAnswer": 12,
+    "explanation": "The first 7 days of the 19-day delay are absorbed by existing float without affecting completion; only the remaining 12 days exceed the float and translate into potential completion delay (subject to the other contractual conditions for entitlement, which are not addressed by this float calculation alone).",
+    "reasoning": "Delay to completion = event duration minus available float, once the float is fully consumed and the delay continues into what was previously buffer time: 19 − 7 = 12 working days.",
+    "commonMistakes": [
+      "Reporting the full 19 days as EOT days without netting the pre-existing float.",
+      "Reporting 7 days (the float itself) as the delay instead of the net excess."
+    ],
+    "redFlags": ["Cannot perform the basic float-netting calculation."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Does this 12-day float-based calculation by itself confirm the contractor is entitled to a 12-day EOT?", "purpose": "Reinforces that float math is necessary but not sufficient for contractual entitlement, even at this basic numeric level."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 120,
+    "tags": ["float", "delay quantification", "EOT basics", "critical path"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "EOT-022",
+    "category": "EOT",
+    "subcategory": "Contractor-Initiated Resequencing and Pre-Impact Reference Selection",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Ensuring the pre-impact reference schedule for an EOT analysis reflects any genuine, executed logic change regardless of who initiated it",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "On a semiconductor fab project, midway through construction the contractor voluntarily resequences a large portion of the cleanroom fit-out logic (its own means-and-methods decision, unrelated to any employer event) to run cleanroom wall panel installation in parallel with ceiling grid works instead of sequentially, to recover schedule. Two months later, an employer-caused delay (late issuance of a fire-suppression system spec) hits the ceiling grid activity. The contractor's EOT claim measures the impact using the pre-resequencing logic (an older accepted update, several months stale) because 'that's the official baseline,' rather than the current logic in effect when the fire-suppression delay actually occurred.",
+    "question": "Is using the pre-resequencing, several-months-stale update the correct pre-impact reference here? What is the risk of doing so?",
+    "expectedAnswer": "No — using a stale reference that predates the contractor's own voluntary resequencing does not reflect the network logic and dependencies actually in effect when the fire-suppression delay occurred; the correct pre-impact schedule should be the most recent validated update that already incorporates the resequencing, since that is what the event actually impacted. The risk of using the stale reference is that the fire-suppression delay's modeled impact will be calculated against logic (sequential wall/ceiling work) that no longer existed at the time of the event, likely producing an inflated or simply incorrect impact figure, and is vulnerable to challenge for not reflecting the as-was condition of the schedule.",
+    "strongAnswer": "Notes that the contractor's own resequencing decision, even though unrelated to the employer event, is a legitimate schedule change that must be captured as the current baseline for any subsequent delay analysis — 'the official baseline' in casual usage often wrongly means 'Rev 0' when what's actually needed is 'the last agreed/accepted current programme' — and recommends clarifying this terminology distinction with the claims team.",
+    "expertAnswer": "Flags that this scenario shares its underlying principle with stale-reference issues generally, but with a twist: it is the contractor's own logic change, not a further employer event, so there is no substantive claims argument for treating it differently — using the current, accepted (even if not formally re-baselined) update as of just before the fire-suppression event is required to correctly isolate that specific event's incremental effect, and continuing to use Rev 0 would distort the result by ignoring the contractor's own subsequent, neutral changes to the network.",
+    "explanation": "Whichever party makes it, a genuine, executed change to the schedule's logic must be reflected in the pre-impact reference used for a later delay analysis; using an outdated reference that predates a real logic change, regardless of who initiated it, produces an unreliable impact calculation.",
+    "reasoning": "The purpose of the pre-impact reference schedule is to represent the network as it genuinely existed immediately before the event being analysed; any prior, executed change to that network — whether caused by the employer, the contractor, or a neutral event — must be reflected, or the calculated impact of the new event will be measuring against a network that no longer exists.",
+    "commonMistakes": [
+      "Treating 'the baseline' as always meaning the original Rev 0 approved programme regardless of subsequent legitimate changes.",
+      "Not checking whether the contractor's own logic changes since the baseline were captured in later accepted updates.",
+      "Assuming only employer-caused changes need to be reflected in the reference schedule."
+    ],
+    "redFlags": ["Insists on using Rev 0 as the pre-impact reference without justification, despite known intervening logic changes."],
+    "p6Checks": [
+      "Identify the most recent accepted update issued before the fire-suppression delay event and confirm it reflects the resequenced logic.",
+      "Compare logic/relationships for the cleanroom wall panel and ceiling grid activities between Rev 0 and the current update to confirm the resequencing is captured.",
+      "Re-run the fragnet/impact against the current update rather than Rev 0 and compare results."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Would your answer differ if the resequencing had never been captured in any formally accepted update — only shown in an internal working file?", "purpose": "Tests handling of informal/undocumented schedule changes as evidence."},
+      {"trigger": "if_correct", "prompt": "How much would you expect the calculated impact to differ between the stale Rev 0 reference and the current, resequenced reference?", "purpose": "Tests understanding that the direction/magnitude of distortion should be checked, not just asserted."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the current accepted update, not Rev 0, as the pre-impact reference."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete checks confirming the resequencing is captured in the reference schedule."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Applies the principle regardless of which party caused the intervening logic change."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["baseline reference", "resequencing", "logic changes", "pre-impact schedule"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "EOT-023",
+    "category": "EOT",
+    "subcategory": "EOT and Liquidated Damages Interaction",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Understanding how a validly granted EOT mechanically moves the Date for Completion used as the liquidated damages basis",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["JUNIOR", "SENIOR"],
+    "questionType": "MCQ",
+    "question": "A contract's liquidated damages clause applies per calendar day beyond the 'Date for Completion.' An EOT of 10 days is properly granted and certified, moving the Date for Completion out by 10 days. What is the effect on liquidated damages exposure for those 10 days?",
+    "options": [
+      {"label": "A", "text": "Liquidated damages still apply for those 10 days because the original date was missed regardless of the EOT.", "isCorrect": false},
+      {"label": "B", "text": "Liquidated damages cannot apply for those 10 days because the Date for Completion has been contractually moved to reflect the granted extension; any liquidated damages exposure is then measured against the new, extended date, not the original one.", "isCorrect": true},
+      {"label": "C", "text": "Liquidated damages are automatically doubled for those 10 days as a penalty for the underlying cause of delay.", "isCorrect": false},
+      {"label": "D", "text": "The EOT has no bearing on liquidated damages at all; that entitlement is decided completely separately, regardless of any EOT certified under the contract.", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "A validly granted EOT moves the contractual Date for Completion itself; liquidated damages, which are typically calculated from that date, therefore do not apply for the period covered by the extension. Liquidated damages exposure, if any, is then measured against the new, extended date, not the original one.",
+    "reasoning": "Liquidated damages clauses are contractually tied to a defined Date/Time for Completion; an EOT operates by revising that defined date under the contract's own mechanism, so the two are directly linked — extending the date removes the liquidated damages basis for the extended period.",
+    "commonMistakes": ["Assuming liquidated damages are based on the original, unextended date regardless of a validly granted EOT."],
+    "redFlags": ["Cannot explain the direct mechanical link between an EOT and the liquidated damages basis date."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If only a partial EOT of 6 out of a claimed 10 days is granted, how many days of liquidated damages exposure remain, all else equal?", "purpose": "Tests direct application beyond the closed-form answer."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 80,
+    "tags": ["liquidated damages", "date for completion", "EOT effect"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-024",
+    "category": "EOT",
+    "subcategory": "Multiple Employer-Risk Events in a Single Window",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Reconciling the net critical-path completion shift within a window against the simple arithmetic sum of overlapping individual event durations",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "CASE_STUDY",
+    "scenario": "On a pharmaceutical manufacturing facility project, within the same six-week update window three separate employer-caused events occur on or near the critical path: (1) a 4-day delay from a late employer-furnished HVAC control panel, (2) a 9-day delay from an engineer-instructed design change to the cleanroom wall assembly, and (3) a 5-day delay from a permit-related shutdown ordered by the employer's environmental consultant. The critical path shifts between these three items multiple times during the window as each is resolved. The end-of-window schedule update shows the completion forecast has moved back by 11 working days total, not the sum of the three individual durations (18 days).",
+    "question": "Why might the net window delay (11 days) be less than the simple sum of the three individual event durations (18 days), and how would you allocate the 11 days of EOT entitlement across the three events for reporting/substantiation purposes?",
+    "expectedAnswer": "Because the events overlap on the critical path at various points (e.g., some of event 2's 9 days run concurrently with event 1's 4 days once the path shifts through the cleanroom wall, or some of the delay is absorbed by float relative to other paths), the net critical-path effect on completion is not a simple arithmetic sum of each event's stand-alone duration — the correct approach is to run a proper sequential or windows-based impact of each event on the network, in a defensible chronological order, to see the true incremental completion effect of each, which will sum to the net 11 days by construction, rather than presenting each event's isolated duration as if it were separately, fully additive.",
+    "strongAnswer": "Notes that since all three are employer-risk events here, precise day-by-day allocation between them matters less for the EOT total (11 days is due regardless of the split, since all three causes are the employer's risk) but can matter significantly for a related prolongation cost claim if costs are event-specific, or for a narrative report explaining causation to the engineer; recommends presenting a combined but clearly explained analysis rather than forcing an artificial precise split if the true value is genuinely difficult to disaggregate given the overlaps.",
+    "expertAnswer": "Highlights that if any one of the three events had instead been a contractor-risk cause, the overlap/allocation question would become critical to the EOT quantum itself, not just cost detail, so the discipline of running the true incremental network impact (not summing isolated durations) matters generically, not only in this all-employer-risk case; recommends the analyst always test net window impact against the sum of isolated durations as a sanity check, and if they differ, investigate and explain the overlap mechanism explicitly in the claim narrative rather than silently presenting whichever number is more favorable.",
+    "explanation": "Individual event durations calculated in isolation do not necessarily sum to the net critical-path effect on completion when multiple events occur within the same window and interact on the network; the defensible EOT quantum is the net incremental completion shift for the window, correctly reasoned, not the arithmetic sum of standalone durations.",
+    "reasoning": "Critical-path delay is a function of the network's longest path at each point in time; overlapping events on the same path do not each independently add their full duration to completion — only the portion of each event's duration that extends the already-extended path beyond what the prior event(s) had already pushed it to counts as additional net delay.",
+    "commonMistakes": [
+      "Presenting the sum of each event's isolated duration (18 days) as the claimed EOT instead of the net window impact (11 days).",
+      "Not investigating why the two numbers differ.",
+      "Assuming the discrepancy indicates an error rather than genuine overlap."
+    ],
+    "redFlags": ["Submits 18 days as the claim without reconciling against the net 11-day completion shift shown in the schedule."],
+    "p6Checks": [
+      "Trace which activity/event is driving the critical path at each point across the six-week window in successive snapshots or sequential fragnet insertions.",
+      "Confirm the net completion date shift (11 days) reconciles to a coherent explanation of overlap between the three events, not a data error.",
+      "Check whether any of the three events had independent float before becoming critical, which would further explain sub-additivity."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If, instead, event 2 (the design change) had been a contractor-risk item, how would the overlap with events 1 and 3 change the EOT quantum calculation?", "purpose": "Tests whether allocation becomes materially important once risk allocation differs across the overlapping events."},
+      {"trigger": "if_correct", "prompt": "How would you present this reconciliation (18 vs 11 days) in the claim report so it doesn't look like an error?", "purpose": "Tests practical report-writing and transparency judgment."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains overlap/interaction as the reason for sub-additivity rather than treating it as an error."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Describes a correct sequential/windows method for deriving the net incremental impact of each event."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Addresses both the EOT quantum reconciliation and the separate cost-allocation implication."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 260,
+    "tags": ["multiple concurrent employer events", "net window delay", "overlap", "EOT quantum", "critical path shift"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis", "SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "EOT-025",
+    "category": "EOT",
+    "subcategory": "Finality of EOT Determinations",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that EOT determinations are not universally final and may be open to review depending on the specific contract mechanism",
+    "difficulty": 1,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["JUNIOR", "SENIOR"],
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: Once an engineer/contract administrator issues an EOT determination, it is always final and can never be revisited, even if later evidence emerges (e.g., at final account or during a subsequent dispute) that the original assessment was incomplete or incorrect.",
+    "options": [
+      {"label": "True", "text": "True", "isCorrect": false},
+      {"label": "False", "text": "False", "isCorrect": true}
+    ],
+    "correctAnswer": "False",
+    "explanation": "Many standard contracts allow interim/provisional EOT determinations during the project that remain open to review (e.g., at practical completion, final certificate, or through a dispute resolution process), and even determinations described as final may be revisited through the contract's review, dispute adjudication, or final-account mechanisms depending on the specific contract; whether and how a determination can be reopened depends on the specific clause and any applicable finality provisions, so 'never revisited' is not a universal rule.",
+    "reasoning": "EOT determinations are frequently expressed as interim to allow ongoing project administration; contracts commonly provide mechanisms (final certificate review, dispute resolution, adjudication) for revisiting earlier assessments if new evidence or a formal dispute arises, subject to any specific time-bar or finality clause in that contract.",
+    "commonMistakes": [
+      "Assuming every EOT determination is immediately and permanently binding with no review mechanism.",
+      "Not distinguishing interim from final determinations."
+    ],
+    "redFlags": ["States a categorical, contract-independent rule about finality."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What contractual mechanism would you look for to determine whether a given EOT determination is open to later revision?", "purpose": "Tests practical clause-location skill."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 70,
+    "tags": ["EOT determination", "interim vs final", "review", "dispute resolution"],
+    "references": ["SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "TIA-001",
+    "category": "TIA",
+    "subcategory": "TIA Fundamentals – Purpose and Definition",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Correctly defining a Time Impact Analysis as a fragnet-insertion method distinct from retrospective as-built comparison",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "MCQ",
+    "question": "Which of the following best describes a Time Impact Analysis (TIA)?",
+    "options": [
+      {"label": "A", "text": "A retrospective comparison of the final as-built schedule against the original baseline to identify which activities were late.", "isCorrect": false},
+      {"label": "B", "text": "A prospective (or near-contemporaneous) method that models a specific delay event by inserting it into the schedule as a fragnet at the point it occurred, and measures its calculated impact on the critical path and forecast completion date.", "isCorrect": true},
+      {"label": "C", "text": "A cost-based method that calculates prolongation costs directly from the number of days a project ran over budget.", "isCorrect": false},
+      {"label": "D", "text": "A method that only applies after project completion, once the final delay total is known.", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "TIA is fundamentally a fragnet-insertion method typically used prospectively (or shortly after the event, using contemporaneous or near-contemporaneous schedule data) to model and quantify a specific delay event's calculated effect on the critical path and forecast completion, distinguishing it from purely retrospective as-built comparison methods.",
+    "reasoning": "TIA's defining feature is impact modeling via fragnet insertion into a specific pre-impact schedule snapshot, in contrast to methods that work backward from as-built data after the fact.",
+    "commonMistakes": [
+      "Confusing TIA with as-planned-vs-as-built or with a pure cost-based prolongation calculation.",
+      "Assuming TIA can only be performed after project completion."
+    ],
+    "redFlags": ["Cannot describe the fragnet-insertion mechanism at all."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What is the key piece of information a TIA needs that a purely retrospective method does not require?", "purpose": "Tests understanding of pre-impact schedule selection as central to TIA."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 60,
+    "tags": ["TIA definition", "fragnet", "delay analysis methods"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-002",
+    "category": "TIA",
+    "subcategory": "Fragnet Construction from Source Documents",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Building a defensible fragnet with durations traceable to real supporting data and correctly spliced into existing network logic",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "CASE_STUDY",
+    "scenario": "On a toll road interchange project, the employer issues a variation instruction to redesign a retaining wall's foundation after a geotechnical issue is discovered. The instruction states the redesign will require: geotechnical investigation (already completed, referenced), structural redesign submission (stated 15 working days), employer review and approval (contract default 10 working days), and revised foundation construction expected to take 'approximately the same duration' as the original design based on similar wall sections elsewhere on the project (originally 12 working days).",
+    "question": "Walk through how you would construct the fragnet for this event, including the activities, durations, and logic you would use, and identify anything in the source information that is NOT yet sufficient to build a defensible fragnet.",
+    "expectedAnswer": "Would build a fragnet with at least: (1) Structural redesign submission — 15 working days, tied with appropriate logic and lag from the point the redesign requirement was triggered; (2) Employer review/approval — 10 working days, finish-to-start from submission; (3) Revised foundation construction — durations should not simply assume 'approximately the same' without verifying against the actual as-built durations of the comparable wall sections referenced (need the real historical data, not just the instruction's assertion); logic ties into the existing network should tie the fragnet's start to the actual point of geotechnical discovery/instruction and tie its end into whatever original foundation construction activity it is displacing/replacing, being careful not to leave the original (now superseded) foundation activity duplicated in the network. Flags that the 'approximately the same duration' language is not yet sufficient — the analyst should pull the actual recorded durations of the referenced comparable wall sections rather than accepting an estimate at face value.",
+    "strongAnswer": "Also raises whether lag should be included for standard employer review turnaround based on actual historical review performance on this project (if reviews have consistently taken longer than the contractual 10 days in practice, a defensible fragnet duration might reasonably reflect that rather than the theoretical contract minimum) — and flags that any assumption used should be disclosed transparently in the analysis rather than silently adopted.",
+    "expertAnswer": "Notes the critical importance of removing/superseding the original foundation activity correctly rather than leaving both the old and new foundation activities in the network (which would double count or distort logic), and of confirming whether the redesign and review can genuinely only happen sequentially or whether some overlap reflects reality; recommends documenting each fragnet duration's source (contract default, actual referenced comparable, or estimate) individually so the fragnet's assumptions can be independently checked and challenged.",
+    "explanation": "A defensible fragnet must be built from real supporting data for each duration and correctly spliced into the network logic, replacing rather than duplicating superseded activities, with every assumption traceable to its source.",
+    "reasoning": "TIA's credibility depends entirely on the fragnet accurately representing the real activities, durations, and logic of the delay event; unverified assumptions (like 'approximately the same duration') or incorrect network splicing (leaving duplicated/superseded activities) directly distort the calculated impact.",
+    "commonMistakes": [
+      "Accepting 'approximately the same duration' without checking actual historical data.",
+      "Leaving the original superseded activity in the network alongside the new fragnet, causing double counting.",
+      "Not disclosing which durations are assumptions versus documented facts."
+    ],
+    "redFlags": ["Builds the fragnet purely from the instruction's own language without seeking underlying data or checking for duplicate/superseded activities."],
+    "p6Checks": [
+      "Add the fragnet activities with clear naming distinguishing them from existing activities.",
+      "Tie fragnet start logic to the actual trigger date (geotechnical discovery/instruction), not an arbitrary date.",
+      "Confirm the original foundation activity is properly superseded (not run in parallel with the new fragnet) to avoid double counting.",
+      "Verify duration sources for each fragnet activity are documented (contract default vs actual data vs estimate)."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the actual historical review turnaround on this project has averaged 16 working days rather than the contractual 10, which duration should the fragnet use, and why?", "purpose": "Tests judgment on contractual vs actual data."},
+      {"trigger": "if_correct", "prompt": "How would you handle the original foundation construction activity in the network once the fragnet is inserted?", "purpose": "Tests double-counting avoidance specifically."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Constructs a fragnet with concrete activities, durations, and logic."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly splices the fragnet into existing network logic without duplication."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Identifies the unverified duration assumption and requires real supporting data."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 260,
+    "tags": ["fragnet construction", "TIA", "network logic", "duration substantiation"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-003",
+    "category": "TIA",
+    "subcategory": "Fragnet Insertion Point and Logic-Tying Errors",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Identifying incorrect fragnet logic ties that bypass real downstream activities and corrupt the calculated impact",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "P6_ANALYSIS",
+    "scenario": "On a container terminal project, a planner builds a TIA fragnet for a 14-day employer-caused delay to a crane rail foundation redesign. To 'keep it simple,' the planner ties the fragnet's finish with a Finish-to-Start relationship directly into the project's overall completion milestone, bypassing the actual downstream activities (crane rail installation, crane commissioning, crane rail testing) that the redesigned foundation would really need to feed into first.",
+    "question": "What is wrong with this logic-tying approach, and what effect is it likely to have on the calculated impact?",
+    "expectedAnswer": "Tying the fragnet directly to the completion milestone bypasses the real intervening downstream activities and their own durations/logic/float, which is not how the delay would actually propagate through the network; this shortcut is likely to produce an inaccurate impact calculation — potentially overstating the delay (if it skips downstream activities that had float or could have been resequenced) or understating it (if it ignores additional downstream durations that would also need to complete before the milestone). The fragnet must be tied into the network at the actual point where the delayed scope re-enters existing logic (i.e., feeding the real successor, crane rail installation), preserving the existing downstream chain through to completion so the calculated effect reflects genuine network mechanics.",
+    "strongAnswer": "Notes this kind of shortcut is a common, serious TIA error precisely because it's easy to do and superficially 'simpler,' and recommends the analyst always verify that the modeled downstream path after the fragnet is the same real path (with the same activities and logic) that existed before the fragnet was inserted, except for the newly added event.",
+    "expertAnswer": "Highlights that this error is one that opposing experts specifically look for when challenging a TIA, since it is straightforward to detect (compare the schedule before and after fragnet insertion for missing or rerouted downstream activities) and can single-handedly discredit an otherwise reasonable analysis; recommends a standard QA step of listing every activity between the fragnet and the completion milestone in both the pre- and post-impact schedules and confirming no downstream activity was dropped, added, or re-logic'd without justification.",
+    "explanation": "A fragnet must be tied into the real, existing downstream network logic at the actual point of re-entry, not shortcut directly to the completion milestone, or the calculated impact will not reflect genuine causal mechanics.",
+    "reasoning": "TIA's validity depends on the fragnet propagating through the schedule via the same logic that would genuinely govern the work; bypassing real downstream activities substitutes an artificial, simplified path for the actual network, corrupting the resulting impact figure.",
+    "commonMistakes": [
+      "Tying fragnets directly to milestones or FS relationships that skip real intervening activities 'for simplicity'.",
+      "Not checking that the downstream chain after the fragnet matches the pre-impact schedule's real logic.",
+      "Assuming a shorter logic path is conservative when it can actually overstate or understate impact unpredictably."
+    ],
+    "redFlags": ["Cannot explain why bypassing real downstream logic corrupts the result; defends the shortcut as acceptable simplification."],
+    "p6Checks": [
+      "List every activity/relationship between the fragnet's finish and the completion milestone in the pre-impact schedule.",
+      "Confirm the fragnet's successor in the post-impact schedule is the real next activity (e.g., crane rail installation), not the milestone.",
+      "Compare total float and driving paths before and after insertion to sanity-check the result against the real network."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you detect this kind of logic-tying shortcut if you were reviewing someone else's TIA rather than building it yourself?", "purpose": "Tests reviewer/QA mindset, not just builder mindset."},
+      {"trigger": "if_correct", "prompt": "Could this shortcut ever produce a smaller (rather than larger) impact figure than the correct logic? How?", "purpose": "Tests understanding that the distortion direction is not always in the claimant's favor."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the logic-tying error and its mechanism."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete before/after network checks to detect the error."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes the correct logic-tying approach (real downstream successor, not the milestone)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 230,
+    "tags": ["fragnet insertion", "logic tying", "TIA errors", "network integrity"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-004",
+    "category": "TIA",
+    "subcategory": "Choice of Pre-Impact Schedule for TIA",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Balancing currency against evidentiary reliability when selecting the pre-impact reference schedule for a TIA",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "DELAY_CLAIM_SCENARIO",
+    "scenario": "On a solar farm EPC project, an employer-caused delay (late grid connection approval) occurs in month 7. Three candidate schedules exist at that point: (a) the original approved baseline (month 0), (b) the last formally accepted monthly update (month 6, data date matches), and (c) an informal, more current working file the planner maintains daily that already reflects two weeks of progress beyond the month 6 update and a resequencing not yet submitted for formal acceptance.",
+    "question": "Which of these three would you use as the pre-impact schedule for the TIA fragnet insertion, and why?",
+    "expectedAnswer": "The last formally accepted monthly update (b) is generally the preferred choice for a real-time/near-contemporaneous TIA, since it represents the mutually recognized, agreed record of the schedule's state closest to the event, giving the analysis credibility and a defensible, verifiable starting point; the original baseline (a) is too stale by month 7 (ignores six months of real progress and changes) and the informal working file (c), while potentially more current in fact, has not been agreed/accepted and its resequencing is unverified, making it a weaker evidentiary foundation even if arguably more accurate in a narrow technical sense.",
+    "strongAnswer": "Notes that if the two-week gap and resequencing in the informal file are material to how the event would actually propagate, this is a real tension worth flagging rather than ignoring — recommends either expediting formal acceptance of an updated schedule closer to the event date before performing the TIA, or performing the TIA on (b) and then providing a sensitivity check/disclosure showing how the result might change if the informal, more current file were used instead, so the choice and its limitations are transparent.",
+    "expertAnswer": "Highlights that this exact tension (accepted-but-stale vs current-but-unaccepted) is a recurring practical problem in real-time TIA and that the contract may specify update frequency/approval requirements that bear on which is 'the' schedule of record; recommends checking the contract's schedule submission/approval clause and, absent clear specification, favoring the most recent schedule that both parties can be shown to have relied upon or had visibility of, over either extreme, and clearly documenting the choice and rationale in the TIA report itself.",
+    "explanation": "The pre-impact schedule for a TIA should represent an evidentially reliable, ideally mutually-recognized snapshot of the network as close as practicable to the event, balancing currency against verifiability/acceptance; a stale accepted baseline and an unaccepted informal file each carry different risks.",
+    "reasoning": "TIA credibility depends on the pre-impact reference being both temporally close to the event (to isolate its true incremental effect) and evidentially defensible (agreed, verifiable, not unilaterally constructed); favoring only one of these two properties at the expense of the other weakens the analysis either way.",
+    "commonMistakes": [
+      "Automatically using the original baseline regardless of how stale it is.",
+      "Automatically using whichever internal working file is most current without regard to whether it has been agreed/accepted.",
+      "Not disclosing the choice and its limitations."
+    ],
+    "redFlags": ["Cannot articulate the trade-off between currency and evidentiary reliability when choosing the reference schedule."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the informal working file's resequencing turns out to be exactly what later gets formally accepted anyway, does that change which schedule you should have used?", "purpose": "Tests whether they distinguish 'ideal accuracy in hindsight' from 'what was defensible to use at the time'."},
+      {"trigger": "if_correct", "prompt": "What would you put in the TIA report to disclose this choice transparently?", "purpose": "Tests practical report-writing follow-through on the judgment call."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Weighs currency against evidentiary reliability rather than defaulting to one extreme."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains why a stale or an unaccepted reference each distort the analysis differently."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete resolution (expedited acceptance, sensitivity check, or documented choice)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 230,
+    "tags": ["pre-impact schedule", "TIA methodology", "schedule acceptance", "contemporaneous data"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-005",
+    "category": "TIA",
+    "subcategory": "Data Date Placement in the Impacted Schedule",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Ensuring the Data Date and progress status used in a TIA calculation match the true start date of the delay event",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a hospital MEP retrofit project, a planner performs a TIA for a 9-day employer-caused delay event that started on day 100 of the project. The planner takes the accepted schedule update with a data date of day 85 (the most recent one available) and inserts the fragnet, but does not move the data date forward or update actual progress for the 15 days between day 85 and day 100 before running the calculation.",
+    "question": "What problem does this create, and what should the planner do about the data date before relying on the result?",
+    "expectedAnswer": "Leaving the data date at day 85 means the calculation ignores 15 days of actual progress, potential resequencing, and any other changes that genuinely occurred between day 85 and day 100 (the real point the event started), producing a TIA result that doesn't reflect what the network actually looked like at the true moment of impact; the planner should update the schedule with actual progress through day 100 (or use/obtain the nearest accepted update whose data date is at or very close to day 100) and move the data date to day 100 before inserting and running the fragnet, so the forward pass calculates the impact from the real as-was condition of the network, not a 15-day-stale one.",
+    "strongAnswer": "Notes that if no formally accepted update exists at exactly day 100, the planner should progress the day-85 update with best-available actual data (status of activities, actual dates for anything completed in between) to reconstruct a defensible day-100 position rather than either leaving it stale or fabricating an arbitrary one, and should disclose that this intermediate position was reconstructed rather than a formally accepted update.",
+    "expertAnswer": "Highlights that Data Date placement errors are among the more common, easily-overlooked TIA mistakes precisely because the fragnet insertion itself can look correct while the underlying schedule status is silently wrong — recommends this be a standard QA checklist item (confirm data date location equals the actual event start date, or is properly reconstructed to it) on every TIA before the impact result is relied upon.",
+    "explanation": "The data date used for the TIA calculation must reflect the actual project status as of the true start of the delay event; leaving a stale data date produces a forward-pass calculation that ignores real intervening progress and changes, corrupting the result.",
+    "reasoning": "The CPM forward pass calculates dates from the data date forward based on remaining durations and current logic/progress; if the data date and progress status don't match the true as-was condition at the event's actual start, the calculated impact reflects an artificial hybrid state rather than reality.",
+    "commonMistakes": [
+      "Using whatever accepted update happens to be available without checking whether its data date matches the true event start.",
+      "Not reconstructing/progressing the schedule to the correct as-was position when no exactly-matching update exists.",
+      "Treating data date placement as a minor technicality rather than a core input to the result's validity."
+    ],
+    "redFlags": ["Relies on a TIA result without confirming the data date used matches the actual event start date."],
+    "p6Checks": [
+      "Confirm the data date of the schedule used matches (or is properly reconstructed to) the actual start date of the delay event.",
+      "Check for any actual progress recorded between the available update's data date and the true event start date that is missing from the calculation.",
+      "Re-run the forward pass after correcting the data date and compare results to the (incorrect) stale-data-date version."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If updating progress through day 100 changes which path is critical compared to the day-85 update, how does that affect your confidence in the original (stale) TIA result?", "purpose": "Tests understanding that data date errors can invalidate the whole result, not just shift it slightly."},
+      {"trigger": "if_correct", "prompt": "What would you do if actual progress records for the day-85-to-100 window are incomplete or missing?", "purpose": "Tests handling of imperfect real-world data availability."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the stale data date as the core problem."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Explains the forward-pass mechanics affected by data date placement."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete fix (update progress, reconstruct as-was position, disclose)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["data date", "TIA", "schedule status", "forward pass"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-006",
+    "category": "TIA",
+    "subcategory": "Post-Impact Critical Path Plausibility Check",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Investigating a disproportionate calculated impact rather than accepting or rejecting it without checking the underlying mechanism",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "On a municipal wastewater plant upgrade, after inserting a fragnet for a 6-day employer-caused delay to an odor-control system design approval, the post-impact schedule shows the project completion date moving out by 19 days — more than three times the fragnet's own duration — with no other changes made to the schedule besides the fragnet insertion.",
+    "question": "Is a 19-day completion impact from a 6-day fragnet insertion plausible, or does this suggest an error? What would you check?",
+    "expectedAnswer": "It is not automatically impossible — in principle a short event can trigger a disproportionately larger completion impact if it displaces work into a materially worse period (e.g., pushing outdoor work into a seasonal shutdown, a permitted work-window closure, or a resource/access constraint that adds significant additional waiting time beyond the fragnet's own duration) — but a 19-day result from a 6-day cause is unusual enough that it warrants verification rather than acceptance at face value. Would check: whether the fragnet's placement pushed a downstream activity across a calendar boundary or into a restricted work window/seasonal constraint that added extra non-working time, whether an unrelated logic or constraint error was introduced during fragnet insertion, and whether the same displaced activities were already tight/critical for unrelated reasons that the fragnet merely exposed rather than caused outright.",
+    "strongAnswer": "Notes the specific mechanism to check for first is calendar effects (e.g., a 6-day slip pushing work past a seasonal cutoff, holiday shutdown, or permitted noise/work-hours window, resulting in a much longer real-world wait before work can resume) since this is the most common legitimate cause of amplified impact, followed by checking for accidental logic changes or constraint dates introduced alongside the fragnet.",
+    "expertAnswer": "Highlights that amplified (non-linear) impacts, when genuine, must be explained transparently in the TIA narrative with the specific mechanism identified (e.g., 'the 6-day slip pushes outdoor pipework past the October environmental work-window closure, adding a further 13 days until the window reopens in the spring'), since an unexplained disproportionate result — even if technically correct — invites justified skepticism from a reviewing engineer or opposing analyst and should never simply be presented as a bare number without the causal narrative.",
+    "explanation": "A disproportionate impact relative to the fragnet's own duration is possible when calendar/seasonal/access constraints or other network features amplify a short delay's effect, but should always be investigated and explained, not assumed to be either automatically valid or automatically an error.",
+    "reasoning": "CPM propagation through calendars, constraints, and existing near-critical paths is nonlinear; a small shift at the wrong point in the network (e.g., just before a long non-working period) can produce a much larger completion effect, but the same disproportionate result can equally indicate an unintended change (extra constraint, broken logic) introduced during fragnet insertion — only investigation distinguishes the two.",
+    "commonMistakes": [
+      "Rejecting any disproportionate result out of hand as necessarily an error.",
+      "Accepting a disproportionate result without investigating or explaining the mechanism.",
+      "Not checking calendar/seasonal effects as the first, most common legitimate explanation."
+    ],
+    "redFlags": [
+      "Cannot name calendar/seasonal amplification as a possible legitimate mechanism.",
+      "Presents the 19-day figure without any causal explanation."
+    ],
+    "p6Checks": [
+      "Check the calendar assigned to the displaced downstream activities for seasonal/restricted work windows or shutdown periods.",
+      "Compare constraints and relationships before and after fragnet insertion to rule out an accidental change.",
+      "Trace the exact driving path from the fragnet through to the completion milestone to identify precisely where the amplification occurs."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If you find the amplification is caused by pushing pipework past a seasonal work-window closure, how would you present that finding in the TIA report so it isn't dismissed as implausible?", "purpose": "Tests practical report-writing/persuasion skill alongside the technical finding."},
+      {"trigger": "if_correct", "prompt": "What would you conclude if, instead, you found an accidental extra constraint had been introduced during fragnet insertion?", "purpose": "Tests handling of the error scenario as the alternative explanation."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Recognizes disproportionate impact as possible but requiring verification."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Names a plausible amplification mechanism (calendar/seasonal effects)."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete checks to confirm or rule out an error."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["disproportionate impact", "calendar effects", "TIA plausibility check", "seasonal constraints"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-007",
+    "category": "TIA",
+    "subcategory": "Quantifying Net Time Impact – Before/After Comparison",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Calculating the TIA time impact as the difference between post-impact and pre-impact forecast completion dates",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "NUMERICAL",
+    "scenario": "Before fragnet insertion, the pre-impact schedule (data date matching the event start) forecasts project completion on day 410 (from data date). After correctly inserting the fragnet representing a steel delivery delay and re-running the schedule, the forecast completion moves to day 417.",
+    "question": "What is the calculated time impact of this event according to the TIA, and what is this number properly described as?",
+    "correctAnswer": 7,
+    "explanation": "The calculated time impact is the difference between the post-impact and pre-impact forecast completion dates: 417 minus 410 = 7 working days. This figure represents the schedule-calculated critical-path impact of the event as modeled — it is the technical TIA output, not yet a confirmed contractual EOT entitlement, which still depends on the applicable contractual tests (qualifying event, notice, concurrency, etc.).",
+    "reasoning": "TIA quantifies impact strictly as the shift in the forward-pass-calculated completion date caused by inserting the fragnet into an otherwise-unchanged network, holding all other inputs constant so the difference isolates this event's effect.",
+    "commonMistakes": [
+      "Reporting the fragnet's own duration as the impact rather than the actual computed shift in completion date, which is not always identical to the fragnet's duration if partial float absorption or path changes occur.",
+      "Treating the 7-day technical result as automatically equal to entitlement."
+    ],
+    "redFlags": ["Conflates the fragnet's input duration with the calculated output impact without checking whether they actually match."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the fragnet itself represents a 10-day delay event but the calculated completion impact is only 7 days, what does that tell you about float or path changes in the network?", "purpose": "Tests understanding that input duration and output impact are not automatically identical."}
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 100,
+    "tags": ["TIA calculation", "completion impact", "before-after comparison"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-008",
+    "category": "TIA",
+    "subcategory": "Mitigation Credit Within the TIA Model",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Reflecting genuine, demonstrated mitigation in the TIA's modeled duration while keeping the cost-recovery question separate",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "DECISION_MAKING",
+    "scenario": "On a liquefied gas storage tank project, a TIA is being prepared for a 16-day employer-caused delay to a specialist welding procedure qualification. During the delay window, the contractor demonstrably resequenced two unrelated non-critical activities and temporarily added a second welding crew (at its own cost) to compress the downstream welding activity's remaining duration by 5 days once the qualification was finally approved, genuinely mitigating part of the impact.",
+    "question": "How should this mitigation be reflected in the TIA, and what result should it produce compared to a TIA that ignores it?",
+    "expectedAnswer": "The mitigation should be reflected by modeling the downstream welding activity's actual (mitigated, compressed) duration in the post-impact schedule rather than its original planned duration, since that is what genuinely happened and represents the real, achieved critical-path outcome; a TIA that properly incorporates the mitigation should show a smaller net completion impact (roughly 16 minus the 5 days of genuine compression, i.e., around 11 days, subject to how the compression interacts with the rest of the network) compared to a TIA that ignores the mitigation and would overstate the impact by continuing to assume the original unmitigated duration.",
+    "strongAnswer": "Notes that crediting mitigation in the technical TIA model (showing the true reduced impact) is a separate question from whether the contractor is entitled to recover the cost of the second crew as mitigation cost — that is a contractual/quantum question depending on the contract's treatment of mitigation costs, and should not be conflated with the schedule impact calculation itself, which should always reflect reality regardless of how the cost question is resolved.",
+    "expertAnswer": "Highlights that failing to credit demonstrated mitigation in the TIA model, when the contractor did it, produces a technically inflated and easily challengeable impact figure — an opposing analyst comparing the TIA against the known as-built compression would immediately spot the discrepancy; recommends always reconciling the TIA's post-impact modeled duration against actual achieved durations where the event has already concluded by the time of analysis, and being transparent in the report about which durations are modeled/forecast versus already-achieved actuals.",
+    "explanation": "A TIA should reflect the genuine, actually-achieved (mitigated) outcome once known, rather than an unmitigated theoretical duration, to remain technically accurate and defensible; the separate question of whether mitigation costs are recoverable is a contractual matter, not a scheduling one.",
+    "reasoning": "TIA models the network's real behavior; once mitigation has genuinely occurred and its effect is known (rather than merely forecast), using the original unmitigated duration would misstate the true, evidenced impact and inflate the claimed quantum beyond what actually happened.",
+    "commonMistakes": [
+      "Ignoring known, demonstrated mitigation and using the original planned duration anyway to maximize claimed days.",
+      "Conflating the scheduling question (what actually happened) with the separate cost-recovery question (whether mitigation costs are compensable)."
+    ],
+    "redFlags": ["Presents an unmitigated 16-day impact despite known evidence of a 5-day compression having actually occurred."],
+    "p6Checks": [
+      "Confirm the actual as-built duration of the mitigated welding activity and use it (rather than the original planned duration) in the post-impact model where the work has already concluded.",
+      "Verify the resequencing of the two unrelated non-critical activities didn't itself create any new critical-path exposure that should also be reflected.",
+      "Cross-check the modeled post-impact completion date against the actual as-built completion date for consistency once the relevant period has concluded."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Does modeling the mitigated (shorter) impact in the TIA reduce the contractor's cost entitlement for the second welding crew it paid for?", "purpose": "Tests separation of technical modeling accuracy from cost recovery entitlement."},
+      {"trigger": "if_correct", "prompt": "What if the mitigation had not yet concluded at the time the TIA was prepared — how would you model it then?", "purpose": "Tests handling of in-progress, not-yet-known mitigation effects."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Reflects the actual mitigated duration in the model rather than the unmitigated planned duration."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly nets the mitigation credit against the gross fragnet duration."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Keeps the scheduling accuracy question separate from the cost-recovery entitlement question."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 240,
+    "tags": ["mitigation credit", "TIA accuracy", "as-built reconciliation", "prolongation cost"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis", "SCL Delay and Disruption Protocol"]
+  },
+  {
+    "questionCode": "TIA-009",
+    "category": "TIA",
+    "subcategory": "Prospective Forecast vs Eventual Outcome",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing that a divergence between a prospective TIA forecast and the eventual as-built outcome does not automatically prove the original TIA was wrong",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "WHAT_NEXT",
+    "scenario": "On a battery manufacturing plant project, a TIA prepared in month 5 prospectively forecasts that an employer-caused delay to a specialized electrical switchgear approval will push completion by 22 days, and an interim EOT of 22 days is granted on that basis. Six months later, at actual project completion, the as-built record shows the project only finished 14 days later than the pre-event forecast — 8 days less than the TIA had predicted — because several subsequent, unrelated activities that had been on the near-critical path in month 5 were later accelerated by the contractor for its own commercial reasons, absorbing part of the gap.",
+    "question": "Does the fact that actual outcomes diverged from the month-5 TIA forecast mean the original TIA (and the 22-day EOT based on it) was wrong? What should happen next?",
+    "expectedAnswer": "Not necessarily wrong — a prospective TIA is a forecast based on the network and information known at the time; it is not expected to perfectly predict everything that happens afterward, especially independent, later contractor decisions (like accelerating unrelated activities) that were not known or foreseeable at the time of the analysis. The original 22-day forecast can have been a reasonable, well-founded prospective calculation even though the actual outcome differed due to later, independent events. What should happen next depends on the contract: some contracts treat interim EOT determinations as open to adjustment at final account/completion based on actual outcomes, in which case the final EOT might reasonably be reconciled toward what's supportable in light of full as-built information; others treat a properly granted interim EOT as standing on its own merits at the time it was granted, without automatic retrospective adjustment merely because later events changed the outcome.",
+    "strongAnswer": "Notes that even under a contract that allows retrospective reconciliation, the correct approach is not simply substituting the as-built difference (14 days) for the original forecast (22 days) mechanically, since the later acceleration was an independent contractor decision, not something that undoes the original event's genuine forecast impact — care is needed to isolate what the later acceleration actually changed versus assuming it retroactively proves the original TIA wrong.",
+    "expertAnswer": "Highlights that this scenario illustrates why forecast (prospective) and outcome (retrospective) figures can legitimately diverge without either being 'incorrect,' and that contract administrators should resist the temptation to treat a final as-built reconciliation as an automatic gotcha against an earlier good-faith prospective determination — the analysis should instead ask, at each point, whether the determination made was reasonable given what was known and foreseeable then, while separately considering whether the contract's mechanism calls for any final reconciliation regardless.",
+    "explanation": "Prospective TIA forecasts are based on information available at the time and are not invalidated merely because later, independent events cause the actual outcome to differ; how (or whether) to reconcile an interim determination against final as-built results is a contract-specific question.",
+    "reasoning": "Forecasting inherently involves incomplete information about the future; a reasonable, well-constructed prospective analysis can still diverge from eventual outcomes due to subsequent independent events without the original analysis having been flawed, since 'flawed' and 'later overtaken by new information' are different things.",
+    "commonMistakes": [
+      "Assuming any divergence between a TIA forecast and actual outcome proves the TIA was wrong.",
+      "Mechanically substituting the as-built gap for the forecast without analyzing what caused the difference.",
+      "Not checking whether the contract provides for any final reconciliation mechanism at all."
+    ],
+    "redFlags": ["Treats forecast/outcome divergence as automatic proof of analytical error without investigating cause."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the later contractor acceleration had never happened, would the as-built outcome have matched the 22-day forecast more closely?", "purpose": "Tests whether the candidate can isolate the independent variable causing the divergence."},
+      {"trigger": "if_correct", "prompt": "How would you explain this divergence to a reviewing engineer who suspects the original TIA was inflated?", "purpose": "Tests practical communication of a defensible but counter-intuitive forecast/outcome gap."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Correctly attributes the divergence to a later, independent event rather than to the original TIA's validity."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Avoids treating divergence as automatic proof of error; checks contract for reconciliation mechanism."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Explains why prospective forecasts and retrospective outcomes are different measurements."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["prospective forecast", "as-built reconciliation", "TIA reliability", "interim EOT"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "TIA-010",
+    "category": "TIA",
+    "subcategory": "Common TIA Error – Stale Pre-Impact Schedule",
+    "competency": "DELAY_CLAIMS",
+    "skill": "Recognizing a suspiciously clean 1:1 fragnet-to-impact result combined with a stale pre-impact schedule as a methodology red flag",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "On a food processing plant expansion, a contractor's TIA for a 3-week employer-caused delay to a refrigeration system spec approval shows a calculated completion impact of 21 days — exactly matching the fragnet's own duration, with no absorption, amplification, or path change at all, despite the project having numerous other activities with varying float running in parallel. The engineer's reviewer notices the pre-impact schedule used has a data date six months before the event actually occurred.",
+    "question": "What is the most likely explanation for the suspiciously exact 1:1 match between the fragnet duration and the calculated impact, and what would you do to verify?",
+    "expectedAnswer": "The most likely explanation is that the stale, six-month-old pre-impact schedule doesn't reflect real project conditions at the true time of the event — a stale schedule with unrealistic or already-outdated float distributions is prone to producing an artificially clean, 1:1 fragnet-to-impact result because it hasn't been tested against the real, current network's actual float and path structure; a properly current pre-impact schedule reflecting six months of real progress, resequencing, and prior delays/accelerations would be expected to show at least some absorption or amplification given how rarely real, complex networks produce an exact 1:1 result. Would verify by rebuilding the TIA using the correct, current (or reconstructed) pre-impact schedule as of the actual event date and comparing.",
+    "strongAnswer": "Notes that a clean 1:1 result isn't impossible (it can happen if the affected activity was already exactly critical with zero float and nothing downstream had any interaction), but combined with the known six-month-stale data date, the far more probable explanation is a methodology error rather than a genuine coincidence, and recommends this as exactly the kind of red flag a careful reviewer should specifically look for.",
+    "expertAnswer": "Highlights that this is a classic, well-known TIA red flag pattern — analysts under commercial pressure sometimes select a stale, convenient pre-impact schedule specifically because it produces a clean, easy-to-defend 1:1 result, when a properly current schedule would show a different (often smaller, due to float absorption) number; recommends a reviewing engineer or opposing analyst always check the pre-impact schedule's data date against the true event date as a first-pass sanity/red-flag check before evaluating anything else in the TIA.",
+    "explanation": "An exact 1:1 match between fragnet duration and calculated impact, combined with a stale pre-impact schedule, is a strong indicator that the reference schedule doesn't reflect real, current network conditions, and the analysis should be rebuilt on a properly current pre-impact schedule before being relied upon.",
+    "reasoning": "Real, complex CPM networks with many activities and float relationships rarely produce a perfectly clean 1:1 fragnet-to-impact result; a stale reference schedule can artificially produce this by not reflecting the true, current float and path structure that a genuinely current network would show.",
+    "commonMistakes": [
+      "Accepting a suspiciously clean 1:1 result at face value without checking the pre-impact schedule's data date.",
+      "Not treating stale-reference-schedule use as a specific, checkable red flag.",
+      "Assuming exact matches are always either definitely correct or definitely fraudulent rather than investigating."
+    ],
+    "redFlags": ["Does not flag the six-month-stale data date as relevant to evaluating the suspiciously clean result."],
+    "p6Checks": [
+      "Check the pre-impact schedule's data date against the actual, true date the delay event began.",
+      "Rebuild the TIA using a current or properly reconstructed pre-impact schedule and compare the result.",
+      "Check whether the affected activity genuinely had zero float in the current, up-to-date network before assuming the 1:1 result is simply a coincidence."
+    ],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If rebuilding the TIA on a current schedule shows only 14 days of impact instead of 21, what does that 7-day difference represent?", "purpose": "Tests understanding that the difference reflects float absorbed by real intervening changes the stale schedule missed."},
+      {"trigger": "if_correct", "prompt": "What other single check would you make as a fast first-pass red-flag screen on any TIA you're asked to review?", "purpose": "Tests generalization of the red-flag-screening habit beyond this one case."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Identifies the stale data date as the likely cause of the suspicious 1:1 result."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Investigates rather than reflexively accepting or rejecting the result."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete verification step (rebuild on current schedule and compare)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": ["stale schedule", "TIA red flags", "pre-impact schedule", "review technique"],
+    "references": ["AACE RP 29R-03 Forensic Schedule Analysis"]
   }
 ]
