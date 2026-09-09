@@ -1,0 +1,458 @@
+// ============================================================================
+// Planning Engineer Competency Assessment Platform — Database Schema
+// ============================================================================
+// Provider: SQLite for zero-config dev/demo. All types used here (String,
+// Int, Float, Boolean, DateTime) are portable to PostgreSQL — swapping
+// `provider = "postgresql"` and DATABASE_URL is the only change required for
+// production (see docs/DEPLOYMENT.md). SQLite has no native enum or Json
+// type in this Prisma version, so: (1) "enum-like" fields are plain Strings
+// whose allowed values are enforced by src/lib/constants.ts + Zod schemas at
+// the API boundary — on Postgres these can be promoted to native enums
+// without a data migration; (2) structured/array values are stored as JSON
+// text in String columns and (de)serialized through the typed helpers in
+// src/lib/json.ts — on Postgres these can be promoted to native Json columns.
+// ============================================================================
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ----------------------------------------------------------------------------
+// Identity & Roles
+// ----------------------------------------------------------------------------
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String // ADMIN | ASSESSMENT_MANAGER | INTERVIEWER | CANDIDATE | VIEWER
+  locale       String   @default("en")
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  candidateProfile   Candidate?           @relation("UserCandidate")
+  authoredQuestions  Question[]           @relation("QuestionAuthor")
+  reviewedQuestions  Question[]           @relation("QuestionReviewer")
+  interviewsGiven    Interview[]          @relation("InterviewInterviewer")
+  assessmentsCreated Assessment[]         @relation("AssessmentCreator")
+  reportsGenerated   Report[]             @relation("ReportGenerator")
+  auditLogs          AuditLog[]
+  questionVersions   QuestionVersion[]
+  flaggedQuestions   QuestionFlagRecord[] @relation("FlagRaisedBy")
+
+  @@index([role])
+}
+
+model Candidate {
+  id                 String   @id @default(uuid())
+  userId             String?  @unique
+  user               User?    @relation("UserCandidate", fields: [userId], references: [id])
+  fullName           String
+  email              String   @unique
+  phone              String?
+  currentPosition    String?
+  targetPosition     String? // e.g. "Senior Planning Engineer"
+  yearsExperience    Float?
+  primaryProjectType String?
+  organization       String?
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  assessments Assessment[]
+  interviews  Interview[]
+  reports     Report[]
+}
+
+// ----------------------------------------------------------------------------
+// Question Bank Taxonomy
+// ----------------------------------------------------------------------------
+
+model Category {
+  id          String  @id @default(uuid())
+  code        String  @unique
+  name        String
+  nameAr      String?
+  description String?
+  order       Int     @default(0)
+
+  questions Question[]
+}
+
+model Competency {
+  id            String  @id @default(uuid())
+  code          String  @unique
+  name          String
+  nameAr        String?
+  group         String // one of the 8 weighted scoring groups, see src/lib/engine/competencies.ts
+  description   String?
+  defaultWeight Float   @default(0)
+  isCritical    Boolean @default(false) // used by level-classification gating
+
+  questions Question[]
+  scores    Score[]
+}
+
+model Question {
+  id           String @id @default(uuid())
+  questionCode String @unique
+
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  subcategory  String?
+  competencyId String
+  competency   Competency @relation(fields: [competencyId], references: [id])
+  skill        String?
+
+  difficulty             Int // 1 (Basic) .. 5 (Expert/Managerial)
+  careerLevel            String // primary target level: JUNIOR | PLANNING_ENGINEER | SENIOR | LEAD | MANAGER
+  secondaryCareerLevels  String? // string[] of additional suitable levels
+
+  questionType String // see src/lib/constants.ts QUESTION_TYPES
+
+  scenario   String?
+  question   String
+  questionAr String?
+
+  correctAnswer  String? // string | string[] | boolean | number depending on questionType
+  expectedAnswer String?
+  strongAnswer   String?
+  expertAnswer   String?
+
+  explanation       String?
+  reasoning         String?
+  commonMistakes    String? // string[]
+  redFlags          String? // string[]
+  p6Checks          String? // string[]
+  followUpQuestions String? // {trigger, prompt, purpose}[]
+  scoringRubric     String? // rubric dimensions for written/scenario answers
+  weight            Float @default(1.0)
+  estimatedTimeSec  Int   @default(90)
+  tags              String? // string[] (denormalized convenience; QuestionTagLink is the queryable source)
+  references        String? // string[]
+
+  // Scenario-question extensions
+  projectType                  String?
+  projectSituation             String?
+  givenData                    String?
+  requiredAnalysis             String?
+  expectedDecision             String?
+  acceptableAlternativeAnswers String?
+
+  status     String  @default("PUBLISHED") // DRAFT | REVIEW | APPROVED | PUBLISHED | ARCHIVED
+  version    Int     @default(1)
+  authorId   String?
+  author     User?   @relation("QuestionAuthor", fields: [authorId], references: [id])
+  reviewerId String?
+  reviewer   User?   @relation("QuestionReviewer", fields: [reviewerId], references: [id])
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  options             QuestionOption[]
+  tagLinks            QuestionTagLink[]
+  versions            QuestionVersion[]
+  assessmentQuestions AssessmentQuestion[]
+  relationsFrom       QuestionRelation[]   @relation("RelFrom")
+  relationsTo         QuestionRelation[]   @relation("RelTo")
+  flagRecords         QuestionFlagRecord[]
+
+  @@index([categoryId])
+  @@index([competencyId])
+  @@index([difficulty])
+  @@index([careerLevel])
+  @@index([questionType])
+  @@index([status])
+  @@index([isActive])
+}
+
+model QuestionOption {
+  id         String   @id @default(uuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  label      String // A, B, C, D...
+  text       String
+  textAr     String?
+  isCorrect  Boolean  @default(false)
+  order      Int      @default(0)
+
+  @@index([questionId])
+}
+
+model QuestionTagLink {
+  id         String   @id @default(uuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  tag        String
+
+  @@unique([questionId, tag])
+  @@index([tag])
+}
+
+model QuestionRelation {
+  id             String   @id @default(uuid())
+  fromQuestionId String
+  fromQuestion   Question @relation("RelFrom", fields: [fromQuestionId], references: [id], onDelete: Cascade)
+  toQuestionId   String
+  toQuestion     Question @relation("RelTo", fields: [toQuestionId], references: [id], onDelete: Cascade)
+  relationType   String // RELATED | PREREQUISITE | FOLLOWUP
+
+  @@unique([fromQuestionId, toQuestionId, relationType])
+}
+
+model QuestionVersion {
+  id            String   @id @default(uuid())
+  questionId    String
+  question      Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  versionNumber Int
+  snapshot      String
+  authorId      String?
+  author        User?    @relation(fields: [authorId], references: [id])
+  changeNote    String?
+  createdAt     DateTime @default(now())
+
+  @@index([questionId])
+}
+
+model QuestionFlagRecord {
+  id             String   @id @default(uuid())
+  questionId     String
+  question       Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  flag           String // AMBIGUOUS | INCORRECT | TOO_EASY | TOO_DIFFICULT | DUPLICATE | NEEDS_REVIEW
+  note           String?
+  raisedById     String?
+  raisedBy       User?    @relation("FlagRaisedBy", fields: [raisedById], references: [id])
+  resolved       Boolean  @default(false)
+  resolutionNote String?
+  createdAt      DateTime @default(now())
+
+  @@index([questionId])
+}
+
+// ----------------------------------------------------------------------------
+// Assessments, Answers, Scoring
+// ----------------------------------------------------------------------------
+
+model Assessment {
+  id            String    @id @default(uuid())
+  code          String    @unique
+  candidateId   String
+  candidate     Candidate @relation(fields: [candidateId], references: [id])
+  mode          String // QUICK | STANDARD | FULL | CERTIFICATION | INTERVIEW | SENIOR_MANAGER | PRACTICAL_P6 | TRAINING | CUSTOM
+  status        String    @default("NOT_STARTED") // NOT_STARTED | IN_PROGRESS | PAUSED | COMPLETED | ABANDONED
+  config        String? // mode parameters: competencies/categories/levels/duration/questionCount etc.
+  createdById   String?
+  createdBy     User?     @relation("AssessmentCreator", fields: [createdById], references: [id])
+
+  targetPosition     String?
+  projectTypeContext String?
+  isAdaptive         Boolean @default(true)
+  randomizeOrder     Boolean @default(true)
+  timeLimitSec       Int?
+
+  startedAt        DateTime?
+  completedAt      DateTime?
+  currentIndex     Int       @default(0)
+  overallScore     Float?
+  recommendedLevel String?
+  confidenceLevel  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  questions AssessmentQuestion[]
+  scores    Score[]
+  interview Interview?
+  reports   Report[]
+
+  @@index([candidateId])
+  @@index([status])
+  @@index([mode])
+}
+
+model AssessmentQuestion {
+  id                    String     @id @default(uuid())
+  assessmentId          String
+  assessment            Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  questionId            String
+  question               Question  @relation(fields: [questionId], references: [id])
+  order                  Int
+  presentedOptionsOrder  String? // shuffled option id order shown to this candidate
+  numericVariant         String? // randomized numeric parameters actually used, for anti-memorization
+  isFollowUp             Boolean   @default(false)
+  parentId               String?
+  status                 String    @default("PENDING") // PENDING | PRESENTED | ANSWERED | SKIPPED
+  presentedAt            DateTime?
+  timeAllowedSec         Int?
+
+  answer Answer?
+
+  @@index([assessmentId])
+  @@index([questionId])
+}
+
+model Answer {
+  id                       String             @id @default(uuid())
+  assessmentQuestionId     String             @unique
+  assessmentQuestion       AssessmentQuestion @relation(fields: [assessmentQuestionId], references: [id], onDelete: Cascade)
+  candidateAnswer          String? // option id(s) | boolean | number | free text echoed here too
+  writtenAnswerText        String?
+  isCorrect                Boolean?
+  autoScore                Float?
+  rubricScores             String? // per-dimension 0-5 scores
+  finalScore               Float?
+  interviewerOverrideScore Float?
+  interviewerNotes         String?
+  detectedConcepts         String?
+  missingConcepts          String?
+  timeSpentSec             Int?
+  answeredAt               DateTime?
+  createdAt                DateTime           @default(now())
+}
+
+model Score {
+  id                String      @id @default(uuid())
+  assessmentId      String
+  assessment        Assessment  @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  competencyId      String?
+  competency        Competency? @relation(fields: [competencyId], references: [id])
+  scope             String // OVERALL | COMPETENCY | DIFFICULTY | CATEGORY
+  scopeKey          String? // difficulty level number or category code, when scope needs it
+  rawScore          Float
+  weightedScore     Float?
+  questionsAnswered Int         @default(0)
+  questionsCorrect  Int         @default(0)
+  levelAchieved     String?
+
+  @@index([assessmentId])
+  @@index([competencyId])
+}
+
+// ----------------------------------------------------------------------------
+// Interview Mode
+// ----------------------------------------------------------------------------
+
+model Interview {
+  id            String      @id @default(uuid())
+  assessmentId  String?     @unique
+  assessment    Assessment? @relation(fields: [assessmentId], references: [id])
+  candidateId   String
+  candidate     Candidate   @relation(fields: [candidateId], references: [id])
+  interviewerId String
+  interviewer   User        @relation("InterviewInterviewer", fields: [interviewerId], references: [id])
+
+  position           String
+  projectType        String?
+  experienceLevel    String?
+  plannedDurationMin Int?
+  competenciesFocus  String? // string[] of competency codes
+
+  status    String    @default("SCHEDULED") // SCHEDULED | IN_PROGRESS | COMPLETED | CANCELLED
+  startedAt DateTime?
+  endedAt   DateTime?
+  createdAt DateTime  @default(now())
+
+  notes     InterviewNote[]
+  followUps InterviewFollowUp[]
+}
+
+model InterviewNote {
+  id                   String    @id @default(uuid())
+  interviewId          String
+  interview            Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  assessmentQuestionId String?
+  note                 String
+  createdAt            DateTime  @default(now())
+}
+
+model InterviewFollowUp {
+  id                   String    @id @default(uuid())
+  interviewId          String
+  interview            Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  assessmentQuestionId String?
+  prompt               String
+  response             String?
+  score                Float?
+  askedAt              DateTime  @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// Reporting
+// ----------------------------------------------------------------------------
+
+model Report {
+  id             String      @id @default(uuid())
+  assessmentId   String?
+  assessment     Assessment? @relation(fields: [assessmentId], references: [id])
+  candidateId    String
+  candidate      Candidate   @relation(fields: [candidateId], references: [id])
+  generatedById  String?
+  generatedBy    User?       @relation("ReportGenerator", fields: [generatedById], references: [id])
+  type           String // CANDIDATE_PROFILE | ASSESSMENT_REPORT | INTERVIEW_REPORT
+  recommendation String? // STRONGLY_RECOMMENDED | RECOMMENDED | RECOMMENDED_WITH_DEVELOPMENT | BORDERLINE | NOT_RECOMMENDED
+  summary        String // frozen snapshot used to render the report + PDF
+  createdAt      DateTime    @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// Reference / Configuration data
+// ----------------------------------------------------------------------------
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model LevelThreshold {
+  id                          String  @id @default(uuid())
+  level                       String  @unique
+  order                       Int
+  minOverallScore             Float
+  minCriticalCompetencyScore String // { [competencyCode]: minScore0to100 }
+  description                 String?
+}
+
+model Settings {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  action     String
+  entityType String
+  entityId   String?
+  before     String?
+  after      String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+}
+
+// ----------------------------------------------------------------------------
+// Practical P6 Lab / future XER integration (scaffold — see docs/XER_INTEGRATION.md)
+// ----------------------------------------------------------------------------
+
+model ScheduleImport {
+  id           String   @id @default(uuid())
+  fileName     String
+  projectName  String?
+  importedById String?
+  status       String   @default("PARSED") // PARSED | FAILED
+  summary      String? // activity/relationship/calendar counts + diagnostic results
+  createdAt    DateTime @default(now())
+}

@@ -1,0 +1,88 @@
+{
+  "app": {
+    "name": "Planning Engineer Competency Assessment Platform",
+    "shortName": "PE Assessment"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "assessments": "Assessments",
+    "interview": "Interview",
+    "questionBank": "Question Bank",
+    "competencies": "Competencies",
+    "candidates": "Candidates",
+    "reports": "Reports",
+    "training": "Training",
+    "practicalP6": "Practical P6",
+    "analytics": "Analytics",
+    "administration": "Administration",
+    "logout": "Log out"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "filters": "Filters",
+    "loading": "Loading…",
+    "actions": "Actions",
+    "status": "Status",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "export": "Export",
+    "import": "Import",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "viewAll": "View all",
+    "language": "Language"
+  },
+  "auth": {
+    "login": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "loginTitle": "Sign in to your account",
+    "loginSubtitle": "Planning, Primavera P6 & Project Controls Competency Assessment",
+    "invalidCredentials": "Invalid email or password.",
+    "demoAccounts": "Demo accounts"
+  },
+  "roles": {
+    "ADMIN": "Administrator",
+    "ASSESSMENT_MANAGER": "Assessment Manager",
+    "INTERVIEWER": "Interviewer",
+    "CANDIDATE": "Candidate",
+    "VIEWER": "Viewer"
+  },
+  "careerLevels": {
+    "JUNIOR": "Junior Planning Engineer",
+    "PLANNING_ENGINEER": "Planning Engineer",
+    "SENIOR": "Senior Planning Engineer",
+    "LEAD": "Lead Planning Engineer",
+    "MANAGER": "Planning Manager"
+  },
+  "difficulty": {
+    "1": "Basic",
+    "2": "Intermediate",
+    "3": "Advanced",
+    "4": "Senior",
+    "5": "Expert / Managerial"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "totalCandidates": "Candidates",
+    "totalAssessments": "Assessments",
+    "avgScore": "Average Score",
+    "passRate": "Pass Rate",
+    "recentAssessments": "Recent Assessments",
+    "levelDistribution": "Level Distribution",
+    "competencyPerformance": "Competency Performance"
+  }
+}

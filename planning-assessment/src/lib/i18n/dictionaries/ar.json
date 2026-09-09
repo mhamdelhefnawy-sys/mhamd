@@ -1,0 +1,88 @@
+{
+  "app": {
+    "name": "منصة تقييم كفاءة مهندس التخطيط",
+    "shortName": "تقييم التخطيط"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "assessments": "التقييمات",
+    "interview": "المقابلة",
+    "questionBank": "بنك الأسئلة",
+    "competencies": "الكفاءات",
+    "candidates": "المرشحون",
+    "reports": "التقارير",
+    "training": "وضع التدريب",
+    "practicalP6": "مختبر Primavera P6",
+    "analytics": "التحليلات",
+    "administration": "الإدارة",
+    "logout": "تسجيل الخروج"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "search": "بحث",
+    "filter": "تصفية",
+    "filters": "عوامل التصفية",
+    "loading": "جاري التحميل…",
+    "actions": "إجراءات",
+    "status": "الحالة",
+    "close": "إغلاق",
+    "next": "التالي",
+    "previous": "السابق",
+    "submit": "إرسال",
+    "confirm": "تأكيد",
+    "export": "تصدير",
+    "import": "استيراد",
+    "all": "الكل",
+    "none": "لا شيء",
+    "yes": "نعم",
+    "no": "لا",
+    "back": "رجوع",
+    "viewAll": "عرض الكل",
+    "language": "اللغة"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "loginTitle": "تسجيل الدخول إلى حسابك",
+    "loginSubtitle": "منصة تقييم كفاءة التخطيط وPrimavera P6 وضبط المشاريع",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "demoAccounts": "حسابات تجريبية"
+  },
+  "roles": {
+    "ADMIN": "مسؤول النظام",
+    "ASSESSMENT_MANAGER": "مدير التقييم",
+    "INTERVIEWER": "القائم بالمقابلة",
+    "CANDIDATE": "المرشح",
+    "VIEWER": "مستعرض"
+  },
+  "careerLevels": {
+    "JUNIOR": "مهندس تخطيط مبتدئ",
+    "PLANNING_ENGINEER": "مهندس تخطيط",
+    "SENIOR": "مهندس تخطيط أول",
+    "LEAD": "قائد فريق التخطيط",
+    "MANAGER": "مدير التخطيط"
+  },
+  "difficulty": {
+    "1": "أساسي",
+    "2": "متوسط",
+    "3": "متقدم",
+    "4": "مستوى أول (Senior)",
+    "5": "خبير / إداري"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحباً بعودتك",
+    "totalCandidates": "المرشحون",
+    "totalAssessments": "التقييمات",
+    "avgScore": "متوسط الدرجات",
+    "passRate": "معدل النجاح",
+    "recentAssessments": "أحدث التقييمات",
+    "levelDistribution": "توزيع المستويات",
+    "competencyPerformance": "أداء الكفاءات"
+  }
+}

@@ -1,0 +1,1227 @@
+[
+  {
+    "questionCode": "SQ-001",
+    "category": "SQ",
+    "subcategory": "Open Ends and Dangling Logic",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Identifying and correcting open-ended activities lacking a driving predecessor or driven successor",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "A 14-month highway widening schedule with 640 activities is run through a schedule-quality check. The report flags 11 activities with no predecessor and 6 activities with no successor, excluding the project start and finish milestones.",
+    "question": "What practical risk do these 17 open-ended activities create, and what should you do before this schedule is accepted as the baseline?",
+    "explanation": "An activity with no predecessor can default to starting on day one (or at the data date) regardless of real site readiness, and an activity with no successor cannot drive anything downstream even if it slips - both defeat the purpose of a logic-driven CPM network. Every activity except the project start milestone should carry at least one predecessor, and every activity except the finish milestone should carry at least one successor, reflecting a real physical or resource dependency rather than a leftover from template copy-paste.",
+    "reasoning": "Total Float and the critical path are only meaningful when every activity's early and late dates are genuinely driven by network logic. An open-start activity often shows an artificially early start and inflated float because nothing constrains it realistically; an open-end activity shows inflated float because nothing downstream depends on its finish, so its true impact on completion stays invisible until traced manually.",
+    "commonMistakes": [
+      "Treating open ends as a cosmetic reporting issue with no float impact.",
+      "Closing the flag by adding a generic tie to the nearest milestone without checking whether the logic is physically real.",
+      "Treating a hard constraint as an acceptable permanent substitute for missing logic."
+    ],
+    "redFlags": [
+      "Candidate does not know how to filter for missing predecessor/successor in P6.",
+      "Candidate proposes hard constraints instead of real logic as the fix.",
+      "Candidate is unconcerned about open ends because the overall finish date still looks reasonable."
+    ],
+    "p6Checks": [
+      "Activities view - add Predecessors and Successors columns, or run the Schedule Log/Check Schedule report.",
+      "Filter for activities with zero predecessors or zero successors, excluding start/finish milestones.",
+      "Trace each flagged activity back to its real physical or resource dependency before adding logic."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you cannot find a real physical dependency for an open-start activity, what is a defensible interim fix versus a bad one?",
+        "purpose": "Tests whether the candidate distinguishes a defensible temporary treatment from logic-hiding."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would these open ends distort a DCMA-14-style logic percentage check?",
+        "purpose": "Connects the finding to a recognized schedule health metric."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "What happens to an activity's calculated float if nothing downstream ever depends on its finish?",
+        "purpose": "Remedial prompt toward float mechanics."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains the float-distortion effect of open ends."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Gives a concrete, defensible remediation approach, not just a flag-closing hack."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names concrete P6 views/filters to find and verify open ends."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "open ends",
+      "dangling logic",
+      "missing predecessor",
+      "missing successor",
+      "schedule quality",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-002",
+    "category": "SQ",
+    "subcategory": "Excessive Hard Constraints",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing when hard constraint usage undermines logic-driven float calculation",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "scenario": "You inherit a 900-activity hyperscale data center schedule. A quick audit shows 140 activities carry a 'Start On' or 'Finish On' hard constraint, mostly copied forward from an earlier phase's as-built dates. The project team says this makes the schedule 'more accurate' because it matches known site sequencing.",
+    "question": "Explain why this level of hard-constraint usage is a schedule quality concern, and how you would respond to the team's justification.",
+    "explanation": "Hard constraints ('Mandatory Start/Finish', or 'Start On'/'Finish On' when treated rigidly) override the calculated early/late dates that logic and duration would otherwise produce, so at roughly 15% of activities the schedule is no longer being driven primarily by CPM logic - it is being driven by dates someone typed in. This masks true float, can hide real slippage risk, and makes the forward/backward pass largely decorative on those activities. Reusing as-built dates from a prior phase as constraints on a new phase is a red flag: it locks in an assumption about sequencing pace that may not hold, and it prevents the schedule from telling you when an upstream problem is about to blow through that date.",
+    "reasoning": "CPM value comes from float being an emergent property of logic, duration and calendars. Every hard constraint replaces that emergent calculation with an assertion. A schedule with a large fraction of hard constraints effectively becomes a set of manually sequenced milestones with cosmetic logic in between, so metrics like Total Float, criticality and even the forecast finish date lose diagnostic power exactly where the team most needs an early warning.",
+    "commonMistakes": [
+      "Accepting 'it matches the known sequence' as sufficient justification without checking whether the constraint suppresses float that should be visible.",
+      "Not distinguishing soft constraints (e.g., Start On or Later Than, which only bound one side) from hard constraints that fully override the calculation.",
+      "Assuming constraint percentage is only a cosmetic KPI with no real analytical consequence."
+    ],
+    "redFlags": [
+      "Candidate cannot explain the difference between a constraint-driven date and a logic-driven date.",
+      "Candidate accepts heavy constraint usage without asking why logic alone could not produce the same dates.",
+      "Candidate has no plan to convert constraints to real logic over time."
+    ],
+    "p6Checks": [
+      "Activities view - add the Constraint Type and Constraint Date columns and filter/group by constraint type.",
+      "For each hard-constrained activity, check whether removing the constraint and relying on logic alone produces a materially different date - if so, the constraint is suppressing information.",
+      "Check whether constraints are concentrated on a few disciplines/subcontractors, which often signals logic was never modeled for that scope."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Is there ever a legitimate reason to keep a hard constraint rather than convert it to logic?",
+        "purpose": "Tests whether the candidate can distinguish genuine external drivers (permits, regulatory dates, vendor-fixed delivery windows) from lazy scheduling."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you phase out these constraints without disrupting an already-approved baseline?",
+        "purpose": "Tests practical change-management judgment, not just diagnosis."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains how hard constraints override CPM calculation and mask float."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the diagnostic-power loss, not just 'constraints are bad'."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Gives a constructive path forward rather than only criticism."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "hard constraints",
+      "start on",
+      "finish on",
+      "float suppression",
+      "data center",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-003",
+    "category": "SQ",
+    "subcategory": "Excessive and Negative Lag Usage",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Distinguishing legitimate lag from lag used to disguise missing scope or unrealistic acceleration",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "Reviewing a marine jetty construction schedule, you find a Finish-to-Start relationship between 'Pile Driving - Berth 2' and 'Pile Cap Concrete Pour - Berth 2' carrying a +35 calendar-day positive lag, and a separate relationship between 'Steel Fender Fabrication' and 'Fender Installation' carrying a -20 working-day negative lag (a lead).",
+    "question": "Evaluate each lag on its own merits: which is more likely defensible engineering logic, and which is more likely a scheduling problem?",
+    "explanation": "The +35-day lag on pile driving to pile cap pour could be defensible if it represents real curing/setting time, survey/as-built verification, or a mandatory waiting period specified by the geotechnical engineer - but it should be checked, because a large positive lag is also a common way of hiding an entire unmodeled activity (e.g., pile integrity testing, dewatering) inside a relationship where it is invisible to resource loading, progress updating and float calculation. The -20 working-day lead on fabrication to installation is far more suspect: a negative lag asserts that installation can start 20 days before fabrication finishes, which is only legitimate if it genuinely represents a partial-delivery or progressive-release scenario (e.g., installing the first batch of fenders while later units are still being fabricated) - and if so, it should be modeled as two separate fabrication/installation activities per batch, not disguised as a lead on a single pair of activities.",
+    "reasoning": "A lag is a black box: unlike an activity, it has no owner, no resource, no % complete, and does not appear as a line item to be tracked or challenged. Excessive positive lag (DCMA-style guidance flags lag as a concern when it represents more than roughly 5% of relationships, though this is one methodology among several) risks concealing real scope; negative lag is more structurally concerning because it implies work starting before its logical predecessor is finished without an activity boundary to justify why, which usually means the real sequence should be broken into smaller, separately trackable activities.",
+    "commonMistakes": [
+      "Assuming any positive lag is automatically fine because it 'feels like curing time'.",
+      "Assuming a negative lag is just an acceleration technique with no downside.",
+      "Not asking whether the lag conceals unmodeled scope that should be its own activity."
+    ],
+    "redFlags": [
+      "Candidate treats leads and lags as interchangeable schedule compression tools with no quality concern.",
+      "Candidate cannot propose how to convert either lag into explicit logic/activities.",
+      "Candidate is unaware that lags are invisible to resource loading and progress statusing."
+    ],
+    "p6Checks": [
+      "Relationships tab - review the Lag column across the schedule and sort/group by relationship type and lag value.",
+      "For any lag greater than roughly 10-15 working days, ask the discipline engineer what specific activity or waiting period it represents.",
+      "For negative lags, check whether the predecessor is a summable/batchable activity that should instead be split so the lead disappears."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If DCMA-style guidance flags any negative lag as unacceptable, is that a rule you should apply on every contract without exception?",
+        "purpose": "Tests whether the candidate understands DCMA-14 is one methodology, not a universal mandate, and that contract-specific schedule specifications govern."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you remodel the fender package to eliminate the negative lag while still capturing the real progressive-release intent?",
+        "purpose": "Tests ability to convert a lag hack into defensible network logic."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes plausible positive lag from suspect negative lag."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why lags conceal information that activities would expose."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete remodeling fix."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "lag",
+      "negative lag",
+      "lead",
+      "marine",
+      "relationships",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-004",
+    "category": "SQ",
+    "subcategory": "Excessive Activity Duration",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing when activity durations are too coarse to support meaningful progress measurement and float calculation",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MCQ",
+    "scenario": "In a modular oil & gas EPC schedule, the activity 'Module M-14 Piping Fabrication' has an original duration of 96 working days with no intermediate milestones, and progress is reported monthly as a single percent-complete estimate.",
+    "question": "What is the primary schedule-quality concern with an activity of this size and progress-reporting approach?",
+    "options": [
+      {
+        "label": "A",
+        "text": "Long, coarse-grained activities make percent-complete highly subjective and delay the visibility of slippage until much of the duration has already elapsed.",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "P6 cannot calculate float correctly for any activity longer than 44 working days.",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "Long activities always indicate the estimator padded the duration to hide contingency.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "There is no real concern as long as the activity finishes on its planned date.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Float calculation itself is unaffected by duration length - P6 computes float correctly regardless of how long an activity is. The real problem is measurement resolution: a 96-day activity reported as a single subjective percent-complete gives management almost no early warning, because an optimistic 'on track' status can persist for months before the true physical state becomes undeniable. Some methodologies (e.g., DCMA-14) flag activities over roughly 44 working days as a review trigger, but that threshold is guidance from one specific methodology, not a universal engineering rule, and applicability depends on the contract and client schedule specification.",
+    "reasoning": "Breaking the module into fabrication sub-stages (e.g., pipe cutting, fit-up, welding, NDT, coating) each with objective completion criteria and shorter durations converts a subjective monthly guess into a series of verifiable milestones, which is what actually improves earned value accuracy and early-warning capability - the fix is about measurement granularity, not about float mathematics.",
+    "commonMistakes": [
+      "Believing P6 float math breaks down for long-duration activities.",
+      "Treating the 44-day DCMA guideline as a hard universal rule rather than one methodology's threshold.",
+      "Assuming the only fix is to arbitrarily shorten the duration number without adding real measurable sub-steps."
+    ],
+    "redFlags": [
+      "Candidate states DCMA thresholds as mandatory on every project regardless of contract.",
+      "Candidate cannot explain the actual mechanism (subjective % complete) behind the concern."
+    ],
+    "p6Checks": [
+      "Activities view - filter for Original Duration above a chosen threshold and cross-check against how percent complete is being entered (Physical vs Duration % Complete).",
+      "Check whether Steps or WBS-level milestones exist inside the activity to support objective statusing."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Would you apply the exact same 44-working-day threshold on a 3-week fast-track fit-out project as on a 3-year EPC project?",
+        "purpose": "Tests whether the candidate applies DCMA-style thresholds contextually rather than mechanically."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies subjective progress measurement, not float math, as the core issue."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Frames DCMA thresholds as contract-dependent guidance, not a universal rule."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 90,
+    "tags": [
+      "high duration",
+      "percent complete",
+      "EPC",
+      "DCMA",
+      "measurement resolution"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-005",
+    "category": "SQ",
+    "subcategory": "High Float Prevalence",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Investigating root causes of an unusually high proportion of high-float activities",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "In a 55-story residential tower schedule, a health-check report shows 38% of remaining activities carry Total Float greater than 60 days, well above what the planning team expects for a schedule this tightly sequenced trade-by-trade.",
+    "question": "What are the most likely root causes of this unusually high proportion of high-float activities, and how would you investigate which one applies?",
+    "explanation": "High float at this scale is rarely 'the project just has slack' - the most common causes are: (1) missing logic ties, where activities that should be sequentially dependent on other trades float freely because no relationship was ever modeled; (2) an imposed project finish constraint that is far later than the logically calculated finish, which inflates float on every path relative to that distant date; (3) fragmented or duplicated scope where an activity's true successor exists but was never linked, so its real downstream impact is invisible; and (4) activities genuinely on a non-critical, resource-buffered path (e.g., procurement of a long-lead item ordered far in advance) where high float is legitimate. The investigation is to isolate which cause applies per activity rather than assume one blanket explanation.",
+    "reasoning": "Total Float is late date minus early date along a path; it grows either because early dates are correct but late dates are pushed out by a distant constraint, or because the network simply never connects that activity to anything that would pull its late date in - both are structural network issues, not evidence of genuine schedule slack, and both should be resolved before this schedule is relied on for float-based prioritization.",
+    "commonMistakes": [
+      "Concluding the project genuinely has abundant slack without checking for missing logic first.",
+      "Not checking whether a single distant project finish constraint is inflating float across many unrelated paths.",
+      "Treating every high-float activity as low priority for monitoring, when some are actually mis-modeled critical work."
+    ],
+    "redFlags": [
+      "Candidate has no systematic way to distinguish legitimate high float (e.g., procurement buffer) from missing-logic high float.",
+      "Candidate is comfortable reporting 38% high float as 'healthy contingency' without investigating."
+    ],
+    "p6Checks": [
+      "Activities view - filter Total Float above the threshold, then check each flagged activity's predecessor/successor count for gaps.",
+      "Check the project's Finish milestone for a hard constraint and compare the logic-only calculated finish against it.",
+      "Group high-float activities by responsible trade/subcontractor to see if the issue clusters around specific scope that was never fully logic-tied."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Some methodologies use a 44-day or 5% threshold to flag high float as a health concern - would you apply that threshold identically on a fast-track project versus a multi-year megaproject?",
+        "purpose": "Tests contextual application of DCMA-style guidance rather than rote rule-following."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If you find the cause is a distant imposed finish constraint, is fixing the constraint always the right answer?",
+        "purpose": "Tests whether the candidate understands imposed finish dates are sometimes contractually real and should stay."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly lists multiple plausible root causes, not just one."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains the CPM mechanics linking each cause to inflated float."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Gives a concrete investigation method to isolate the true cause."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "high float",
+      "missing logic",
+      "imposed constraint",
+      "residential tower",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-006",
+    "category": "SQ",
+    "subcategory": "Excessive Percentage of Critical Activities",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Evaluating whether a very high proportion of critical activities indicates good discipline or a fragile, over-constrained network",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "DECISION_MAKING",
+    "scenario": "On a metro rail tunneling and station-fit-out program, 71% of remaining activities carry zero or negative Total Float. The client's project director cites this as evidence the team is running 'a tight, disciplined, no-slack schedule' and is satisfied.",
+    "question": "Do you agree with the project director's interpretation? What would you tell them, and what would you check before forming a firm opinion?",
+    "explanation": "A very high percentage of critical activities is not evidence of discipline by itself - it more often signals a fragile network with almost no absorption capacity for normal variation, or an artifact of overly tight relationship modeling (e.g., excessive Start-to-Start with zero lag creating false lockstep between trades, or a chain of hard constraints each pinned near its neighbor). In a genuinely healthy schedule, some legitimate float exists as a buffer for ordinary variability; when 70%+ of the network is critical, a single average-sized disruption on almost any trade propagates directly to the finish date, and the schedule offers management no early-warning zone between 'on track' and 'late'. This must be investigated, not celebrated, before it is presented to the client as good news.",
+    "reasoning": "Total criticality is a function of the ratio between calculated logic-driven duration and the imposed/target finish date, and of relationship tightness. A high critical percentage can come from (a) a genuinely tight but legitimate contract duration with little room to spare, (b) overuse of zero-lag SS/FF ties that lock activities together more rigidly than physical construction actually requires, or (c) constraint chains. Only (a) is arguably 'disciplined'; (b) and (c) are schedule-quality defects that should be fixed before the finding is used to reassure a client.",
+    "commonMistakes": [
+      "Accepting 'tight and disciplined' as a positive framing without investigating the mechanism.",
+      "Not distinguishing a legitimately tight overall duration from artificially tight relationship logic.",
+      "Failing to flag the risk-management implication: almost no buffer against normal variability."
+    ],
+    "redFlags": [
+      "Candidate agrees with the project director's framing without qualification.",
+      "Candidate cannot name a mechanism (SS lockstep, constraint chains) that would falsely inflate criticality.",
+      "Candidate has no view on the risk-management consequence of near-zero-float networks."
+    ],
+    "p6Checks": [
+      "Activities view - group by relationship type mix (FS vs SS/FF) on the critical activities to check for excessive zero-lag SS/FF chains.",
+      "Check for a cluster of hard constraints near the project finish that could be artificially compressing float across many paths.",
+      "Run a what-if: temporarily relax one questionable SS-zero-lag tie and see how much the critical percentage changes."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If DCMA-style guidance suggests keeping critical activities under a certain percentage, would you cite that number to the client as a fixed pass/fail threshold?",
+        "purpose": "Tests whether the candidate presents DCMA-style benchmarks as one methodology among several rather than a universal contractual mandate."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If the high criticality turns out to be a genuinely tight but legitimate contract duration, what do you recommend instead of 'fixing' the schedule?",
+        "purpose": "Tests whether the candidate can pivot from diagnosis to risk management when the cause is real, not a modeling defect."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies that high criticality is not inherently good."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains at least two distinct mechanisms that could cause artificially high criticality."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Handles the client-facing communication tactfully but honestly."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "critical activities",
+      "network fragility",
+      "metro rail",
+      "SS relationships",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-007",
+    "category": "SQ",
+    "subcategory": "Missing Logic",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Understanding the relationship between logic percentage and schedule reliability",
+    "difficulty": 2,
+    "careerLevel": "JUNIOR",
+    "questionType": "TRUE_FALSE",
+    "scenario": "A schedule reviewer states: 'As long as the project finish date looks reasonable, the percentage of activities with fully defined predecessor and successor logic does not really matter.'",
+    "question": "True or False: A schedule can be considered reliable purely because its overall finish date looks reasonable, even if a significant percentage of activities lack complete logic ties.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": false
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": true
+      }
+    ],
+    "correctAnswer": "False",
+    "explanation": "A plausible-looking finish date can coexist with widespread missing logic, because activities without full logic ties can float freely or default to arbitrary dates that happen to sum to a reasonable-looking overall duration by coincidence, not because the network genuinely models cause and effect. The finish date is only trustworthy as a forecast if the path leading to it is actually logic-driven; otherwise a real delay upstream may never propagate to the finish date calculation because nothing connects the two.",
+    "reasoning": "CPM forecasting depends on an unbroken logic chain from data date to finish. Missing logic breaks that chain in places invisible from a top-level Gantt view, so an analyst who only checks 'does the finish date look right' can be fooled by a schedule that will not actually respond correctly when real-world delays occur.",
+    "commonMistakes": [
+      "Judging schedule quality solely by whether the finish date 'looks right'.",
+      "Assuming logic percentage is a bureaucratic metric with no forecasting consequence."
+    ],
+    "redFlags": [
+      "Candidate agrees a reasonable finish date is sufficient evidence of a reliable schedule."
+    ],
+    "p6Checks": [
+      "Run a schedule log/logic check report for missing predecessor/successor counts and compute logic percentage.",
+      "Spot-check a sample of activities with missing logic to see whether they are genuinely independent or should be tied to real work."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you demonstrate to a skeptical project manager that missing logic is a real risk, not a paperwork issue?",
+        "purpose": "Tests ability to translate a technical finding into a business risk explanation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies False with sound reasoning."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the logic-chain mechanism, not just states the answer."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 75,
+    "tags": [
+      "missing logic",
+      "logic percentage",
+      "schedule reliability",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-008",
+    "category": "SQ",
+    "subcategory": "Relationship Type Quality (FS Dominance)",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Evaluating whether relationship type mix reflects realistic construction sequencing rather than a rule-of-thumb ratio",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "scenario": "A hospital interior fit-out schedule is audited and found to use Finish-to-Start relationships for 98% of all logic ties, including between activities like 'Install Ceiling Grid' and 'Install Ceiling Tiles' in the same room, and between 'Rough-In Electrical' and 'Rough-In Plumbing' performed by two different crews working the same corridor in the same week.",
+    "question": "Is 98% FS relationship usage a sign of good schedule quality here? Explain your reasoning and what you would change, if anything.",
+    "explanation": "A high FS percentage is often cited as a DCMA-style health indicator, but 98% FS in a fit-out context can itself be a quality problem, not a strength: ceiling grid and ceiling tile installation in the same room, and parallel MEP rough-in trades sharing a corridor, are realistically modeled with Start-to-Start (with an appropriate lag) to reflect trades working in a rolling, overlapping sequence rather than one trade fully vacating before the next begins. Forcing everything into FS can artificially lengthen the schedule (each trade waits for full completion of the prior one) or, worse, can hide the real overlap that is actually happening on site, making the schedule diverge from reality and undermining progress statusing.",
+    "reasoning": "Relationship type should reflect the physical nature of the dependency: FS is correct when a successor genuinely cannot begin any part of its work until the predecessor is fully finished; SS/FF with lag is correct when work can and does proceed in a rolling overlap. A blanket preference for FS, pursued purely to satisfy a metric, substitutes a reporting convenience for accurate sequencing logic and can distort both duration and float.",
+    "commonMistakes": [
+      "Treating a high FS percentage as automatically good because it matches a commonly cited guideline.",
+      "Not checking whether the relationship type matches how trades actually work on site.",
+      "Assuming SS/FF relationships are inherently lower quality than FS."
+    ],
+    "redFlags": [
+      "Candidate states DCMA's preference for FS as a universal rule to apply regardless of actual construction methodology.",
+      "Candidate cannot identify any legitimate use case for SS or FF relationships."
+    ],
+    "p6Checks": [
+      "Relationships tab - group by relationship type and review the ratio of FS to SS/FF/SF.",
+      "For clusters of same-room or same-zone activities forced into FS, interview the site team on actual sequencing overlap.",
+      "Check whether converting to SS with an appropriate lag changes the calculated duration meaningfully."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If a client's schedule specification explicitly requires a minimum FS percentage, how would you reconcile that with realistic SS/FF sequencing?",
+        "purpose": "Tests awareness that contract-specific requirements can coexist with, and sometimes override, general best-practice judgment."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What lag would you use on the ceiling grid to ceiling tile SS relationship, and how would you justify it?",
+        "purpose": "Tests ability to translate the concept into a concrete, defensible modeling decision."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly argues that high FS percentage is not automatically good in this context."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Gives realistic examples of where SS/FF is the better model."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Balances general guidance against contract-specific requirements and site reality."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "relationship types",
+      "FS dominance",
+      "SS relationships",
+      "fit-out",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-009",
+    "category": "SQ",
+    "subcategory": "Calendar Anomalies",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Detecting calendar assignment errors that distort duration, float, and date calculations",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "In a desalination plant schedule, the activity 'Client Design Review - RO Membrane Package' has a 5-working-day original duration but is assigned a 7-day/week calendar, while the surrounding engineering activities all use a standard 5-day/week calendar.",
+    "question": "What would you check first, and why does this calendar mismatch matter for schedule quality?",
+    "explanation": "The first check is simply whether a 7-day calendar is physically realistic for a client design review, which typically depends on client staff availability during a normal work week, not continuous operations - so the 7-day assignment is very likely a copy-paste error from an around-the-clock construction calendar rather than a deliberate choice. This matters because calendar choice directly changes how duration converts to elapsed time and therefore how float is calculated on every path that includes the activity: a 5-day activity on a 7-day calendar finishes roughly two calendar days earlier than the same activity on a 5-day calendar, which can understate a real delay risk or misalign the review's finish against when client staff are actually available to respond.",
+    "reasoning": "P6 calculates dates by applying the assigned calendar's working-time definition to the duration; two activities with identical duration values are not equivalent unless they share a calendar with matching work patterns. A single mismatched calendar on an otherwise-correct schedule silently produces wrong dates on every downstream successor without triggering any relationship-based error, which is why calendar assignment must be checked activity by activity, not assumed correct because logic and duration look fine.",
+    "commonMistakes": [
+      "Assuming duration alone determines elapsed time without checking the assigned calendar.",
+      "Not questioning why an office/review activity is on a construction-style continuous calendar.",
+      "Treating calendar review as unnecessary once logic and duration have been checked."
+    ],
+    "redFlags": [
+      "Candidate does not know that duration and calendar jointly determine dates.",
+      "Candidate has no method for auditing calendar assignment across a schedule."
+    ],
+    "p6Checks": [
+      "Activities view - add the Calendar column and group by calendar to spot outliers against the surrounding activity type.",
+      "Confirm the calendar's actual work week/holidays in Enterprise Data > Calendars matches the real availability of the resource performing that activity.",
+      "Recalculate the activity's finish date manually against both calendars to confirm the size of the distortion."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would a wrong calendar on a single activity affect a DCMA-style negative float or high-float test elsewhere in the schedule?",
+        "purpose": "Tests whether the candidate connects calendar errors to downstream health-check distortions."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains how calendar mismatch changes elapsed time and float."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names concrete P6 checks for calendar assignment."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "calendars",
+      "calendar assignment",
+      "desalination",
+      "float distortion"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-010",
+    "category": "SQ",
+    "subcategory": "Baseline Integrity",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Identifying baseline management failures that undermine variance reporting",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MISSING_INFO",
+    "scenario": "You are asked to report baseline variance on a long-span bridge project. You find that the current 'baseline' assigned in P6 was last updated four months ago, after a major re-baselining exercise that absorbed a 60-day contractor-caused delay into new target dates, and no record exists of client approval for that re-baseline.",
+    "question": "What is missing here, and why does it matter before you report any variance numbers?",
+    "explanation": "What is missing is evidence that the baseline in use is actually the approved contractual baseline rather than a working target the contractor reset unilaterally. Reporting variance against a baseline that has silently absorbed contractor-caused delay understates true slippage and can misrepresent performance to the client - the schedule will show small or zero variance not because performance improved, but because the yardstick itself moved to match where the project actually is. Before reporting anything, you need the change history: who approved the re-baseline, on what date, under what contractual mechanism (e.g., agreed EOT, formal revised baseline submission), and whether the original as-planned baseline is still preserved for reference.",
+    "reasoning": "Baseline variance is only meaningful when the baseline is fixed and approved; an unapproved reset converts a performance metric into a self-referential comparison that always looks acceptable. This is a governance/change-control problem as much as a technical one - the fix is procedural (baseline change log, approval records) as much as it is a P6 configuration issue.",
+    "commonMistakes": [
+      "Reporting variance against whatever baseline is currently assigned in P6 without checking its approval status.",
+      "Assuming a re-baseline automatically means the original baseline data is gone.",
+      "Not distinguishing a legitimate approved re-baseline (e.g., following an agreed EOT) from an unauthorized reset."
+    ],
+    "redFlags": [
+      "Candidate reports variance numbers without first asking about baseline approval history.",
+      "Candidate cannot explain why an unapproved re-baseline misrepresents performance."
+    ],
+    "p6Checks": [
+      "Project > Baselines - check how many baselines exist, their creation dates, and which is currently assigned as Project Baseline.",
+      "Check for a documented baseline change log or contract correspondence approving the re-baseline.",
+      "Compare variance against both the original as-planned baseline and the current assigned baseline to quantify how much delay was absorbed."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the client had approved the re-baseline as part of a granted 60-day EOT, would your answer change?",
+        "purpose": "Tests whether the candidate distinguishes contractual legitimacy from the mechanics of the concern."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you present both the original and revised baseline variance to avoid misleading the client either way?",
+        "purpose": "Tests reporting judgment and transparency."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Identifies the missing approval/change-control evidence."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Explains why reporting without this evidence risks misleading the client."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Lists concrete records/checks needed before proceeding."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "baseline",
+      "re-baselining",
+      "variance reporting",
+      "bridge",
+      "governance"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "AACE RP 29R-03 Forensic Schedule Analysis"
+    ]
+  },
+  {
+    "questionCode": "SQ-011",
+    "category": "SQ",
+    "subcategory": "Invalid and Out-of-Sequence Progress",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Diagnosing out-of-sequence progress and choosing between Retained Logic and Progress Override with an understanding of the consequences",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "On a semiconductor fab schedule, 'Cleanroom Wall Panel Installation' (predecessor, FS relationship) is 40% complete, but its successor 'Cleanroom HVAC Rough-In' has already been statused as 35% complete, meaning the successor started before its predecessor finished.",
+    "question": "What does this out-of-sequence progress most likely indicate, and how would the scheduling calculation option chosen (Retained Logic versus Progress Override) change the reported forecast?",
+    "explanation": "Out-of-sequence progress here most likely means the real construction sequence has genuinely diverged from the planned logic - HVAC rough-in crews were let into the cleanroom zone before wall panels were fully installed, which could be a legitimate site decision (partial-zone release) or a sign the logic tie was wrong to begin with. With Retained Logic, P6 will still hold the HVAC successor from progressing further in the schedule calculation until its predecessor's remaining logic is satisfied, which can produce a schedule that looks like it is 'waiting' even though physical progress has already happened - potentially understating true progress. With Progress Override, P6 ignores the unsatisfied predecessor relationship for calculation purposes and lets the successor's remaining duration schedule based on its own status, which can produce an optimistic forecast that assumes the predecessor will not actually constrain the successor going forward - potentially overstating progress and masking a real logic problem.",
+    "reasoning": "Neither option is universally correct; the right choice depends on why the out-of-sequence condition occurred. If it is a one-off partial-release situation that will not recur, Progress Override may better reflect reality for that specific pair. If it signals that the logic itself is wrong (the relationship should have been Start-to-Start with a lag, not Finish-to-Start), the durable fix is to correct the relationship, not to pick a calculation setting and hope it compensates - picking a global project setting without investigating each case risks systematically distorting the schedule.",
+    "commonMistakes": [
+      "Applying Retained Logic or Progress Override as a blanket project-wide setting without checking whether the underlying relationship logic is simply wrong.",
+      "Assuming out-of-sequence progress is always a statusing data error rather than a genuine site-sequence change.",
+      "Not recognizing that the two settings can produce materially different forecast dates from the same progress data."
+    ],
+    "redFlags": [
+      "Candidate cannot explain the practical difference between Retained Logic and Progress Override.",
+      "Candidate treats out-of-sequence progress purely as a nuisance to suppress rather than a signal to investigate."
+    ],
+    "p6Checks": [
+      "Schedule Options - check which out-of-sequence calculation method is currently set (Retained Logic vs Progress Override) and whether it is applied project-wide or per-activity.",
+      "Filter/report for all out-of-sequence relationships at the current data date, not just this one pair.",
+      "Interview the site team on whether the wall panel/HVAC sequence is a planned partial-zone release or an unplanned deviation."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you conclude the relationship logic itself was wrong, what would you change it to, and would you need client/design team sign-off?",
+        "purpose": "Tests whether the candidate pursues the durable logic fix, not just a calculation-setting workaround."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you explain the difference in forecast finish date to a client who only sees the output number, not the underlying setting?",
+        "purpose": "Tests communication of a technical nuance to a non-technical audience."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains both Retained Logic and Progress Override mechanics."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why neither is universally correct and ties the choice to root cause."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names concrete P6 settings/checks."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "out-of-sequence progress",
+      "retained logic",
+      "progress override",
+      "semiconductor fab",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-012",
+    "category": "SQ",
+    "subcategory": "Unrealistic Sequencing",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing schedules whose logic is technically valid but physically unworkable given real trade/space constraints",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "A stadium bowl construction schedule shows 'Precast Seating Riser Installation' and 'Structural Steel Roof Truss Erection' both scheduled to run concurrently in the same bowl quadrant for six weeks, each with its own tower crane resource assigned, and the logic network shows no conflict - both paths have positive float relative to each other.",
+    "question": "Why can a schedule with technically valid CPM logic still be unworkable, and how would you catch this before it causes a real site conflict?",
+    "explanation": "CPM logic only enforces the dependencies someone explicitly modeled; it has no innate awareness of physical space, crane radius overlap, or safety exclusion zones unless those constraints are captured as relationships or resource conflicts. Two activities can be logically independent (neither needs the other to finish first) while still being physically incompatible if they require overlapping crane swing paths or the same laydown area at the same time - the schedule will report both as valid and even float-positive while the actual site plan cannot support them running together.",
+    "reasoning": "This is a space/logistics conflict, which CPM does not model natively. Catching it requires either a 4D (schedule-linked spatial/BIM) review, a site logistics/crane-interface plan cross-checked manually against the schedule, or resource-based constraints (e.g., a shared 'crane zone' resource with limited availability) deliberately added to force the scheduling tool to recognize the conflict.",
+    "commonMistakes": [
+      "Assuming that if the logic and float calculations look fine, the schedule is workable on site.",
+      "Not considering physical/spatial constraints as a schedule quality dimension at all.",
+      "Believing this kind of conflict is a construction-management problem entirely separate from the planner's responsibility."
+    ],
+    "redFlags": [
+      "Candidate cannot articulate that CPM logic and physical feasibility are different questions.",
+      "Candidate has no practical method (4D, crane-interface review, shared resource constraint) to catch this category of issue."
+    ],
+    "p6Checks": [
+      "Resource Usage view - check whether a shared 'crane' or 'zone' resource is assigned and whether its availability is being exceeded during the overlap.",
+      "Cross-reference the schedule against the site logistics plan / crane radius drawings for the same time window.",
+      "Consider a 4D simulation review if the project has a linked BIM model."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you model a shared crane zone as a schedule constraint so P6 itself would flag this conflict automatically?",
+        "purpose": "Tests ability to convert a real-world constraint into an enforceable schedule mechanism."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains that CPM logic validity does not guarantee physical feasibility."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete method to catch spatial/logistics conflicts."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "unrealistic sequencing",
+      "spatial conflict",
+      "crane interface",
+      "stadium",
+      "4D"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-013",
+    "category": "SQ",
+    "subcategory": "Negative Float Prevalence",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Quantifying negative float prevalence and understanding what it communicates about contractual finish exposure",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "An LNG terminal jetty package has 480 remaining activities. A schedule health check finds 54 activities showing negative Total Float, ranging from -3 to -22 working days relative to the contractual milestone date.",
+    "question": "Calculate the percentage of remaining activities showing negative float, and explain what this figure communicates to the project team beyond the raw count.",
+    "correctAnswer": 11.25,
+    "explanation": "54 divided by 480 equals 0.1125, or 11.25% of remaining activities showing negative float. Beyond the raw percentage, the range (-3 to -22 days) matters as much as the count: a cluster of activities near -20 days signals a specific driving problem worth root-causing, while many activities sitting at only -1 to -3 days often reflects float erosion spreading across a network that is close to its contractual limit generally, which is a different management response (tightening execution broadly versus fixing one specific bottleneck).",
+    "reasoning": "Percentage negative float = (activities with TF < 0) / (total remaining activities) x 100 = 54/480 x 100 = 11.25%. Some methodologies (e.g., DCMA-14) treat any negative float as a fail condition (target 0%), but that binary framing is one methodology's threshold; in practice what matters operationally is the magnitude, clustering, and root cause of the negative float, not just whether the percentage is technically above zero.",
+    "commonMistakes": [
+      "Reporting only the raw count (54) without converting to a percentage of the relevant population.",
+      "Treating all negative-float activities as equally urgent regardless of magnitude.",
+      "Assuming any negative float automatically fails every contract's schedule specification without checking that contract's actual requirement."
+    ],
+    "redFlags": [
+      "Candidate cannot perform the basic percentage calculation correctly.",
+      "Candidate states negative float is always contractually disqualifying regardless of the contract's own schedule quality clause."
+    ],
+    "p6Checks": [
+      "Activities view - filter Total Float less than zero and count against total remaining (non-complete) activities.",
+      "Group negative-float activities by driving path/discipline to find clustering.",
+      "Check the contract's schedule specification for any explicit negative-float threshold or remedy clause."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the contract schedule specification is silent on negative float thresholds, does that mean negative float is not a problem?",
+        "purpose": "Tests whether the candidate conflates contractual silence with technical acceptability."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct percentage calculation (11.25%)."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Goes beyond the raw number to discuss magnitude and clustering."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": [
+      "negative float",
+      "LNG",
+      "DCMA",
+      "percentage calculation"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-014",
+    "category": "SQ",
+    "subcategory": "Missed Tasks and Baseline Execution Index",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Using missed-task tracking (Baseline Execution Index) to assess schedule adherence and forecast reliability",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "On an airport terminal expansion, of the 210 activities baselined to finish in the last three monthly reporting periods, only 158 actually finished by their baseline finish date, and the rest are either still open or finished late. The planning team calculates a Baseline Execution Index (BEI) of 158/210 = 0.75.",
+    "question": "What does a BEI of 0.75 most likely indicate about this project, and what secondary information would you need before drawing conclusions about the forecast's reliability?",
+    "explanation": "A BEI of 0.75 means the team completed only 75% of the activities it committed to finishing on time over that window, which signals a consistent pattern of missed commitments rather than an isolated event - one methodology (DCMA-style tracking) treats sustained BEI meaningfully below 1.0 (some benchmarks use roughly 0.95) as a leading indicator that the forecast schedule's remaining logic and durations are optimistic relative to demonstrated execution capability, since the team is repeatedly failing to hit its own near-term targets. Before concluding the forecast is unreliable, you would want to know whether the misses cluster on a specific discipline/subcontractor (a targeted execution problem) or are spread evenly (a systemic estimating or resourcing problem), and whether externally caused delays (e.g., client-furnished equipment, permitting) are being counted the same as contractor-caused misses.",
+    "reasoning": "BEI is a trailing, demonstrated-performance metric, distinct from Total Float (a forward-looking calculated metric) and from SPI (a cost-weighted volume metric) - it directly measures whether activities finish when the schedule itself predicted they would, making it a useful cross-check on whether to trust the remaining forecast, but it should never be read as a universal pass/fail threshold without adjusting for causation and clustering.",
+    "commonMistakes": [
+      "Treating a single BEI number as conclusive without checking causation or clustering.",
+      "Confusing BEI with SPI or with Total Float - they measure different things.",
+      "Assuming a 0.75 BEI is an automatic contractual failure regardless of the specific schedule specification in force."
+    ],
+    "redFlags": [
+      "Candidate cannot explain what BEI measures or how it differs from SPI.",
+      "Candidate treats every missed activity as equally significant regardless of cause."
+    ],
+    "p6Checks": [
+      "Compare each baselined finish date against the actual/current finish date for the reporting window to identify each miss.",
+      "Group misses by responsible party/discipline to check for clustering.",
+      "Cross-reference missed activities against any documented external delay causes (client, permitting, force majeure) before attributing all misses to contractor performance."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you distinguish a BEI shortfall caused by client-furnished equipment delays from one caused by the contractor's own underperformance?",
+        "purpose": "Tests the technical/contractual distinction and whether the candidate over-attributes blame."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If BEI is trending down over three consecutive periods, what would you recommend to the project manager?",
+        "purpose": "Tests ability to convert a metric trend into a management action."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains what BEI measures and its calculation."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects BEI to forecast reliability without overstating certainty."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies the need for clustering/causation analysis before conclusions."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "BEI",
+      "missed tasks",
+      "airport",
+      "forecast reliability",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-015",
+    "category": "SQ",
+    "subcategory": "Critical Path Continuity Test",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Applying a critical path continuity/traceability test to verify the schedule produces one genuine unbroken driving path",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "You want to verify that a 1,400-activity offshore wind farm installation schedule genuinely has a single, unbroken, traceable critical path from data date to project finish, rather than a critical-looking finish date produced by disconnected fragments.",
+    "question": "Describe a practical test you would run in P6 to verify critical path continuity, and what a failed result would look like.",
+    "explanation": "A practical continuity test is to take a far-future, clearly non-controversial activity near the very end of the schedule (one that is not itself contractually constrained) and temporarily add a large artificial duration extension to it (e.g., +600 calendar days), then recalculate the schedule: if the network is genuinely continuously logic-driven, the project finish date should shift by close to that same amount, because the extension should propagate along the true driving path all the way to completion. A failed result looks like the finish date barely moving (or not moving at all) despite the large artificial extension, which reveals that the activity you extended - and by extension much of what appears 'critical' - is not actually on the real driving path, usually because of a hidden constraint, an open end, or a broken logic chain further along.",
+    "reasoning": "This is a direct, mechanical test of whether float=0/critical activities are truly connected end-to-end, versus being an assortment of locally critical fragments that never actually chain together into one path reaching the finish milestone - a condition that undermines every float-based and critical-path-based conclusion drawn from the schedule until it is fixed.",
+    "commonMistakes": [
+      "Assuming a schedule showing a clean critical path highlight in the Gantt chart is automatically continuous end-to-end.",
+      "Not knowing a practical, repeatable test exists to verify continuity.",
+      "Running the test on an activity that itself has a hard constraint, which invalidates the result."
+    ],
+    "redFlags": [
+      "Candidate has never heard of a critical path continuity/traceability test.",
+      "Candidate cannot explain why a failed result (finish date not moving) indicates a broken network rather than a healthy one."
+    ],
+    "p6Checks": [
+      "Filter the Gantt for the Longest Path flag and separately for Total Float <= 0, and compare whether they produce the same activity set end-to-end.",
+      "Temporarily extend a late-stage, unconstrained activity's duration significantly and observe the finish date shift, then revert the change.",
+      "Trace the critical/longest path activity by activity from data date to finish milestone, checking for any gap where the 'critical' tag disappears."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "What would you do differently if the test showed the finish date moved by less than the extension, but not zero?",
+        "purpose": "Tests understanding of partial continuity failures, not just the binary pass/fail case."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Is this test something you would run once at baseline only, or repeatedly throughout the project?",
+        "purpose": "Tests whether the candidate treats schedule quality as an ongoing discipline, not a one-time check."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly describes the extension-and-observe continuity test mechanism."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Names concrete P6 views/flags used to verify (Longest Path, Total Float)."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why a failed result indicates a broken driving path."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "critical path test",
+      "longest path",
+      "offshore wind",
+      "continuity",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-016",
+    "category": "SQ",
+    "subcategory": "Critical Path Length Index (CPLI)",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Calculating and interpreting the Critical Path Length Index as a measure of schedule efficiency versus contract duration",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "NUMERICAL",
+    "scenario": "A substation upgrade project has a Critical Path Length (from data date to the project finish milestone, following the longest path) of 268 working days, and the project's Total Float relative to the contractual finish date is currently +14 working days.",
+    "question": "Calculate the Critical Path Length Index (CPLI) and explain what it tells you that Total Float alone does not.",
+    "correctAnswer": 1.05,
+    "explanation": "CPLI = (Critical Path Length + Total Float) / Critical Path Length = (268 + 14) / 268 = 282 / 268 = approximately 1.05. A CPLI above 1.0 indicates the project has some efficiency margin relative to its contractual duration - the critical path itself, plus the available float cushion, is slightly longer than the bare critical path, meaning there is a small buffer built into the schedule beyond the minimum logically required duration. Total Float alone (+14 days) tells you the current cushion in absolute days, but CPLI expresses that cushion as a ratio relative to the size of the critical path itself, which is more comparable across projects or phases of very different durations and is less easily distorted by a single large positive-float outlier activity.",
+    "reasoning": "CPLI = (CPL + TF) / CPL. It is a relative efficiency measure: a CPLI of exactly 1.0 means the critical path exactly consumes the available contract duration with no cushion; values noticeably above 1.0 (some methodologies suggest roughly 0.95-1.00 to 1.00 as a healthy range) suggest cushion, while values below 1.0 suggest the critical path is already longer than the time available, i.e., the project is behind before you even look at Total Float in isolation.",
+    "commonMistakes": [
+      "Confusing CPLI with Total Float itself rather than a ratio derived from it.",
+      "Miscalculating by adding Total Float to the wrong base or inverting the ratio.",
+      "Treating any CPLI reference range as a universal pass/fail rule rather than one methodology's guidance."
+    ],
+    "redFlags": [
+      "Candidate cannot perform the CPLI calculation correctly.",
+      "Candidate cannot explain what CPLI adds beyond raw Total Float."
+    ],
+    "p6Checks": [
+      "Identify the Critical Path Length by tracing the longest path from data date to the finish milestone and summing its working duration.",
+      "Confirm the Total Float value being used is measured against the correct governing finish (contractual vs calculated).",
+      "Recalculate CPLI at each reporting period to track the trend, not just a single snapshot."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If CPLI trended from 1.05 last month to 0.98 this month, what would that tell you even before looking at any other metric?",
+        "purpose": "Tests whether the candidate reads CPLI trend as an erosion signal."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct CPLI calculation (~1.05)."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains what CPLI adds beyond Total Float alone."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "CPLI",
+      "critical path length index",
+      "substation",
+      "DCMA",
+      "schedule efficiency"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-017",
+    "category": "SQ",
+    "subcategory": "Resource Assignment Completeness",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing why unresourced activities weaken a schedule's credibility for forecasting and progress measurement",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "MCQ",
+    "scenario": "A mixed-use tower schedule has 1,200 activities. A review finds that only 40% of activities carry any resource or cost assignment; the rest have durations and logic only.",
+    "question": "What is the main schedule-quality concern with such low resource-loading coverage?",
+    "options": [
+      {
+        "label": "A",
+        "text": "Without resource loading, the schedule cannot support earned value measurement, resource-driven duration checks, or realistic what-if analysis for those activities.",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "P6 will refuse to calculate the critical path for any activity without an assigned resource.",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "Unresourced activities are automatically excluded from Total Float calculations.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "It is not a real concern as long as durations were estimated reasonably.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "CPM logic and float calculations work fine without resources - P6 does not require resource assignment to compute dates. The real problem is everything resource loading enables that pure duration/logic scheduling cannot: cost- or unit-based earned value, capacity/overallocation checks, resource-driven duration recalculation, and a credible basis for evaluating acceleration or recovery options (since you cannot assess adding resources to a activity that has none assigned). Low resource-loading coverage means the schedule can tell you when things will happen but very little about whether they are achievable with available crews and equipment.",
+    "reasoning": "Resource loading connects the time dimension of the schedule to the cost and capacity dimensions. Some methodologies (e.g., DCMA-14) check for resource assignment completeness as one of their 14 points, but the underlying reason to care is practical: without it, earned value and productivity analysis have no basis, not because of any calculation-engine limitation.",
+    "commonMistakes": [
+      "Believing unresourced activities are excluded from or miscalculated in the critical path.",
+      "Not recognizing the connection between resource loading and earned value/capacity analysis.",
+      "Assuming resource loading is only needed for cost reporting, not schedule credibility."
+    ],
+    "redFlags": [
+      "Candidate believes P6 cannot calculate dates without resources.",
+      "Candidate cannot connect resource loading to earned value or capacity planning."
+    ],
+    "p6Checks": [
+      "Activities view - add a Resource Assigned indicator or check the Resources tab per activity; filter for activities with none.",
+      "Cross-check whether cost/earned value reporting is even functioning correctly given the coverage gap."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the project only needs schedule dates and does not use P6 for cost/earned value, does resource loading still matter?",
+        "purpose": "Tests whether the candidate can scope the concern to what the schedule is actually being used for."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the real consequence (EV/capacity analysis) versus the false claim about float calculation."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Connects the gap to real downstream uses of the schedule."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 90,
+    "tags": [
+      "resource loading",
+      "earned value",
+      "mixed-use tower",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide"
+    ]
+  }
+]

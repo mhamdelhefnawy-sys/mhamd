@@ -1,0 +1,1674 @@
+[
+  {
+    "questionCode": "CPM-001",
+    "category": "CPM",
+    "subcategory": "Forward Pass Mechanics",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating early start and early finish dates through a simple finish-to-start chain",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "NUMERICAL",
+    "scenario": "A precast yard sequence has three activities on simple Finish-to-Start logic with no lags: 'Cast Panel' (Duration 4 days, starts Day 1), 'Cure Panel' (Duration 6 days), 'Erect Panel' (Duration 3 days). Use Day 1 as the project start (Early Start of the first activity = Day 1).",
+    "question": "Using a day-1 start convention (first activity Early Start = Day 1), calculate the Early Finish of 'Erect Panel'.",
+    "options": [
+      {"label": "A", "text": "Day 12", "isCorrect": false},
+      {"label": "B", "text": "Day 13", "isCorrect": true},
+      {"label": "C", "text": "Day 14", "isCorrect": false},
+      {"label": "D", "text": "Day 10", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "Cast Panel: ES=1, EF=1+4-1=4. Cure Panel: ES=5, EF=5+6-1=10. Erect Panel: ES=11, EF=11+3-1=13. Total chain duration = 4+6+3 = 13 days, and with a Day-1 start convention the finish of a 13-day chain lands on Day 13.",
+    "reasoning": "Under the day-1 (inclusive) convention, EF = ES + Duration - 1, and the next activity's ES = prior EF + 1. Summing durations (4+6+3=13) and starting the count at Day 1 gives an Early Finish of Day 13 for the last activity.",
+    "commonMistakes": [
+      "Adding durations directly to get Day 13 but then double-counting a day and reporting Day 14.",
+      "Using a zero-start convention answer (Day 12) when the question specifies Day-1 start.",
+      "Forgetting to carry EF+1 as the next activity's ES, causing a one-day compounding error across three activities."
+    ],
+    "redFlags": ["Cannot perform basic forward pass arithmetic without a tool."],
+    "p6Checks": ["Activities view - Early Start/Early Finish columns to verify the date convention P6 is using (day-1 vs day-0)."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the project used a Sunday-Thursday calendar and one weekend fell inside this chain, how would that change your answer?", "purpose": "Tests whether the candidate understands calendars affect date math, not just duration counting."},
+      {"trigger": "if_incorrect", "prompt": "Walk through the forward pass one activity at a time - what is Cast Panel's Early Finish?", "purpose": "Diagnoses where the arithmetic breaks down."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["forward pass", "early start", "early finish", "finish-to-start", "precast"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-002",
+    "category": "CPM",
+    "subcategory": "Backward Pass Mechanics",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating late start and late finish dates through a backward pass with no float",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "NUMERICAL",
+    "scenario": "A single-path chain of three activities on a marine jetty project has no float anywhere (it is the critical path): 'Drive Piles' (EF = Day 20), 'Install Pile Caps' (Duration 8 days), 'Pour Deck Slab' (Duration 12 days, EF = Day 40, the project finish).",
+    "question": "Since this chain is fully critical (zero float throughout), what is the Late Finish of 'Install Pile Caps'?",
+    "options": [
+      {"label": "A", "text": "Day 20", "isCorrect": false},
+      {"label": "B", "text": "Day 28", "isCorrect": true},
+      {"label": "C", "text": "Day 27", "isCorrect": false},
+      {"label": "D", "text": "Day 40", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "On a fully critical chain, Late dates equal Early dates for every activity. Pour Deck Slab runs 12 days ending Day 40, so it must start Day 29 (40-12+1). Therefore Install Pile Caps must finish by Day 28 so Pour Deck Slab can start Day 29 with zero float.",
+    "reasoning": "Because Total Float = 0 across the whole chain, LF for each activity equals its EF, and the backward pass simply confirms the forward pass dates. Pour Deck Slab LS = LF - Duration + 1 = 40-12+1 = 29, so its predecessor's LF = LS - 1 = 28.",
+    "commonMistakes": [
+      "Assuming Late Finish must be calculated independently of the forward pass even when float is stated as zero.",
+      "Off-by-one error in subtracting duration from the finish constraint.",
+      "Confusing Late Finish of the predecessor with Late Start of the successor."
+    ],
+    "redFlags": ["Does not recognize that zero float means early dates equal late dates."],
+    "p6Checks": ["Activities view - Late Start/Late Finish columns alongside Total Float to confirm LS=ES and LF=EF on critical activities."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If Pour Deck Slab instead had a Finish Milestone with 5 days of float relative to the contract completion date, how would that change Install Pile Caps' Late Finish?", "purpose": "Tests whether the candidate can extend the logic to a non-zero-float case."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["backward pass", "late start", "late finish", "critical path", "marine"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-003",
+    "category": "CPM",
+    "subcategory": "Total Float Definition",
+    "competency": "PLANNING_CPM",
+    "skill": "Distinguishing total float from free float in plain terms",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "MCQ",
+    "question": "An activity has Total Float of 8 days and Free Float of 2 days. Which statement correctly describes what this means?",
+    "options": [
+      {"label": "A", "text": "The activity can slip 8 days without delaying its immediate successor, and 2 days without delaying the project finish.", "isCorrect": false},
+      {"label": "B", "text": "The activity can slip 2 days without delaying its immediate successor's early start, and up to 8 days without delaying the project finish (or the next controlling constraint).", "isCorrect": true},
+      {"label": "C", "text": "The activity must slip at least 2 days before it affects any successor, and exactly 8 days before it affects the project finish.", "isCorrect": false},
+      {"label": "D", "text": "Total Float and Free Float both measure delay to the project finish date, but calculated on different calendars.", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "Free Float is the amount an activity can slip without delaying the Early Start of its immediate successor(s). Total Float is the amount an activity can slip without delaying the project finish (or the next controlling constraint/milestone) along its path. Free Float is always less than or equal to Total Float.",
+    "reasoning": "Free Float = min(ES of successors) - EF of activity - 1 (or the equivalent without the -1 depending on convention). Total Float = LS - ES (or LF - EF). Because Free Float only looks one step ahead while Total Float looks all the way to the path's controlling point, FF <= TF always.",
+    "commonMistakes": [
+      "Swapping the definitions of Total Float and Free Float.",
+      "Believing Free Float protects the project finish date rather than just the next successor.",
+      "Believing Total Float must equal Free Float whenever an activity has only one successor (true only when that successor is also on the same critical chain with no other convergence)."
+    ],
+    "redFlags": ["Cannot state the FF <= TF relationship."],
+    "p6Checks": ["Activities view - add both Total Float and Free Float columns side by side to compare."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Under what circumstance would Free Float equal Total Float for a given activity?", "purpose": "Tests deeper understanding of when the two converge (single successor on the same critical path with no other float-consuming branches)."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 90,
+    "tags": ["total float", "free float", "definitions"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-004",
+    "category": "CPM",
+    "subcategory": "Multiple Critical Paths",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing that multiple concurrent zero-float paths increase schedule risk even though the finish date looks unchanged",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "scenario": "A 220-activity refinery turnaround schedule shows the project finish is driven by three parallel paths, all with Total Float = 0: the vessel internals inspection/repair path, the catalyst change-out path, and the instrumentation loop-check path. Historically this turnaround has finished on time when there was a single dominant critical path with 10-15 days of float on the next-nearest path.",
+    "question": "Why should the planning team treat this three-way-tied critical path situation as higher risk than a single critical path with comfortable near-critical float, even though the calculated finish date is identical either way?",
+    "explanation": "With three paths tied at zero float, a delay on any one of the three (not just one specific chain) will push the finish date - there is no buffer absorbing variability on any of them simultaneously. A single dominant critical path with 10-15 days of float on the next path means only that one chain needs close management; the others have real schedule cushion. Statistically, the probability that at least one of three zero-float paths slips is much higher than the probability that a single path slips, so the tied condition understates true completion risk even though the CPM finish date output looks the same.",
+    "reasoning": "CPM produces a single deterministic finish date from the longest path, but it does not by itself quantify the probability of hitting that date. When several paths sit at exactly zero float, the effective 'merge bias' (multiple paths needing to merge on schedule) increases the statistical likelihood of slippage versus a single dominant path, because managing risk on one chain is far easier than simultaneously managing three independent risk sources that can each individually delay completion.",
+    "commonMistakes": [
+      "Treating the CPM finish date as a full risk statement rather than a deterministic single-scenario output.",
+      "Assuming that because all three paths show 0 float they are somehow 'equally protected' rather than equally exposed.",
+      "Not recommending schedule risk analysis (e.g., Monte Carlo) to quantify the merge-point exposure."
+    ],
+    "redFlags": ["Candidate says a tied critical path is 'no different' from a single critical path risk-wise.", "Candidate has never heard of merge bias or parallel critical path risk."],
+    "p6Checks": ["Activities view - filter Total Float = 0 (or lowest value) and group by path/area to see how many independent chains are tied.", "Longest Path filter to visually trace each of the tied chains.", "Consider exporting to a risk/Monte Carlo tool if available for a probabilistic view."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What practical schedule or resourcing actions would you recommend given three tied critical paths?", "purpose": "Tests whether the candidate moves from diagnosis to action (e.g., add float via resequencing, add resources to shorten one path, increase monitoring frequency)."},
+      {"trigger": "if_correct", "prompt": "How would you explain this risk to a client PM who only looks at the single finish date on a summary report?", "purpose": "Tests communication of a technical risk concept to a non-technical stakeholder."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains merge bias / parallel critical path risk."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why probability of slippage rises with more zero-float paths, not just asserts it."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recommends practical risk mitigation, not just diagnosis."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["multiple critical paths", "merge bias", "schedule risk", "total float", "turnaround"],
+    "references": ["PMI Practice Standard for Scheduling", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "CPM-005",
+    "category": "CPM",
+    "subcategory": "Longest Path vs Zero Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Distinguishing the true longest path from activities that merely show zero float due to constraints",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "PARADOX",
+    "scenario": "On a 60-story tower core-and-shell schedule, the P6 Total Float column shows dozens of activities across three unrelated floors and two different MEP risers all reading exactly 0 days Total Float. Tracing the network logic manually, only the structural slab sequence from Level 1 to Level 60 actually forms one continuous longest chain to the project finish milestone.",
+    "question": "How can activities that are not actually on the longest continuous path to project completion still show Total Float = 0, and what should you check to identify the true driving (longest) path?",
+    "explanation": "Total Float = 0 does not by itself prove an activity is on the longest path to the project finish; it only proves that activity's path is constrained to have no slack relative to whatever governs it. If several unrelated activities each have a hard Finish-On-or-Before (or similar) constraint imposed at the same date as (or tighter than) the true project finish, they will independently calculate Total Float = 0 even though none of them actually drives the overall project end date - only the true longest unconstrained path does. This is a classic case where the 'Longest Path' filter (which traces true logical drivers back from the finish milestone) diverges from a simple 'Total Float = 0' filter (which catches every artificially constrained activity too).",
+    "reasoning": "P6's Total Float is a per-path float relative to each path's own governing constraint/milestone. The Longest Path flag, by contrast, specifically traces the chain of activities whose relationship actually drives the project's calculated finish date via the critical/driving relationship chain. Multiple independently-constrained zero-float activities are common in schedules with heavy constraint usage; only tracing driving relationships back from the finish milestone (not just filtering on TF=0) confirms the real longest path.",
+    "commonMistakes": [
+      "Treating any Total Float = 0 activity as automatically part of the critical/longest path.",
+      "Not distinguishing 'critical' (by float threshold) from 'longest path' (by driving relationship trace) as P6 defines them.",
+      "Not questioning why unrelated floors/risers would coincidentally all hit exactly zero."
+    ],
+    "redFlags": ["Candidate assumes all TF=0 activities are automatically connected on one chain.", "Candidate has never used the Longest Path filter and relies solely on Total Float thresholds."],
+    "p6Checks": ["Activities view - apply the built-in 'Longest Path' filter and compare its activity set against a simple Total Float <= 0 filter.", "For each zero-float activity outside the Longest Path result, check its constraint type and date.", "Trace driving relationships (the relationship line shown in bold/marked 'Driving' in the Relationships tab) back from the project finish milestone."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If you removed all the artificial constraints, what would you expect to happen to the Total Float values on those 'false critical' activities?", "purpose": "Tests understanding that removing the constraint would likely reveal real positive float."},
+      {"trigger": "always", "prompt": "Why is this distinction commercially important during a delay claim?", "purpose": "Tests whether the candidate connects this to forensic schedule analysis, where claiming delay based on a non-driving zero-float activity would be indefensible."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains constraint-induced zero float versus true driving path."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names the Longest Path filter and driving relationship trace specifically."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a concrete verification method."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 210,
+    "tags": ["longest path", "total float", "constraints", "driving relationship", "high-rise"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-006",
+    "category": "CPM",
+    "subcategory": "Negative Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Interpreting negative total float caused by an imposed finish constraint against a slipping forward pass",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TRUE_FALSE",
+    "scenario": "A hospital expansion project has a contractual completion date entered as a 'Finish On or Before' (mandatory-style) constraint on the finish milestone. After the latest monthly update, the forward-pass-calculated Early Finish of the finish milestone is 18 days later than the constraint date.",
+    "question": "True or False: This 18-day gap will cause the finish milestone, and every activity on the driving path leading to it, to show negative Total Float in P6.",
+    "options": [
+      {"label": "True", "text": "True", "isCorrect": true},
+      {"label": "False", "text": "False", "isCorrect": false}
+    ],
+    "correctAnswer": "True",
+    "explanation": "When a hard finish constraint is earlier than the calculated (logic-driven) early finish, the backward pass seeds Late Finish from the constraint date, which is earlier than the Early Finish. Total Float (LF - EF) becomes negative for the constrained activity and propagates back along its entire driving path, correctly signaling the schedule cannot meet the imposed date under current logic and durations.",
+    "reasoning": "Negative float is P6's mechanism for flagging that a constraint (or another schedule) is tighter than what the logic network can actually achieve. It is a legitimate and useful output, not an error, and it should trigger schedule recovery analysis.",
+    "commonMistakes": [
+      "Believing P6 would simply ignore the constraint or cap float at zero.",
+      "Believing negative float only appears on the milestone itself, not on the upstream driving chain."
+    ],
+    "redFlags": ["Does not know negative float is possible or meaningful."],
+    "p6Checks": ["Activities view - Total Float column, sorted ascending, to find the most negative value and its driving path.", "Check the constraint type and date on the finish milestone."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What actions would you recommend to the project team on seeing -18 days of float?", "purpose": "Tests whether the candidate moves to recovery planning: crashing, fast-tracking, or renegotiating scope/date."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 90,
+    "tags": ["negative float", "constraints", "total float", "hospital"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-007",
+    "category": "CPM",
+    "subcategory": "Driving Relationships",
+    "competency": "PLANNING_CPM",
+    "skill": "Identifying which of several predecessors is actually driving a successor's start date",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "P6_ANALYSIS",
+    "scenario": "In a data center schedule, the activity 'Energize Main Switchgear' has three Finish-to-Start predecessors: 'Switchgear Delivery' (EF drives an ES of Day 210), 'Cable Termination' (EF drives an ES of Day 204), and 'Utility Company Meter Install' (EF drives an ES of Day 210, tied with Switchgear Delivery).",
+    "question": "Given these three predecessor-implied start dates (210, 204, 210), which predecessor(s) are 'driving' the Early Start of 'Energize Main Switchgear', and what should you check in P6 to confirm this rather than assume it?",
+    "explanation": "The Early Start of a successor is governed by whichever predecessor(s) produce the LATEST implied start date (the controlling/limiting one), since all FS predecessors must be satisfied. Here both 'Switchgear Delivery' and 'Utility Company Meter Install' imply Day 210, which is later than Cable Termination's Day 204 - so those two are tied as driving relationships, and Cable Termination is not driving (it has slack relative to this successor). The candidate should not assume from activity names or intuition which relationship drives; P6 explicitly marks the driving relationship(s) in the Relationships tab / Predecessors detail window, and this should be confirmed there rather than inferred.",
+    "reasoning": "Forward pass ES for an activity with multiple predecessors = the maximum of all predecessor-implied dates (respecting relationship type and lag). Only the predecessor(s) producing that maximum are driving; others simply have positive float relative to this particular successor even though they may be driving elsewhere in the network.",
+    "commonMistakes": [
+      "Assuming the predecessor listed first in the activity table is the driving one.",
+      "Assuming only one predecessor can ever be driving (ties are common and both/all tied predecessors are driving).",
+      "Confusing 'driving this successor' with 'being on the overall project critical path' - a driving relationship can exist deep inside a network without either activity being critical if the whole local sub-network has float."
+    ],
+    "redFlags": ["Cannot explain that ES is the max of predecessor-implied dates.", "Does not know P6 marks driving relationships explicitly."],
+    "p6Checks": ["Activities view - select the activity, open the Relationships tab, and look for the 'Driving' indicator/checkbox on each predecessor relationship.", "Alternatively, right-click and use 'Trace Logic' to visually follow the driving predecessor(s)."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If Cable Termination slipped 7 days, would it now become driving? Explain.", "purpose": "Tests whether the candidate can reason about how driving relationships change dynamically as dates shift."},
+      {"trigger": "always", "prompt": "Why does it matter operationally which predecessor is identified as driving?", "purpose": "Tests practical application - focusing expediting effort on the correct predecessor."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the two tied driving predecessors."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names the P6 driving-relationship indicator/Trace Logic tool."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the max-of-predecessors logic clearly."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["driving relationship", "predecessors", "forward pass", "data center", "trace logic"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-008",
+    "category": "CPM",
+    "subcategory": "Free Float Calculation",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating free float when an activity has multiple successors",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "Activity 'Backfill Trench Section 4' on a pipeline project has Early Finish = Day 145. It has two successors: 'Compaction Testing' with Early Start = Day 148, and 'Restore Surface Paving' with Early Start = Day 151.",
+    "question": "What is the Free Float of 'Backfill Trench Section 4'?",
+    "options": [
+      {"label": "A", "text": "2 days", "isCorrect": true},
+      {"label": "B", "text": "5 days", "isCorrect": false},
+      {"label": "C", "text": "3 days", "isCorrect": false},
+      {"label": "D", "text": "6 days", "isCorrect": false}
+    ],
+    "correctAnswer": "A",
+    "explanation": "Free Float uses the EARLIEST successor Early Start, not the latest. The earliest successor start is 'Compaction Testing' at Day 148. Free Float = 148 - 145 - 1 = 2 days (using the day-1/inclusive convention where one day is consumed by the finish-to-start gap itself).",
+    "reasoning": "Free Float = min(ES of all successors) - EF of the activity - 1 (inclusive-day convention). Using the earliest successor (Day 148) rather than the latest (Day 151) is the key discriminator in this question - Free Float protects the nearest downstream start, not the furthest.",
+    "commonMistakes": [
+      "Using the latest successor's start date (151) instead of the earliest (148), giving an inflated Free Float of 5.",
+      "Forgetting the -1 day adjustment for the inclusive date convention.",
+      "Confusing this with Total Float, which would need the full backward pass, not just successor starts."
+    ],
+    "redFlags": ["Uses the wrong successor when multiple successors exist."],
+    "p6Checks": ["Activities view - Free Float column, cross-checked against the Successors tab to confirm which successor is the limiting one."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If Compaction Testing were removed from the network entirely, what would Free Float become?", "purpose": "Tests whether the candidate can recompute with the remaining successor only."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["free float", "multiple successors", "pipeline"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-009",
+    "category": "CPM",
+    "subcategory": "Open Ends and Dangling Activities",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing an artificially inflated float caused by a dangling (open-end) activity",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a 480-activity wind farm balance-of-plant schedule, 'Torque Test Tower Base Bolts - Turbine 14' shows Total Float of 96 days, far higher than the 10-20 days typical for similar torque-test activities on other turbines. Investigation shows the activity has one predecessor but no successor at all.",
+    "question": "What is the most likely explanation for this activity's unusually high float, and what would you do to fix it?",
+    "explanation": "An activity with no successor is a dangling (open) end: nothing downstream depends on its finish, so P6's backward pass has nothing to constrain its Late dates except the project finish milestone itself (or default project constraints), producing an artificially large, meaningless Total Float. The fix is to add the missing logical successor - likely a downstream activity such as 'Turbine Nacelle Lift - Turbine 14' or a QA sign-off/handover activity - so the activity's float reflects its true impact on the network, not a phantom connection to the project finish.",
+    "reasoning": "Total Float is only meaningful when every activity's late dates are derived from real downstream logic. A missing successor causes P6 (depending on the 'open ends' default setting) to tie that activity's late finish directly to the project or must-finish-by date rather than to its true next dependency, masking its real criticality and making cross-turbine float comparisons invalid.",
+    "commonMistakes": [
+      "Accepting the 96-day float at face value as 'this activity just has a lot of slack'.",
+      "Not checking for open ends first, jumping straight to questioning the duration or logic elsewhere.",
+      "Fixing it by adding a constraint instead of real logic to a genuine successor."
+    ],
+    "redFlags": ["Does not think to check predecessor/successor completeness when float looks anomalous.", "Proposes constraining the date rather than adding real logic."],
+    "p6Checks": ["Activities view - Successors tab/column for this specific activity to confirm zero successors.", "Run a schedule log or filter for 'activities with no successor' excluding the finish milestone across the whole schedule, since this is likely not isolated to Turbine 14.", "Compare against the equivalent activity on Turbines 1-13 to see if their successor logic exists and this one is uniquely missing it."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If this pattern (missing successor on the same activity type) repeats across all 20 turbines, what does that tell you about how this schedule was built?", "purpose": "Tests recognition of a systemic template/copy-paste logic gap versus a one-off error."},
+      {"trigger": "always", "prompt": "How would you detect all open-end activities across the full 480-activity schedule efficiently?", "purpose": "Tests knowledge of schedule health checks (e.g., DCMA 14-point logic check) rather than manual activity-by-activity review."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the missing successor as cause of inflated float."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes adding real logic, not a constraint, and checks for systemic recurrence."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete P6 checks/filters."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["open ends", "dangling activity", "total float", "network integrity", "wind farm"],
+    "references": ["PMI Practice Standard for Scheduling", "GAO Schedule Assessment Guide"]
+  },
+  {
+    "questionCode": "CPM-010",
+    "category": "CPM",
+    "subcategory": "Network Integrity / Logic Density",
+    "competency": "PLANNING_CPM",
+    "skill": "Assessing whether logic density is adequate to trust CPM output for decision-making",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "You are handed a 1,100-activity LNG train construction schedule to review before it is submitted as the contract baseline. A quick relationship count shows an average of 1.3 logic ties per activity (predecessors + successors combined, divided by 2).",
+    "question": "Before you even look at the critical path or float values, what would you check first, and why does an average of 1.3 ties per activity concern you?",
+    "explanation": "A healthy CPM network typically averages roughly 2 or more logic ties per activity (commonly cited guidance, e.g. DCMA 14-point assessment, targets an average around 2.0-2.8); 1.3 strongly suggests a large population of activities with only a single predecessor or successor, meaning many activities are effectively floating in the network with insufficient real constraint. Before trusting any float or critical path output, you should check the distribution of tie counts (not just the average, since a few over-linked milestones can mask many under-linked activities), identify how many activities have exactly one logic tie or are open-ended, and sample a cross-section to see whether missing logic is systemic (e.g., one discipline or subcontractor's activities are barely linked) or isolated.",
+    "reasoning": "Float and critical path calculations are only as trustworthy as the logic network producing them. Low logic density is a leading indicator that float values across large parts of the schedule are artifacts of missing logic rather than genuine schedule flexibility, so any conclusions drawn from float (resource leveling, delay analysis, look-ahead planning) inherit that unreliability until logic density is fixed.",
+    "commonMistakes": [
+      "Jumping straight into critical path review before validating the network's structural integrity.",
+      "Treating the average alone as sufficient without checking the distribution (a schedule can average 2.0 while still having hundreds of single-tie activities offset by a few hub milestones with 20+ ties).",
+      "Assuming low logic density is only a cosmetic metric with no real consequence for float validity."
+    ],
+    "redFlags": ["Jumps directly to reviewing the critical path date without questioning logic quality first.", "Does not know a rough benchmark for healthy logic density."],
+    "p6Checks": ["Run a schedule diagnostic (DCMA 14-point check or equivalent) for logic density and open-ends together.", "Group activities by responsible discipline/subcontractor and compare average tie counts per group to isolate systemic gaps.", "Filter for activities with exactly one predecessor AND one successor (minimum possible) to sample and manually verify real dependency."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If you found the low average was concentrated in one subcontractor's scope, what would that tell you about how that portion of the schedule was built?", "purpose": "Tests ability to move from metric to root cause."},
+      {"trigger": "always", "prompt": "Would you reject this schedule as unfit for baseline, or accept it with conditions? What conditions?", "purpose": "Tests practical judgment on schedule acceptance criteria, not just diagnosis."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Cites a reasonable logic density benchmark and explains why 1.3 is low."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names a concrete first check (distribution, not just average) before trusting float."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Reaches a defensible accept/reject-with-conditions position."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["logic density", "network integrity", "DCMA", "schedule quality", "LNG"],
+    "references": ["GAO Schedule Assessment Guide", "PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-011",
+    "category": "CPM",
+    "subcategory": "Forward and Backward Pass - Combined",
+    "competency": "PLANNING_CPM",
+    "skill": "Performing a full forward and backward pass on a small network with a merge point to derive total float",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "NUMERICAL",
+    "scenario": "A substation commissioning network has: 'A - Protection Relay Testing' (Duration 5 days, ES=Day 1), 'B - Cable Insulation Testing' (Duration 8 days, ES=Day 1, runs in parallel with A), and 'C - Energization Sign-off' (Duration 2 days) which requires BOTH A and B complete (Finish-to-Start from each, no lag). The project finish milestone follows C with no float consumed elsewhere. Use the Day-1 inclusive convention (EF = ES + Duration - 1).",
+    "question": "Calculate the Total Float of Activity A ('Protection Relay Testing').",
+    "options": [
+      {"label": "A", "text": "0 days", "isCorrect": false},
+      {"label": "B", "text": "3 days", "isCorrect": true},
+      {"label": "C", "text": "5 days", "isCorrect": false},
+      {"label": "D", "text": "8 days", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "Forward pass: A: ES=1, EF=5. B: ES=1, EF=8. C requires both, so C's ES = max(A's EF, B's EF) + 1 = 8+1 = 9, EF = 9+2-1=10. Since C drives the project finish directly with no further float, C's LF=EF=10, LS=9. Backward pass into A: A's LF = C's LS - 1 = 8. A's LS = LF - Duration + 1 = 8-5+1=4. Total Float of A = LS - ES = 4 - 1 = 3 days.",
+    "reasoning": "At a merge point (Finish-to-Start convergence), the backward pass constrains BOTH predecessors' Late Finish to (successor's Late Start - 1), regardless of which one is shorter. B, being the longer duration (8 days), is the driving/critical path with 0 float. A, being 3 days shorter, absorbs exactly that 3-day difference as Total Float.",
+    "commonMistakes": [
+      "Assuming both A and B must be critical since they both feed the same successor.",
+      "Calculating A's float relative to its own finish date only, ignoring that the merge point's late date is set by the longer path (B).",
+      "Forgetting to apply the -1 date-convention adjustment consistently in both passes."
+    ],
+    "redFlags": ["Cannot perform a merge-point backward pass correctly."],
+    "p6Checks": ["Activities view - Total Float column to confirm A=3, B=0, C=0 after running Schedule (F9)."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If Cable Insulation Testing (B) were delayed by 4 days, what would happen to the project finish date, and to Activity A's float?", "purpose": "Tests whether the candidate can propagate a delay through a merge point and recognize A's float would go negative."}
+    ],
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["forward pass", "backward pass", "merge point", "total float", "substation"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-012",
+    "category": "CPM",
+    "subcategory": "Critical Path Definition",
+    "competency": "PLANNING_CPM",
+    "skill": "Correctly defining the critical path as the longest path, not simply the path with the most activities or highest risk",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "MCQ",
+    "question": "Which of the following best defines the 'critical path' in a CPM schedule?",
+    "options": [
+      {"label": "A", "text": "The sequence of activities that, taken together, has the highest total risk exposure on the project.", "isCorrect": false},
+      {"label": "B", "text": "The path through the network with the greatest number of individual activities.", "isCorrect": false},
+      {"label": "C", "text": "The longest continuous path of dependent activities through the network, determining the shortest possible project duration; activities on it typically have the least (often zero) total float.", "isCorrect": true},
+      {"label": "D", "text": "The path containing the activities with the highest individual cost.", "isCorrect": false}
+    ],
+    "correctAnswer": "C",
+    "explanation": "The critical path is a scheduling concept, not a risk or cost concept: it is the longest duration path through the logic network, and it dictates the earliest the project can finish. Activities on it generally have the lowest (often zero, or the schedule's minimum) Total Float, meaning any slippage on them directly delays the finish date.",
+    "reasoning": "CPM identifies the critical path purely from durations and logic (forward/backward pass), independent of cost or qualitative risk rating. A short, cheap, low-risk activity can absolutely be on the critical path if it sits on the longest logical chain.",
+    "commonMistakes": [
+      "Conflating 'critical' in the CPM sense with 'important' or 'risky' in the everyday sense.",
+      "Believing the critical path is defined by activity count rather than duration and logic."
+    ],
+    "redFlags": ["Cannot state the core CPM definition of critical path."],
+    "p6Checks": ["Activities view - Total Float column and the Critical filter/Gantt bar color coding."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Can a high-risk activity have substantial positive float and therefore not be on the critical path? Give an example.", "purpose": "Tests whether the candidate can separate the CPM-technical and risk-management senses of 'critical'."}
+    ],
+    "weight": 0.75,
+    "estimatedTimeSec": 60,
+    "tags": ["critical path", "definitions", "total float"],
+    "references": ["PMI Practice Standard for Scheduling", "PMBOK Guide"]
+  },
+  {
+    "questionCode": "CPM-013",
+    "category": "CPM",
+    "subcategory": "Near-Critical / Float Thresholds",
+    "competency": "PLANNING_CPM",
+    "skill": "Setting and justifying a near-critical float threshold appropriate to project context",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "You are setting up the monthly reporting filters for a 14-month airport terminal expansion. The project baseline float distribution shows: 0 days float on 60 activities, 1-10 days float on 140 activities, 11-25 days float on 210 activities, and >25 days on the remaining activities.",
+    "question": "What Total Float threshold would you set to define 'near-critical' for monthly management reporting, and what factors justify that specific number rather than a generic default like 10 days?",
+    "expectedAnswer": "A competent candidate proposes a threshold in a defensible range (commonly somewhere between 5 and 20 working days depending on project pace) and explicitly ties the number to project-specific factors rather than picking an arbitrary round number: the project's remaining duration and update cycle length (a monthly-updated 14-month project should probably flag anything that could become critical within one or two update cycles), historical float erosion rate seen on similar projects, and the criticality of the consequences if a near-critical path slips (e.g., proximity to a regulatory opening date).",
+    "strongAnswer": "A strong candidate notes the threshold should not be a single fixed number applied forever - it should be revisited as the project progresses (tightening as remaining duration shrinks, since a fixed absolute number represents a shrinking percentage of remaining schedule) and may reference something like a percentage of remaining project duration rather than a flat day count.",
+    "expertAnswer": "An expert candidate discusses calibrating the threshold using actual float consumption/erosion trends from prior updates (e.g., if the second-most-critical path has been losing float at 3-4 days per month, a 10-day threshold gives barely two months' warning) and ties the choice explicitly to the reporting cadence and stakeholder decision cycle - the threshold should give management enough lead time to actually act (recovery planning, resequencing, resourcing) before the near-critical path becomes critical, not just enough time to notice it too late.",
+    "explanation": "There is no single universally 'correct' near-critical threshold; the right answer is a reasoned, context-specific number (commonly in the 5-20 day range for projects of this scale) justified by update frequency, remaining duration, and consequence severity - not a default value picked without justification.",
+    "reasoning": "The purpose of a near-critical threshold is early warning: it must be wide enough to catch paths that could become critical before the next update but narrow enough to avoid burying management in noise from genuinely low-risk paths. That balance is inherently project-specific.",
+    "commonMistakes": [
+      "Naming a generic threshold (e.g., 'always 10 days') with no project-specific justification.",
+      "Not connecting the threshold to the update cycle length.",
+      "Treating the threshold as a one-time decision that never needs revisiting as the project progresses."
+    ],
+    "redFlags": ["Cannot justify the number at all beyond 'that's what we always use'."],
+    "p6Checks": ["Activities view - Total Float column, use Group and Sort or a bar chart of float distribution to visualize the population before picking a threshold.", "Layout filter for 'near critical' saved as a reusable view once the threshold is agreed."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "How would you adjust this threshold six months from now with only 4 months of project remaining?", "purpose": "Tests whether the candidate recognizes the threshold should tighten as the project matures."},
+      {"trigger": "if_correct", "prompt": "How would you present near-critical paths to a client without causing false alarm fatigue?", "purpose": "Tests communication judgment alongside the technical threshold-setting."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Proposes a defensible threshold with real justification, not an arbitrary number."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Ties threshold to update cycle and remaining duration."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Describes how this would actually be implemented/reported in P6."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["near-critical", "float threshold", "reporting", "airport"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-014",
+    "category": "CPM",
+    "subcategory": "Negative Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Reconciling activity-level negative float with project-level negative float driven by different constraints",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "PARADOX",
+    "scenario": "After the March update on a metro rail extension, the project-level Total Float shown in the P6 status bar is -12 days relative to the contractual revenue-service date. One specific activity, 'Overhead Catenary System Stringing - Section 3', shows Total Float of -31 days.",
+    "question": "Explain how an individual activity's Total Float can be far more negative than the project's overall Total Float. What would you check first to confirm your explanation?",
+    "explanation": "Total Float is calculated per path relative to whatever constrains that specific path's late dates. If Section 3's OCS stringing path backward-passes from a different governing point than the project's revenue-service milestone - for example, an interim 'Energization Test Window Must-Finish-By' constraint tied to a scheduled outage the utility can only grant on fixed dates - that path's float reflects slack against that tighter interim constraint, which can be far more negative than the -12 days seen at the overall project level. The two numbers need not match because they can be driven by entirely different constraints, calendars, or even different logical paths.",
+    "reasoning": "Backward pass late dates are seeded from whatever constraint or milestone governs each path. If Section 3's chain backward-passes from an interim energization milestone that is itself already significantly behind where the forward pass places it, that path's float equals the slack against that milestone, independent of the -12 days driving the headline project finish float.",
+    "commonMistakes": [
+      "Assuming Total Float must be roughly consistent across all near-critical activities in the same schedule.",
+      "Assuming a data-entry error before checking constraints and interim milestones.",
+      "Concluding the whole project is only 12 days late everywhere, including Section 3."
+    ],
+    "redFlags": ["Cannot explain multiple-constraint float divergence at all.", "Insists this must always be a scheduling error rather than checking constraints first."],
+    "p6Checks": ["Check the activity's driving relationship and trace its longest path back to its governing constraint or milestone.", "Check for a Finish-On-or-Before or Mandatory constraint on an interim energization/outage milestone in that path.", "Check whether Section 3 activities are on a different calendar (e.g., possession/outage calendar) with less available working time before the constraint date."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "What if there is no constraint anywhere on that path - what else could explain the divergence?", "purpose": "Tests whether the candidate knows calendar differences and multiple-float-path convergence, not just constraints."},
+      {"trigger": "always", "prompt": "Does the -31 days on this one activity mean the project itself is actually 31 days delayed?", "purpose": "Tests whether the candidate conflates activity-level float with overall project delay - a classic trap."},
+      {"trigger": "if_incorrect", "prompt": "If Total Float is calculated per path, what does that tell you about comparing float values across different activities?", "purpose": "Remedial prompt toward the core concept."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies constraint/calendar divergence as the cause."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the backward-pass mechanics, not just states the conclusion."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete P6 checks to confirm."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["negative float", "total float", "constraints", "backward pass", "metro rail"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-015",
+    "category": "CPM",
+    "subcategory": "Float Ownership and Consumption",
+    "competency": "PLANNING_CPM",
+    "skill": "Applying the principle that float belongs to the project, not to any single party, absent contrary contract terms",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "On a design-build warehouse automation project, the general contractor's superintendent tells you: 'Total Float belongs to us, the contractor - if the owner's late equipment approval eats into float on an activity, that's fine because we still finish on time, but if it goes negative because of OUR delay, we owe liquidated damages.' The contract is silent on float ownership.",
+    "question": "Is the superintendent's position technically and contractually sound? How would you respond, and what would you check in the contract?",
+    "expectedAnswer": "A competent candidate recognizes this is a real and contentious industry issue: absent an explicit contract clause, the majority/default legal and industry position (reflected in most standard forms and much case law/commentary) is that float is a project resource shared by all parties on a first-come, first-served basis, not owned by either the owner or the contractor exclusively. The superintendent's 'we own it, only they can lose it' position is a one-sided interpretation that is not automatically correct just because the contract is silent, and asserting it unilaterally is risky.",
+    "strongAnswer": "A strong candidate explains the practical consequence: if float is genuinely shared, then either party's excusable or non-excusable delay can consume it, and whoever's delay activity is exposed when float runs out (causing the path to go critical/negative) bears the consequence for that increment - it is not automatically 'the contractor keeps all the benefit and the owner absorbs all the risk'. They would check the contract's General Conditions, any specifications section addressing schedule/float ownership, and look for terms like 'float belongs to the project' or explicit contractor/owner-ownership clauses in specialized specs (some, especially US federal and some EPC contracts, DO explicitly assign float).",
+    "expertAnswer": "An expert candidate notes this is exactly the kind of position that must be documented and challenged early (via an RFI or schedule narrative comment) rather than left ambiguous, because unilateral assumptions about float ownership asserted only when convenient are a classic entitlement dispute driver; they would also flag that even under a 'shared float' default, the analysis of who caused float consumption still requires a proper time impact or windows analysis at the time delays occur, not an after-the-fact assertion, and that this conversation itself should be escalated to the contracts/commercial team rather than settled at superintendent level.",
+    "explanation": "Float ownership is a genuinely contract-dependent question. Where the contract is silent, most authorities and much case law treat float as a shared project resource ('first come, first served'), not owned unilaterally by either party - though some contracts explicitly assign it, which is why checking the actual contract language is essential rather than assuming the default.",
+    "reasoning": "This question tests whether the candidate distinguishes a technical schedule fact (float exists and gets consumed) from a contractual/legal conclusion (who is entitled to the benefit or bears the risk of that consumption) - conflating the two, or asserting entitlement without contract review, is a significant red flag in a planning engineer who will influence delay narratives.",
+    "commonMistakes": [
+      "Agreeing that whichever party 'controls' the float estimation or reporting therefore owns it.",
+      "Assuming float ownership is a universal rule rather than contract-dependent.",
+      "Not recommending an explicit contract/specification review before taking a position."
+    ],
+    "redFlags": ["Endorses the superintendent's one-sided position without qualification.", "States a definitive legal conclusion without any reference to checking the actual contract."],
+    "p6Checks": ["Not directly a P6 mechanic - but check whether the schedule specification requires float reporting/float ownership disclosure as part of monthly update submittals."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "If the contract explicitly stated 'float belongs to the Contractor', how would that change how you would model and protect float in the working schedule?", "purpose": "Tests whether the candidate can adapt scheduling practice to a stated contractual position."},
+      {"trigger": "if_correct", "prompt": "How would you document float consumption over time to support whichever position the contract ultimately supports?", "purpose": "Tests practical schedule-basis documentation habits relevant to later claims."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "States the shared/first-come-first-served default correctly and notes contract-dependency."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Does not simply agree with the superintendent; recommends contract/spec review."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Explains the practical consequence of each ownership position."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 210,
+    "tags": ["float ownership", "total float", "contract", "delay", "warehouse"],
+    "references": ["SCL Delay and Disruption Protocol", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "CPM-016",
+    "category": "CPM",
+    "subcategory": "Lags and Leads on the Critical Path",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing that a lag on a relationship consumes schedule duration like an activity and can itself become critical",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MCQ",
+    "scenario": "A commercial fit-out schedule has a Finish-to-Start relationship from 'Pour Self-Leveling Screed' to 'Install Vinyl Flooring' with a 5-day positive lag representing screed cure time. This relationship sits on the critical path with zero float.",
+    "question": "If the screed cure lag is reduced from 5 days to 2 days (e.g., by switching to a rapid-cure product) with no other change, what is the most accurate statement about the effect on the project?",
+    "options": [
+      {"label": "A", "text": "No effect - lags are not part of the critical path calculation, only activity durations are.", "isCorrect": false},
+      {"label": "B", "text": "The project finish date would pull in by 3 days, since the lag was consuming critical-path duration just like an activity duration would.", "isCorrect": true},
+      {"label": "C", "text": "The project finish date would pull in, but by less than 3 days, because lags only partially count toward the critical path.", "isCorrect": false},
+      {"label": "D", "text": "The change would only affect Free Float of the screed activity, not the project finish date.", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "A lag on a relationship that lies on the critical (zero-float, driving) path consumes calendar duration exactly like an activity duration does. Reducing a critical-path lag from 5 to 2 days shortens that path by 3 days, and since it was driving with zero float, the project finish date pulls in by the same 3 days (all else equal).",
+    "reasoning": "CPM's forward/backward pass treats lag time as additive duration along a relationship exactly as it treats activity duration - the 'longest path' sums activity durations AND lags. A lag sitting on the driving path is just as schedule-critical as any activity on that path.",
+    "commonMistakes": [
+      "Believing lags are a purely administrative/reporting artifact with no real duration impact.",
+      "Believing only activities, not relationships, can be 'critical'.",
+      "Assuming a partial or diluted effect rather than a direct one-for-one day reduction."
+    ],
+    "redFlags": ["Does not understand that lag consumes real path duration."],
+    "p6Checks": ["Relationships tab - Lag column, cross-referenced with whether that specific relationship lies along the Longest Path/critical chain."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "How would you typically justify and document a cure-time lag like this to an auditor reviewing the schedule basis?", "purpose": "Tests documentation practice for technical lags, since undocumented lags are a common audit finding."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["lag", "critical path", "fit-out", "relationships"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-017",
+    "category": "CPM",
+    "subcategory": "Network Integrity - Redundant Logic",
+    "competency": "PLANNING_CPM",
+    "skill": "Identifying and correcting redundant (unnecessary) relationships that add no real constraint but clutter the network",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "In a road-widening schedule you find: 'A - Excavate Subgrade' -> 'B - Place Sub-base' -> 'C - Place Asphalt Base Course' (each Finish-to-Start), AND a direct relationship also drawn from 'A - Excavate Subgrade' straight to 'C - Place Asphalt Base Course'.",
+    "question": "Is the direct A-to-C relationship necessarily wrong, or could it be legitimate? What would you check before deleting it?",
+    "explanation": "The direct A-to-C tie is redundant in a pure logic sense (A already constrains C indirectly through B, and since B has a positive duration, the direct A-C link can never actually be the controlling one - B's chain will always produce a later implied date for C). It is not 'wrong' in the sense of being illogical (A genuinely must precede C physically), but it is unnecessary clutter that adds no real constraint under normal circumstances and should generally be removed to keep the network clean and easier to trace. Before deleting it, check whether the direct link carries a different lag or relationship type that is intentionally meant to set a minimum/backup constraint (e.g., a minimum cure or safety gap) independent of B's duration, in which case it might matter if B's duration is later drastically shortened.",
+    "reasoning": "A redundant relationship almost never drives the schedule when a longer alternate path already exists between the same two activities, but redundant logic still bloats the network, complicates driving-relationship tracing, and increases risk of the two paths giving contradictory answers if one is edited without the other being noticed.",
+    "commonMistakes": [
+      "Assuming any 'extra' relationship must be an error to delete without investigating its lag/type.",
+      "Assuming redundant logic never matters because it can never be driving - true only while B's duration remains longer than the direct constraint; if B is later crashed heavily, the direct link could become relevant.",
+      "Not checking for a different lag value on the direct relationship before deleting it."
+    ],
+    "redFlags": ["Cannot explain why a redundant relationship rarely becomes the driving path, only that it 'looks messy'."],
+    "p6Checks": ["Relationships tab - compare the lag and relationship type on the direct A-C link versus the A-B-C chain.", "Use Trace Logic to confirm which path is actually driving C's Early Start currently.", "If confirmed truly redundant, delete and re-run the schedule to verify no date changes result."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If B's duration were later reduced from 10 days to 1 day, could the direct A-C link become the driving one?", "purpose": "Tests whether the candidate understands redundant logic can become live under changed durations."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies the link as redundant but not illogical."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a real check before deleting (lag/type review)."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why the redundant link can never be driving while B's duration remains longer, and when that could change."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": ["redundant logic", "network integrity", "relationships", "roadworks"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-018",
+    "category": "CPM",
+    "subcategory": "Start-to-Start and Finish-to-Finish Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating float in a network using Start-to-Start and Finish-to-Finish relationships instead of pure Finish-to-Start",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "NUMERICAL",
+    "scenario": "On a shopping mall MEP rough-in package, 'Duct Installation' (Duration 20 days, ES=Day 1) drives 'Duct Insulation Wrap' via a Start-to-Start relationship with a 4-day lag (Insulation can start once 4 days of ducting is done) AND a Finish-to-Finish relationship with a 2-day lag (Insulation must finish no earlier than 2 days after ducting finishes). Insulation's own duration is 22 days.",
+    "question": "Calculate the Early Start and Early Finish of 'Duct Insulation Wrap' (Day-1 inclusive convention), and state which of the two relationships (SS or FF) is actually driving.",
+    "options": [
+      {"label": "A", "text": "ES = Day 5 (from SS+4), EF = Day 26; the SS relationship is driving.", "isCorrect": true},
+      {"label": "B", "text": "ES = Day 23 (from FF-lag back-calculated), EF = Day 22; the FF relationship is driving.", "isCorrect": false},
+      {"label": "C", "text": "ES = Day 1, EF = Day 22; neither relationship applies since durations differ.", "isCorrect": false},
+      {"label": "D", "text": "ES = Day 5, EF = Day 22; both relationships apply equally with no single driver.", "isCorrect": false}
+    ],
+    "correctAnswer": "A",
+    "explanation": "The SS relationship sets Insulation's Early Start = Duct Installation's ES + 4 lag = 1 + 4 = Day 5. With its own 22-day duration, Insulation's Early Finish (from the SS path alone) = 5 + 22 - 1 = Day 26. Separately, the FF relationship requires Insulation EF >= Duct Installation's EF (Day 20) + 2 lag = Day 22. Since the SS-derived EF of Day 26 already satisfies (exceeds) the FF-required minimum of Day 22, the SS relationship is the one actually controlling/driving Insulation's dates, and the FF relationship is currently non-driving (it has slack).",
+    "reasoning": "When both SS and FF relationships exist between the same pair of activities, P6 calculates the successor's dates as the latest (most constraining) of all applicable relationship-derived dates. Here the SS-derived finish (Day 26) is later than the FF-derived minimum finish (Day 22), so SS governs and FF sits with float relative to this pair even though both are 'valid' relationships.",
+    "commonMistakes": [
+      "Assuming Finish-to-Finish relationships automatically dominate because they reference the 'final' constraint.",
+      "Calculating each relationship's implied date correctly but then not comparing them to determine which actually governs.",
+      "Ignoring the SS relationship's own downstream effect on Early Finish via the successor's own duration."
+    ],
+    "redFlags": ["Cannot combine SS and FF constraints on the same relationship pair."],
+    "p6Checks": ["Relationships tab for Duct Insulation Wrap - check both relationship types/lags, and use the Driving indicator to confirm which one is currently marked as driving."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If Insulation's own duration were shortened to 15 days instead of 22, would the driving relationship change? Recalculate.", "purpose": "Tests whether the candidate can redo the comparison with new numbers, since the FF constraint would then become binding."}
+    ],
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["start-to-start", "finish-to-finish", "driving relationship", "lag", "MEP"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-019",
+    "category": "CPM",
+    "subcategory": "Resource-Driven vs Logic-Driven Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Explaining how resource leveling can change which path is critical without changing the underlying logic network",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On an offshore platform topsides fabrication schedule, before resource leveling the critical path (zero float) runs through the 'Piping Spool Fabrication' sequence, finishing Day 310. After you run P6's resource leveling (because a single welding crew is now shared and over-allocated across multiple simultaneous spool packages), the leveled schedule finish moves to Day 328, and the activities now shown with zero Total Float are largely in the 'Structural Steel Fabrication' sequence instead.",
+    "question": "Explain why leveling could shift both the finish date and which sequence appears critical, and what you would tell the fabrication manager about relying on the leveled schedule's float values for day-to-day float management.",
+    "explanation": "Resource leveling delays activities (beyond what pure logic would produce) to resolve resource over-allocation, effectively inserting new implied logic ('leveling delays') that were not part of the original network. This can push the finish date out (here 18 days) and can make a previously non-critical sequence become the new longest path once leveling delays are baked into it, while the originally critical logic-only path may now show positive float because leveling pushed everything else later around it. The fabrication manager should understand that float values in a resource-leveled schedule reflect a specific resourcing scenario (this crew allocation, this leveling algorithm/priority setting), not pure logical float - if the crewing assumption changes (e.g., a second welding crew is added), the critical path and float values could shift again, so leveled float should be treated as a resourcing decision output, not a permanent network property.",
+    "reasoning": "P6 resource leveling works by delaying activities with float first (within their float, then beyond it if leveling cannot otherwise resolve the conflict) according to leveling priorities, which can consume float unevenly across paths and can even make one path 'more critical' than another that was originally the true logical critical path, purely as an artifact of resource contention and leveling order, not underlying logic duration.",
+    "commonMistakes": [
+      "Treating the leveled schedule's Total Float exactly the same as unleveled (logic-only) float for all reporting purposes without noting the distinction.",
+      "Assuming the leveled critical path is now 'the' critical path permanently, ignoring that it is scenario-dependent on current crew assumptions.",
+      "Not considering un-leveling (or comparing leveled vs unleveled) to separate true logic-driven risk from resource-driven risk."
+    ],
+    "redFlags": ["Does not know that leveling can change which path shows critical.", "Cannot distinguish resource-critical from logic-critical."],
+    "p6Checks": ["Compare Total Float before and after leveling for the same activities (save two schedule versions/baselines).", "Check the Resource Usage Profile for the welding crew for the specific over-allocation window driving the leveling delay.", "Review leveling priorities/options (e.g., priority by Total Float, preserve scheduled logic) used for this leveling run."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What options do you have to reduce the 18-day leveling-driven slip besides simply accepting it?", "purpose": "Tests practical resourcing solutions: add a second crew, resequence to reduce overlap, or accept and communicate the new finish."},
+      {"trigger": "if_correct", "prompt": "Would you report the leveled finish date or the unleveled logic-only finish date as the project's 'critical path finish' to the client?", "purpose": "Tests understanding of what should actually be reported/contracted versus used internally for resourcing."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains leveling delay mechanics and its effect on float/critical path."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives real resourcing options, not just diagnosis."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete P6 checks (leveling priorities, resource usage profile)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 210,
+    "tags": ["resource leveling", "critical path", "total float", "offshore", "fabrication"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-020",
+    "category": "CPM",
+    "subcategory": "Total Float Sign Convention",
+    "competency": "PLANNING_CPM",
+    "skill": "Correctly computing total float using LS-ES and confirming it equals LF-EF",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "NUMERICAL",
+    "scenario": "An activity 'Install Perimeter Fencing' on a solar farm project has Early Start = Day 60, Early Finish = Day 67, Late Start = Day 74, Late Finish = Day 81.",
+    "question": "Calculate this activity's Total Float.",
+    "options": [
+      {"label": "A", "text": "7 days", "isCorrect": false},
+      {"label": "B", "text": "14 days", "isCorrect": true},
+      {"label": "C", "text": "21 days", "isCorrect": false},
+      {"label": "D", "text": "0 days", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "Total Float = Late Start - Early Start = 74 - 60 = 14 days. Cross-check: Late Finish - Early Finish = 81 - 67 = 14 days. Both formulas agree, confirming the answer.",
+    "reasoning": "Total Float can be computed either from the start pair (LS-ES) or the finish pair (LF-EF); for a normal activity (no split, no calendar changes mid-activity) they must be equal. This built-in cross-check is a quick way to sanity-check a manual calculation.",
+    "commonMistakes": [
+      "Subtracting Early Finish from Late Start (or similar mismatched pairs), giving 7 days.",
+      "Adding the two 7-day gaps together (getting the duration itself, not float) instead of comparing corresponding pairs.",
+      "Forgetting to cross-check with the alternate formula."
+    ],
+    "redFlags": ["Cannot compute the most basic float formula correctly."],
+    "p6Checks": ["Activities view - Total Float column, verified against Start/Finish date columns for ES/LS/EF/LF."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If LS-ES and LF-EF gave different answers for a given activity, what would that tell you?", "purpose": "Tests awareness that a mismatch signals a calendar change or an activity constraint mid-duration, a genuine P6 edge case."}
+    ],
+    "weight": 0.75,
+    "estimatedTimeSec": 90,
+    "tags": ["total float", "early start", "late start", "solar"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-021",
+    "category": "CPM",
+    "subcategory": "Critical Path Changes Over Time",
+    "competency": "PLANNING_CPM",
+    "skill": "Explaining why the critical path can change identity between successive schedule updates",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TRUE_FALSE",
+    "scenario": "In Update 4 of a bridge widening project, the critical path runs through the girder erection sequence. In Update 5 (one month later), the critical path shifts entirely to the barrier rail and expansion joint sequence, even though girder erection is now complete and was finished on time.",
+    "question": "True or False: It is normal and expected for the identity of the critical path to change between updates as work completes and float is consumed unevenly across different sequences.",
+    "options": [
+      {"label": "True", "text": "True", "isCorrect": true},
+      {"label": "False", "text": "False", "isCorrect": false}
+    ],
+    "correctAnswer": "True",
+    "explanation": "The critical path is simply the longest remaining path at any given data date. As activities complete and different sequences consume or gain float at different rates (due to actual progress vs plan, resequencing, or logic changes), it is entirely normal for a different chain to become the new longest path in a later update. A shift is not inherently a red flag by itself - what matters is understanding WHY it shifted.",
+    "reasoning": "Because CPM recalculates from the current data date forward every update, and different chains of remaining work can have different total durations and float consumption histories, the specific chain that is longest (critical) is a dynamic, update-by-update property, not a fixed identity for the life of the project.",
+    "commonMistakes": [
+      "Believing the critical path, once established, should remain on the same physical work sequence for the whole project.",
+      "Treating any critical path shift as automatically evidence of a scheduling error."
+    ],
+    "redFlags": ["Believes critical path shifts are inherently abnormal without further diagnosis."],
+    "p6Checks": ["Compare the Longest Path filter results between Update 4 and Update 5 to confirm and characterize the shift.", "Check whether the shift is due to genuine float consumption or a logic/constraint change between updates."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "What would you specifically check to confirm this shift is legitimate rather than caused by a logic error introduced in Update 5?", "purpose": "Tests whether the candidate still applies scrutiny even to an expected/normal phenomenon."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 90,
+    "tags": ["critical path", "schedule update", "bridge", "float consumption"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-022",
+    "category": "CPM",
+    "subcategory": "Missing Information / Insufficient Data",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing when insufficient information is given to determine total float or the critical path",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MISSING_INFO",
+    "scenario": "A colleague tells you: 'Activity X has a duration of 10 days and starts on Day 50. Its only successor, Activity Y, starts on Day 65.' They ask you to state Activity X's Total Float.",
+    "question": "Can you determine Activity X's Total Float from the information given? If not, what specific additional information do you need?",
+    "explanation": "No - you cannot determine Total Float from this information. What can be computed is Free Float: EF of X = 50+10-1=59, so Free Float = 65-59-1 = 5 days (using the inclusive convention). But Total Float requires knowing the Late Start/Late Finish of X, which depends on the full backward pass from the project's controlling constraint/finish - information not given here (e.g., whether Y itself has float, whether Y is on the critical path, and what governs the finish date). Free Float is a lower bound on Total Float (FF <= TF) but not a substitute for it.",
+    "reasoning": "Total Float is a network-wide property requiring the backward pass from the ultimate controlling point, not something derivable from just one successor's start date. Free Float, by contrast, only needs the immediate successor's Early Start and can be computed locally - which is exactly why the two are different metrics and why this scenario can only yield Free Float, not Total Float.",
+    "commonMistakes": [
+      "Computing the 5-day gap and calling it Total Float without recognizing it is actually Free Float.",
+      "Assuming that because there is 'only one successor', Free Float and Total Float must be equal (only true if that successor is itself on the same fully critical downstream chain, which is not established here)."
+    ],
+    "redFlags": ["States a Total Float number confidently from insufficient data without flagging the gap."],
+    "p6Checks": ["Would require pulling both Total Float and Free Float columns directly from P6 rather than attempting manual derivation from partial data."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "What is the minimum additional information that WOULD let you determine Total Float here?", "purpose": "Tests whether the candidate can specify exactly what's missing (the backward-pass late dates or the full downstream network to the finish milestone)."},
+      {"trigger": "if_incorrect", "prompt": "What is the difference between what Free Float protects versus what Total Float protects?", "purpose": "Remedial prompt back to fundamentals."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly identifies that only Free Float, not Total Float, can be computed."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why Total Float needs the full backward pass."},
+        {"name": "completeness", "maxScore": 5, "guidance": "Explicitly states what specific additional information would resolve the gap, not just that data is missing."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": ["total float", "free float", "missing information", "backward pass"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-023",
+    "category": "CPM",
+    "subcategory": "Constraint Effects on Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Predicting the float effect of an As-Late-As-Possible constraint on a non-critical activity",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "A commissioning engineer proposes applying an 'As Late As Possible' (ALAP) constraint to the activity 'Final Punch List Walkdown' on a petrochemical unit schedule, reasoning that 'we want to do the walkdown as close to handover as possible, so this will keep it out of the way until the last minute.' The activity currently has 25 days of Total Float.",
+    "question": "Is applying an ALAP constraint here a sound way to achieve that goal? What will actually happen to the activity's float and dates?",
+    "explanation": "ALAP is possible to apply but is generally a poor practice for exactly the reason it is tempting here: it forces the activity's Early Start/Early Finish to be recalculated as late as its float allows (i.e., pinned to its own Late Start), which effectively sets its Total Float to zero (or drives it toward zero) by making the early dates equal the late dates - the activity becomes artificially critical. This defeats the informational purpose of float (visibility into schedule flexibility) and can also mask real slippage on genuinely important paths by burying one more zero-float activity among the truly critical ones. A better approach is to leave the activity float-driven and simply monitor/report it, or use a soft 'Start On or After' preference tied to a real milestone if a business reason genuinely requires late execution.",
+    "reasoning": "ALAP is a scheduling constraint type that overrides the normal early-date calculation, forcing Early dates to the latest possible position within available float - it is not a 'do nothing until needed' visual convenience, it is a real constraint that changes calculated Total Float to (near) zero and removes the schedule's ability to show true flexibility on that activity.",
+    "commonMistakes": [
+      "Believing ALAP is a purely cosmetic/scheduling-convenience setting with no float consequence.",
+      "Not recognizing that ALAP artificially zeroes out float rather than preserving it.",
+      "Approving the idea without proposing a better alternative (soft constraint, milestone-tied logic, or simply leaving it float-driven)."
+    ],
+    "redFlags": ["Approves ALAP usage without understanding its float consequence.", "Cannot suggest a better alternative."],
+    "p6Checks": ["Activities view - Constraint Type and Constraint Date columns; check Total Float before and after applying ALAP to confirm the effect.", "Compare against 'Start On or After'/soft constraints as an alternative."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Are there any legitimate use cases for ALAP constraints in a construction schedule?", "purpose": "Tests nuance - e.g., deliberately sequencing float-rich procurement to avoid tying up cash flow early, used sparingly and knowingly."},
+      {"trigger": "always", "prompt": "How would you explain to the commissioning engineer why their intuitive request has an unintended side effect?", "purpose": "Tests communication of a technical concept to a non-scheduling stakeholder."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains ALAP forces early=late dates, zeroing float."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a sound alternative."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Recognizes the request's intent and redirects it appropriately."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["ALAP", "constraints", "total float", "petrochemical", "commissioning"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-024",
+    "category": "CPM",
+    "subcategory": "Float and Path Convergence",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating total float at a point where multiple paths of different length converge into one successor",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "NUMERICAL",
+    "scenario": "On a hotel interior fit-out, activity 'Final MEP Commissioning' has three Finish-to-Start predecessors, each ending on a different path from project start: 'Fire Alarm Testing' (EF implies successor ES of Day 190), 'HVAC Balancing' (EF implies successor ES of Day 205), 'Elevator Acceptance Test' (EF implies successor ES of Day 198). Final MEP Commissioning has a duration of 6 days and drives directly to the project finish milestone with no further float downstream.",
+    "question": "What is the Total Float of 'Fire Alarm Testing', given that its own path is otherwise unconstrained elsewhere?",
+    "options": [
+      {"label": "A", "text": "0 days", "isCorrect": false},
+      {"label": "B", "text": "15 days", "isCorrect": true},
+      {"label": "C", "text": "8 days", "isCorrect": false},
+      {"label": "D", "text": "7 days", "isCorrect": false}
+    ],
+    "correctAnswer": "B",
+    "explanation": "Final MEP Commissioning's Early Start is governed by the LATEST of the three predecessor-implied dates: max(190, 205, 198) = Day 205 (HVAC Balancing is driving). Since Final MEP Commissioning drives straight to project finish with no further slack, its Late Start = its Early Start = Day 205 (it is critical, 0 float). Backward pass into Fire Alarm Testing: Fire Alarm Testing's Late Finish = Final MEP Commissioning's Late Start - 1 = Day 204. Fire Alarm Testing's implied Early Finish (from its EF driving a successor ES of 190) = Day 189. Total Float of Fire Alarm Testing = Late Finish - Early Finish = 204 - 189 = 15 days.",
+    "reasoning": "At a converging merge point, the successor's Early Start is the maximum (latest) of all predecessor-implied dates - here HVAC Balancing (205) is the true driver, not Fire Alarm Testing. Since Fire Alarm Testing is not driving, it necessarily carries positive float equal to the gap between its own implied date (189) and the governing date minus one (204): 204-189=15 days.",
+    "commonMistakes": [
+      "Assuming all three predecessors at a merge point are automatically critical.",
+      "Using the wrong predecessor's implied date as the 'driving' one (e.g., picking Elevator Acceptance Test's 198 instead of HVAC's 205).",
+      "Computing float relative to Fire Alarm Testing's own successor ES (190) directly rather than relative to the true governing Late Finish (204) at the merge."
+    ],
+    "redFlags": ["Cannot correctly identify the governing predecessor at a multi-way merge."],
+    "p6Checks": ["Activities view - Total Float for all three predecessors after F9 schedule run; confirm HVAC Balancing = 0 float (driving) and the other two show positive float consistent with the gap."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "What is the Total Float of Elevator Acceptance Test using the same logic?", "purpose": "Tests whether the candidate can repeat the calculation (204-197=... using its own implied EF) for a second non-driving predecessor."}
+    ],
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["merge point", "total float", "backward pass", "hotel fit-out", "MEP commissioning"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-025",
+    "category": "CPM",
+    "subcategory": "Most Likely Cause - Float Anomaly",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing the most likely cause of a sudden, large jump in an activity's Total Float between two consecutive updates",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "On a district cooling plant project, 'Chiller Skid Alignment and Grouting' showed Total Float of 6 days in the June update. In the July update, with only routine progress recorded and no reported logic changes, its Total Float jumped to 47 days.",
+    "question": "What is the most likely cause of this sudden float jump, and what would you check to confirm it?",
+    "explanation": "The most likely cause is an inadvertent (or undisclosed) logic change: most commonly, a successor relationship was deleted or changed (e.g., a driving successor got out-of-sequence progress that caused P6 to reroute its logic under Retained Logic/Progress Override settings, or someone manually deleted/edited a relationship while 'cleaning up' the schedule), removing the constraint that previously made this activity nearly critical. Other plausible causes include a predecessor's duration being drastically shortened, a calendar change giving the activity's path far more working days than before, or an out-of-sequence progress condition being resolved in a way that broke the original driving chain. The float jump should not be accepted at face value; it should be investigated by comparing the activity's predecessor/successor relationships and the schedule log between the two updates.",
+    "reasoning": "A float jump of this magnitude (6 to 47 days) with 'no reported logic changes' is inherently suspicious because normal progress alone (marking activities complete, updating remaining duration) does not typically produce such a large float swing on an unfinished activity unless something changed in the network's structure or in how out-of-sequence progress was resolved.",
+    "commonMistakes": [
+      "Accepting 'no logic changes reported' as proof no logic changed, rather than independently verifying via a schedule comparison.",
+      "Assuming the float jump must be an error and reverting the whole update rather than isolating the specific cause.",
+      "Not considering Retained Logic vs Progress Override settings as a possible mechanism."
+    ],
+    "redFlags": ["Accepts the float jump without any investigation.", "Cannot name plausible causes beyond 'a mistake was made'."],
+    "p6Checks": ["Run a schedule comparison (Claim Digger or manual export comparison) between June and July updates to detect relationship additions/deletions.", "Check the activity's current Predecessors/Successors list against the prior month's schedule file.", "Check Schedule Options for Retained Logic vs Progress Override and whether any out-of-sequence progress occurred on this activity's chain.", "Check for calendar reassignment on this activity or its governing path."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If you confirm a successor relationship was deleted, what should you do before accepting this update as the new baseline of record?", "purpose": "Tests whether the candidate would restore/validate logic rather than silently accept the new float."},
+      {"trigger": "always", "prompt": "How would you prevent undisclosed logic changes like this from slipping into future updates unnoticed?", "purpose": "Tests process improvement thinking - schedule change logs, comparison reports as standard update QA."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Names plausible real causes (logic deletion, OOS progress handling, calendar change)."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete verification steps (schedule comparison tool)."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Does not accept the anomaly at face value."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["total float", "float anomaly", "logic change", "schedule comparison", "district cooling"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-026",
+    "category": "CPM",
+    "subcategory": "Driving Path Identification",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating float at a two-heading merge point and translating it into a recovery-focus recommendation",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "SCENARIO",
+    "scenario": "A metro tunnel is being driven from two portals toward a mid-point breakthrough. 'North Portal Heading' has a current Early Finish of Day 412. 'South Portal Heading' has a current Early Finish of Day 398. Both are Finish-to-Start predecessors (no lag) to 'Breakthrough Survey & Connection' (duration 3 days), which then drives directly, with no further downstream float, to 'Tunnel Lining Start' - the current Total Float of the whole chain from Breakthrough Survey onward is 0 (critical).",
+    "question": "Calculate the Total Float of 'South Portal Heading'. Given this result, where should the project team focus recovery/expediting effort, and what residual risk remains even if North Portal Heading is protected?",
+    "expectedAnswer": "A competent candidate calculates: Breakthrough Survey ES = max(412, 398) + 1 = Day 413, so North Portal Heading (EF=412) is the driving predecessor with 0 float, and Breakthrough Survey's Late Start = 413 (critical). South Portal Heading's Late Finish = 413 - 1 = 412, so its Total Float = 412 - 398 = 14 days. They correctly identify North Portal Heading as the current critical driver and recommend recovery focus (crew resourcing, TBM performance monitoring, ground condition risk management) on the North heading, since that is what currently controls breakthrough date and, downstream, tunnel lining start and the whole finish.",
+    "strongAnswer": "A strong candidate notes that 14 days of float on South is not permanent protection: any combination of North Portal Heading gaining time (through recovery) and South Portal Heading losing time (through poor ground, water ingress, equipment breakdown) can erode or eliminate that 14-day cushion, so South should still be actively monitored, not ignored, and its float trend tracked update to update.",
+    "expertAnswer": "An expert candidate adds that in tunneling specifically, both headings often share risk correlation (same geology, same procurement chain for segments/consumables, sometimes shared plant or crews rotated between headings) so treating the two headings as independent risk sources is itself an oversimplification - a single event (e.g., a TBM cutterhead failure affecting both machines' spare parts pipeline) could erode both paths simultaneously, collapsing the 14-day buffer faster than univariate float trending would suggest.",
+    "explanation": "North Portal Heading is the driving predecessor (later implied date, 412 vs 398), making it the current critical path with 0 float; South Portal Heading carries 14 days of Total Float as a result of the merge-point backward pass. Recovery effort should prioritize North Portal Heading, but South's float is a snapshot in time, not a guarantee, and correlated risks between the two headings deserve independent attention.",
+    "reasoning": "At a Finish-to-Start merge point, the successor's Early Start is governed by the later (maximum) of the predecessor-implied dates; the backward pass then constrains both predecessors' Late Finish equally from that governing point, so the non-driving predecessor's float is simply the gap between its own early finish and the shared governing late finish.",
+    "commonMistakes": [
+      "Assuming both headings share the same float since they merge into the same successor.",
+      "Calculating South's float relative to its own downstream logic rather than the shared merge-point Late Finish.",
+      "Recommending recovery effort split evenly across both headings rather than prioritizing the actual driver."
+    ],
+    "redFlags": ["Cannot identify which heading is currently driving.", "Treats 14 days of float as a permanent guarantee rather than a current snapshot."],
+    "p6Checks": ["Activities view - Total Float for both heading activities after F9, cross-checked against the Driving indicator on Breakthrough Survey & Connection's predecessor relationships.", "Trend South Portal Heading's float update-to-update to detect erosion early."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If South Portal Heading's progress rate suddenly dropped, at what point would it become co-critical with North?", "purpose": "Tests whether the candidate can reason about float erosion dynamically, not just as a static number."},
+      {"trigger": "always", "prompt": "How would you report this driving-path situation to the client's tunnel engineer in the monthly report?", "purpose": "Tests communication of a technical driving-path finding to a stakeholder."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly calculates 14 days of float and identifies North as driving."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the merge-point mechanics clearly."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a real, prioritized recovery recommendation with residual-risk awareness."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["driving relationship", "total float", "merge point", "tunneling", "backward pass"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-027",
+    "category": "CPM",
+    "subcategory": "Multiple Critical Paths",
+    "competency": "PLANNING_CPM",
+    "skill": "Prioritizing management action across several tied critical paths under contractual liquidated-damages exposure",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "CASE_STUDY",
+    "projectType": "Semiconductor fabrication plant, cleanroom fit-out",
+    "projectSituation": "Six months from the contractual 'tool-ready' date (the date by which the cleanroom must be certified and handed over for process tool installation, carrying $250,000/day liquidated damages against the owner's chip production ramp), the updated schedule shows FOUR independent paths tied at 0 days Total Float: electrical distribution/UPS commissioning, mechanical (chilled water and process exhaust) commissioning, cleanroom fit-out and HEPA filter certification, and fire/life-safety systems commissioning. Each path is managed by a different subcontractor with separate crews and no shared resources.",
+    "question": "As the project controls manager, how would you prioritize management attention and reporting across these four tied critical paths, and what would you specifically flag to senior management and the client given the liquidated damages exposure?",
+    "expectedAnswer": "A competent candidate recognizes that with four independently-resourced tied paths, no single path can be assumed 'more important' by float alone - each is equally capable of causing the LD-triggering delay - so all four need equally rigorous weekly tracking (not just the traditionally 'riskiest-looking' one), each subcontractor needs its own recovery/mitigation plan, and any one path slipping even slightly moves the whole project's finish and triggers LD exposure regardless of the other three staying on track.",
+    "strongAnswer": "A strong candidate prioritizes using secondary risk indicators beyond float alone - e.g., which subcontractor has the worst historical productivity/quality trend on this project, which path has the least schedule contingency embedded in its remaining durations, which has known supply-chain or long-lead risk (e.g., UPS switchgear delivery) - to allocate closer oversight without neglecting the others, and recommends a joint weekly four-subcontractor coordination meeting specifically because independent crews with no shared resources also means no shared visibility unless forced.",
+    "expertAnswer": "An expert candidate explicitly separates the technical schedule finding (four tied critical paths) from the commercial/contractual response: they recommend quantifying the probabilistic risk (e.g., a schedule risk analysis / Monte Carlo run reflecting the merge-point exposure of four independent zero-float paths) to give senior management a realistic P50/P80 completion range rather than a single deterministic date, and they flag early and transparently to the client that the LD exposure is materially higher than a single-critical-path project of the same float would suggest - proactively raising this rather than waiting for a slip protects the relationship and creates room to discuss mitigation cost-sharing or schedule relief options before a dispute arises.",
+    "explanation": "Four independently-resourced paths tied at zero float multiplies completion risk relative to float alone (merge bias), and under a significant LD regime this technical fact has direct commercial consequences that a project controls manager must surface proactively, prioritize practically (given four paths cannot literally receive identical unlimited attention), and quantify where possible rather than simply reporting 'critical path duration unchanged'.",
+    "reasoning": "CPM float does not encode probability or resourcing independence; when several paths are tied and independently resourced, the probability that at least one slips exceeds the probability of any single path slipping, and under LD exposure this probabilistic reality has real cost consequences that must be actively managed and communicated, not left implicit in a float number.",
+    "commonMistakes": [
+      "Treating all four paths as requiring identical generic attention with no differentiation strategy.",
+      "Reporting only the deterministic finish date without flagging the elevated risk from four tied paths.",
+      "Waiting to raise the LD exposure with the client until a path actually slips rather than proactively."
+    ],
+    "redFlags": ["No plan to differentiate management focus across the four paths.", "No mention of proactive client communication or risk quantification given the LD exposure.", "Treats this as a purely technical scheduling issue with no commercial dimension."],
+    "p6Checks": ["Longest Path filter run separately isolating each of the four chains to confirm true independence (no shared driving relationships).", "Group activities by subcontractor/responsible party and review remaining-duration contingency and productivity trend per path.", "Consider exporting to a schedule risk analysis tool for a probabilistic completion range."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "Would you recommend adding schedule contingency (a management reserve activity) to protect against this merge risk, and if so, how would you present that to the client?", "purpose": "Tests whether the candidate can translate risk awareness into a concrete schedule and commercial recommendation."},
+      {"trigger": "if_correct", "prompt": "One of the four subcontractors argues their path 'isn't really critical' because it has never slipped historically. How do you respond?", "purpose": "Tests whether the candidate distinguishes historical performance from current network-derived criticality."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Prioritizes practically across four equally-critical paths with a coherent strategy."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Connects merge bias to real LD/commercial consequence."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Names concrete monitoring/quantification actions (risk analysis, differentiated tracking)."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["multiple critical paths", "merge bias", "liquidated damages", "semiconductor", "risk"],
+    "references": ["PMI Practice Standard for Scheduling", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "CPM-028",
+    "category": "CPM",
+    "subcategory": "Free Float Calculation",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating free float with two competing successors at different early start dates",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "On a municipal water treatment plant project, 'Clarifier Base Slab Pour' has Early Finish = Day 82. It has two Finish-to-Start successors: 'Clarifier Mechanism Installation' with Early Start = Day 85, and 'Sludge Line Tie-in' with Early Start = Day 90.",
+    "question": "What is the Free Float of 'Clarifier Base Slab Pour'?",
+    "options": [
+      {"label": "A", "text": "2 days", "isCorrect": true},
+      {"label": "B", "text": "7 days", "isCorrect": false},
+      {"label": "C", "text": "3 days", "isCorrect": false},
+      {"label": "D", "text": "8 days", "isCorrect": false}
+    ],
+    "correctAnswer": "A",
+    "explanation": "Free Float uses the earliest successor Early Start. The earliest is 'Clarifier Mechanism Installation' at Day 85. Free Float = 85 - 82 - 1 = 2 days (inclusive-day convention).",
+    "reasoning": "Free Float = min(ES of all successors) - EF of the activity - 1. Using the later successor (Day 90, Sludge Line Tie-in) instead of the earlier one is the classic error this question is designed to catch.",
+    "commonMistakes": [
+      "Using Sludge Line Tie-in's later start date (90) instead of the earliest successor, giving an inflated 7 days.",
+      "Forgetting the -1 date-convention adjustment.",
+      "Confusing this with Total Float, which requires the full backward pass, not just successor starts."
+    ],
+    "redFlags": ["Selects the wrong (later) successor when computing free float."],
+    "p6Checks": ["Activities view - Free Float column, cross-checked against the Successors tab to confirm the limiting successor."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If Clarifier Mechanism Installation were removed from the network, what would Free Float become?", "purpose": "Tests recomputation with the remaining successor only."}
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["free float", "multiple successors", "water treatment"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-029",
+    "category": "CPM",
+    "subcategory": "Open Ends and Dangling Activities",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing an open-start activity that defaults to an artificially early start with inflated float",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a 90-lot residential subdivision infrastructure schedule, 'Sidewalk Concrete Pour - Block 12' shows Early Start equal to the project data date and Total Float of 210 days, even though physically the sidewalk cannot be poured until curb and gutter work in Block 12 is complete (which is not scheduled to finish until roughly month 9). Investigation shows the activity has zero predecessors entered.",
+    "question": "What is going on with this activity's dates and float, and what is the correct fix?",
+    "explanation": "An activity with no predecessor is an open-start (dangling) activity: with nothing constraining it, P6's forward pass defaults its Early Start to the project (or data) date, producing a physically impossible early date and, because the backward pass then has to reach far back from a distant finish milestone, an artificially large Total Float. The fix is to add the real missing predecessor - almost certainly 'Curb and Gutter Installation - Block 12' via Finish-to-Start - so the activity's Early Start and float reflect its true physical dependency, not a phantom tie to the project start.",
+    "reasoning": "Forward pass Early Start defaults to the earliest allowable date (project/data date) absent any predecessor constraint. This produces both a nonsensical early date and a distorted float value, since the float calculation is only meaningful when both early and late dates derive from real logic - here the early date is wrong, making the float number wrong too, independent of whatever the late date calculation produces.",
+    "commonMistakes": [
+      "Treating the 210 days of float as genuine schedule flexibility for this activity.",
+      "Fixing the visual/date problem by adding a constraint (e.g., Start On or After month 9) instead of real predecessor logic.",
+      "Assuming this is an isolated data entry slip rather than checking whether other Block 12 (or other blocks') activities have the same missing-predecessor pattern."
+    ],
+    "redFlags": ["Accepts the 210-day float as real without investigating the missing predecessor.", "Proposes a constraint instead of logic as the fix."],
+    "p6Checks": ["Activities view - Predecessors column/tab for this activity to confirm zero predecessors.", "Filter the whole schedule for activities with no predecessor (excluding the project start milestone) to check for a systemic pattern across other blocks.", "After adding the correct predecessor, re-run the schedule (F9) and confirm Early Start and Total Float both change to realistic values."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If this same missing-predecessor pattern exists on 40 other lot-level activities across the subdivision, what does that suggest about how the schedule was originally built?", "purpose": "Tests recognition of a systemic template/import logic gap."},
+      {"trigger": "always", "prompt": "How would this open-start problem distort a resource histogram or cash flow curve derived from this schedule?", "purpose": "Connects the finding to downstream uses of the schedule beyond just float."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains the open-start mechanism and its effect on both ES and float."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes adding real logic and checking for systemic recurrence."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete P6 filters/checks."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["open ends", "dangling activity", "total float", "network integrity", "residential subdivision"],
+    "references": ["PMI Practice Standard for Scheduling", "GAO Schedule Assessment Guide"]
+  },
+  {
+    "questionCode": "CPM-030",
+    "category": "CPM",
+    "subcategory": "Negative Float Response",
+    "competency": "PLANNING_CPM",
+    "skill": "Sequencing the correct next steps after discovering negative float on a driving path",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "WHAT_NEXT",
+    "scenario": "Reviewing the monthly update for an onshore gas compressor station project, you find that the path leading to 'Compressor Train Performance Test' now shows Total Float of -9 days against the contractual mechanical completion milestone. This is the first update where negative float has appeared on this project.",
+    "question": "What are the next steps you would take, in order, upon discovering this negative float, before reporting it upward?",
+    "explanation": "A sound sequence is: (1) verify the negative float is genuine and not a data artifact - check for an incorrectly entered constraint date, a duplicated or corrupted relationship, or a calendar assignment error that could be producing a false negative; (2) if genuine, trace the entire driving path from the compressor train test milestone back to identify exactly which activities and delays caused the erosion since the prior update; (3) quantify the root cause(s) - late equipment delivery, productivity shortfall, added scope, weather - separating controllable from external causes; (4) evaluate practical recovery options (resequencing, added shifts/crews, fast-tracking non-critical scope in parallel, scope deferral) and their cost/feasibility; (5) only then prepare a clear, factual report to management/client that presents the finding, root cause, and recommended recovery options together - not the bare -9 days in isolation, which invites panic or a defensive reaction without context.",
+    "reasoning": "Negative float is a valid and useful signal, but reporting a bare negative number without verification and root-cause analysis either causes unnecessary alarm (if it turns out to be a data error) or wastes the opportunity to pair the bad news with a credible recovery plan (if it is genuine), both of which undermine the planning function's credibility.",
+    "commonMistakes": [
+      "Reporting the negative float number immediately without first verifying it is not a data/logic error.",
+      "Jumping straight to a recovery plan before identifying the actual root cause of the erosion.",
+      "Treating this as purely a reporting exercise with no recovery-option analysis at all."
+    ],
+    "redFlags": ["Would report the number immediately without verification.", "Has no structured next-steps sequence, just a single vague 'investigate it' answer."],
+    "p6Checks": ["Compare this update's driving path/logic against the prior update (schedule comparison) to isolate what changed.", "Check the milestone's constraint type/date for correctness.", "Total Float column sorted ascending to confirm the full extent and location of negative float across the network."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the root cause turns out to be a vendor-caused equipment delivery delay, how does that change what you'd recommend versus if it were caused by the contractor's own productivity shortfall?", "purpose": "Tests whether the candidate connects root cause to differentiated recovery and, implicitly, contractual response."},
+      {"trigger": "always", "prompt": "Who should be informed first internally before this goes to the client?", "purpose": "Tests understanding of internal escalation protocol before external reporting."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a real, logical sequence of next steps, not just 'investigate'."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Verifies before reporting; pairs findings with recovery options."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Distinguishes root-cause identification from mere symptom reporting."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["negative float", "recovery planning", "root cause", "oil and gas", "compressor station"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-031",
+    "category": "CPM",
+    "subcategory": "Driving Relationships",
+    "competency": "PLANNING_CPM",
+    "skill": "Calculating float at a commissioning merge point and directing schedule-risk investment accordingly",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "SCENARIO",
+    "scenario": "On a combined-cycle power plant project, 'Gas Turbine Mechanical Completion' has Early Finish = Day 260, and 'HRSG Mechanical Completion' has Early Finish = Day 251. Both are Finish-to-Start predecessors (no lag) to 'Combined Cycle Commissioning Start', which is critical (Total Float = 0) all the way to the project finish milestone.",
+    "question": "Calculate the Total Float of 'HRSG Mechanical Completion', identify which of the two mechanical completion activities is currently driving commissioning start, and explain how you would direct limited schedule-risk management resources between the gas turbine and HRSG contractors given this result.",
+    "expectedAnswer": "A competent candidate calculates: Commissioning Start ES = max(260, 251) + 1 = Day 261, so Gas Turbine Mechanical Completion (EF=260) is driving with 0 float. HRSG's Late Finish = Commissioning Start's Late Start (261, since commissioning is critical) - 1 = 260, giving HRSG Total Float = 260 - 251 = 9 days. They correctly recommend prioritizing schedule-risk attention (progress monitoring frequency, expediting, contingency planning) on the Gas Turbine contractor's path since it currently controls the commissioning start and, downstream, the whole plant's commercial operation date.",
+    "strongAnswer": "A strong candidate notes 9 days is a moderate, not huge, buffer for HRSG and recommends continuing to monitor it (not deprioritizing it to zero attention), since HRSG performance testing and boiler tuning activities are historically prone to their own delays (tube leaks, control system tuning) that could consume the 9-day buffer even while GT stays on track.",
+    "expertAnswer": "An expert candidate ties this to commercial operation date (COD) exposure: on many power projects COD triggers both LDs for the EPC contractor and revenue start for the owner, so they would explicitly quantify what a GT slip means in COD delay terms, check whether the EPC contract's milestone schedule treats GT and HRSG completion as separately trackable interim milestones with their own float/consequence structure, and recommend that both contractors receive documented monthly float trend reports (not just the currently-driving one) so neither is surprised if the driving path later shifts to HRSG.",
+    "explanation": "Gas Turbine Mechanical Completion is currently the driving predecessor (later implied date), making it the 0-float path controlling commissioning start; HRSG Mechanical Completion carries 9 days of Total Float from the same merge-point backward pass calculation.",
+    "reasoning": "At the Finish-to-Start merge into Combined Cycle Commissioning Start, the successor's Early Start equals the later of the two predecessor-implied dates (260+1=261 versus 251+1=252, so 261 governs); the backward pass then sets both predecessors' Late Finish from that shared governing Late Start, so the non-driving predecessor's Total Float is simply the gap between its own Early Finish and that shared Late Finish.",
+    "commonMistakes": [
+      "Assuming HRSG, being a large and complex system, must automatically be equally critical to GT.",
+      "Calculating HRSG's float incorrectly by comparing it to its own successor's Early Start rather than the shared merge-point Late Finish.",
+      "Recommending equal resource split rather than prioritizing the currently-driving path while still monitoring the other."
+    ],
+    "redFlags": ["Cannot correctly identify which predecessor is driving at the merge.", "No plan to continue monitoring the non-driving 9-day-float path."],
+    "p6Checks": ["Activities view - Total Float on both mechanical completion activities after F9, cross-checked against the Driving indicator on Combined Cycle Commissioning Start's predecessor relationships.", "Trend HRSG's float update-to-update to watch for erosion from tube leak rework or control tuning delays."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If HRSG Mechanical Completion later slipped by 10 days, what would happen to the driving relationship and the project finish date?", "purpose": "Tests whether the candidate can reason about a driving-path handover when the gap is overtaken."},
+      {"trigger": "always", "prompt": "How would you present this driving-path finding differently to the GT contractor versus the HRSG contractor?", "purpose": "Tests stakeholder-specific communication judgment."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly calculates 9 days and identifies GT as driving."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the merge-point mechanics."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a real, prioritized risk-management recommendation."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["driving relationship", "total float", "merge point", "power plant", "commissioning"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-032",
+    "category": "CPM",
+    "subcategory": "Fragnet Insertion and Float Impact",
+    "competency": "PLANNING_CPM",
+    "skill": "Analyzing how inserting a fragnet for a design change shifts float and the critical path in a P6 network",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": ["SENIOR"],
+    "questionType": "P6_ANALYSIS",
+    "scenario": "A university science building schedule originally showed the laboratory casework and fume hood installation path with 18 days of Total Float. Mid-project, the owner issues a design change requiring re-routing of exhaust ductwork for three labs. You insert a 22-activity fragnet for the re-design, procurement, and rework into that path, tied in with real Finish-to-Start and Start-to-Start logic to the existing activities on either side.",
+    "question": "After inserting the fragnet and re-running the schedule, the lab casework path now shows Total Float of -4 days. Walk through what P6 analysis you would perform to confirm this result is correct (not a modeling error) before reporting a 22-day net float swing to the project team.",
+    "explanation": "A competent analysis includes: (1) confirming the fragnet's own internal logic is sound (no missing ties, no accidental redundant or conflicting relationships) using Trace Logic on the fragnet activities; (2) verifying the fragnet ties into the existing network at genuinely correct points - the real predecessor the re-design work should follow and the real successor that now must wait for the rerouted ductwork - not an arbitrary insertion point; (3) confirming the fragnet's estimated durations (design, procurement lead time, rework) are realistic and sourced (vendor quotes, similar past change orders), not placeholder guesses; (4) re-checking Total Float on the surrounding, previously-float-rich activities to confirm the full -22-day swing (18 to -4) is actually attributable to the fragnet's added duration and not an unrelated coincidental logic or calendar change made at the same time; (5) checking whether the fragnet correctly reflects any work that can proceed in parallel (e.g., procurement of the new ductwork starting immediately while other unaffected lab casework continues) rather than modeling everything as a serial add-on, which would overstate the impact.",
+    "reasoning": "A fragnet is only as reliable as its internal logic, its tie-in points, and its duration estimates; before reporting a dramatic float swing (here 22 days, converting healthy float into negative float) to the project team, the analyst must verify the fragnet is a faithful, minimally-disruptive representation of the actual required new work, not an over-conservative or mis-tied insertion that artificially overstates the impact - since this number will likely feed directly into an EOT/change order discussion.",
+    "commonMistakes": [
+      "Inserting the fragnet with default or placeholder durations and reporting the resulting float swing without validating durations against real data.",
+      "Tying the fragnet in serially to convenient existing activities rather than the activities that are truly, physically affected.",
+      "Reporting the float swing without checking whether some of it come from an unrelated change made in the same update cycle."
+    ],
+    "redFlags": ["Reports the float swing number without any verification process.", "Cannot describe how to check the fragnet's tie-in points or duration basis."],
+    "p6Checks": ["Trace Logic on the fragnet activities and their tie-in predecessors/successors.", "Compare Total Float on the surrounding activities before and after fragnet insertion, isolated from any other concurrent update changes.", "Review the fragnet's duration basis documentation (vendor lead time confirmation, similar historical change orders) before accepting it as the impact basis."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "This float swing will likely be used to support a time impact analysis for a change order. What does that change about how carefully you need to validate the fragnet?", "purpose": "Tests whether the candidate connects technical fragnet quality to downstream commercial use and the higher scrutiny that implies."},
+      {"trigger": "if_correct", "prompt": "How would you distinguish, in your fragnet, between float genuinely consumed by the design change versus float that was already eroding for other reasons before the change was issued?", "purpose": "Tests understanding of baseline-versus-concurrent-cause separation relevant to entitlement analysis."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Describes a sound fragnet-validation process."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names concrete P6 tools (Trace Logic, before/after comparison)."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Connects validation rigor to the fragnet's likely downstream commercial use."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["fragnet", "total float", "design change", "P6 analysis", "university campus"],
+    "references": ["PMI Practice Standard for Scheduling", "AACE RP 29R-03 Forensic Schedule Analysis"]
+  },
+  {
+    "questionCode": "CPM-033",
+    "category": "CPM",
+    "subcategory": "Resource-Driven Criticality vs Logic Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing when a single shared resource constraint creates real-world criticality that pure logic-based float does not capture",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "PARADOX",
+    "scenario": "At a container terminal expansion, the logic-only (unleveled) P6 schedule shows 'Ship-to-Shore Crane 2 - Erection and Commissioning' with 22 days of Total Float. The terminal owns only one heavy crawler crane capable of erecting these ship-to-shore cranes, and that crawler crane is already fully booked erecting Crane 1 (a separate activity chain) for the entire window during which Crane 2's 22 days of float exist. The site superintendent insists 'Crane 2 erection is actually critical, whatever the P6 float says.'",
+    "question": "Is the superintendent right despite what the Total Float column shows? Explain the apparent contradiction and how you would resolve it in the schedule.",
+    "explanation": "The superintendent is functionally correct even though the logic-only Total Float of 22 days is technically accurate for the network AS MODELED. The contradiction arises because pure CPM float only reflects logical (predecessor/successor) constraints, not physical resource availability; here, a single crawler crane shared between Crane 1 and Crane 2 erection creates a real-world resource constraint that the unleveled network does not capture at all, since no logic relationship connects the two crane erection activities. The correct resolution is not to argue about who is right, but to make the resource constraint explicit in the schedule: either add a real logic tie (or a resource-driven relationship) reflecting that the crawler crane must be released from Crane 1 before Crane 2 erection can start, or run resource leveling with the crawler crane resource properly loaded on both activities so P6 itself recalculates float reflecting the true resource-constrained sequence.",
+    "reasoning": "CPM in its pure form calculates float purely from logic, duration, and calendars; it has no inherent awareness of resource contention unless that contention is either modeled as explicit logic or resolved through resource leveling. A single, unique, non-shareable resource (like one crawler crane capable of a specialized lift) is exactly the situation where logic-only float and real-world criticality diverge, and experienced field staff often sense this correctly before the schedule reflects it.",
+    "commonMistakes": [
+      "Dismissing the superintendent's concern because 'the schedule says 22 days of float' without investigating the resource constraint.",
+      "Agreeing with the superintendent's field intuition but not knowing how to actually fix the schedule to reflect it.",
+      "Assuming resource leveling only matters for large multi-trade labor pools, not for unique heavy equipment."
+    ],
+    "redFlags": ["Insists the P6 float number is definitively correct and the superintendent's field knowledge is irrelevant.", "Cannot propose a concrete fix (logic tie or resource leveling) to reconcile the two."],
+    "p6Checks": ["Check whether the crawler crane is even loaded as a resource on both crane erection activities.", "Run resource leveling with the crawler crane resource to see the resulting Total Float on Crane 2 erection.", "Alternatively, add an explicit relationship or resource-dependent constraint reflecting release-from-Crane-1 as a precondition for Crane 2 start, then re-run the schedule."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Why might you prefer an explicit logic relationship over relying solely on resource leveling to capture this constraint?", "purpose": "Tests judgment on modeling choice - explicit logic is more transparent and auditable than a leveling algorithm's output, especially for claims/reporting purposes."},
+      {"trigger": "always", "prompt": "What other single, non-shareable resources on a typical marine/port project should you specifically check for this same blind spot?", "purpose": "Tests ability to generalize the lesson (e.g., a single heavy-lift barge, a single specialized welding rig, a single survey team)."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains logic-only float versus resource-constrained reality."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Proposes a concrete fix (logic tie or leveling), not just a verbal acknowledgment."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Takes the field superintendent's input seriously rather than dismissing it based on the tool output alone."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 210,
+    "tags": ["resource constraint", "total float", "critical path", "port", "crane erection"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-034",
+    "category": "CPM",
+    "subcategory": "Crashing and Float Consumption",
+    "competency": "PLANNING_CPM",
+    "skill": "Determining the minimum-cost crashing plan across two near-critical paths that become co-critical partway through recovery",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "A correctional facility construction project must recover 6 days against a regulatory opening date. Two paths are relevant: 'Structural Steel and Concrete Topping Out' is currently critical (Total Float = 0) and can be crashed up to 6 days at a cost of $15,000 per day. 'Security Systems Integration and Testing' currently has 2 days of Total Float and can be crashed up to 4 days at a cost of $8,000 per day. No other paths are within 6 days of criticality.",
+    "question": "Propose the minimum-cost crashing plan to recover the full 6 days, explaining how the two paths' float interacts as the plan proceeds, and state the total crashing cost.",
+    "expectedAnswer": "A competent candidate recognizes that Security Systems' 2 days of existing float must be consumed for free before it becomes co-critical, so only the Structural path needs to be crashed for the first 2 days: crash Structural 2 days at $15,000/day = $30,000. At that point both paths are tied at 0 float. To recover the remaining 4 days, BOTH paths must now be crashed in parallel (crashing only one no longer moves the project finish, since the other becomes the new unshortened critical path at that length): crash Structural 4 more days (total 6, within its 6-day max) at $15,000/day = $60,000, and crash Security Systems 4 days (within its 4-day max) at $8,000/day = $32,000, for a Phase 2 cost of $92,000. Total minimum cost = $30,000 + $92,000 = $122,000.",
+    "strongAnswer": "A strong candidate explicitly states the general principle being applied - once two paths are tied, shortening only the cheaper-to-crash one does not shorten the project, because the other (uncrashed) path becomes the new binding constraint at its current length - and confirms both paths stay within their respective maximum crash limits (6 and 4 days) throughout the plan.",
+    "expertAnswer": "An expert candidate notes the plan assumes crashing costs are linear per day and that no other path becomes newly critical as these two are compressed - and states they would re-run the full schedule after each crashing increment (not just trust the arithmetic) to confirm no other previously-non-critical path (e.g., a third path sitting at 5-6 days float) unexpectedly becomes binding partway through, since real schedules rarely have exactly two relevant paths in isolation.",
+    "explanation": "The minimum-cost plan uses Security Systems' existing 2 days of float for free, then crashes both paths in parallel for the remaining 4 days once they are tied, for a total cost of $122,000 - crashing Structural alone for the full 6 days ($90,000) would be cheaper in isolation but is infeasible past day 2 because Security Systems would then become the binding critical path at only 2 days of recovery, so the plan must include parallel crashing for the last 4 days regardless of the higher combined cost.",
+    "reasoning": "Crashing must always target the current critical path(s); once paths tie, project duration can only be reduced by shortening all tied critical paths simultaneously, so the cost-minimization problem has two phases here - a free-float-consumption phase (no cost) followed by a mandatory dual-path crashing phase (both costs apply) - and simply summing each path's stand-alone cheapest cost, ignoring the tie-point, gives a wrong (unachievable) answer.",
+    "commonMistakes": [
+      "Crashing only Structural for all 6 days and reporting a $90,000 total, ignoring that Security Systems becomes binding after day 2.",
+      "Crashing both paths for the full 6 days from day one, overspending by including days where only Structural needed to move.",
+      "Forgetting to check the maximum crash-day limits on each path before finalizing the plan."
+    ],
+    "redFlags": ["Proposes a plan that would not actually achieve 6 days of real recovery given the tie point.", "Does not recognize the two-phase structure of the problem at all."],
+    "p6Checks": ["Re-run the schedule (F9) after each crashing increment to confirm actual Total Float on both paths matches the assumed tie point.", "Verify crash-day limits are respected via activity duration floor checks."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If a third path, currently at 5 days of float, existed, at what point in your plan would you need to start watching it?", "purpose": "Tests whether the candidate can extend the tie-point logic to a third competing path."},
+      {"trigger": "always", "prompt": "Are there non-cost factors (site congestion, safety, subcontractor capacity) that might make this 'minimum cost' plan impractical in reality?", "purpose": "Tests whether the candidate treats crashing analysis as one input among several practical constraints."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly computes the two-phase plan and $122,000 total."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why parallel crashing is required once paths tie."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Respects crash-day limits and considers re-verification/non-cost constraints."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["crashing", "total float", "cost-time trade-off", "correctional facility", "recovery schedule"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-035",
+    "category": "CPM",
+    "subcategory": "Most Likely Cause - Float Anomaly",
+    "competency": "PLANNING_CPM",
+    "skill": "Diagnosing a likely calendar assignment error from an implausible float value",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "On a multi-site telecom tower rollout schedule, 'Antenna Mount Installation - Site 47' shows Total Float of 61 days, dramatically higher than the 5-15 days typical for the equivalent activity at the other 60 sites in the rollout, even though its logic (one predecessor, one successor) looks identical to the others.",
+    "question": "What is the most likely cause of this one site's unusually high float compared to its otherwise-identical peers, and how would you check it?",
+    "explanation": "Given that the logic itself looks identical to the other 59 sites, the most likely cause is a calendar assignment error - Site 47's activity (or its governing path) may have been accidentally assigned a 7-day or unrestricted calendar instead of the standard project working calendar used elsewhere, or a different, more permissive calendar was applied that gives it far more available working days before hitting its downstream constraint, artificially inflating float relative to sites on the correct restricted calendar.",
+    "reasoning": "When logic is confirmed identical across a population of otherwise-comparable activities but one outlier shows a dramatically different float value, calendar assignment is one of the first things to check, since it is a common, easy-to-make, easy-to-overlook data entry error that does not show up when simply eyeballing predecessor/successor counts.",
+    "commonMistakes": [
+      "Assuming the float difference must be a logic problem when logic has already been confirmed identical.",
+      "Not considering calendar assignment as a distinct, checkable variable from logic.",
+      "Accepting the anomaly as a legitimate site-specific difference without any verification."
+    ],
+    "redFlags": ["Cannot name calendar assignment as a plausible, checkable cause."],
+    "p6Checks": ["Activities view - Calendar column for Site 47's activity and its predecessor/successor chain, compared against a known-correct site.", "Compare working/non-working days between the assigned calendar and the standard project calendar for the relevant date range."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Besides calendar assignment, what is a second plausible cause you would rule out?", "purpose": "Tests breadth - e.g., a duplicate/parallel milestone constraint, or the site actually being on a genuinely different, longer downstream path."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Names calendar assignment as the most likely cause with sound reasoning."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a concrete verification check."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why an identical-logic control group makes calendar assignment the leading suspect over a logic error."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": ["total float", "calendar", "float anomaly", "telecom"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-036",
+    "category": "CPM",
+    "subcategory": "Negative Float Coexisting with Positive Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Confirming that negative float on one path and healthy positive float on another are simultaneously valid, not contradictory",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "On a seawater desalination plant project, the reverse osmosis (RO) train commissioning path shows Total Float of -11 days against its contractual first-water milestone. In the same schedule, the administration building fit-out path, unrelated in logic to the RO train, shows Total Float of +34 days. The client's project director says: 'One of these numbers must be wrong - a project can't be both 11 days behind and 34 days ahead at the same time.'",
+    "question": "Is the client's director correct that these two float values are contradictory? Explain why or why not.",
+    "explanation": "The director is incorrect - this is entirely possible and not contradictory, because Total Float is calculated per path relative to whatever governs that specific path, not as one single project-wide number. The RO train path is governed by (and currently failing to meet) the contractual first-water milestone, producing negative float on that chain. The administration building path is logically unrelated (no shared activities or governing constraint with the RO train) and simply has substantial genuine slack before it would affect any milestone. The project is not simultaneously '11 days behind and 34 days ahead' as a single fact; rather, one specific critical scope (RO commissioning) is behind schedule while a separate, non-critical scope (admin building) has comfortable float - both statements are independently true and describe different parts of the network.",
+    "reasoning": "CPM does not produce one float value for 'the project' as a monolithic entity except at the single point governing overall project finish (or whichever milestone is being referenced); every other activity's float is local to its own path and governing constraint. Two logically independent paths can show any combination of float values, including one negative and one strongly positive, without any internal inconsistency.",
+    "commonMistakes": [
+      "Agreeing that one number must be an error without checking whether the two paths are logically connected at all.",
+      "Trying to average or reconcile the two float values into a single project-wide float, which is not a meaningful operation.",
+      "Not explaining clearly to the non-technical director why this is not a contradiction."
+    ],
+    "redFlags": ["Cannot explain why two float values on unrelated paths can differ this much without a plain-English answer for a non-technical stakeholder."],
+    "p6Checks": ["Trace Logic on both paths to confirm they share no common activities or governing constraint.", "Longest Path filter to confirm the RO train path is the true driver of the first-water milestone while the admin building sits well outside it."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "How would you explain this to the project director in terms they'd find reassuring rather than confusing?", "purpose": "Tests communication skill in translating a technical CPM fact for a non-technical stakeholder."},
+      {"trigger": "always", "prompt": "Should the admin building's 34 days of float make anyone complacent? Why or why not.", "purpose": "Tests whether the candidate recognizes float can still erode and should still be monitored, not ignored."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains per-path float calculation."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Clearly explains why the two values are not contradictory."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Addresses how to communicate this to a non-technical stakeholder."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["negative float", "total float", "independent paths", "desalination"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-037",
+    "category": "CPM",
+    "subcategory": "Open Ends and Dangling Logic",
+    "competency": "PLANNING_CPM",
+    "skill": "Knowing the first practical check to run when a schedule health report flags open-ended activities",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "You run a basic schedule health check on a university dormitory construction schedule before it goes to the client for baseline approval. The report flags 9 activities with no predecessor and 4 activities with no successor, excluding the project start and finish milestones.",
+    "question": "What is the first thing you would check before doing anything else about these 13 flagged activities?",
+    "explanation": "The first check is simply to open each flagged activity and look at what it actually is and where it sits physically in the work sequence, to determine whether the missing logic is a genuine oversight (a real predecessor or successor exists in the real world but was never entered) or a legitimate exception (very rare - e.g., a truly independent procurement activity with no schedule dependency). Only after identifying what each activity actually represents can you decide what real logic tie is missing and add it - jumping straight to adding generic ties to the nearest milestone without this step risks creating fake logic that hides the real problem.",
+    "reasoning": "Open ends are a symptom, not a diagnosis; the underlying cause differs activity by activity (forgotten tie, template copy-paste gap, genuinely independent activity), so the first useful action is inspection and classification of each flagged activity, not an automated blanket fix.",
+    "commonMistakes": [
+      "Immediately tying all flagged activities to the nearest milestone as a quick fix without checking what each one actually represents.",
+      "Ignoring the flags because the overall project finish date still looks reasonable.",
+      "Assuming all open ends have the same root cause without checking individually."
+    ],
+    "redFlags": ["Wants to bulk-fix all flagged activities the same way without individual review."],
+    "p6Checks": ["Activities view - open each flagged activity's Predecessors/Successors tab and review its activity name/description and physical scope to determine the real missing dependency."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Once you've identified the real missing predecessor for one of these activities, what P6 steps do you take to add and verify it?", "purpose": "Tests the practical follow-through after diagnosis."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Identifies individual inspection/classification as the first step, not a blanket fix."},
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Explains why open ends need diagnosis before correction."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Avoids the tempting shortcut of bulk-tying all flags to the nearest milestone."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["open ends", "dangling logic", "network integrity", "schedule quality", "university"],
+    "references": ["PMI Practice Standard for Scheduling", "GAO Schedule Assessment Guide"]
+  },
+  {
+    "questionCode": "CPM-038",
+    "category": "CPM",
+    "subcategory": "Network Integrity and Float Calculation Combined",
+    "competency": "PLANNING_CPM",
+    "skill": "Combining a network integrity review with a manual float calculation to validate a suspiciously convenient schedule output",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "CASE_STUDY",
+    "projectType": "Open-pit mining, primary crusher plant expansion",
+    "projectSituation": "The EPC contractor submits an updated schedule showing the primary crusher commissioning path with exactly 1 day of Total Float - conveniently just enough to still meet the contractual production-ready date. Reviewing the driving chain, you find: 'Crusher Foundation Pour' (EF = Day 118), 'Crusher Mechanical Erection' (Duration 34 days, sole predecessor is the foundation pour, sole successor is electrical termination), 'Electrical Termination and Loop Check' (Duration 12 days), then 'Commissioning Start' milestone which is constrained Finish-On-or-Before Day 168 (the contractual date driving this whole path with 0 float at the milestone itself).",
+    "givenData": {
+      "crusherFoundationPourEF": "Day 118",
+      "crusherMechanicalErectionDuration": "34 days",
+      "electricalTerminationDuration": "12 days",
+      "commissioningMilestoneConstraint": "Finish-On-or-Before Day 168"
+    },
+    "requiredAnalysis": "Verify whether the reported 1-day Total Float is arithmetically correct given the stated durations and constraint, and separately assess whether the network itself (as described) is trustworthy enough to rely on this number.",
+    "question": "Recalculate the driving chain's Total Float from the given data, state whether it matches the reported 1 day, and separately explain what about this chain's logic structure (independent of the arithmetic) should make you cautious about trusting this float value at face value.",
+    "expectedAnswer": "Arithmetic check: Mechanical Erection ES = 119, EF = 119+34-1=152. Electrical Termination ES=153, EF=153+12-1=164. Commissioning Start's Late date is capped at 168 by the constraint, so Late Start of Electrical Termination = 168-12+1=157, giving Electrical Termination Total Float = 157-153=4 days, not 1 day - or, if Commissioning Start additionally requires 1 day of its own lead-in, the reported 1 day does not match this recalculation, meaning the contractor's reported float should be queried rather than accepted. A competent candidate performs this recalculation methodically and flags the discrepancy rather than accepting the vendor's number.",
+    "strongAnswer": "A strong candidate separately notes the described chain is a single serial path with each activity having exactly one predecessor and one successor (Foundation Pour to Mechanical Erection to Electrical Termination to Commissioning) - a very 'thin', low-redundancy logic structure typical of either a genuinely simple physical sequence or an oversimplified/under-modeled schedule, and recommends checking whether real sub-activities (e.g., alignment, torque testing, individual loop checks) have been compressed into these three broad activities in a way that hides risk and makes the reported near-zero float less credible.",
+    "expertAnswer": "An expert candidate ties both findings together commercially: given the float discrepancy AND the thin logic structure, they would not accept the contractor's 1-day float claim for progress payment or milestone certification purposes without requesting the underlying detailed schedule (not just a summary chain), and would flag that a near-zero float claim conveniently matching the contractual date, on an under-detailed network, is exactly the pattern seen in schedules manipulated to avoid triggering early-warning or liquidated-damages provisions - warranting an independent schedule audit before certifying progress against this milestone.",
+    "explanation": "Recalculating from the given data shows the driving chain has more like 4 days of float against the Day 168 constraint, not the reported 1 day, and the chain's low logic density (each activity with a single predecessor/successor) is itself a red flag for under-modeling regardless of the arithmetic discrepancy - both should be raised before accepting the contractor's submission.",
+    "reasoning": "This case combines two distinct verification skills: mechanically checking the backward pass against a constraint date to confirm reported float, and separately assessing whether the network structure itself (independent of the arithmetic being right or wrong) is detailed enough to be trustworthy - a schedule can be arithmetically self-consistent yet still built at a level of detail too coarse to reveal real risk.",
+    "commonMistakes": [
+      "Accepting the contractor's 1-day float figure without independently recalculating it.",
+      "Recalculating correctly but not separately questioning the thin, low-redundancy logic structure.",
+      "Treating a float discrepancy as a simple math error rather than a possible sign of a manipulated or under-detailed schedule."
+    ],
+    "redFlags": ["Accepts a suspiciously convenient float value without recalculation.", "Cannot identify low logic density as a separate red flag from the arithmetic."],
+    "p6Checks": ["Recompute the backward pass manually or in P6 from the stated constraint and durations.", "Check logic density (ties per activity) on this specific chain and request the underlying detailed schedule if it appears compressed.", "Request supporting documentation for durations (erection, termination, loop check productivity rates) rather than accepting them as given."],
+    "requiredDecision": "Query the reported float and request the detailed underlying schedule before certifying progress against the Day 168 milestone.",
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly recalculates the float and identifies the discrepancy."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Identifies low logic density as a separate, real concern."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Reaches a defensible action (query/audit) rather than accepting the submission."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["total float", "network integrity", "logic density", "mining", "schedule audit"],
+    "references": ["PMI Practice Standard for Scheduling", "GAO Schedule Assessment Guide"]
+  },
+  {
+    "questionCode": "CPM-039",
+    "category": "CPM",
+    "subcategory": "Total Float - Basic Application",
+    "competency": "PLANNING_CPM",
+    "skill": "Applying the basic concept of total float to a simple practical field situation",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "SCENARIO",
+    "scenario": "On a coal-fired power plant boiler erection package, the activity 'Boiler Drum Lift and Set' has 9 days of Total Float. The site superintendent asks you: 'Does this mean I can safely let this activity slip by a week without anyone worrying?'",
+    "question": "How would you answer the superintendent's question, in plain practical terms?",
+    "explanation": "A slip of up to 9 days (a week is roughly 5-7 working days depending on the calendar, so likely within the 9-day float) would not, by itself, delay the project's overall finish date or the next controlling milestone on that path, since that is exactly what Total Float measures - however, it is not automatically 'nothing to worry about': once consumed, that float is gone for any future slippage on the same path, other trades relying on progress information may still be affected, and the float value itself should be re-verified against the current schedule update rather than assumed to still be accurate weeks later.",
+    "reasoning": "Total Float quantifies how much an activity can slip without delaying the project finish (or the next governing constraint) along its own path, but it does not mean the activity is unimportant or that consuming it has no consequence - float is a finite, shared, and depleting resource on that path, not a standing permission to be careless.",
+    "commonMistakes": [
+      "Answering simply 'yes, don't worry about it' without any caveats.",
+      "Confusing Total Float with 'this activity does not matter to the project'.",
+      "Not mentioning that float, once used, is gone for future slippage."
+    ],
+    "redFlags": ["Encourages complacency about float consumption without any caveats."],
+    "p6Checks": ["Activities view - Total Float column, confirmed current as of the latest update before giving the superintendent a real answer."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the boiler drum activity then actually slips the full 9 days, what happens to its float and to any other activities sharing that same path?", "purpose": "Tests understanding that float consumption on one activity reduces float for the rest of that path."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains what Total Float protects."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Adds a practical caveat about float being finite/shared, not free license."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Connects float consumption on this activity to reduced flexibility for the rest of the path."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": ["total float", "basic concepts", "power plant"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-040",
+    "category": "CPM",
+    "subcategory": "Out-of-Sequence Progress and Float",
+    "competency": "PLANNING_CPM",
+    "skill": "Explaining how Retained Logic versus Progress Override handling of out-of-sequence progress produces different float outcomes",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a natural gas compressor station project, 'Instrument Air Piping Installation' was recorded as 40% complete before its predecessor, 'Pipe Rack Steel Erection', actually finished - a genuine out-of-sequence progress condition caused by the field crew starting early in an accessible area. Two planners on the team disagree about what the schedule should do next: one says Total Float on downstream activities will be unaffected either way, the other says it depends on a schedule setting.",
+    "question": "Which planner is correct, and what specifically determines the outcome?",
+    "explanation": "The second planner is correct - the outcome genuinely depends on the project's Schedule Options setting for out-of-sequence progress: under 'Retained Logic' (the default in most P6 configurations), the remaining (incomplete) portion of the out-of-sequence activity is still held back until its predecessor actually finishes, which can suppress its Early Start/Finish and downstream float in a way that looks illogical relative to the reported progress; under 'Progress Override', the remaining work is allowed to proceed based on progress alone, ignoring the still-open predecessor relationship, which can instead let downstream dates and float move ahead of where the true physical logic would allow. The two settings can produce materially different Total Float results on the exact same recorded progress, so 'unaffected either way' is incorrect.",
+    "reasoning": "Out-of-sequence progress breaks the normal assumption that predecessors always finish before successors start; P6 must apply one of two defined behaviors to resolve the calculation, and which one is selected is a project-level (or, in some versions, activity-level) setting that materially changes both dates and float on the affected chain - understanding this is essential to correctly interpreting float after any out-of-sequence event.",
+    "commonMistakes": [
+      "Believing out-of-sequence progress has a single universal effect on float regardless of settings.",
+      "Not knowing what Retained Logic and Progress Override actually do differently.",
+      "Assuming this is a rare edge case not worth checking on a routine basis."
+    ],
+    "redFlags": ["Cannot explain the difference between Retained Logic and Progress Override at all.", "Does not know where this setting lives or how to check it."],
+    "p6Checks": ["Tools/Schedule dialog (or Schedule Options) - check whether Retained Logic or Progress Override is selected for this schedule.", "Activities view - identify all activities with out-of-sequence progress (P6 typically flags these) and review their resulting Early Start/Finish under the current setting.", "Consider running the schedule calculation under both settings temporarily to compare the float impact before deciding how to report it."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Which setting would you recommend for this project generally, and why?", "purpose": "Tests judgment on Retained Logic (generally more conservative/defensible) versus Progress Override (can better reflect field reality but risks masking real logic problems) as a general practice choice."},
+      {"trigger": "always", "prompt": "How would you explain to the field crew why starting work out of sequence, even successfully, can create this kind of downstream confusion?", "purpose": "Tests ability to translate the scheduling mechanic into practical field guidance."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains Retained Logic vs Progress Override and their differing float effects."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names the specific P6 setting/location."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a real verification approach before reporting float."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["out-of-sequence progress", "retained logic", "progress override", "total float", "gas compressor station"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-041",
+    "category": "CPM",
+    "subcategory": "Missing Information / Insufficient Data",
+    "competency": "PLANNING_CPM",
+    "skill": "Recognizing when insufficient information is given to determine whether an activity is on the critical path",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MISSING_INFO",
+    "scenario": "A junior colleague on a commercial office tower core-and-shell project says: 'Curtain Wall Panel Installation - Level 22 has a duration of 15 days and no constraints applied to it, so it can't possibly be on the critical path.'",
+    "question": "Is this reasoning sound? What information would you actually need to determine whether the activity is critical?",
+    "explanation": "The reasoning is not sound - the absence of a constraint tells you nothing about whether an activity is critical. Criticality (Total Float = 0, or the schedule's minimum float value) is a function of the activity's position in the logic network relative to the project finish (or governing milestone), not whether it happens to carry a constraint. An unconstrained activity can absolutely be on the critical path if the sum of durations and lags along its logical chain to the finish is the longest such chain in the network. To actually determine criticality you need the activity's Total Float value from a properly calculated (F9) schedule - which in turn requires the full network logic (all predecessors/successors along its path), accurate durations, and correct calendars - not an inference from constraint presence or absence.",
+    "reasoning": "Constraints and criticality are independent properties: a constraint can force an activity to appear artificially critical (or artificially float-rich) regardless of pure logic-driven duration, while an activity with zero constraints can be either critical or float-rich purely based on the durations and logic of its chain - so constraint presence/absence is simply not diagnostic of criticality either way.",
+    "commonMistakes": [
+      "Believing only constrained activities can be critical.",
+      "Believing duration length (15 days) by itself says anything about criticality without reference to the rest of the chain.",
+      "Not identifying Total Float as the actual determining data point needed."
+    ],
+    "redFlags": ["Endorses the colleague's flawed reasoning instead of correcting it."],
+    "p6Checks": ["Activities view - Total Float column for the actual, current value after a full schedule calculation, rather than inferring criticality from constraint or duration alone."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "Could a constrained activity ALSO be genuinely critical, or are constraints and criticality mutually exclusive?", "purpose": "Tests deeper understanding that a constraint and true logic-driven criticality can coincide (e.g., a hard finish constraint exactly matching what logic would produce anyway)."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly rejects the flawed reasoning and identifies Total Float as the real determinant."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains why constraint presence/absence is not diagnostic of criticality."},
+        {"name": "completeness", "maxScore": 5, "guidance": "States precisely what data (a calculated Total Float value from the full network) is actually needed."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": ["critical path", "total float", "constraints", "missing information", "office tower"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-042",
+    "category": "CPM",
+    "subcategory": "Communicating Float and Negative Float Risk",
+    "competency": "PLANNING_CPM",
+    "skill": "Explaining critical path and negative float risk to a non-technical executive audience with commercial exposure at stake",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "You are the project controls manager on a toll road PPP (public-private partnership) concession construction. The schedule now shows -14 days of Total Float against the substantial completion date that triggers the start of toll revenue collection. You must present this to the concessionaire's board, most of whom have finance/legal backgrounds and no scheduling training, in a 15-minute slot alongside the monthly financial report.",
+    "question": "How would you structure this presentation? What would you emphasize, what would you deliberately simplify or omit, and what commercial framing would you use given the revenue-start implications?",
+    "expectedAnswer": "A competent candidate structures the presentation around business consequence first, technical detail second: leads with what -14 days actually means in plain terms (the project, on its current trajectory, will complete 14 days later than the date needed for on-time toll revenue start, absent successful recovery action), quantifies the commercial impact (revenue delay, any LD or bonus/penalty mechanism in the concession agreement, financing covenant implications if relevant), then explains briefly and non-technically why this happened (root cause in plain language, not CPM jargon) and what recovery actions are underway or proposed, with a clear ask (decision needed, funding approval for recovery measures, or simply awareness).",
+    "strongAnswer": "A strong candidate deliberately avoids scheduling jargon (does not lead with 'Total Float' or 'critical path' without first defining them in one simple sentence if used at all), uses a simple visual (e.g., a bar showing planned vs. current forecast completion against the revenue-start date) rather than a full Gantt chart or P6 screenshot, and pre-empts likely board questions (is this recoverable, what does it cost to recover, is this the contractor's fault or ours, what is the confidence in the new forecast date) with prepared, honest answers rather than being caught off guard.",
+    "expertAnswer": "An expert candidate explicitly addresses the tension between technical accuracy and the 15-minute non-technical format: they would not oversimplify to the point of giving false confidence (e.g., presenting a single 'we will recover 14 days' date without appropriate uncertainty framing when recovery is not yet contractually or physically confirmed), would flag any concurrent delay or entitlement complexity in plain terms if it affects who bears the cost of recovery, and would ensure the board understands this is a live risk requiring ongoing reporting, not a one-time issue resolved by this meeting - protecting both the board's ability to make informed decisions and the presenter's own credibility if the date later moves again.",
+    "explanation": "A board-level presentation of negative float should lead with business consequence and required action, translate technical cause into plain language without CPM jargon, use a simple visual rather than a P6 export, and be honest about recovery uncertainty rather than presenting false confidence - all while making a clear, actionable ask of the board.",
+    "reasoning": "Executive communication of a technical schedule fact requires translating float mechanics into business consequence and decision-relevant framing; presenting raw CPM terminology or an unfiltered P6 report to a non-technical board audience fails to communicate the actual risk and required decisions, while over-simplifying to the point of false certainty creates its own credibility and governance risk if the situation later worsens.",
+    "commonMistakes": [
+      "Leading with technical scheduling terminology (Total Float, critical path) without translating it to business impact first.",
+      "Presenting an unfiltered P6 Gantt chart or activity table as the primary visual for a board audience.",
+      "Overpromising a recovery date with false confidence to avoid an uncomfortable conversation."
+    ],
+    "redFlags": ["Would present raw technical schedule output without translation.", "Would overstate confidence in recovery to avoid delivering bad news.", "No clear ask or decision point identified for the board."],
+    "p6Checks": ["Not a direct P6 mechanic - but the presentation should be built from a verified, current Total Float figure and root-cause trace, not a stale or unverified number."],
+    "followUpQuestions": [
+      {"trigger": "always", "prompt": "A board member asks 'whose fault is this delay?' in the meeting. How do you respond in the room?", "purpose": "Tests real-time judgment on not overstating entitlement conclusions in a live, high-stakes setting."},
+      {"trigger": "if_correct", "prompt": "How would this presentation differ if the -14 days were instead +14 days of healthy float?", "purpose": "Tests whether the candidate recognizes good news still needs careful, non-complacent framing at board level."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Structures communication around business consequence, not technical jargon."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives concrete, realistic presentation choices (visual, framing, pre-empted questions)."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Connects negative float to real commercial/contractual consequence appropriately, without overreaching on entitlement."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["negative float", "executive communication", "PPP", "toll road", "board reporting"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-043",
+    "category": "CPM",
+    "subcategory": "Free Float and Resequencing Decisions",
+    "competency": "PLANNING_CPM",
+    "skill": "Using free float to decide whether a proposed resequencing is safe without a full network recalculation",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "On a convention center project, the finishes subcontractor asks to swap the sequence of two adjacent activities to suit their crew availability: 'Acoustic Ceiling Tile Install - Hall B' (currently finishing 6 days before its successor 'Lighting Fixture Final Connection - Hall B' needs to start, i.e., Free Float = 6 days) would be delayed by 4 days to let the same crew finish an unrelated task first, with no change to its own duration.",
+    "question": "Using Free Float alone, can you approve this 4-day delay without running a full schedule recalculation first? What is the limit of what Free Float tells you here, and what would you still want to verify afterward?",
+    "expectedAnswer": "A competent candidate recognizes that since the proposed 4-day delay is less than the activity's 6 days of Free Float, the Early Start of its immediate successor (Lighting Fixture Final Connection) will not be pushed out - so this specific, local check can be approved without a full recalculation for the purpose of protecting that one successor. However, they correctly note Free Float only guarantees the immediate successor is protected; it says nothing about the activity's Total Float or whether this delay affects anything further downstream if this chain interacts with other paths, so they would still run the full schedule calculation afterward to update all float values, confirm no other successor (if there is more than one) is affected, and formally log the sequence change for the schedule of record.",
+    "strongAnswer": "A strong candidate adds that Free Float being sufficient for THIS proposed change does not mean the activity now has more remaining Free Float available for a future request - once 4 of the 6 days are used, only 2 days of Free Float remain, and that should be communicated to the subcontractor as a limit if further changes are anticipated.",
+    "expertAnswer": "An expert candidate also flags a subtler risk: Free Float protects the immediate successor's Early Start, but if this activity is also a predecessor to any OTHER activity (a second successor not mentioned in the request), the 4-day delay could push that other successor's Early Start even though the named one is unaffected - so before approving, they would explicitly check for any additional successors besides Lighting Fixture Final Connection, since Free Float as reported is calculated against the EARLIEST of all successors, and a request framed around only one successor could be misleading if there are others.",
+    "explanation": "Since the 4-day delay is within the 6-day Free Float, the immediate successor's Early Start is protected and the change can be provisionally approved without a full recalculation - but Free Float does not protect Total Float or guarantee no impact on any other successor, so a full schedule run and formal logging afterward is still required.",
+    "reasoning": "Free Float is specifically defined as the amount of delay an activity can absorb without delaying the Early Start of its successor(s); using it as a quick local check is valid for exactly that narrow question, but it is not a substitute for a full network recalculation when confirming there is no broader downstream or Total Float impact.",
+    "commonMistakes": [
+      "Approving the change without checking whether Free Float was calculated against all successors or just the one named in the request.",
+      "Assuming this quick check eliminates the need to ever re-run the full schedule.",
+      "Not communicating the reduced remaining Free Float to the subcontractor for future requests."
+    ],
+    "redFlags": ["Approves without checking for additional unnamed successors.", "Treats the Free Float check as a permanent substitute for full recalculation."],
+    "p6Checks": ["Successors tab for the activity to confirm all successors, not just the one named in the change request.", "Free Float and Total Float columns before and after the proposed change, then a full F9 recalculation to confirm."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "What if the requested delay had been 8 days instead of 4 - would your quick-check approach still work?", "purpose": "Tests whether the candidate knows a delay exceeding Free Float requires full Total Float/network analysis, not just a quick local check."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly applies the Free Float threshold check."},
+        {"name": "reasoning", "maxScore": 5, "guidance": "Explains the limits of what Free Float does and does not guarantee."},
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Recommends full recalculation and formal logging afterward."}
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": ["free float", "resequencing", "convention center", "successors"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-044",
+    "category": "CPM",
+    "subcategory": "Multiple Critical Paths - What Next",
+    "competency": "PLANNING_CPM",
+    "skill": "Sequencing appropriate next actions upon discovering two previously separate paths have become tied critical paths",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "WHAT_NEXT",
+    "scenario": "On a mid-size cargo vessel new-build project, the hull outfitting path and the engine room machinery installation path have historically run with the hull path critical (0 float) and the engine room path carrying 8-12 days of float. In the latest update, both paths now show Total Float = 0, tied together for the first time in the project.",
+    "question": "What are your next steps upon discovering this shift to two tied critical paths, and what would you specifically communicate to the two respective subcontractor teams?",
+    "explanation": "A sound sequence: (1) confirm the shift is genuine by tracing both paths' driving logic and verifying no data/logic error caused an artificial tie; (2) identify what changed - did the engine room path lose 8-12 days of float through actual delay, did the hull path gain float through faster-than-planned progress, or some combination - since the cause determines urgency and messaging; (3) recognize that from this point forward, a delay on EITHER path now delays the vessel delivery date, whereas previously only the hull path mattered day-to-day - this is a materially different risk posture requiring both teams to now be managed with critical-path discipline; (4) communicate clearly and specifically to the engine room machinery team that their historical cushion is gone and any further slippage now directly impacts delivery - not as a vague warning but with the specific data (float trend, remaining duration) so they understand why; (5) similarly confirm with the hull outfitting team that their path remains equally critical, avoiding any false impression that attention has shifted away from them; (6) update monitoring frequency and reporting for both paths equally going forward.",
+    "reasoning": "A shift from one dominant critical path to two tied critical paths is a genuine change in project risk profile (merge bias effectively doubling the paths that can independently cause delay) and requires both root-cause investigation and a clear, differentiated communication response to the newly-critical party, who may not realize their historical cushion has disappeared.",
+    "commonMistakes": [
+      "Continuing to focus monitoring attention only on the historically-critical hull path out of habit.",
+      "Not investigating why the engine room path's float disappeared before deciding how urgent the situation is.",
+      "Failing to specifically alert the engine room team that their float cushion is gone, leaving them working at their old, now-outdated pace expectation."
+    ],
+    "redFlags": ["Would keep monitoring/reporting focus unchanged despite the newly tied path.", "No investigation into root cause of the float shift before deciding next steps."],
+    "p6Checks": ["Compare Total Float on both paths between this update and the prior one to quantify exactly how the tie occurred.", "Trace Logic/Longest Path filter to confirm both paths are genuinely tied and not an artifact of a logic change.", "Set up equal-priority tracking/reporting for both paths going forward."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If the cause turns out to be the hull team finishing 10 days ahead of plan (rather than the engine room team slipping), does your communication to the engine room team change?", "purpose": "Tests whether the candidate adjusts messaging tone/urgency based on root cause, not just the float number itself."},
+      {"trigger": "always", "prompt": "How would you explain the risk of this new tied condition to the shipyard's project director?", "purpose": "Tests ability to translate the merge-bias risk concept for a senior internal stakeholder."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "practicalApplication", "maxScore": 5, "guidance": "Gives a real, ordered sequence of investigation and action."},
+        {"name": "causeAndEffect", "maxScore": 5, "guidance": "Connects the float shift's cause to the appropriate response."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Specifically addresses communication to the newly-critical team."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": ["multiple critical paths", "total float", "shipbuilding", "communication"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  },
+  {
+    "questionCode": "CPM-045",
+    "category": "CPM",
+    "subcategory": "Longest Path vs Zero Float But Not Critical",
+    "competency": "PLANNING_CPM",
+    "skill": "Explaining how an activity can show zero or near-zero Total Float yet not actually sit on the schedule's true longest path",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": ["LEAD"],
+    "questionType": "PARADOX",
+    "scenario": "On a green hydrogen production plant project (electrolyzer array, balance of plant, and grid interconnection), the electrolyzer array installation path shows Total Float = 1 day - about as critical as it gets without being negative. The project director wants to reallocate schedule risk management budget away from the grid interconnection path (which shows 19 days of float) entirely onto the electrolyzer path, reasoning that 'obviously the 1-day-float path is the one that actually determines our finish date.'",
+    "question": "Is the director's reasoning necessarily correct? Under what circumstances could the 1-day-float electrolyzer path NOT actually be the true longest (driving) path to project completion, and how would you verify which path genuinely deserves the reallocated risk budget?",
+    "explanation": "The director's reasoning is intuitive but not automatically correct. A near-zero Total Float value confirms the path has little slack relative to WHATEVER governs it, but does not by itself prove that path is the true longest path to overall project completion - if the electrolyzer path's 1-day float is calculated against a tight interim constraint (e.g., a vendor-imposed commissioning window, or a Finish-On-or-Before date entered for an early handover milestone) rather than against the final project finish milestone directly, it could show near-zero float while a different, unconstrained path (potentially even the 19-day-float grid interconnection path, if that 19 days is itself measured against a separate, looser constraint) is actually longer in raw duration terms to the TRUE final finish. The correct verification is to run the Longest Path filter (which traces the actual driving chain back from the final project finish milestone via driving relationships) rather than relying on a simple Total Float sort, and to check every constraint along both paths to understand what each float value is really measured against.",
+    "reasoning": "This is the classic longest-path-versus-zero-float distinction at its most consequential: budget and risk-management decisions based purely on sorting by Total Float can systematically misallocate resources whenever any path's near-zero float is an artifact of an interim constraint rather than genuine proximity to the true project finish, while a higher-float path elsewhere might still be the one actually determining overall completion once its own constraint is investigated.",
+    "commonMistakes": [
+      "Accepting the intuitive 'lowest float = most critical to overall finish' reasoning without verification.",
+      "Not checking what constraint each path's float is actually measured against.",
+      "Reallocating budget based on a single snapshot Total Float sort rather than the Longest Path trace."
+    ],
+    "redFlags": ["Endorses the director's reasoning without qualification.", "Cannot describe how to verify the true longest path independent of a Total Float sort."],
+    "p6Checks": ["Run the built-in Longest Path filter from the actual project finish milestone and compare its result set against a simple Total Float ascending sort.", "For both the electrolyzer and grid interconnection paths, check every constraint (type and date) along the chain to determine what each reported float value is actually measured against.", "If an interim constraint is found on the electrolyzer path, test what its float would be if that constraint were temporarily removed, to see the 'true' logic-only float."],
+    "followUpQuestions": [
+      {"trigger": "if_correct", "prompt": "If you find the electrolyzer path's 1-day float is indeed against the true final project finish milestone with no interim constraint involved, does that change your recommendation?", "purpose": "Tests whether the candidate can conclude correctly in the case where the director's instinct DOES turn out to be right, not just argue the opposite reflexively."},
+      {"trigger": "always", "prompt": "How would you present this nuance to the project director without sounding like you are simply contradicting their instinct?", "purpose": "Tests senior-level communication - presenting a technical correction constructively to a director-level stakeholder."}
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {"name": "technicalAccuracy", "maxScore": 5, "guidance": "Correctly explains why near-zero float does not automatically prove longest-path status."},
+        {"name": "p6Understanding", "maxScore": 5, "guidance": "Names the Longest Path filter as the correct verification tool, not a float sort."},
+        {"name": "professionalJudgment", "maxScore": 5, "guidance": "Reaches a balanced conclusion, including the possibility the director is right, and communicates it constructively."}
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": ["longest path", "total float", "constraints", "hydrogen plant", "risk budget"],
+    "references": ["PMI Practice Standard for Scheduling"]
+  }
+]

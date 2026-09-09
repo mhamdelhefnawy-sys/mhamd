@@ -1,0 +1,609 @@
+[
+  {
+    "questionCode": "RISK-001",
+    "category": "RISK",
+    "subcategory": "Schedule Risk Identification",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Distinguishing schedule risk from pure cost risk when screening a risk register",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
+    "questionType": "MCQ",
+    "question": "A project risk register lists several threats identified during a workshop. Which of the following is most directly a SCHEDULE risk, as opposed to a pure cost risk?",
+    "options": [
+      {
+        "label": "A",
+        "text": "Reinforcement steel market price rises 8% before the procurement package is finalized",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "The fabricator of long-lead structural steel confirms a 6-week slip against the planned delivery date",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "Currency exchange rate movement increases the landed cost of imported mechanical equipment",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "The concrete unit rate used in the original estimate is found to have been understated",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "A schedule risk is one whose primary consequence is a change to activity durations, start/finish dates, or the critical/near-critical path. A confirmed late fabrication delivery directly delays the start of the dependent erection activity and can consume or exceed float. The other three items are cost/estimating risks: they change budget or unit rate but do not by themselves change any activity's duration or logic.",
+    "reasoning": "Risks are classified by primary impact type (schedule, cost, quality, safety, reputational) because that determines which model and which owner should manage the response. A risk can carry secondary effects in another category (a schedule delay usually also drives cost through prolongation), but it is classified by where it first bites the plan.",
+    "commonMistakes": [
+      "Treating every entry in a risk register as automatically a schedule risk.",
+      "Assuming a cost risk always has an equal and opposite schedule risk.",
+      "Confusing 'affects the project budget' with 'affects the critical path'."
+    ],
+    "redFlags": [
+      "Cannot separate schedule impact from cost impact when reading a risk register.",
+      "Labels a risk 'schedule risk' purely because it sounds serious, without checking which activity it touches."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Could the steel price rise in option A ever become a schedule risk too? Under what circumstance?",
+        "purpose": "Tests whether the candidate sees that a cost risk can trigger a schedule risk indirectly, e.g. a price dispute causing a re-tender or a delayed purchase order."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would your answer change if the steel erection activity had 30 days of float?",
+        "purpose": "Tests whether the candidate understands that severity to the schedule depends on float consumption, not just the existence of a delay."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "risk identification",
+      "schedule risk",
+      "risk register",
+      "long-lead procurement"
+    ],
+    "references": [
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-002",
+    "category": "RISK",
+    "subcategory": "Qualitative Risk Assessment",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Applying a probability-impact matrix to rank schedule risks for prioritized response",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "DECISION_MAKING",
+    "projectType": "High-rise residential tower",
+    "scenario": "A pre-construction risk workshop on a 40-storey residential tower rated three schedule risks on a 1-5 probability/impact scale: (1) 'Unitized curtain wall panel late delivery' - Probability 4, Impact 4; (2) 'Tower crane climbing sequence delayed by wind days' - Probability 3, Impact 2; (3) 'Local authority MEP inspection backlog delaying handover activities' - Probability 3, Impact 5.",
+    "question": "Using a simple Probability x Impact qualitative score, rank these three risks in priority order for schedule risk response planning. Then explain what this ranking should - and should not - be used for.",
+    "expectedAnswer": "Calculates the three scores (curtain wall = 16, crane climb = 6, MEP inspection = 15) and ranks curtain wall first, MEP inspection a close second, and crane climb last.",
+    "strongAnswer": "Notes that P x I is a relative screening tool, not an absolute measure of schedule days at risk, and that the top two scores (16 vs 15) are close enough that judgment - not the raw score - should decide which gets the first response action, e.g. which risk has fewer available mitigation levers or sits on a firmer critical path.",
+    "expertAnswer": "Flags that a P x I score conflates risks with very different response profiles: the curtain wall risk is contractor-controllable (expediting, dual-sourcing, early release of shop drawings) while the MEP inspection backlog depends on a third-party authority the contractor cannot directly control, so it may warrant a different response strategy (schedule buffer, early submission, stakeholder engagement) even at a similar score. Recommends the qualitative ranking trigger a quantitative check - how many days of float each risk actually threatens - before committing mitigation budget, rather than treating the matrix score as the final word.",
+    "explanation": "A probability-impact matrix is a screening and prioritization tool, not a schedule-impact calculator. It orders risks for attention using ordinal or semi-quantitative scores, but two risks with similar scores can have very different controllability, response cost, and true schedule exposure, which is why qualitative scoring is normally followed by a more detailed quantitative or schedule-based assessment for the top-ranked items.",
+    "reasoning": "P x I = 4x4=16 for the curtain wall risk, 3x2=6 for the crane climb risk, and 3x5=15 for the MEP inspection risk. Ranking by score alone: curtain wall (16), MEP inspection (15), crane climb (6). Because the top two are close, the practical prioritization should also weigh controllability and available response levers, not just the numeric score.",
+    "commonMistakes": [
+      "Treating the P x I score as a precise number of schedule days at risk.",
+      "Ranking by probability or impact alone instead of the combined score.",
+      "Ignoring that a close numeric ranking can hide very different levels of controllability."
+    ],
+    "redFlags": [
+      "Cannot compute or correctly apply the P x I matrix.",
+      "Treats a close ranking (16 vs 15) as a certain, fixed order with no caveat about controllability or data quality."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The MEP inspection risk depends on a third party outside contractor control. Does that change how you would respond to it compared to the curtain wall risk?",
+        "purpose": "Tests whether the candidate links risk ownership/controllability to response strategy, not just score."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What quantitative follow-up would you perform on the top-ranked risk before committing a mitigation budget to it?",
+        "purpose": "Tests awareness that qualitative scoring is a screening step, not a final schedule-impact figure."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly computes and ranks the three P x I scores."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why the matrix is ordinal/relative, not an absolute day count."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Connects controllability and response options to the priority decision, not just the score."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "qualitative risk assessment",
+      "probability impact matrix",
+      "risk register",
+      "curtain wall",
+      "risk prioritization"
+    ],
+    "references": [
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-003",
+    "category": "RISK",
+    "subcategory": "Risk Register-Schedule Linkage",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Detecting and acting on a risk register entry that has become stale relative to observed schedule deterioration",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "WHAT_NEXT",
+    "projectType": "Hyperscale data center",
+    "scenario": "The risk register carries a risk 'Late delivery of chillers from overseas OEM', linked to the activity 'Install Chillers - Yard A' (baseline float 10 working days). Over three consecutive monthly updates the activity's Total Float has moved 10 -> 5 -> -3 days, while the risk register still shows the risk status as 'Medium, response not yet implemented' with no change since the workshop three months ago.",
+    "question": "What should the planner do next, given the gap between the schedule data and the risk register status?",
+    "expectedAnswer": "Flags the mismatch immediately: the float trend shows the risk has already materialized (it has driven the activity onto the critical path), so the register's stale 'Medium, unmitigated' status is actively misleading. Escalates to the risk owner and project manager, updates the register with the current status and evidence (the float trend), and confirms whether the approved mitigation (e.g., expediting, alternate supplier, air freight) has actually been executed.",
+    "strongAnswer": "Adds that risk registers must be revisited at every schedule update, not only at periodic workshops, and proposes a standing checklist item to reconcile Total Float trend on risk-linked activities against register status at each cycle so this kind of drift is caught within one update cycle, not three.",
+    "expertAnswer": "Notes the commercial dimension: three months of unmitigated float erosion on a probably contract-critical delivery is also a notice-provision issue - if the chiller delay involves any third-party or force-majeure-type cause, the delay in escalating may itself prejudice a notice deadline, and the planner should raise that with the commercial/contracts team in parallel with the technical escalation, not instead of it.",
+    "explanation": "A risk register entry is only useful if it is kept synchronized with what the live schedule is actually showing. A steady, monotonic float erosion on the exact activity a specific risk was written against is strong evidence that the risk is materializing, regardless of what the register's static status field says. Waiting for the next scheduled risk workshop to update the register is not appropriate once the schedule data itself is signalling active deterioration.",
+    "reasoning": "The float trend (10 -> 5 -> -3) is monotonic and directly tied to the risk-linked activity, which rules out ordinary schedule noise and points to a single sustained cause consistent with the registered risk. Once TF goes negative the activity has become critical (or worse), meaning the risk has already converted from a threat into an active issue - the register should reflect 'materializing/materialized', not 'Medium, unmitigated'.",
+    "commonMistakes": [
+      "Waiting for the next scheduled risk review meeting to update the register.",
+      "Treating the float trend and the risk register as two unrelated reporting streams instead of reconciling them.",
+      "Reporting the float number without connecting it back to the named risk and its owner."
+    ],
+    "redFlags": [
+      "Notices the float trend but does not think to check whether it is linked to a known risk.",
+      "Would let three more months pass before raising it because 'that is what the report is for'."
+    ],
+    "p6Checks": [
+      "Total Float trend for the linked activity across the last several data dates (Activities view, add a Total Float column and compare update-to-update, or use a Tracking/S-curve layout).",
+      "Activity Code or UDF used to tag the activity with its Risk ID, to confirm the linkage is live and not just documented in a separate spreadsheet.",
+      "Driving relationships on the activity to confirm the chiller delivery predecessor is genuinely the cause of the float loss, not an unrelated logic or calendar change."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the mitigation (e.g. air freight) was approved but never actually executed, who is accountable, and what would you document?",
+        "purpose": "Tests whether the candidate distinguishes 'response approved' from 'response executed' and knows to document the gap."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would make you conclude this float erosion is NOT the chiller risk materializing, but something else entirely?",
+        "purpose": "Tests that the candidate does not just pattern-match to the obvious risk without checking driving logic."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the float trend to the specific registered risk materializing."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete next actions: escalate, update register, verify mitigation execution."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Treats the stale register as an active problem requiring prompt escalation, not a wait-for-next-cycle item."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "risk register",
+      "float erosion",
+      "risk linkage",
+      "data center",
+      "escalation"
+    ],
+    "references": [
+      "PMI Practice Standard for Project Risk Management",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RISK-004",
+    "category": "RISK",
+    "subcategory": "Float Erosion Trend Analysis",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Distinguishing a risk-driven float erosion trend from normal update-to-update schedule noise",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "projectType": "Highway infrastructure",
+    "scenario": "On a highway widening project, the path through the activity 'Environmental Permit Approval - Wetland Crossing' shows Total Float across four successive monthly updates of 25, 18, 9, and -2 working days. No logic changes, calendar changes, or constraint changes appear in the schedule change log for that period.",
+    "question": "What is the most likely cause of this pattern, and what would you check to confirm it before reporting a conclusion?",
+    "expectedAnswer": "Identifies a steady, roughly linear float erosion of about 8-9 days per update with no logic/constraint changes recorded, which points to the permit approval activity's actual progress (or the regulator's actual review pace) consistently running slower than planned each period - i.e. real, ongoing slippage on that path rather than a one-off event or a scheduling artifact.",
+    "strongAnswer": "Adds that a roughly constant rate of erosion (not a single sharp drop) is itself diagnostic - it suggests an ongoing systemic cause (e.g. the regulator is processing at a fixed rate slower than assumed, or the permit activity's remaining duration is not being re-estimated realistically at each update) rather than a discrete incident, and recommends checking the remaining-duration re-estimation basis at each update, not just the finish date.",
+    "expertAnswer": "Notes the trend will hit zero float within roughly one more update at the current rate, so this should already have triggered a critical-path warning; raises that a project team relying only on the monthly TF number instead of the trend would miss the urgency, and recommends running a short trend/burn-rate report explicitly for risk-linked and long-duration-remaining activities so slow, cumulative erosion is caught as early as sudden erosion.",
+    "explanation": "A steady, multi-period decline in Total Float on an unchanged network (no new logic, constraints, or calendar edits) is evidence of real progress underperformance being carried forward update after update, most plausibly because the remaining duration of the permit activity (or its actual finish forecast) keeps being pushed out by a consistent amount each period. It should be distinguished from noise, which is typically small and non-directional, and from a single discrete event, which would show as one large jump rather than a steady slope.",
+    "reasoning": "The float loses roughly 7, 9, and 11 days across three intervals - a consistent downward trend, not random fluctuation. With no logic/constraint/calendar changes recorded, the only remaining driver of float change is the forward-pass dates for that path, which are set by remaining durations and actual progress; a repeating pattern implicates how the permit activity's remaining duration is being estimated or how the regulator is actually performing versus the plan.",
+    "commonMistakes": [
+      "Treating each month's float number in isolation instead of looking at the trend across updates.",
+      "Assuming float erosion always needs a logic or constraint change to explain it.",
+      "Concluding 'the schedule is wrong' rather than checking whether the underlying activity itself is genuinely running behind."
+    ],
+    "redFlags": [
+      "Only reports the latest data point (-2 days) without mentioning the trend that preceded it.",
+      "Cannot propose what to check to confirm the cause before drawing a conclusion."
+    ],
+    "p6Checks": [
+      "Compare remaining duration and forecast finish for the permit activity across the last four data dates to see if remaining duration is being re-baselined down consistently or just carried forward unchanged.",
+      "Check activity Notebook/progress notes for narrative on regulator response times at each update.",
+      "Confirm no calendar or constraint changes by reviewing the schedule change log / audit trail for that activity."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "At the current rate of erosion, roughly when would you expect this path to become critical project-wide, and what would you do before that happens?",
+        "purpose": "Tests whether the candidate can extrapolate a trend into a forward-looking action, not just describe the past."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "If nothing in the logic changed, what are the only things left that can move a path's Total Float between updates?",
+        "purpose": "Remedial prompt toward isolating progress/remaining-duration as the driver."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Identifies the steady erosion trend and links it to real, ongoing progress underperformance."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why a trend, not a single reading, is the diagnostic signal."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete checks to confirm before reporting a conclusion."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "float erosion",
+      "trend analysis",
+      "critical path",
+      "permitting",
+      "highway"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RISK-005",
+    "category": "RISK",
+    "subcategory": "Schedule Contingency & Buffers",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Placing schedule contingency correctly against identified risks without corrupting CPM logic or misleading the client",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Marine jetty construction",
+    "scenario": "On a marine jetty project the project manager asks the planner to add a single 30-working-day activity named 'Weather Contingency' immediately before the project finish milestone, tied to nothing except a finish-to-start link into that milestone. The stated purpose is to absorb anticipated weather-window risk during the piling and superstructure works, which sit much earlier in the schedule. The PM wants it added quietly, without a note in the narrative report, 'so the client does not start asking questions about it'.",
+    "question": "Evaluate this approach to schedule contingency. Would you add the activity as instructed? What would you recommend instead, and how would you handle disclosure to the client?",
+    "expectedAnswer": "Identifies two separate problems: (1) technical - a lump contingency activity placed at the very end of the schedule, disconnected from the actual weather-exposed activities earlier in the network, does not protect the real at-risk work; if the weather risk hits the piling/superstructure activities, their own float will still erode and could still go negative well before that end-of-schedule buffer is ever consumed, so it is not a valid CPM representation of where the risk actually sits; (2) governance - adding it 'quietly' with no disclosure is not appropriate practice, since contingency/buffer time that is hidden from the client can misrepresent the schedule's true risk exposure and the contractor's actual float position.",
+    "strongAnswer": "Recommends instead placing a visible, clearly labelled schedule margin/buffer activity adjacent to (immediately following) the specific weather-exposed activities it is meant to protect, sized using a documented basis (e.g. historical weather-day statistics for the piling season, or output of a schedule risk analysis), and disclosing its existence, size, and basis explicitly in the schedule narrative as project/schedule margin, distinct from activity durations and distinct from the contract float.",
+    "expertAnswer": "Adds that many forms of contract and client protocols treat undisclosed float/contingency as a transparency and even a good-faith issue - burying contingency inside an unexplained buffer activity, or worse inside padded individual activity durations, can be read later as concealment if a dispute arises over float ownership, and recommends the planner raise the disclosure instruction with the PM in writing, proposing the visible-buffer alternative and explaining the downside of the 'quiet' approach rather than simply complying or simply refusing.",
+    "explanation": "Schedule contingency should be represented as an explicit, visible, and justified addition to the schedule that sits logically next to the risk it protects against, not as an opaque tail-end activity disconnected from the exposed work, and not hidden from the client. A buffer that is technically mis-located fails to actually protect against the risk it is named for, and a buffer that is deliberately undisclosed raises legitimate concerns about misrepresenting the schedule's true risk position to the client.",
+    "reasoning": "Total Float on the piling/superstructure activities is governed by their own path to the project finish milestone; a 30-day activity inserted only at the very end adds float to the finish milestone generally but does not add float specifically to the earlier weather-exposed activities unless it sits on their specific path with no other float-consuming work between them and the buffer. If other, unrelated finishing activities exist between the weather-exposed work and the buffer, the buffer may be consumed by delays anywhere on that tail, diluting its intended protection.",
+    "commonMistakes": [
+      "Adding the requested buffer activity without checking whether it is actually logically tied to the risk it is meant to protect.",
+      "Treating 'contingency' and 'padding individual durations' as interchangeable techniques.",
+      "Assuming disclosure is purely a commercial/PM decision with no technical planning input required."
+    ],
+    "redFlags": [
+      "Complies with the 'add it quietly' instruction without raising the transparency concern.",
+      "Cannot explain why an end-of-schedule buffer may not protect an early-schedule risk.",
+      "Treats hidden float/contingency as a normal and unremarkable practice."
+    ],
+    "p6Checks": [
+      "Trace the driving path from the weather-exposed piling/superstructure activities through to the finish milestone to see whether the new buffer activity actually sits on that same path.",
+      "Check whether other, unrelated activities exist between the risk-exposed work and the proposed buffer that could consume it first.",
+      "Consider a UDF or activity code to explicitly flag margin/buffer activities so they are queryable and auditable separately from normal scope activities."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the client's contract requires disclosure of schedule contingency/float ownership, what risk does the 'quiet' approach create for the contractor later in the project?",
+        "purpose": "Tests awareness of the commercial/contractual consequences of undisclosed float, e.g. disputes over float ownership."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you size the buffer's duration so it is defensible rather than an arbitrary round number?",
+        "purpose": "Tests whether the candidate can connect contingency sizing to a documented basis such as historical data or schedule risk analysis output."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies that an end-of-schedule buffer may not protect the actual at-risk activities."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a properly located, sized, and labelled buffer as the technical alternative."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Raises the transparency/disclosure concern professionally instead of silently complying or refusing outright."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "schedule contingency",
+      "buffer management",
+      "float transparency",
+      "marine",
+      "client disclosure"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-006",
+    "category": "RISK",
+    "subcategory": "Schedule Risk Analysis (Monte Carlo)",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Knowing the boundary of P6 Professional's native capability regarding probabilistic schedule risk analysis",
+    "difficulty": 1,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: Oracle Primavera P6 Professional includes a native Monte Carlo simulation engine that can be run directly from the Activities view to produce a probabilistic finish-date distribution, with no additional software required.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": false
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": true
+      }
+    ],
+    "correctAnswer": "False",
+    "explanation": "P6 Professional/EPPM performs deterministic CPM scheduling (a single forward/backward pass producing one set of dates per set of durations and logic). It does not include a native Monte Carlo simulation engine. Probabilistic schedule risk analysis (three-point duration ranges, iterative simulation, P-value/S-curve outputs) is performed with separate, purpose-built schedule risk analysis software that typically imports the P6 schedule (via XER, XML, or a direct integration) and runs the simulation outside P6 itself.",
+    "reasoning": "Monte Carlo schedule risk analysis requires sampling thousands of duration combinations from probability distributions and recalculating the network for each iteration, which is a fundamentally different computation from P6's single deterministic pass; this is why it is delivered as a separate risk-analysis product/module rather than a built-in P6 feature.",
+    "commonMistakes": [
+      "Believing P6's 'risk' or 'issue' fields constitute a simulation capability.",
+      "Confusing what-if scenarios (manually created alternate schedules) with a true probabilistic simulation.",
+      "Assuming any Oracle Primavera product automatically includes Monte Carlo because P6 is the market-leading CPM tool."
+    ],
+    "redFlags": [
+      "Tells a client or manager that P6 can natively run a Monte Carlo simulation.",
+      "Cannot name any separate tool or practice used for schedule risk analysis."
+    ],
+    "p6Checks": [
+      "Confirm the schedule can be exported (XER/XML) cleanly for import into a separate schedule risk analysis tool.",
+      "Check that activity relationships and calendars are clean (no excessive constraints, no broken logic) before export, since simulation tools are sensitive to logic quality."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Name a tool or category of tool that IS used to perform Monte Carlo schedule risk analysis on a P6 schedule.",
+        "purpose": "Confirms the candidate knows the actual practice, not just the negative fact about P6."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What schedule quality issues in a P6 file would you clean up before it could be meaningfully simulated?",
+        "purpose": "Tests whether the candidate understands logic-quality prerequisites for risk analysis, e.g. excessive constraints or open ends distorting results."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "Monte Carlo",
+      "schedule risk analysis",
+      "P6 capability",
+      "probabilistic scheduling"
+    ],
+    "references": [
+      "AACE RP 57R-09: Integrated Cost and Schedule Risk Analysis Using Monte Carlo Simulation"
+    ]
+  },
+  {
+    "questionCode": "RISK-007",
+    "category": "RISK",
+    "subcategory": "Schedule Risk Analysis (Monte Carlo)",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Explaining three-point estimating and probabilistic S-curve outputs conceptually, and identifying the correct tooling path from a P6 schedule",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "WRITTEN",
+    "projectType": "Oil & gas EPC",
+    "scenario": "Project management on a refinery revamp EPC project asks the planning lead to 'run a Monte Carlo on the P6 schedule' to give the sponsor a probability-weighted completion date ahead of a final investment decision review.",
+    "question": "Explain, at a conceptual level, what would actually need to happen to deliver this, given that P6 Professional does not run Monte Carlo natively. Describe the key inputs, the general process, and the kind of output the sponsor should expect.",
+    "expectedAnswer": "Explains that the CPM schedule would first need to be exported from P6 and imported into a dedicated schedule risk analysis tool; that each activity (or groups of activities, or discrete risk events) needs three-point duration estimates (optimistic, most likely, pessimistic) or risk-adjusted branches reflecting identified risks; that the tool runs many iterations (commonly thousands), recalculating the network each time with randomly sampled durations, and aggregates the results into a probability distribution of possible finish dates.",
+    "strongAnswer": "Adds that the output is typically presented as an S-curve/cumulative probability distribution, from which P-values are read (e.g. P50 = the date with a 50% chance of being met or bettered, P80 = a more conservative date with an 80% chance), and that sensitivity outputs (e.g. a tornado diagram) identify which activities or risks most influence the finish-date spread, which is often more actionable for the sponsor than the date itself.",
+    "expertAnswer": "Cautions that the quality of the output is entirely dependent on the quality of the inputs: garbage-in-garbage-out applies strongly here, so before running any simulation the underlying P6 logic must be clean (no excessive hard constraints masking true float, no broken or missing logic, calendars correctly reflecting real constraints), duration ranges must come from a defensible basis (historical data, estimator/discipline-lead interviews) rather than arbitrary percentages, and correlation between activities sharing common risk drivers should be considered, since assuming full independence between all activities tends to understate the true spread of possible outcomes.",
+    "explanation": "Since P6 Professional does not include a native Monte Carlo engine, delivering a probabilistic finish date requires exporting the P6 CPM schedule into a separate, purpose-built schedule risk analysis tool, adding three-point duration ranges or discrete risk events, and running a simulation that recalculates the network many times to build a distribution of possible outcomes, which is then reported as an S-curve with associated P-values and a sensitivity ranking of the key drivers.",
+    "reasoning": "A deterministic CPM pass produces one finish date per fixed set of durations. Monte Carlo simulation instead samples each activity's duration from a probability distribution on every iteration and recalculates the critical path for that iteration, so the finish date itself becomes a distribution rather than a single point; running this thousands of times converges on a stable probability curve for project completion.",
+    "commonMistakes": [
+      "Assuming the sponsor can be given a single 'Monte Carlo date' without explaining what P-value it corresponds to.",
+      "Applying an arbitrary uniform percentage uplift to all durations and calling that a Monte Carlo analysis.",
+      "Not cleaning the schedule logic before simulating, so constraint-masked float distorts the results."
+    ],
+    "redFlags": [
+      "Claims P6 alone can do this without any other tool.",
+      "Cannot explain what a P-value or S-curve output actually represents.",
+      "Presents the P50 date to the sponsor as a guaranteed finish date rather than a probability."
+    ],
+    "p6Checks": [
+      "Review the schedule for excessive hard constraints (Mandatory/Must Finish) that would suppress the true calculated float before export.",
+      "Confirm calendars are realistic and consistent across the network.",
+      "Ensure logic is complete with no dangling open ends that a simulation tool would flag or mishandle."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the sponsor asks 'why not just add a 15% contingency to the deterministic date instead of doing all this?', how would you respond?",
+        "purpose": "Tests whether the candidate can articulate the value-add of a probabilistic analysis over a flat percentage contingency."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would make you distrust a Monte Carlo output even if the simulation ran without errors?",
+        "purpose": "Tests understanding that a technically valid simulation can still produce misleading results from poor input quality."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly describes three-point estimating, iterative simulation, and P-value/S-curve outputs."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Covers inputs, process, and output, and correctly notes P6 needs a separate tool."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Discusses schedule-quality prerequisites and defensible duration-range sourcing."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "Monte Carlo",
+      "three-point estimating",
+      "S-curve",
+      "P-value",
+      "schedule risk analysis",
+      "EPC"
+    ],
+    "references": [
+      "AACE RP 57R-09: Integrated Cost and Schedule Risk Analysis Using Monte Carlo Simulation",
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-008",
+    "category": "RISK",
+    "subcategory": "Risk-Float Correlation",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Recognizing merge bias at a multi-path convergence point and its effect on true schedule risk exposure",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "CASE_STUDY",
+    "projectType": "Combined-cycle power plant",
+    "scenario": "On a combined-cycle power plant project, the milestone 'Steam Blow Complete' is fed by three near-critical paths converging at that single point: Path A (turbine delivery and installation, 5 days float, risk: OEM shipping delay), Path B (piping welding and NDT rework, 7 days float, risk: weld repair volume), and Path C (DCS/control system FAT and site integration, 4 days float, risk: software integration issues). Each path's owning discipline lead reports their own risk as 'likely manageable within available float' when asked individually.",
+    "question": "Each discipline lead's individual assessment may be locally reasonable. Explain why the project's actual probability of hitting the Steam Blow milestone on time can still be meaningfully lower than any single discipline's optimism would suggest, and what you would do about it.",
+    "expectedAnswer": "Explains the merge bias / merge point effect: when several paths of comparable duration and independent risk converge on a single milestone, the milestone can only be achieved on time if ALL of the converging paths are on time, not just one of them; even if each path individually has a good (e.g. 80-90%) chance of finishing within its float, the combined probability that all three do so simultaneously is lower than any single path's probability, because the probabilities effectively multiply rather than average.",
+    "strongAnswer": "Adds that this effect is invisible to a deterministic CPM view, which only shows the single most critical path's float at any moment and does not reveal that several near-critical paths are all consuming risk-driven probability against the same milestone; recommends looking at all near-critical paths converging on a key milestone together, not path-by-path in isolation, and quantifying the combined exposure through a schedule risk analysis (Monte Carlo) rather than relying on qualitative discipline-lead assurances.",
+    "expertAnswer": "Notes that merge points are classic 'blind spots' in EPC power projects because they concentrate risk from unrelated disciplines (mechanical, piping/welding, controls) into one commissioning-critical event, and that management action should include: explicitly flagging Steam Blow as a merge-risk milestone in the risk register (not just three separate discipline risks), running a joint schedule risk analysis to quantify the combined on-time probability, and considering schedule or resource actions that decouple the paths in time (e.g. sequencing so not all three converge simultaneously, or building path-specific float buffers ahead of the merge) rather than accepting three individually 'manageable' assurances at face value.",
+    "explanation": "Merge bias (also called merge point risk or the merge event effect) describes how the probability of achieving a schedule milestone fed by several parallel near-critical paths is lower than the probability suggested by any single path, because all converging paths must independently succeed in the same timeframe. This is a known limitation of relying solely on deterministic CPM float and on siloed, path-by-path risk assessment, and is one of the reasons probabilistic schedule risk analysis is used at key project milestones on complex EPC projects.",
+    "reasoning": "If Path A has an 85% chance of finishing within its float, Path B 80%, and Path C 88%, and the three risks are reasonably independent, the probability that ALL THREE finish on time (and therefore that Steam Blow itself is achieved on time) is approximately 0.85 x 0.80 x 0.88 ~= 0.60, i.e. roughly 60%, noticeably lower than any individual discipline's 80-88% self-assessment. The more paths that converge, and the closer their probabilities are to each other, the more pronounced this effect becomes.",
+    "commonMistakes": [
+      "Accepting each discipline's individually 'manageable' assessment as proof the milestone itself is low-risk.",
+      "Believing the path with the least float is automatically the only one that matters, ignoring near-critical paths with similar float feeding the same point.",
+      "Assuming CPM float alone (a deterministic single number) already captures this combined probability effect."
+    ],
+    "redFlags": [
+      "Cannot explain why converging near-critical paths compound risk rather than average it.",
+      "Treats three separate, favorable discipline reports as sufficient evidence the milestone is safe.",
+      "Has never heard of merge bias / merge point risk despite claiming Monte Carlo experience."
+    ],
+    "p6Checks": [
+      "Filter/group activities to identify all paths with float within a defined band (e.g. 0-10 days) that converge on the Steam Blow milestone, not just the single most-critical path.",
+      "Check whether the three paths share any common resource, subcontractor, or external dependency that would make their risks correlated rather than independent (which would make the combined probability even lower than a naive independent-probability calculation suggests)."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the three risks are not actually independent - say, all three disciplines share the same commissioning workforce - how does that change your combined probability estimate?",
+        "purpose": "Tests understanding that correlated risks compound worse than independent ones, a key Monte Carlo modeling nuance."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What schedule (not just risk-management) action could reduce the merge bias itself, rather than just quantifying it?",
+        "purpose": "Tests whether the candidate can move from diagnosis to a structural schedule mitigation, e.g. decoupling convergence timing."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains merge bias and why combined probability is lower than any individual path's probability."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Demonstrates the multiplicative-probability logic, ideally with an illustrative estimate."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes concrete actions: joint risk analysis, register treatment, or schedule decoupling."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "merge bias",
+      "merge point",
+      "near-critical path",
+      "Monte Carlo",
+      "power plant",
+      "commissioning"
+    ],
+    "references": [
+      "AACE RP 57R-09: Integrated Cost and Schedule Risk Analysis Using Monte Carlo Simulation",
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  }
+]
