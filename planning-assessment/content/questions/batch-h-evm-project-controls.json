@@ -7,23 +7,47 @@
     "skill": "Calculating CPI and SPI from PV, EV and AC and reading the combined signal",
     "difficulty": 1,
     "careerLevel": "JUNIOR",
-    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
     "questionType": "NUMERICAL",
     "scenario": "A highway resurfacing package has a data-date status of: Planned Value (PV) = $3,600,000, Earned Value (EV) = $3,150,000, Actual Cost (AC) = $3,780,000.",
     "question": "Calculate the Cost Performance Index (CPI) and Schedule Performance Index (SPI) at this data date, and state in one sentence what the combined result tells the project manager.",
     "correctAnswer": "CPI = 0.83 (EV/AC = 3,150,000 / 3,780,000); SPI = 0.88 (EV/PV = 3,150,000 / 3,600,000)",
     "explanation": "CPI = EV / AC = 3,150,000 / 3,780,000 = 0.83, meaning the work performed cost more than was budgeted for it (only $0.83 of value is being earned for every $1 spent). SPI = EV / PV = 3,150,000 / 3,600,000 = 0.88, meaning the work is behind the volume of work that should have been completed by this date. Both indices below 1.0 indicate the package is simultaneously over budget and behind schedule, which is the most common and most concerning combined EVM signal.",
     "reasoning": "CPI and SPI are both ratios of EV to a different denominator: AC for cost efficiency, PV for schedule/volume efficiency. Neither index alone tells the full story, so they must be read together. Here both are below 1.0, so there is no favorable offsetting signal — cost and schedule performance are both adverse and reinforcing rather than contradicting each other, which is a straightforward (non-paradoxical) diagnosis.",
-    "commonMistakes": ["Dividing AC by EV or PV by EV (inverting the ratio).", "Reporting the indices without stating what a value below 1.0 actually means in plain language.", "Treating SPI as a reliable predictor of the actual finish date rather than a cost-weighted volume measure."],
-    "redFlags": ["Cannot state which direction (above/below 1.0) is favorable without prompting."],
+    "commonMistakes": [
+      "Dividing AC by EV or PV by EV (inverting the ratio).",
+      "Reporting the indices without stating what a value below 1.0 actually means in plain language.",
+      "Treating SPI as a reliable predictor of the actual finish date rather than a cost-weighted volume measure."
+    ],
+    "redFlags": [
+      "Cannot state which direction (above/below 1.0) is favorable without prompting."
+    ],
     "followUpQuestions": [
-      {"trigger": "if_correct", "prompt": "If SPI were 1.05 instead of 0.88 but CPI stayed at 0.83, would you say the schedule is now healthy?", "purpose": "Tests whether the candidate understands SPI is a value-based, not date-based, metric."},
-      {"trigger": "always", "prompt": "What data would you need in addition to PV, EV and AC to know whether this package will hit its baseline finish date?", "purpose": "Probes awareness that EVM alone cannot confirm critical-path date impact."}
+      {
+        "trigger": "if_correct",
+        "prompt": "If SPI were 1.05 instead of 0.88 but CPI stayed at 0.83, would you say the schedule is now healthy?",
+        "purpose": "Tests whether the candidate understands SPI is a value-based, not date-based, metric."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What data would you need in addition to PV, EV and AC to know whether this package will hit its baseline finish date?",
+        "purpose": "Probes awareness that EVM alone cannot confirm critical-path date impact."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 100,
-    "tags": ["CPI", "SPI", "EVM basics", "cost performance", "schedule performance"],
-    "references": ["PMBOK Guide"]
+    "tags": [
+      "CPI",
+      "SPI",
+      "EVM basics",
+      "cost performance",
+      "schedule performance"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
   },
   {
     "questionCode": "EVM-002",
@@ -33,25 +57,51 @@
     "skill": "Distinguishing a legitimate BAC revision from schedule slippage that must not touch the budget baseline",
     "difficulty": 1,
     "careerLevel": "JUNIOR",
-    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
     "questionType": "TRUE_FALSE",
     "question": "True or False: If a construction package slips 6 weeks behind its baseline schedule but there is no change in scope, the Budget at Completion (BAC) for that package should be increased to reflect the extra time.",
     "options": [
-      {"label": "A", "text": "True", "isCorrect": false},
-      {"label": "B", "text": "False", "isCorrect": true}
+      {
+        "label": "A",
+        "text": "True",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "False",
+        "isCorrect": true
+      }
     ],
     "correctAnswer": "B",
     "explanation": "BAC is the total authorized budget for the defined scope of work and only changes through a formal, approved change to that scope (or an approved re-baseline for a defined cause such as an approved variation). A schedule slip with no scope change does not, by itself, justify increasing BAC — the schedule impact should instead show up as adverse SPI/SV and, if it drives real cost consequences (extended overheads, prolongation), those consequences are captured as variance/forecast (EAC) items, not as a silent change to the original budget baseline.",
     "reasoning": "EVM's entire diagnostic power depends on BAC staying fixed to the original scope of work so that variances are measurable against a stable reference. If PMs were allowed to inflate BAC whenever schedule slipped, CPI and VAC would be permanently manipulable and would stop measuring anything real. Time impact belongs in the schedule and cost forecast (EAC/ETC), not in a moving BAC.",
-    "commonMistakes": ["Believing schedule delay alone justifies a budget increase.", "Confusing 'BAC should increase' with 'EAC should increase' — EAC is exactly the right place to reflect a forecast cost increase from delay-driven costs."],
-    "redFlags": ["Would authorize a BAC change without a documented, approved scope or contract change."],
+    "commonMistakes": [
+      "Believing schedule delay alone justifies a budget increase.",
+      "Confusing 'BAC should increase' with 'EAC should increase' — EAC is exactly the right place to reflect a forecast cost increase from delay-driven costs."
+    ],
+    "redFlags": [
+      "Would authorize a BAC change without a documented, approved scope or contract change."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "If the 6-week delay is caused by a client-instructed variation, does your answer change?", "purpose": "Tests whether the candidate ties BAC changes strictly to approved scope/contract changes, not to cause of delay alone."}
+      {
+        "trigger": "always",
+        "prompt": "If the 6-week delay is caused by a client-instructed variation, does your answer change?",
+        "purpose": "Tests whether the candidate ties BAC changes strictly to approved scope/contract changes, not to cause of delay alone."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 60,
-    "tags": ["BAC", "baseline integrity", "change control", "EVM fundamentals"],
-    "references": ["PMBOK Guide"]
+    "tags": [
+      "BAC",
+      "baseline integrity",
+      "change control",
+      "EVM fundamentals"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
   },
   {
     "questionCode": "EVM-003",
@@ -61,29 +111,69 @@
     "skill": "Selecting the appropriate earning method (rule of credit) for a given activity profile",
     "difficulty": 2,
     "careerLevel": "PLANNING_ENGINEER",
-    "secondaryCareerLevels": ["SENIOR"],
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
     "questionType": "MCQ",
     "scenario": "A cost/schedule engineer is setting up earning rules (rules of credit) for a cost-loaded schedule on an industrial plant expansion. One activity is 'Procure and deliver switchgear' (a single 90-day procurement activity with no meaningful intermediate physical milestones before delivery), and another is 'Install cable tray – Level 2' (a 40-day activity with clearly measurable linear footage installed weekly).",
     "question": "Which earning method combination is most appropriate for these two activities?",
     "options": [
-      {"label": "A", "text": "0/100 for the switchgear procurement; units-complete (percent of footage installed) for the cable tray installation.", "isCorrect": true},
-      {"label": "B", "text": "50/50 for the switchgear procurement; 0/100 for the cable tray installation.", "isCorrect": false},
-      {"label": "C", "text": "Level of effort (LOE) for both activities, since neither has a physical deliverable until complete.", "isCorrect": false},
-      {"label": "D", "text": "Percent complete estimated by the site engineer's judgment for both activities.", "isCorrect": false}
+      {
+        "label": "A",
+        "text": "0/100 for the switchgear procurement; units-complete (percent of footage installed) for the cable tray installation.",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "50/50 for the switchgear procurement; 0/100 for the cable tray installation.",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "Level of effort (LOE) for both activities, since neither has a physical deliverable until complete.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "Percent complete estimated by the site engineer's judgment for both activities.",
+        "isCorrect": false
+      }
     ],
     "correctAnswer": "A",
     "explanation": "0/100 (no credit until the activity is fully complete) is the correct rule for a discrete procurement activity with no observable interim milestone — it prevents subjective or premature credit for work that could still slip. Units-complete (earning value in direct proportion to a physically measurable quantity, such as installed footage) is the correct rule for an activity with objective, verifiable interim progress, since it gives a much more accurate earned-value curve than any 0/100 or 50/50 shortcut would.",
     "reasoning": "The choice of earning method should follow the nature of the work: discrete, non-measurable milestones (0/100 or 50/50) are used when interim progress cannot be objectively verified; units-complete, incremental milestones, or weighted-steps are used whenever there is a countable, physical unit of production. Level of effort is reserved for support-type work (e.g., project management, supervision) that has no discrete deliverable at all, and is inappropriate here because both activities produce a physical, measurable deliverable. Subjective percent-complete estimates should be avoided wherever an objective earning rule is available because they are easily gamed and inconsistent between reporting periods.",
-    "commonMistakes": ["Applying 50/50 or 0/100 to genuinely measurable, incremental work out of habit, discarding available objective quantity data.", "Using LOE for discrete, deliverable-based work.", "Assuming site engineer 'gut-feel' percent complete is an acceptable substitute for a defined rule of credit."],
-    "redFlags": ["Cannot articulate why an earning method matters to the credibility of EV data."],
+    "commonMistakes": [
+      "Applying 50/50 or 0/100 to genuinely measurable, incremental work out of habit, discarding available objective quantity data.",
+      "Using LOE for discrete, deliverable-based work.",
+      "Assuming site engineer 'gut-feel' percent complete is an acceptable substitute for a defined rule of credit."
+    ],
+    "redFlags": [
+      "Cannot articulate why an earning method matters to the credibility of EV data."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "What risk does 50/50 crediting introduce compared to 0/100 for a long-duration procurement activity, and when would 50/50 actually be preferable?", "purpose": "Tests deeper understanding of the trade-off between early recognition of progress and overstatement risk."},
-      {"trigger": "if_incorrect", "prompt": "What is the defining difference between an activity suited to a units-complete rule and one suited to 0/100?", "purpose": "Remedial check on the core distinguishing criterion — objective measurability of interim progress."}
+      {
+        "trigger": "always",
+        "prompt": "What risk does 50/50 crediting introduce compared to 0/100 for a long-duration procurement activity, and when would 50/50 actually be preferable?",
+        "purpose": "Tests deeper understanding of the trade-off between early recognition of progress and overstatement risk."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "What is the defining difference between an activity suited to a units-complete rule and one suited to 0/100?",
+        "purpose": "Remedial check on the core distinguishing criterion — objective measurability of interim progress."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 90,
-    "tags": ["rules of credit", "earning methods", "0/100", "units complete", "progress measurement"],
-    "references": ["PMI Practice Standard for Earned Value Management"]
+    "tags": [
+      "rules of credit",
+      "earning methods",
+      "0/100",
+      "units complete",
+      "progress measurement"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
   },
   {
     "questionCode": "EVM-004",
@@ -93,23 +183,47 @@
     "skill": "Applying the atypical-variance EAC formula (AC + (BAC - EV)) and identifying when it is the right assumption",
     "difficulty": 1,
     "careerLevel": "JUNIOR",
-    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
     "questionType": "NUMERICAL",
     "scenario": "A data center MEP fit-out package has BAC = $5,000,000. At the current data date, EV = $2,750,000 and AC = $3,100,000. The cost overrun to date was traced entirely to a one-off supplier price-gouging incident on a single equipment order that will not recur; the project controls team judges that the remaining work will be executed at the originally budgeted rate.",
     "question": "Using the atypical-variance EAC formula, calculate EAC and VAC. Is this the correct formula choice given the stated cause of the overrun?",
     "correctAnswer": "EAC = $5,350,000 (AC + (BAC − EV) = 3,100,000 + (5,000,000 − 2,750,000)); VAC = −$350,000",
     "explanation": "EAC = AC + (BAC − EV) = 3,100,000 + 2,250,000 = $5,350,000. VAC = BAC − EAC = 5,000,000 − 5,350,000 = −$350,000 (an unfavorable $350,000 forecast overrun). This formula is the correct choice here because it assumes remaining work will be completed exactly at the original budgeted rate — which matches the stated root cause (a one-time, non-recurring variance) rather than an ongoing performance trend.",
     "reasoning": "The atypical-variance EAC formula ignores CPI entirely for the remaining scope, on the premise that the cost variance incurred to date was a one-time anomaly rather than a systemic efficiency problem. Using this formula when the true cause is systemic (e.g., persistently low productivity) would understate EAC; using a CPI-based formula (BAC/CPI) when the cause truly is a one-off event would overstate EAC by extrapolating a non-representative index into the remaining work. The formula choice is a judgment call about root cause, not a mechanical default.",
-    "commonMistakes": ["Defaulting to EAC = BAC/CPI regardless of root cause.", "Forgetting that VAC = BAC − EAC (not EAC − BAC), which flips the sign.", "Treating the atypical-variance formula as always the 'optimistic' or 'wrong' choice rather than recognizing it can be the technically correct one when the cause truly is non-recurring."],
-    "redFlags": ["Picks an EAC formula without asking what caused the variance to date."],
+    "commonMistakes": [
+      "Defaulting to EAC = BAC/CPI regardless of root cause.",
+      "Forgetting that VAC = BAC − EAC (not EAC − BAC), which flips the sign.",
+      "Treating the atypical-variance formula as always the 'optimistic' or 'wrong' choice rather than recognizing it can be the technically correct one when the cause truly is non-recurring."
+    ],
+    "redFlags": [
+      "Picks an EAC formula without asking what caused the variance to date."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "What evidence would you want to see before accepting the project team's claim that the overrun was truly a one-off event?", "purpose": "Tests healthy skepticism toward optimistic EAC assumptions rather than accepting a convenient formula choice."},
-      {"trigger": "if_correct", "prompt": "If a second, unrelated cost overrun appeared on this package next month, would you still trust the atypical-variance assumption?", "purpose": "Tests whether the candidate revisits formula selection as new data arrives rather than anchoring to an earlier judgment."}
+      {
+        "trigger": "always",
+        "prompt": "What evidence would you want to see before accepting the project team's claim that the overrun was truly a one-off event?",
+        "purpose": "Tests healthy skepticism toward optimistic EAC assumptions rather than accepting a convenient formula choice."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If a second, unrelated cost overrun appeared on this package next month, would you still trust the atypical-variance assumption?",
+        "purpose": "Tests whether the candidate revisits formula selection as new data arrives rather than anchoring to an earlier judgment."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 120,
-    "tags": ["EAC", "VAC", "atypical variance", "EVM formulas", "forecasting"],
-    "references": ["PMI Practice Standard for Earned Value Management"]
+    "tags": [
+      "EAC",
+      "VAC",
+      "atypical variance",
+      "EVM formulas",
+      "forecasting"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
   },
   {
     "questionCode": "EVM-005",
@@ -125,15 +239,33 @@
     "correctAnswer": "CPI = 0.857 (7,200,000 / 8,400,000); EAC = $14,000,000 (BAC / CPI = 12,000,000 / 0.857)",
     "explanation": "CPI = EV / AC = 7,200,000 / 8,400,000 = 0.857. EAC = BAC / CPI = 12,000,000 / 0.857 = $14,000,000. This is the typical-variance formula, appropriate here because the variance is described as a persistent, systemic productivity issue rather than a one-off event — the formula projects the historical cost efficiency (CPI) forward across the entire remaining budget.",
     "reasoning": "EAC = BAC / CPI is mathematically equivalent to AC + (BAC − EV) / CPI: it takes the remaining budgeted work (BAC − EV) and inflates it by the inverse of current cost efficiency, on the assumption that whatever caused CPI to depart from 1.0 will keep doing so. Because the scenario states the productivity shortfall is consistent and expected to continue, this is the technically correct formula rather than the atypical-variance formula, which would incorrectly assume the remaining work reverts to budgeted rates.",
-    "commonMistakes": ["Using EAC = AC + (BAC − EV) despite the stated systemic (not one-off) cause.", "Computing CPI as AC/EV instead of EV/AC.", "Rounding CPI too early and compounding rounding error into a materially wrong EAC on a large BAC."],
-    "redFlags": ["Cannot explain why BAC/CPI 'projects' current performance forward rather than treating it as a mechanical formula."],
+    "commonMistakes": [
+      "Using EAC = AC + (BAC − EV) despite the stated systemic (not one-off) cause.",
+      "Computing CPI as AC/EV instead of EV/AC.",
+      "Rounding CPI too early and compounding rounding error into a materially wrong EAC on a large BAC."
+    ],
+    "redFlags": [
+      "Cannot explain why BAC/CPI 'projects' current performance forward rather than treating it as a mechanical formula."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "The site team believes productivity will improve once they have completed the ground floors and the crew is fully trained on the formwork system. Does that change which EAC formula you would trust?", "purpose": "Tests whether the candidate adjusts EAC methodology based on evolving evidence rather than mechanically applying one formula for the whole project."}
+      {
+        "trigger": "always",
+        "prompt": "The site team believes productivity will improve once they have completed the ground floors and the crew is fully trained on the formwork system. Does that change which EAC formula you would trust?",
+        "purpose": "Tests whether the candidate adjusts EAC methodology based on evolving evidence rather than mechanically applying one formula for the whole project."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 120,
-    "tags": ["EAC", "CPI", "typical variance", "forecasting", "productivity"],
-    "references": ["PMI Practice Standard for Earned Value Management"]
+    "tags": [
+      "EAC",
+      "CPI",
+      "typical variance",
+      "forecasting",
+      "productivity"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
   },
   {
     "questionCode": "EVM-006",
@@ -143,25 +275,51 @@
     "skill": "Recognizing that CPI > 1 does not guarantee an under-budget final cost",
     "difficulty": 1,
     "careerLevel": "JUNIOR",
-    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
     "questionType": "TRUE_FALSE",
     "question": "True or False: A CPI greater than 1.0 at the current data date guarantees that the project will finish under its original budget (BAC).",
     "options": [
-      {"label": "A", "text": "True", "isCorrect": false},
-      {"label": "B", "text": "False", "isCorrect": true}
+      {
+        "label": "A",
+        "text": "True",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "False",
+        "isCorrect": true
+      }
     ],
     "correctAnswer": "B",
     "explanation": "CPI > 1.0 only describes cost efficiency on the work performed so far, not on the work remaining. If the remaining scope is inherently more expensive per unit of value (e.g., complex commissioning, difficult access, remaining high-risk items), or if cost efficiency to date came from front-loading the cheapest/easiest scope first, a favorable CPI today can still be followed by an unfavorable EAC. A single index at one point in time is never a guarantee about final outcome.",
     "reasoning": "EAC forecasting formulas that use CPI (e.g., BAC/CPI) assume the current index holds for all remaining work — an assumption that can fail if the composition or difficulty of remaining scope differs materially from what has been completed. Cumulative CPI also tends to stabilize over time (becoming harder to move as more cost is booked), which can mask a recent unfavorable trend in the period-by-period CPI.",
-    "commonMistakes": ["Reporting CPI > 1.0 to management as proof of an under-budget outcome without qualification.", "Ignoring that the composition of remaining scope may differ from the scope already completed."],
-    "redFlags": ["States CPI alone is sufficient to forecast final cost with certainty."],
+    "commonMistakes": [
+      "Reporting CPI > 1.0 to management as proof of an under-budget outcome without qualification.",
+      "Ignoring that the composition of remaining scope may differ from the scope already completed."
+    ],
+    "redFlags": [
+      "States CPI alone is sufficient to forecast final cost with certainty."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "What would make you distrust a favorable cumulative CPI even though the number itself looks good?", "purpose": "Tests whether the candidate checks period (incremental) CPI trend and remaining-scope composition rather than trusting a single cumulative figure."}
+      {
+        "trigger": "always",
+        "prompt": "What would make you distrust a favorable cumulative CPI even though the number itself looks good?",
+        "purpose": "Tests whether the candidate checks period (incremental) CPI trend and remaining-scope composition rather than trusting a single cumulative figure."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 60,
-    "tags": ["CPI", "EAC", "forecasting limitations", "EVM interpretation"],
-    "references": ["PMBOK Guide"]
+    "tags": [
+      "CPI",
+      "EAC",
+      "forecasting limitations",
+      "EVM interpretation"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
   },
   {
     "questionCode": "EVM-007",
@@ -177,15 +335,33 @@
     "correctAnswer": "CPI = 0.857; EAC ≈ $7,583,333; ETC ≈ $3,033,333",
     "explanation": "CPI = EV/AC = 3,900,000/4,550,000 = 0.857. EAC = BAC/CPI = 6,500,000/0.857 ≈ $7,583,333. ETC = EAC − AC = 7,583,333 − 4,550,000 ≈ $3,033,333. EAC is the total forecast cost for the entire project (money already spent plus money still needed); ETC is only the forward-looking piece — the additional funds needed from today to completion.",
     "reasoning": "ETC is always derived as EAC minus money already spent (AC), never as a standalone formula computed independently of EAC — otherwise the two figures could become internally inconsistent (EAC ≠ AC + ETC), which is a common data-quality red flag in a cost report. Confirming ETC = EAC − AC is therefore also a sanity check on the internal consistency of a monthly cost report.",
-    "commonMistakes": ["Computing ETC as BAC − EV (which is the remaining budgeted work, not the remaining forecast cost — correct only in the atypical-variance case where CPI = 1).", "Confusing ETC with EAC and reporting the wrong figure as 'funds still required'.", "Not checking that AC + ETC reconciles back to the reported EAC."],
-    "redFlags": ["Cannot explain the difference between EAC and ETC in plain language."],
+    "commonMistakes": [
+      "Computing ETC as BAC − EV (which is the remaining budgeted work, not the remaining forecast cost — correct only in the atypical-variance case where CPI = 1).",
+      "Confusing ETC with EAC and reporting the wrong figure as 'funds still required'.",
+      "Not checking that AC + ETC reconciles back to the reported EAC."
+    ],
+    "redFlags": [
+      "Cannot explain the difference between EAC and ETC in plain language."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "If next month's cost report shows AC + ETC no longer equals the reported EAC, what does that tell you about how the report was produced?", "purpose": "Tests whether the candidate treats internal EAC/ETC/AC consistency as a basic data-quality check."}
+      {
+        "trigger": "always",
+        "prompt": "If next month's cost report shows AC + ETC no longer equals the reported EAC, what does that tell you about how the report was produced?",
+        "purpose": "Tests whether the candidate treats internal EAC/ETC/AC consistency as a basic data-quality check."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 130,
-    "tags": ["ETC", "EAC", "CPI", "forecasting", "cost report"],
-    "references": ["PMI Practice Standard for Earned Value Management"]
+    "tags": [
+      "ETC",
+      "EAC",
+      "CPI",
+      "forecasting",
+      "cost report"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
   },
   {
     "questionCode": "EVM-008",
@@ -195,21 +371,1682 @@
     "skill": "Calculating VAC and correctly signing/interpreting a forecast overrun",
     "difficulty": 1,
     "careerLevel": "JUNIOR",
-    "secondaryCareerLevels": ["PLANNING_ENGINEER"],
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
     "questionType": "NUMERICAL",
     "scenario": "A marine port breakwater armor-placement package has BAC = $8,000,000. Based on current cost performance, the project controls team has calculated EAC = $8,960,000.",
     "question": "Calculate the Variance at Completion (VAC) and state what a negative VAC means for this package.",
     "correctAnswer": "VAC = −$960,000 (BAC − EAC = 8,000,000 − 8,960,000)",
     "explanation": "VAC = BAC − EAC = 8,000,000 − 8,960,000 = −$960,000. A negative VAC means the project is forecast to finish $960,000 over its original authorized budget — an unfavorable outcome that should trigger a formal variance explanation and, if funded by a fixed contract sum, an assessment of margin erosion or the need for a claim/variation to recover it.",
     "reasoning": "VAC is a completion-level forecast, not a to-date variance — it uses EAC (a forecast), not AC (an actual), so it necessarily carries the uncertainty of whatever EAC method produced it. The sign convention (BAC minus EAC, not EAC minus BAC) is the same convention as Cost Variance (EV − AC), where negative always means unfavorable/over budget.",
-    "commonMistakes": ["Calculating VAC as EAC − BAC, flipping the sign and reporting an overrun as if it were favorable.", "Treating VAC as a certainty rather than a forecast that will change as the EAC method or underlying data changes."],
-    "redFlags": ["Reports a negative number as good news without checking sign convention."],
+    "commonMistakes": [
+      "Calculating VAC as EAC − BAC, flipping the sign and reporting an overrun as if it were favorable.",
+      "Treating VAC as a certainty rather than a forecast that will change as the EAC method or underlying data changes."
+    ],
+    "redFlags": [
+      "Reports a negative number as good news without checking sign convention."
+    ],
     "followUpQuestions": [
-      {"trigger": "always", "prompt": "If this project is being delivered under a lump-sum contract, what does this VAC mean commercially compared to a cost-reimbursable contract?", "purpose": "Tests awareness that VAC's commercial consequence depends heavily on contract type."}
+      {
+        "trigger": "always",
+        "prompt": "If this project is being delivered under a lump-sum contract, what does this VAC mean commercially compared to a cost-reimbursable contract?",
+        "purpose": "Tests awareness that VAC's commercial consequence depends heavily on contract type."
+      }
     ],
     "weight": 1.0,
     "estimatedTimeSec": 80,
-    "tags": ["VAC", "EAC", "BAC", "variance at completion"],
-    "references": ["PMBOK Guide"]
+    "tags": [
+      "VAC",
+      "EAC",
+      "BAC",
+      "variance at completion"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-009",
+    "category": "EVM",
+    "subcategory": "Planned Value Calculation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Deriving cumulative Planned Value at a data date from a cost-loaded baseline schedule with activities at different stages",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A seawater desalination intake pipeline package is cost-loaded and baselined with linear (even) distribution of budget across each activity's duration. At the data date (Day 100 of the package), the baseline status of four activities is: Mobilization & HDD Rig Setup, BAC $600,000, baseline Day 1-30 (fully within the elapsed period); Horizontal Directional Drilling, BAC $2,400,000, baseline Day 21-120 (a 100-day baseline duration, of which 80 days have elapsed by Day 100); Pipe String Fabrication & Pullback, BAC $900,000, baseline Day 90-150 (a 60-day baseline duration, of which 10 days have elapsed by Day 100); Intake Structure Tie-in & Testing, BAC $300,000, baseline Day 140-170 (not yet due to start).",
+    "question": "Calculate the total Planned Value (PV) for the package at the Day 100 data date.",
+    "correctAnswer": 2670000,
+    "explanation": "PV per activity = BAC x (elapsed baseline duration / total baseline duration), capped at the full BAC once the baseline finish has passed. Mobilization is fully within its baseline window, so PV = $600,000. HDD: $2,400,000 x (80/100) = $1,920,000. Pipe String Fabrication & Pullback: $900,000 x (10/60) = $150,000. Intake Structure Tie-in & Testing has not yet reached its baseline start, so PV = $0. Total PV = 600,000 + 1,920,000 + 150,000 + 0 = $2,670,000.",
+    "reasoning": "Planned Value is the authorized, time-phased budget for the work scheduled to be performed by the data date, regardless of what has actually happened on site. It is read directly off the baseline cost curve, not the current/updated schedule, and each activity's contribution is proportional to how much of its baseline duration has elapsed under whatever spread curve (here, linear) was used to distribute its BAC.",
+    "commonMistakes": [
+      "Using the current/updated schedule's progress instead of the frozen baseline to compute PV.",
+      "Including the full BAC for an activity that has only partially elapsed in the baseline window.",
+      "Forgetting that an activity whose baseline start has not yet been reached contributes $0 to PV even if BAC has already been budgeted for the year.",
+      "Confusing PV with EV by using actual reported progress instead of the calendar-based baseline position."
+    ],
+    "redFlags": [
+      "Computes PV from current schedule dates or actual progress rather than the frozen baseline."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If Intake Structure Tie-in & Testing were resource-loaded with a front-loaded (not linear) cost curve instead, how would that change your Day 100 PV calculation?",
+        "purpose": "Tests understanding that PV depends on the assigned spread curve, not just elapsed time fraction."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Why must PV always be calculated from the baseline, even after the project has been re-baselined once?",
+        "purpose": "Tests understanding of baseline integrity and when a new PV curve is or is not appropriate."
+      }
+    ],
+    "weight": 1.1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "PV",
+      "planned value",
+      "cost-loaded schedule",
+      "baseline",
+      "EVM basics"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-010",
+    "category": "EVM",
+    "subcategory": "SPI vs Critical Path Contradiction",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Explaining an SPI greater than 1.0 coexisting with a CPM-calculated forecast finish that has slipped",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "SCENARIO",
+    "scenario": "An airport terminal expansion has, at the current data date, PV = $14,000,000 and EV = $15,120,000. The structural steel and MEP rough-in packages, both high-value, high-float scope, have run well ahead of the baseline. Meanwhile, the curtain wall glazing subcontractor, whose activities sit on the critical path, has fallen 20 working days behind, pushing the CPM-calculated forecast finish 20 days beyond the baseline completion date.",
+    "question": "Calculate SPI from the figures given. Is the project's schedule performance actually favorable? What would you report to the client, and what would you check next?",
+    "expectedAnswer": "SPI = EV/PV = 15,120,000 / 14,000,000 = 1.08. A competent candidate states this figure and immediately flags that it does not, by itself, confirm the project will finish on time, since it is a cost-weighted volume measure, not a date-based one.",
+    "strongAnswer": "Adds that the favorable SPI is most likely being generated by the high-value, float-rich structural steel and MEP packages running ahead, while the zero-float glazing package drives the actual finish date, and explicitly recommends checking the CPM forecast finish and driving path rather than trusting SPI on its own.",
+    "expertAnswer": "Recommends the client-facing report distinguish cost-weighted schedule performance (SPI = 1.08, favorable) from CPM-driven completion risk (20 days behind baseline, driven specifically by glazing), and proposes either a critical-path-only EVM subset or an Earned Schedule-based metric as a more date-relevant supplement to SPI going forward, rather than letting a single blended SPI number stand unqualified in the report.",
+    "explanation": "SPI = EV / PV = 15,120,000 / 14,000,000 = 1.08, which in isolation looks favorable. It is not, however, evidence the project will finish on time: SPI is a cost-weighted measure of volume of work earned, blind to which specific activities that value sits on. Here, the favorable SPI is being generated by high-budget, float-rich structural steel and MEP scope running ahead of plan, while low-relative-budget, zero-float glazing activities on the true critical path are 20 days late. The correct report to the client is that overall EVM schedule performance looks favorable in cost-weighted terms, but the CPM forecast finish is 20 days behind baseline, driven specifically by the glazing subcontractor, and the CPM date, not SPI, is what governs the actual completion risk.",
+    "reasoning": "SPI cannot distinguish between float-rich and float-free work because it sums budgeted value irrespective of criticality. A project can systematically over-perform on easy, high-value, non-critical scope while under-performing on the low-value activities that actually drive the finish date, producing a materially misleading SPI. Only the CPM network (or an EVM analysis restricted to critical-path activities) reveals true date impact.",
+    "commonMistakes": [
+      "Reporting SPI = 1.08 to the client as proof the project is on or ahead of schedule without reconciling it against the CPM forecast.",
+      "Assuming a favorable SPI must mean float is being gained on the critical path.",
+      "Not identifying which specific package is driving the SPI figure versus which is driving the CPM date."
+    ],
+    "redFlags": [
+      "Uses SPI alone to reassure the client about the finish date without cross-checking the CPM schedule.",
+      "Cannot explain how SPI and the CPM forecast can diverge."
+    ],
+    "p6Checks": [
+      "Compare Total Float on the glazing activities against the driving relationship chain to the project finish milestone.",
+      "Check whether a critical-path-only EVM subset (SPI calculated only on zero/near-zero float activities) would give a materially different, less favorable figure.",
+      "Verify the cost-loading weight assigned to structural steel/MEP versus glazing to see how much of the $15.12M EV is coming from non-critical scope."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What additional metric or analysis would reconcile the favorable SPI with the unfavorable CPM date for a client who only trusts one number?",
+        "purpose": "Tests knowledge of critical-path-only EVM or Earned Schedule as a reconciling technique."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If the glazing subcontractor recovers 10 of the 20 days next month, would you expect SPI to move noticeably? Why or why not?",
+        "purpose": "Tests understanding of SPI's insensitivity to small-value critical-path activities."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct SPI calculation and correct statement that it is not proof of an on-time finish."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains the volume-vs-critical-path distinction with reference to this specific scenario."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Names a concrete way to reconcile the two signals for reporting."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.6,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "SPI",
+      "critical path",
+      "CPM",
+      "forecast finish",
+      "EVM interpretation"
+    ],
+    "references": [
+      "PMBOK Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "EVM-011",
+    "category": "EVM",
+    "subcategory": "EAC Formula Comparison",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating and choosing between the atypical-variance and typical-variance EAC formulas based on stated root cause",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "NUMERICAL",
+    "scenario": "An onshore wind farm foundations package has BAC = $9,000,000. At the data date, EV = $3,600,000 and AC = $4,320,000. Geotechnical investigation confirms the cost overrun to date was caused entirely by unexpectedly hard rock requiring extra blasting on the first 8 of 30 turbine foundations, which sit in a localized rock outcrop. The remaining 22 foundations are in a separate area of the site where the geotechnical survey confirms soil conditions consistent with the original budget basis.",
+    "question": "Calculate CPI, then calculate EAC using both the typical-variance formula (BAC/CPI) and the atypical-variance formula (AC + (BAC - EV)). Which is the technically correct choice here, and why?",
+    "correctAnswer": 9720000,
+    "explanation": "CPI = EV/AC = 3,600,000 / 4,320,000 = 0.833. Typical-variance EAC = BAC/CPI = 9,000,000 / 0.833 = $10,800,000, which assumes the hard-rock cost penalty will repeat across all 30 foundations. Atypical-variance EAC = AC + (BAC - EV) = 4,320,000 + (9,000,000 - 3,600,000) = 4,320,000 + 5,400,000 = $9,720,000, which assumes the remaining 22 foundations proceed at the originally budgeted rate. Because the root cause is confirmed as a localized, non-recurring geotechnical condition affecting only the completed foundations, the atypical-variance formula ($9,720,000) is the technically correct choice; using BAC/CPI here would overstate the forecast by extrapolating a non-representative index across favorable-condition foundations.",
+    "reasoning": "EAC formula selection must follow the confirmed root cause of the variance, not be chosen mechanically. BAC/CPI implicitly assumes whatever drove CPI away from 1.0 will keep doing so for all remaining work; AC + (BAC-EV) implicitly assumes the remaining work reverts to budgeted efficiency. Independent geotechnical confirmation that the remaining scope sits in different, known-favorable ground conditions is exactly the kind of evidence needed to justify departing from the default BAC/CPI assumption.",
+    "commonMistakes": [
+      "Defaulting to BAC/CPI without considering whether the cause of the variance is genuinely representative of remaining work.",
+      "Applying the atypical formula on the strength of the contractor's optimism alone, without independent evidence such as the geotechnical survey.",
+      "Computing CPI as AC/EV rather than EV/AC."
+    ],
+    "redFlags": [
+      "Picks an EAC formula without asking whether there is independent evidence the cause will or will not recur."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What would make you revisit this EAC assumption a month from now?",
+        "purpose": "Tests whether the candidate treats the formula choice as provisional and monitors for new adverse conditions in the remaining 22 foundations."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "What single piece of evidence in the scenario justifies not using BAC/CPI for the remaining foundations?",
+        "purpose": "Remedial prompt toward the geotechnical root-cause evidence."
+      }
+    ],
+    "weight": 1.5,
+    "estimatedTimeSec": 170,
+    "tags": [
+      "EAC",
+      "CPI",
+      "atypical variance",
+      "typical variance",
+      "forecasting",
+      "root cause"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-012",
+    "category": "EVM",
+    "subcategory": "TCPI Fundamentals",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating To-Complete Performance Index against BAC and comparing it to current CPI",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A rail platform upgrade package has BAC = $5,000,000. At the data date, EV = $2,000,000 and AC = $2,400,000.",
+    "correctAnswer": 1.15,
+    "question": "Calculate the current CPI, then calculate TCPI (to complete the remaining work within the original BAC). What does the gap between the two figures tell the project controls team?",
+    "explanation": "CPI = EV/AC = 2,000,000 / 2,400,000 = 0.833. TCPI (to BAC) = (BAC - EV) / (BAC - AC) = (5,000,000 - 2,000,000) / (5,000,000 - 2,400,000) = 3,000,000 / 2,600,000 = 1.154, rounded to 1.15. The remaining work would need to be completed at a cost efficiency of 1.15 to hit the original BAC, while the package has only achieved 0.833 so far. That is a large, unfavorable gap: the team would need to swing from 83 cents of value per dollar spent to $1.15 of value per dollar spent, a significant and generally unrealistic reversal without a specific, identified corrective action, which signals the original BAC is at real risk of being exceeded.",
+    "reasoning": "TCPI measures the cost efficiency that must be achieved on the remaining work to hit a target (BAC by default). Comparing TCPI to the CPI actually being achieved is the standard sanity check on whether that target is realistic: a small gap suggests the target is achievable with modest improvement, while a large gap (as here, 1.15 required versus 0.83 achieved) is a strong signal the current budget is not credible without a defined, verifiable corrective action.",
+    "commonMistakes": [
+      "Computing TCPI as (BAC-EV)/(BAC-EV) or otherwise confusing the numerator/denominator.",
+      "Not comparing TCPI back to current CPI to assess feasibility.",
+      "Treating TCPI as a forecast rather than as a required performance threshold."
+    ],
+    "redFlags": [
+      "Calculates TCPI correctly but does not connect it to whether the underlying target is realistic."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the team cannot identify a specific corrective action that would plausibly lift performance from 0.83 to 1.15, what should happen to the reported EAC?",
+        "purpose": "Tests whether the candidate concludes the BAC-based EAC should be abandoned in favor of a CPI-based or bottom-up EAC."
+      }
+    ],
+    "weight": 1.0,
+    "estimatedTimeSec": 140,
+    "tags": [
+      "TCPI",
+      "CPI",
+      "BAC",
+      "to-complete performance index",
+      "forecasting"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-013",
+    "category": "EVM",
+    "subcategory": "TCPI vs CPI Divergence",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing a large TCPI-to-CPI gap as evidence the current BAC is no longer a credible completion target",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR",
+      "MANAGER"
+    ],
+    "questionType": "PARADOX",
+    "scenario": "A hospital tower MEP package has BAC = $16,000,000. At the data date, EV = $9,600,000 (60% earned) and AC = $12,000,000. The project manager wants to report the package as 'on budget' because the current EAC (using BAC/CPI) has not yet been formally revised in the monthly report, and the original BAC is still shown as the completion target.",
+    "question": "Calculate CPI and TCPI (to BAC). What does the relationship between the two numbers tell you, and is it reasonable to keep reporting against the original BAC as the completion target?",
+    "explanation": "CPI = EV/AC = 9,600,000 / 12,000,000 = 0.80. TCPI (to BAC) = (BAC - EV) / (BAC - AC) = (16,000,000 - 9,600,000) / (16,000,000 - 12,000,000) = 6,400,000 / 4,000,000 = 1.60. TCPI is exactly double the CPI actually being achieved: the remaining 40% of scope would need to be executed at twice the cost efficiency demonstrated on the 60% completed so far. On a package already 60% through, with no stated cause for such a dramatic efficiency reversal, this is not a credible target. Continuing to report against the original BAC without flagging this gap misrepresents the package's true financial outlook to leadership.",
+    "reasoning": "A TCPI that is far above the CPI actually being achieved, especially on a package that is well advanced and shows no specific, verified corrective action underway, is one of the clearest quantitative signals that the current budget baseline (BAC) should no longer be trusted as the completion forecast. At 60% complete, there is little remaining scope over which to average out an efficiency swing this large, making the required 1.60 TCPI essentially unachievable in practice. The correct professional response is to stop reporting BAC as the forecast and instead report a CPI-based or bottom-up EAC, with the TCPI-vs-CPI gap explicitly cited as the justification.",
+    "commonMistakes": [
+      "Continuing to report 'on budget' status against BAC simply because a formal EAC revision has not yet been processed.",
+      "Calculating TCPI correctly but not recognizing the magnitude of the gap as diagnostically significant.",
+      "Assuming TCPI above 1.0 is always achievable with 'more effort' rather than assessing it against the demonstrated CPI trend."
+    ],
+    "redFlags": [
+      "Endorses reporting the package as on-budget against BAC despite a TCPI roughly double the demonstrated CPI.",
+      "Cannot explain why TCPI far above CPI, on a package well advanced, is effectively unachievable."
+    ],
+    "p6Checks": [
+      "Review the CPI trend over the last several reporting periods, not just the cumulative figure, to see whether 0.80 is improving, stable, or worsening.",
+      "Check whether any specific, resourced corrective action plan exists that would plausibly explain a jump to 1.60 efficiency on the remaining scope."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What would you formally recommend for this month's reported EAC, and what evidence would you cite to justify moving away from BAC as the target?",
+        "purpose": "Tests the candidate's ability to convert the TCPI/CPI diagnosis into a concrete reporting recommendation."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would your conclusion change if the remaining 40% of scope were fundamentally simpler work (e.g., final testing and documentation) than the 60% already completed?",
+        "purpose": "Tests whether the candidate considers remaining-scope composition, not just the raw index gap, before concluding a target is unachievable."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct CPI and TCPI calculations."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why a large TCPI-CPI gap discredits BAC as a completion target."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends moving off BAC-based reporting with a stated justification rather than passively continuing it."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 1.8,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "TCPI",
+      "CPI",
+      "BAC feasibility",
+      "EAC",
+      "forecasting credibility"
+    ],
+    "references": [
+      "PMBOK Guide",
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-014",
+    "category": "EVM",
+    "subcategory": "Physical Progress vs Earned Value Discrepancy",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Diagnosing why a superintendent's visual percent-complete estimate diverges from the EVM system's earned value percentage",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a full-containment LNG storage tank package, the site superintendent reports the tank as '78% physically complete' based on a visual walk-down. The project controls system, using the approved rules of credit (units-complete on inner tank steel plates welded and outer wall concrete lifts poured, with the roof dome structure earning credit only on a 0/100 basis since it has no measurable interim milestone), reports EV at only 65% of BAC. The dome, a high-cost, long-duration scope item, has not yet started.",
+    "question": "What is the most likely explanation for the 13-point gap between the superintendent's estimate and the EVM system's EV percentage, and how would you investigate it?",
+    "expectedAnswer": "The most likely explanation is that the superintendent's visual estimate is weighting what is visually most prominent (the largely complete inner steel and outer concrete walls) without accounting for the roof dome's actual share of total package value, which under the approved rules of credit earns nothing until fully complete (0/100). Since the dome is high-cost and long-duration, its zero earned value pulls the objective EV percentage well below a purely visual impression of 'how much of the tank looks built.' Investigate by breaking down BAC by major component (walls, base, dome, ancillary systems) to see what percentage of total budget the still-unstarted dome represents, and confirm the rules of credit were correctly applied to each component rather than assuming the superintendent's number is wrong.",
+    "strongAnswer": "Adds that this is a normal and expected outcome of a properly designed rules-of-credit system, not necessarily an error to correct: the discrepancy exists precisely because EV is meant to be an objective, cost-weighted measure resistant to the optimism bias of a visual walk-down, and the correct response is to explain the gap to the superintendent and site leadership (so both numbers can be reconciled and trusted), not to adjust the EV system to match the visual impression.",
+    "expertAnswer": "Recognizes the deeper risk in either direction: if EV is quietly recalibrated upward to match a more optimistic physical impression, the system loses its objectivity and becomes vulnerable to progress inflation project-wide; but if the 0/100 rule on the dome is inappropriate, for example if the dome genuinely has measurable interim stages (such as segmented panel erection percentage) that could support a units-complete or weighted-milestone method instead, then the rule of credit itself, not just the reporting, should be reviewed and potentially revised going forward, with any change applied prospectively and documented rather than adjusting past EV retroactively to close the gap.",
+    "explanation": "The gap is most likely explained by the high-cost, currently-unstarted dome earning zero value under its 0/100 rule of credit, while contributing nothing to a visually-driven estimate that overweights the largely complete walls. The fix is to reconcile and explain the two figures using a component-level budget breakdown, not to override the objective EV system to match a subjective visual impression, unless the rule of credit itself is found to be genuinely poorly matched to how the dome can actually be measured.",
+    "reasoning": "This tests whether the candidate defaults to treating a formal EVM system as 'wrong' whenever it disagrees with an intuitive site impression, versus correctly identifying that EV is deliberately designed to be objective and cost-weighted, and that a large, unstarted, high-value component under a conservative 0/100 rule is a completely legitimate reason for EV to trail a visual estimate. It also tests whether the candidate can distinguish a genuine rules-of-credit design flaw from a normal, expected feature of a well-designed system.",
+    "commonMistakes": [
+      "Assuming the EVM system's figure must be wrong simply because it is lower than the site team's estimate.",
+      "Adjusting EV upward to match the superintendent's number without a documented basis.",
+      "Not checking what share of total BAC the still-unstarted dome represents before investigating further."
+    ],
+    "redFlags": [
+      "Would recalibrate EV to match a subjective visual estimate without documented justification.",
+      "Cannot explain how a 0/100 rule on a high-value component can legitimately suppress overall EV percentage."
+    ],
+    "p6Checks": [
+      "Review the cost/resource breakdown by component (walls, base, dome, ancillary systems) to quantify the dome's share of total BAC.",
+      "Confirm the rules of credit assigned to each activity in the cost-loaded schedule match the approved progress measurement system, not an ad hoc site estimate.",
+      "Check whether any interim, verifiable milestones exist for the dome that could support a more granular earning method than 0/100."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If it turns out the dome could genuinely be tracked with weighted interim milestones (e.g., ring beam complete, panel erection 50%, panel erection 100%, waterproofing complete), would you change the rule of credit mid-project?",
+        "purpose": "Tests judgment on when to revise a progress measurement rule versus preserving consistency."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you explain this 13-point gap to a client who only sees the EV percentage and assumes it means the project is behind?",
+        "purpose": "Tests communication skill in translating a technical EVM nuance for a non-specialist stakeholder."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly attributes the gap to the unstarted, high-value dome under a 0/100 rule."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why EV is deliberately objective/cost-weighted rather than visually driven."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 4,
+          "guidance": "Does not simply override EV to match the site estimate without justification."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "rules of credit",
+      "EV",
+      "percent complete",
+      "0/100",
+      "LNG tank",
+      "progress measurement"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-015",
+    "category": "EVM",
+    "subcategory": "CPI vs Bottom-Up Forecast Contradiction",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Reconciling a favorable index-based EAC with an unfavorable bottom-up ETC re-estimate driven by known future risk",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "CASE_STUDY",
+    "scenario": "A metro tunnel boring package has BAC = $80,000,000. At the data date, EV = $46,000,000 and AC = $43,400,000. The formula-based EAC (BAC/CPI) therefore looks favorable. However, the project controls team has just completed a bottom-up re-estimate of the remaining tunnel drive, which now passes beneath a zone of known soft ground requiring specialist compensation grouting not reflected in the productivity achieved to date. That bottom-up ETC for the remaining scope totals $40,000,000.",
+    "question": "Calculate CPI and the formula-based EAC, then calculate the bottom-up EAC (AC + bottom-up ETC). Explain why the two EACs disagree, and which one you would report to leadership as the project's forecast.",
+    "explanation": "CPI = EV/AC = 46,000,000 / 43,400,000 = 1.06 (favorable). Formula-based EAC = BAC/CPI = 80,000,000 / 1.06 = approximately $75,472,000, which is below BAC and looks favorable. Bottom-up EAC = AC + ETC = 43,400,000 + 40,000,000 = $83,400,000, an overrun despite the favorable CPI. The two disagree because the formula-based EAC assumes the historical cost efficiency of 1.06, achieved on relatively straightforward ground so far, will continue for all remaining work, while the bottom-up ETC incorporates specific, known information about a materially different and more difficult ground condition ahead that the historical index cannot capture. The bottom-up EAC ($83,400,000) should be reported, since it reflects concrete, engineering-based knowledge about the remaining scope rather than a backward-looking statistical extrapolation.",
+    "reasoning": "Index-based EAC formulas are backward-looking: they assume the future resembles the past. A bottom-up ETC is forward-looking and can incorporate specific, known changes in the nature of remaining work, such as a geotechnical condition, that no historical index could anticipate. When credible, specific information exists that the remaining scope differs materially from what has been completed, the bottom-up estimate should take precedence over a purely formulaic EAC, and the discrepancy itself should be explained to leadership rather than silently resolved in favor of the more comfortable number.",
+    "commonMistakes": [
+      "Reporting the favorable formula-based EAC because it is simpler or more reassuring, without disclosing the bottom-up re-estimate.",
+      "Assuming a favorable CPI to date guarantees a favorable outcome for remaining work.",
+      "Treating the two EAC figures as a reconciliation error to be 'fixed' rather than as two different assumptions about the future that must be judged on their merits."
+    ],
+    "redFlags": [
+      "Reports the formula-based EAC to leadership while sitting on a known bottom-up re-estimate showing a materially worse outcome.",
+      "Cannot explain why a favorable CPI does not guarantee a favorable EAC."
+    ],
+    "p6Checks": [
+      "Check whether the remaining tunnel drive activities have been re-sequenced or given updated durations/resources reflecting the compensation grouting requirement.",
+      "Verify the bottom-up ETC estimate is documented with its basis (geotechnical report, grouting method statement, updated productivity assumptions) so it can be defended in the report.",
+      "Review whether the cost-loaded schedule's remaining activities still reflect the original, now-outdated unit rates."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you present both figures to leadership without causing confusion about which one is 'the' forecast?",
+        "purpose": "Tests communication skill in reconciling conflicting EVM signals for a non-technical audience."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If the compensation grouting risk does not materialize as badly as feared, what would you do with the EAC next month?",
+        "purpose": "Tests whether the candidate treats bottom-up ETC as a living estimate to be revisited, not a one-time override."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct CPI, formula-based EAC, and bottom-up EAC calculations."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why bottom-up ETC can diverge from and outrank a favorable index-based EAC."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends reporting the bottom-up figure with transparent explanation rather than the more comfortable formula-based figure."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 1.9,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "EAC",
+      "bottom-up ETC",
+      "CPI",
+      "forecasting",
+      "tunnel",
+      "geotechnical risk"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management",
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "EVM-016",
+    "category": "EVM",
+    "subcategory": "EVM Terminology",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Mapping legacy EVMS terminology (BCWS, BCWP, ACWP) to current PMI terms (PV, EV, AC)",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MCQ",
+    "scenario": "A client's earned value management system procedure, inherited from an older defense-industry contract template, still uses the legacy terms BCWS, BCWP, and ACWP in its reporting templates, while the contractor's internal reports use the current PMI terminology.",
+    "question": "Which mapping between the legacy terms and current PMI terms is correct?",
+    "options": [
+      {
+        "label": "A",
+        "text": "BCWS (Budgeted Cost of Work Scheduled) = PV; BCWP (Budgeted Cost of Work Performed) = EV; ACWP (Actual Cost of Work Performed) = AC.",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "BCWS = EV; BCWP = PV; ACWP = AC.",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "BCWS = AC; BCWP = EV; ACWP = PV.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "BCWS, BCWP and ACWP are all obsolete terms with no equivalent in current PMI terminology and cannot be mapped.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "BCWS (Budgeted Cost of Work Scheduled) is the legacy term for Planned Value (PV): the budget assigned to work scheduled by the data date. BCWP (Budgeted Cost of Work Performed) is the legacy term for Earned Value (EV): the budgeted value of work actually performed. ACWP (Actual Cost of Work Performed) is the legacy term for Actual Cost (AC). The underlying concepts and formulas (CPI = BCWP/ACWP = EV/AC; SPI = BCWP/BCWS = EV/PV) are unchanged; only the labels differ between the older ANSI/EIA-748-derived terminology and PMI's current PMBOK Guide terminology.",
+    "reasoning": "This tests whether the candidate can work across organizations and legacy contract templates that have not updated their terminology, a common real-world situation, particularly on government, defense, or older industrial EPC contracts, without being confused into miscalculating or misreporting because the labels differ from what they are used to.",
+    "commonMistakes": [
+      "Assuming legacy and current terminology represent fundamentally different metrics rather than a straightforward relabeling.",
+      "Reversing the BCWS/BCWP mapping.",
+      "Being unable to work with a client template that uses the older terms."
+    ],
+    "redFlags": [
+      "Cannot map BCWS/BCWP/ACWP to PV/EV/AC when asked."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If a client insists on receiving reports in BCWS/BCWP/ACWP terminology, would you also report in PV/EV/AC internally, or maintain two parallel systems?",
+        "purpose": "Tests practical judgment on managing reporting to different audiences without creating redundant, error-prone parallel tracking."
+      }
+    ],
+    "weight": 0.9,
+    "estimatedTimeSec": 90,
+    "tags": [
+      "BCWS",
+      "BCWP",
+      "ACWP",
+      "EVM terminology",
+      "PV",
+      "EV",
+      "AC"
+    ],
+    "references": [
+      "ANSI/EIA-748 Earned Value Management Systems",
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-017",
+    "category": "EVM",
+    "subcategory": "TCPI to EAC",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recalculating TCPI against a formally revised EAC instead of the original BAC once the EAC has replaced BAC as the accepted completion target",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A petrochemical refinery turnaround package has BAC = $25,000,000. Newly discovered corrosion on process piping, confirmed and formally accepted by the client as a legitimate scope growth item, has led project leadership to formally revise the reported forecast to EAC = $29,000,000 as the new realistic completion target, pending a formal budget/contract amendment. At the current data date, EV = $14,000,000 and AC = $16,500,000.",
+    "question": "Calculate TCPI against the original BAC, then calculate TCPI against the newly accepted EAC. Which figure is the more meaningful performance target for the team going forward, and why?",
+    "correctAnswer": 0.88,
+    "explanation": "TCPI (to BAC) = (BAC - EV) / (BAC - AC) = (25,000,000 - 14,000,000) / (25,000,000 - 16,500,000) = 11,000,000 / 8,500,000 = 1.294. TCPI (to EAC) = (BAC - EV) / (EAC - AC) = (25,000,000 - 14,000,000) / (29,000,000 - 16,500,000) = 11,000,000 / 12,500,000 = 0.88. Once the team and client have formally accepted $29,000,000 as the realistic completion forecast, TCPI should be calculated against that EAC, not the original BAC, since the original budget is no longer the operative target. A TCPI of 0.88 against EAC is a far more achievable and meaningful performance threshold than the 1.29 implied by the now-superseded BAC, and continuing to report TCPI against BAC would set the team up against a target everyone already agrees is unrealistic.",
+    "reasoning": "TCPI's denominator should reflect whatever figure is currently being used as the completion target for management purposes: by default this is BAC, but once a revised EAC has been formally adopted as the realistic forecast (as opposed to remaining an unapproved forecast under dispute), TCPI should be recalculated against that EAC to give a meaningful, currently-relevant efficiency target for the remaining work, per PMI guidance on TCPI variants.",
+    "commonMistakes": [
+      "Continuing to calculate TCPI only against the original BAC after the team has already formally moved to a revised EAC.",
+      "Treating TCPI-to-EAC and TCPI-to-BAC as interchangeable rather than recognizing they answer different questions.",
+      "Forgetting that TCPI-to-EAC uses (EAC - AC) in the denominator, not (BAC - AC)."
+    ],
+    "redFlags": [
+      "Reports only TCPI-to-BAC without recognizing the formally accepted EAC has changed what target actually matters operationally."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the formal budget/contract amendment for the $4,000,000 corrosion scope is later rejected by the client, what would you need to revert to reporting?",
+        "purpose": "Tests understanding that TCPI-to-EAC is only appropriate once the EAC is genuinely the operative target, and reverts if that status changes."
+      }
+    ],
+    "weight": 1.7,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "TCPI",
+      "EAC",
+      "BAC",
+      "forecasting",
+      "refinery turnaround"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-018",
+    "category": "EVM",
+    "subcategory": "EAC Formula Selection Judgment",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Deciding whether a single blended EAC formula or a segmented, package-level EAC is appropriate when different control accounts have different root causes of variance",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "DECISION_MAKING",
+    "scenario": "A student housing complex project has BAC = $18,000,000. At the data date, EV = $9,000,000 (50%) and AC = $10,200,000, giving a project-wide CPI of 0.882. Within this total, the foundations package suffered a one-off cost overrun from a precast delivery delay penalty that will not recur, while the interior finishes package has shown a persistent, worsening labor productivity shortfall for five consecutive reporting periods that the site team expects to continue. Other packages are tracking close to budget.",
+    "question": "Should the project apply a single, project-wide EAC formula to the whole $18,000,000 BAC, or a different approach? What would you recommend and why?",
+    "expectedAnswer": "A single, blended, project-wide EAC formula is not appropriate here because the two packages driving the overall variance have fundamentally different root causes: the foundations overrun is atypical/non-recurring and should use AC + (BAC-EV) logic for its remaining scope, while the interior finishes shortfall is systemic and should use a CPI-based (BAC/CPI) approach for its remaining scope. The correct approach is a segmented, bottom-up EAC built at control-account or package level, applying the formula appropriate to each package's specific cause, and rolling those package-level EACs up into a single project EAC, rather than applying one formula to the whole $18,000,000.",
+    "strongAnswer": "Adds that packages tracking close to budget should simply be forecast at their remaining budgeted rate, and that this segmented approach should become the project's standard forecasting methodology going forward, not a one-time exercise, since blending distinct causes into a single project-wide CPI will always understate the persistent finishes problem while overstating the (already-resolved) foundations issue.",
+    "expertAnswer": "Recognizes that a single project-wide CPI-based EAC would actually be doubly wrong in this case: it would extrapolate the one-off foundations penalty across all remaining work (which is not representative of anything else), while simultaneously not adequately isolating and escalating the finishes productivity trend, which is the one that genuinely needs management attention and corrective action, since it is worsening and ongoing; recommends the monthly report separately name and track the finishes package's CPI trend as a distinct risk item, since a blended project-level EAC could mask exactly the package that most needs intervention.",
+    "explanation": "Because the variance drivers differ in nature (atypical for foundations, systemic for finishes), a single blended, project-wide EAC formula would misrepresent both: it would needlessly extrapolate a resolved, one-off issue while diluting the visibility of an ongoing, worsening productivity problem. The technically correct approach is a segmented, bottom-up EAC built at package/control-account level using the formula appropriate to each package's confirmed root cause, rolled up to a single project EAC.",
+    "reasoning": "EAC formula selection is fundamentally a root-cause judgment, and real projects rarely have a single, uniform cause for cost variance across all scope. Applying one index-based formula to an entire project ignores this heterogeneity and can both overstate risk (extrapolating a resolved issue) and understate risk (diluting an ongoing one) simultaneously, which is why mature project controls practice builds EAC bottom-up by control account wherever variance causes are known to differ.",
+    "commonMistakes": [
+      "Applying a single BAC/CPI formula to the whole project without considering that different packages have different causes.",
+      "Assuming a single blended CPI is 'more conservative' and therefore automatically the safer choice regardless of accuracy.",
+      "Not flagging the ongoing, worsening finishes productivity trend as a distinct management concern separate from the resolved foundations issue."
+    ],
+    "redFlags": [
+      "Applies one EAC formula project-wide without asking whether different packages have different, confirmed root causes.",
+      "Cannot explain why blending a resolved one-off issue with an ongoing systemic issue distorts both."
+    ],
+    "p6Checks": [
+      "Review CPI trend by control account/package over the last several periods to distinguish a one-time step change (foundations) from a worsening trend (finishes).",
+      "Verify cost/resource codes allow EAC to be calculated and rolled up at package level, not only project level."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you explain to the project director why the project-wide CPI of 0.882 is not the right number to apply uniformly to all remaining work?",
+        "purpose": "Tests ability to communicate the segmentation logic to a non-technical stakeholder."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would make you eventually apply the finishes package's CPI-based logic to other packages as well?",
+        "purpose": "Tests whether the candidate understands the productivity issue could spread and requires ongoing monitoring, not a one-time segmentation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly matches each package's formula to its root cause."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why a single blended formula misrepresents both packages."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 4,
+          "guidance": "Flags the worsening finishes trend as the item needing management attention."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.7,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "EAC",
+      "CPI",
+      "control account",
+      "segmented forecasting",
+      "root cause"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-019",
+    "category": "EVM",
+    "subcategory": "ETC Reconciliation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Investigating a bottom-up ETC that is suspiciously lower than the formula-derived ETC before accepting it",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "A municipal water treatment plant package has BAC = $11,000,000. At the data date, EV = $6,600,000 (60%) and AC = $7,900,000, giving CPI = 0.835 and a formula-based ETC of roughly $5,267,000 ((BAC-EV)/CPI). The site team has separately submitted a bottom-up ETC re-estimate for the remaining chemical dosing systems, electrical works, and commissioning of only $2,100,000, roughly 40% of the formula-based figure, and is requesting the monthly report use their lower number.",
+    "question": "Is it appropriate to accept the site team's bottom-up ETC simply because it is more detailed and specific than the formula-based figure? What would you investigate before accepting it?",
+    "expectedAnswer": "No, a bottom-up estimate should not be accepted purely because it is more granular; a bottom-up ETC roughly 40% of the formula-derived figure, on a package that has consistently underperformed (CPI 0.835) for the 60% completed so far, is itself a red flag that needs investigation, not automatic acceptance. Investigate by reviewing the detailed basis of the site team's $2,100,000 figure line by line: does it include realistic productivity rates consistent with the CPI trend actually achieved, does it include commissioning, testing, punch-list rework, and close-out effort, and does it reflect the same unit rates and risk allowances used in the original estimate, or does it optimistically assume performance will suddenly improve without a specific, credible reason.",
+    "strongAnswer": "Adds that a common cause of an unrealistically low bottom-up ETC is that the site team unconsciously (or consciously, under schedule/budget pressure) omits indirect costs, remaining punch-list/rework effort, and commissioning support that don't map neatly to a specific remaining activity, and that the correct process is to reconcile the bottom-up figure against the demonstrated CPI trend and require the site team to explain, activity by activity, why performance is expected to improve so dramatically.",
+    "expertAnswer": "Recommends treating this as a required reconciliation exercise, not a binary accept/reject decision: neither the bottom-up figure nor the formula-based figure should be reported unchallenged; the correct process is to request a detailed, activity-level breakdown of the $2,100,000 with productivity assumptions explicit for each remaining activity, compare those assumptions against the productivity actually achieved on similar activities to date, and, absent a credible, specific explanation for the assumed improvement (new crew, resolved constraint, design simplification), report an ETC between the two figures, weighted toward the formula-based number, while documenting the site team's estimate and the basis for the adjustment so the disagreement is transparent to leadership rather than silently resolved in the more optimistic direction.",
+    "explanation": "A bottom-up ETC that is dramatically lower than the formula-derived ETC, on a package with a sustained unfavorable CPI, should be treated as a red flag requiring investigation rather than accepted at face value. The likely causes are either genuine optimism bias/omitted scope in the bottom-up estimate, or a specific, verifiable reason for improved future performance, and only line-by-line reconciliation against the demonstrated productivity trend can distinguish the two.",
+    "reasoning": "This tests whether the candidate treats 'more detailed' as automatically 'more accurate.' Bottom-up estimates are only as good as the assumptions and completeness behind them, and site teams under schedule or budget pressure have an incentive, even unconsciously, to omit hard-to-quantify remaining effort (commissioning, rework, close-out) or assume unearned productivity improvement. A credible project controls professional reconciles rather than defaults to either source.",
+    "commonMistakes": [
+      "Accepting the more detailed bottom-up estimate simply because it looks more rigorous than a formula.",
+      "Accepting the formula-based ETC uncritically without considering it may not reflect genuine remaining-scope knowledge either.",
+      "Not comparing the bottom-up estimate's implied productivity against the CPI trend actually demonstrated."
+    ],
+    "redFlags": [
+      "Would swap to the lower bottom-up ETC purely at the site team's request without reconciling it against demonstrated performance."
+    ],
+    "p6Checks": [
+      "Review the remaining activities' resource/cost assignments underlying the $2,100,000 bottom-up figure for completeness (commissioning, rework, close-out).",
+      "Check whether the productivity rates implied by the bottom-up ETC are consistent with, or a significant unexplained improvement over, the rates achieved on the 60% completed to date."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the site team cannot provide a credible reason for the assumed productivity improvement, what ETC would you actually report, and how would you document the disagreement?",
+        "purpose": "Tests ability to move from investigation to a defensible reporting decision."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the gap as a red flag requiring reconciliation, not automatic acceptance."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Does not simply defer to either the formula or the site team without investigation."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Names concrete reconciliation steps (line-by-line review, productivity comparison)."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "ETC",
+      "bottom-up estimate",
+      "CPI",
+      "forecasting",
+      "optimism bias"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "EVM-020",
+    "category": "EVM",
+    "subcategory": "CV/SV Combination Diagnosis",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Interpreting a favorable Cost Variance combined with an unfavorable Schedule Variance",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A solar farm racking and module-mounting package shows, at the data date: PV = $3,200,000, EV = $2,940,000, AC = $2,760,000.",
+    "question": "Calculate CV and SV. What is the most likely explanation for a package that is under budget but behind on volume of work, and what would you check to confirm it?",
+    "expectedAnswer": "CV = EV - AC = 2,940,000 - 2,760,000 = +$180,000 (favorable, under budget). SV = EV - PV = 2,940,000 - 3,200,000 = -$260,000 (unfavorable, behind the planned volume of work). The most likely explanation is that the crews actually deployed are working cost-efficiently (favorable unit cost) but not enough crew-days or crews have been mobilized to keep pace with the planned rate of racking installation, so less work is being accomplished than planned even though what is being done is not costing more than budgeted per unit. Other possible causes include weather-driven lost days not yet reflected as cost overrun, or a delayed start to a module-mounting crew still ramping up.",
+    "strongAnswer": "Adds that this combination should specifically prompt checking crew headcount/mobilization records against the resource-loaded schedule's planned crew size, and checking whether the shortfall is concentrated in a specific area/zone (suggesting a localized constraint such as a delayed permit or a materials delivery gap) versus spread evenly (suggesting a general under-resourcing issue).",
+    "expertAnswer": "Recommends not treating the favorable CV as simply good news, since a package that is both under-resourced and running efficiently on the reduced resourcing is not actually 'ahead' in any meaningful sense, and recovering the schedule shortfall by adding crews will very likely turn the currently favorable CV unfavorable (higher mobilization cost, possible learning-curve inefficiency for new crews, potential overtime); recommends presenting the schedule recovery cost estimate alongside the current favorable CV so leadership understands the true cost-time trade-off before assuming the package is simply performing well.",
+    "explanation": "CV = +$180,000 (favorable) and SV = -$260,000 (unfavorable) most commonly indicates under-resourcing relative to the plan: the crews deployed are cost-efficient, but there are not enough of them to keep pace with the planned rate of work. Confirming this requires checking actual crew/resource deployment against the resource-loaded baseline, not just the dollar variances.",
+    "reasoning": "This tests the candidate's ability to read a genuine, plausible EVM signal combination correctly: favorable cost with unfavorable schedule most often reflects under-resourcing (doing less work, but doing it efficiently) rather than a productivity problem (which would typically show up as unfavorable cost too). Recognizing that recovering the schedule will likely erode the currently favorable cost position is the deeper, more senior insight.",
+    "commonMistakes": [
+      "Reporting the favorable CV as unambiguously good news without connecting it to the unfavorable SV.",
+      "Assuming under-resourcing and low productivity are the same explanation when they have different corrective actions.",
+      "Not anticipating that schedule recovery (adding resources) will likely change the currently favorable cost position."
+    ],
+    "redFlags": [
+      "Reports this combination as simply 'good cost performance' without investigating the schedule shortfall.",
+      "Cannot explain why recovering schedule might turn a favorable CV unfavorable."
+    ],
+    "p6Checks": [
+      "Compare actual crew headcount/resource usage against the resource-loaded baseline plan for the same period.",
+      "Check whether the SV shortfall is concentrated in specific zones (localized constraint) or spread evenly (general under-resourcing)."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If the project director asks you to recover the 260,000 of schedule variance next month by adding a second racking crew, what would you expect to happen to CV?",
+        "purpose": "Tests understanding of the cost-time trade-off implied by this variance combination."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct CV and SV calculation and sign interpretation."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly identifies under-resourcing as the likely cause distinct from a productivity problem."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Names concrete verification steps against resource-loaded baseline."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 170,
+    "tags": [
+      "cost variance",
+      "schedule variance",
+      "under-resourcing",
+      "solar farm",
+      "EVM analysis"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-021",
+    "category": "EVM",
+    "subcategory": "Aggregation Masking in SPI",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing that a favorable aggregate SPI can mask a critical shortfall in the single building actually driving the overall completion date",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "CASE_STUDY",
+    "scenario": "A three-building data center campus reports aggregate EVM figures monthly. At the data date: Building A (electrical rough-in, low complexity), PV = $5,000,000, EV = $6,200,000, running ahead of plan. Building B (general MEP), PV = $8,000,000, EV = $8,000,000, exactly on track. Building C (critical cooling plant equipment installation), PV = $7,000,000, EV = $5,800,000, significantly behind, delayed by an import customs clearance hold on chiller equipment. Building C's cooling plant is the campus's designated go-live driver: no building can be energized and commissioned until Building C's cooling plant is operational.",
+    "question": "Calculate the campus-wide aggregate SPI. Does this aggregate figure give an accurate picture of the campus's completion risk? What would you report to the client instead?",
+    "explanation": "Aggregate PV = 5,000,000 + 8,000,000 + 7,000,000 = $20,000,000. Aggregate EV = 6,200,000 + 8,000,000 + 5,800,000 = $20,000,000. Aggregate SPI = EV/PV = 20,000,000 / 20,000,000 = 1.00, exactly on schedule in cost-weighted terms. This figure is dangerously misleading: it is produced entirely by Building A's over-performance on low-complexity, non-critical electrical rough-in offsetting Building C's shortfall on the cooling plant equipment, which is the single item that actually governs the entire campus's go-live date. A client seeing SPI = 1.00 would reasonably assume the campus is on track, when in fact the true completion driver is significantly behind due to an import hold with no guarantee of imminent resolution. The report should present SPI by building (or, better, driving-path-only), explicitly separate Building C's cooling plant status as the critical item, and state the customs clearance issue and its schedule impact rather than leading with the blended 1.00 figure.",
+    "reasoning": "This is a variant of the general principle that SPI is a cost-weighted, blended measure blind to which specific scope drives the actual completion date. Averaging across scopes of very different schedule criticality, here, three buildings with very different roles in the overall go-live sequence, can produce an aggregate figure that looks perfectly healthy while the actual driving constraint deteriorates. A Lead-level controls professional must disaggregate by driving path, not report a single blended number, whenever the underlying scopes have materially different criticality.",
+    "commonMistakes": [
+      "Reporting the aggregate SPI = 1.00 as evidence the campus is on schedule.",
+      "Not identifying which building/system is the actual completion driver before interpreting the aggregate figure.",
+      "Treating all three buildings' progress as equally significant to the overall completion date."
+    ],
+    "redFlags": [
+      "Reports SPI = 1.00 to the client without disaggregating by building or flagging the cooling plant delay.",
+      "Cannot explain how three very different building-level SPIs can average to exactly 1.00 and still represent a serious problem."
+    ],
+    "p6Checks": [
+      "Check the schedule logic to confirm Building C's cooling plant is indeed the driving predecessor to the overall campus go-live milestone.",
+      "Review Total Float on Building C's cooling plant activities versus Buildings A and B to quantify how critical the customs delay actually is.",
+      "Calculate SPI separately for Building C's cooling plant scope (or critical-path-only SPI) rather than relying on the blended campus figure."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you restructure the monthly EVM report so this kind of masking cannot happen again on this campus?",
+        "purpose": "Tests ability to design a reporting structure (disaggregation by building/critical path) that prevents future misleading aggregation."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If Building A's over-performance is itself questionable (e.g., low-value scope being rushed while quality suffers), how would that change your assessment?",
+        "purpose": "Tests whether the candidate probes the quality/credibility of the favorable component, not just the unfavorable one."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct aggregate SPI calculation."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains how offsetting building-level performance masks the true driver."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Recommends a concrete disaggregated reporting approach."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 1.8,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "SPI",
+      "aggregation",
+      "critical path",
+      "data center",
+      "campus reporting"
+    ],
+    "references": [
+      "PMBOK Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "EVM-022",
+    "category": "EVM",
+    "subcategory": "Multi-WBS EVM Aggregation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Aggregating PV, EV and AC across multiple tenant fit-out packages to compute overall CPI and SPI",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "NUMERICAL",
+    "scenario": "A shopping mall tenant fit-out programme has four active packages at the data date: Anchor Store A (PV $1,200,000, EV $1,100,000, AC $1,250,000); Food Court (PV $900,000, EV $950,000, AC $880,000); Cinema (PV $1,600,000, EV $1,400,000, AC $1,700,000); Common Area Finishes (PV $700,000, EV $700,000, AC $690,000).",
+    "question": "Calculate the programme-wide (aggregate) PV, EV and AC, then the overall CPI and SPI. Which single package is driving the overall unfavorable cost performance the most?",
+    "correctAnswer": "Aggregate PV = $4,400,000; EV = $4,150,000; AC = $4,520,000; CPI = 0.918 (4,150,000/4,520,000); SPI = 0.943 (4,150,000/4,400,000). The Cinema package is the dominant driver of the unfavorable cost performance.",
+    "explanation": "Aggregate PV = 1,200,000 + 900,000 + 1,600,000 + 700,000 = $4,400,000. Aggregate EV = 1,100,000 + 950,000 + 1,400,000 + 700,000 = $4,150,000. Aggregate AC = 1,250,000 + 880,000 + 1,700,000 + 690,000 = $4,520,000. Overall CPI = EV/AC = 4,150,000/4,520,000 = 0.918. Overall SPI = EV/PV = 4,150,000/4,400,000 = 0.943. At package level: Cinema alone has a cost variance of EV-AC = 1,400,000-1,700,000 = -$300,000, by far the largest unfavorable variance of the four, and is therefore the dominant driver of the overall unfavorable CPI; Anchor Store A also contributes a smaller unfavorable variance (-$150,000), while Food Court and Common Area Finishes are favorable or neutral.",
+    "reasoning": "Aggregate EVM figures are simple sums of each component's PV, EV and AC; the resulting indices are then recalculated from the totals, not averaged package-by-package index values. Once the aggregate signal is understood, drilling into package-level cost variance (EV-AC) identifies which specific package is driving the blended result, which is essential before recommending any corrective action, since fixing the wrong package would not move the overall number.",
+    "commonMistakes": [
+      "Averaging the four packages' individual CPI values instead of summing PV/EV/AC first and recalculating CPI from the totals.",
+      "Not identifying which specific package drives the aggregate unfavorable CPI before recommending action.",
+      "Mixing up which packages are favorable versus unfavorable without checking each one individually."
+    ],
+    "redFlags": [
+      "Reports the aggregate CPI without being able to say which package is actually driving it."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If Cinema's overrun is caused by a scope change not yet formally approved, how would that change how you report its contribution to the aggregate CPI?",
+        "purpose": "Tests connection between change control status and cost variance attribution."
+      }
+    ],
+    "weight": 1.3,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "CPI",
+      "SPI",
+      "aggregation",
+      "tenant fit-out",
+      "cost variance"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-023",
+    "category": "EVM",
+    "subcategory": "EV Ceiling and Scope Creep Miscoding",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing that a reported EV apparently exceeding BAC signals either unrecorded approved scope growth or a progress-measurement data error, never a legitimate outcome for unchanged scope",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "An offshore platform topside structural steel package originally has BAC = $4,000,000. Mid-project, the client approved two additional topside modules, adding real scope and cost, but the project controls system's BAC field has not yet been formally updated to reflect this approved change. This month's units-complete progress calculation, applied against the full (now larger) physical scope actually being built, produces a reported EV of $4,350,000 against the still-unrevised $4,000,000 BAC.",
+    "question": "Is it legitimate for EV to exceed BAC in an EVM report? What is most likely happening here, and what should be corrected?",
+    "expectedAnswer": "No, EV should never legitimately exceed BAC for a given, defined scope: by definition, EV is capped at 100% of BAC once all defined scope is complete, since EV represents the budgeted value of work performed, not the actual cost or any adjusted value. A reported EV above BAC almost always indicates the BAC itself has not been updated to reflect approved scope growth, which is exactly what has happened here (the client-approved additional modules have not yet been formally incorporated into BAC), and the fix is to formally revise BAC to include the approved variation value before the next reporting cycle, not to cap or distort the EV calculation.",
+    "strongAnswer": "Adds that this should also prompt a check of whether the rules of credit or quantity take-off used for the units-complete calculation are counting the additional modules' scope correctly, since a rushed or informal BAC update process can also introduce double-counting or miscoding errors that produce the same symptom (EV exceeding BAC) even without genuine scope growth.",
+    "expertAnswer": "Notes that an EV-exceeds-BAC condition should be treated as a mandatory data-quality gate before any report is issued, since it can also indicate more concerning causes beyond delayed scope updates, for example progress being reported against an outdated or incorrect quantity take-off, or genuine over-reporting/inflation of physical progress, and that the change control process should require BAC updates to be processed promptly and in step with approved variations specifically so this discrepancy cannot occur or persist undetected across multiple reporting periods.",
+    "explanation": "EV cannot legitimately exceed BAC for a fixed, defined scope. Its occurrence here is explained by an approved scope change (additional topside modules) not yet reflected in a formally revised BAC, and the correct fix is to update BAC to include the approved variation value promptly, while also verifying the underlying quantity/progress data is correct rather than assuming the scope-growth explanation without checking.",
+    "reasoning": "This tests the candidate's grasp of a basic but often violated EVM integrity rule: EV is bounded by BAC by definition, so any apparent violation is a symptom of either an unprocessed baseline change or a data/measurement error, never a genuine EVM outcome to be reported as-is. Correctly diagnosing which of the two (or both) is occurring, rather than dismissing the anomaly, is the practical skill being tested.",
+    "commonMistakes": [
+      "Reporting EV greater than BAC without flagging it as an anomaly requiring investigation.",
+      "Assuming the scope-growth explanation is automatically correct without also checking for a quantity/progress data error.",
+      "Not prioritizing a prompt formal BAC revision once the scope change is confirmed as approved."
+    ],
+    "redFlags": [
+      "Would let a report showing EV above BAC go out without investigation or explanation.",
+      "Cannot state that EV is definitionally capped at BAC for a fixed scope."
+    ],
+    "p6Checks": [
+      "Verify the approved variation for the additional topside modules has a formal budget revision processed against the cost-loaded schedule's BAC field, not just physical scope added to the quantity take-off.",
+      "Check the units-complete quantity take-off basis used for this month's progress calculation against the approved scope to rule out double-counting."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What process change would you recommend so BAC revisions and approved variations are never this far out of step again?",
+        "purpose": "Tests ability to propose a process fix, not just a one-time correction."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly states EV cannot legitimately exceed BAC for fixed scope."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Correctly attributes the cause to an unprocessed BAC revision and considers data-error alternatives."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Recommends a concrete fix and process improvement."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "EV",
+      "BAC",
+      "scope change",
+      "baseline integrity",
+      "offshore platform"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-024",
+    "category": "EVM",
+    "subcategory": "Composite Index EAC",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating EAC using the composite (cost and schedule) index formula and explaining when it is preferable to a CPI-only formula",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A highway bridge widening package has BAC = $22,000,000. At the data date, PV = $11,600,000, EV = $9,900,000, and AC = $11,000,000. The project is both over budget and behind schedule, and the project controls team is aware of a client-imposed liquidated-damages deadline that will very likely force the contractor to accelerate the remaining work, adding cost pressure on top of the productivity trend already observed.",
+    "question": "Calculate CPI and SPI, then calculate EAC using the composite index formula EAC = AC + [(BAC - EV) / (CPI x SPI)]. Compare it to the simple CPI-only EAC (BAC/CPI) and explain why the composite formula may be the more appropriate choice here.",
+    "correctAnswer": 26755208,
+    "explanation": "CPI = EV/AC = 9,900,000/11,000,000 = 0.90. SPI = EV/PV = 9,900,000/11,600,000 = 0.853. CPI x SPI = 0.90 x 0.853 = 0.768. Remaining work = BAC - EV = 22,000,000 - 9,900,000 = $12,100,000. Composite ETC = 12,100,000 / 0.768 = approximately $15,755,208. Composite EAC = AC + ETC = 11,000,000 + 15,755,208 = approximately $26,755,208. By comparison, the simple CPI-only EAC = BAC/CPI = 22,000,000/0.90 = $24,444,444, a noticeably lower (less conservative) figure. The composite formula is more appropriate here because it explicitly weights in the unfavorable SPI: since the client-imposed deadline will likely force acceleration of the remaining schedule-delayed work, there is good reason to expect that acceleration (overtime, added crews, expediting) will also place further pressure on cost efficiency, which the CPI-only formula, looking at cost performance alone, would not capture.",
+    "reasoning": "The composite index EAC formula (AC + (BAC-EV)/(CPI x SPI)) is a PMI-recognized EAC variant used specifically when both cost and schedule performance are expected to jointly influence the cost of remaining work, most commonly when schedule pressure is likely to force cost-increasing acceleration. Using CPI alone in such a situation risks understating the forecast because it ignores the schedule-driven cost pressure that the SPI figure is signaling.",
+    "commonMistakes": [
+      "Using the CPI-only EAC formula by default without considering whether schedule pressure will also affect remaining cost efficiency.",
+      "Multiplying CPI and SPI incorrectly, or applying the index to AC instead of to the remaining work (BAC-EV).",
+      "Treating the composite EAC as always 'more correct' rather than recognizing it is appropriate specifically when schedule-driven cost pressure is a credible factor."
+    ],
+    "redFlags": [
+      "Reports the lower, CPI-only EAC to leadership while aware of a looming forced-acceleration scenario that the composite formula would better capture."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the client relaxes the liquidated-damages deadline next month, would you switch back to the simple CPI-only EAC? Why or why not?",
+        "purpose": "Tests whether the candidate understands the composite formula's appropriateness is conditional on the schedule-pressure assumption remaining true."
+      }
+    ],
+    "weight": 1.8,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "EAC",
+      "composite index",
+      "CPI",
+      "SPI",
+      "acceleration",
+      "forecasting"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-025",
+    "category": "EVM",
+    "subcategory": "EVM Communication to Stakeholders",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Communicating a mixed CPI/SPI signal to a client without either overstating or understating the project's true status",
+    "difficulty": 5,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "A mixed-use tower project reports, at the current data date, CPI = 1.10 (favorable) and SPI = 0.85 (unfavorable). At the monthly progress meeting, the client's project director asks the contractor's project controls lead a direct question: 'Are we on track or not? Just give me a straight answer.'",
+    "question": "How would you answer the client's question? What would you say, and what would you deliberately avoid saying?",
+    "expectedAnswer": "A competent answer avoids collapsing two different dimensions of performance into a single 'yes/no,' since doing so would misrepresent the project either way: it should state plainly that cost performance is favorable (CPI 1.10, earning $1.10 of value for every $1.00 spent) but schedule performance is unfavorable (SPI 0.85, meaning less work has been earned than planned by this date), and that these are two genuinely different questions, 'is it costing more than budgeted' versus 'is it progressing as fast as planned', with two different answers. It should also state what this means for the CPM forecast finish date specifically, since that is what the client actually cares about when asking 'on track,' rather than leaving SPI to stand in for a date answer it cannot reliably provide.",
+    "strongAnswer": "Adds a specific, concrete next step, naming the CPM-forecast finish date and how many days behind baseline it is, and identifying which activities/packages are driving the unfavorable SPI, so the client leaves with an actionable, specific picture rather than a qualified but vague answer.",
+    "expertAnswer": "Recognizes the underlying communication risk: a client under pressure for a single 'yes/no' answer will latch onto whichever framing is given, so a controls lead who leads with the favorable CPI risks being seen later as having downplayed a real schedule problem, while leading only with the unfavorable SPI risks understating a genuinely good cost position and eroding trust in future good news; the professionally correct approach is to lead with the CPM forecast finish date and its driving cause first, since that is what 'on track' operationally means to the client, then explain the favorable cost position as separate, additional information, rather than letting either index alone answer a question about the finish date that neither index alone can answer.",
+    "explanation": "The correct response separates cost performance (favorable, CPI 1.10) from schedule performance (unfavorable, SPI 0.85) explicitly rather than blending them into a single verdict, and grounds the answer to 'are we on track' in the CPM forecast finish date and its driving cause, since that is what the client is actually asking about, rather than letting either index alone stand in for a date-based answer.",
+    "reasoning": "This tests the candidate's ability to manage a real communication pressure point common in client reporting: a stakeholder wants a simple answer to what is genuinely a two-dimensional (and, for the finish date specifically, CPM-driven rather than EVM-driven) question. A controls professional who either oversimplifies toward the favorable number or the unfavorable number, rather than giving an honest, structured, date-grounded answer, damages either the project's credibility or the client relationship over time.",
+    "commonMistakes": [
+      "Leading with the favorable CPI alone to reassure the client, implicitly downplaying the unfavorable schedule position.",
+      "Leading with the unfavorable SPI alone without also conveying the favorable cost position, understating good performance.",
+      "Answering the 'are we on track' question using SPI as if it were a direct proxy for the forecast finish date."
+    ],
+    "redFlags": [
+      "Gives a simple 'yes' or 'no' to the client without disaggregating cost and schedule performance.",
+      "Cannot translate SPI/CPI into what actually matters to the client (the forecast finish date and its cost implication)."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the client's project director presses further and insists on a single word, 'ahead,' 'on track,' or 'behind,' how would you respond without misrepresenting the project?",
+        "purpose": "Tests composure and precision under pressure to oversimplify."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Avoids collapsing a two-dimensional signal into a misleading single answer."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly interprets CPI 1.10 and SPI 0.85 individually."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Grounds the 'on track' answer in the CPM forecast finish date, not SPI alone."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 1.9,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "client communication",
+      "CPI",
+      "SPI",
+      "reporting",
+      "stakeholder management"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-026",
+    "category": "EVM",
+    "subcategory": "BAC Composition",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Distinguishing the Performance Measurement Baseline (BAC) from unallocated Management Reserve when determining BAC for EVM purposes",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A transmission line project's total control budget is $32,000,000. Of this, $30,000,000 is distributed across specific work packages and control accounts in the time-phased Performance Measurement Baseline (PMB), and the remaining $2,000,000 is held as Management Reserve, an amount senior management retains for unforeseen risks not yet allocated to any specific control account or work package.",
+    "question": "What is the correct BAC to use for EVM calculations (CPI, SPI, EAC) on this project: $30,000,000 or $32,000,000? Explain why.",
+    "correctAnswer": 30000000,
+    "explanation": "BAC for EVM purposes is $30,000,000, the Performance Measurement Baseline, since this is the total of the time-phased budget actually distributed to work packages and control accounts, against which Planned Value, Earned Value and all EVM indices are calculated. The $2,000,000 Management Reserve is deliberately excluded from BAC because it has not been allocated to any specific scope of work; it is held by management to be released into the PMB (increasing BAC) only if and when it is formally allocated to address a specific, realized risk or scope item. Until released, it is not part of the performance measurement system and should not be included in EVM calculations.",
+    "reasoning": "This reflects the standard EVMS distinction between the Performance Measurement Baseline (the sum of all control account budgets, used for EV/PV/AC/BAC calculations) and Management Reserve (an unallocated contingency held above the PMB for management control, not yet tied to specific scope). Including Management Reserve in BAC would distort every EVM index, since PV and EV are built from control-account-level, time-phased budgets that Management Reserve, by definition, does not yet have.",
+    "commonMistakes": [
+      "Including the full $32,000,000 total control budget as BAC, conflating total project budget with the Performance Measurement Baseline.",
+      "Not understanding that Management Reserve only becomes part of BAC once formally allocated to a control account.",
+      "Confusing Management Reserve with contingency held within individual control accounts (which, if allocated, is part of the PMB and would be included in BAC)."
+    ],
+    "redFlags": [
+      "Cannot distinguish Management Reserve from the Performance Measurement Baseline when asked what BAC should be."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If $500,000 of the Management Reserve is later formally released to the substation civil works control account to cover a confirmed ground condition risk, what happens to BAC?",
+        "purpose": "Tests understanding that BAC increases only when Management Reserve is formally allocated into the PMB, not automatically."
+      }
+    ],
+    "weight": 1.1,
+    "estimatedTimeSec": 130,
+    "tags": [
+      "BAC",
+      "management reserve",
+      "performance measurement baseline",
+      "EVM fundamentals"
+    ],
+    "references": [
+      "ANSI/EIA-748 Earned Value Management Systems",
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-027",
+    "category": "EVM",
+    "subcategory": "EAC Data Integrity",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Investigating an unexplained large favorable swing in the reported EAC before accepting it in the monthly report",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "A seaport container terminal package has BAC = $45,000,000. Last month's report showed EAC = $52,000,000. This month's report, with no specific corrective action, schedule recovery, descoped work, or root-cause explanation noted, shows EAC = $46,500,000, a favorable swing of $5,500,000 in a single reporting period.",
+    "question": "Before accepting this month's improved EAC figure into the report, what would you check first?",
+    "expectedAnswer": "Check whether the calculation methodology changed between the two periods, for example a switch between a bottom-up ETC and a CPI-based formula, or a change in which activities' costs are included, since a methodology change can produce a large swing that has nothing to do with genuine performance improvement. Check whether any large actual-cost correction occurred, such as a duplicate invoice being removed, a supplier credit being applied, or a batch of previously over-accrued cost being reversed, any of which would move AC (and therefore CPI-based EAC) sharply without reflecting a real trend change. Check whether the rules of credit or percent-complete basis changed, which would move EV. Check whether any scope was formally descoped (which should also reduce BAC, not just EAC) versus simply dropped from the forecast without a documented basis.",
+    "strongAnswer": "Adds that the most efficient way to investigate is to decompose the swing into its components: how much of the $5,500,000 change is due to a change in AC (data correction), how much is due to a change in EV (progress/rules-of-credit change), and how much is due to a change in the ETC methodology or assumptions itself, since each of these has a different, specific verification path.",
+    "expertAnswer": "Recommends that any EAC swing beyond an agreed materiality threshold (for example, more than 5-10% of BAC in a single period) should trigger a mandatory documented explanation before it is allowed into the report, not be accepted on the strength of the number alone, since large unexplained favorable swings are one of the most common ways an inaccurate or manipulated forecast slips past review, and once accepted without scrutiny, the credibility of the entire reporting process is at risk if the swing later proves to be a data error or an overly optimistic assumption.",
+    "explanation": "A large, unexplained favorable EAC swing should never be accepted into a report without first decomposing it into its AC, EV, and methodology/assumption components, since each has a different, specific and verifiable cause, and one of the most common explanations for such swings is a data correction, methodology change, or optimistic reassumption rather than genuine performance improvement.",
+    "reasoning": "EAC is a composite figure built from AC (an actual), EV (a measured quantity), and either an index or a bottom-up ETC (a judgment). A large swing in the composite number without a stated cause could originate from any of these three sources, and each source implies a very different level of confidence in the new figure: a genuine AC data correction is a one-time, defensible adjustment, while a quiet ETC assumption change without a stated corrective action is a red flag for forecast manipulation or unfounded optimism.",
+    "commonMistakes": [
+      "Accepting a favorable EAC swing into the report simply because it is good news, without asking what changed.",
+      "Assuming a large favorable swing must reflect a genuine turnaround without verifying it against AC/EV component changes.",
+      "Not distinguishing a legitimate data correction from an unexplained assumption change."
+    ],
+    "redFlags": [
+      "Would publish the improved EAC without decomposing what specifically changed since last month.",
+      "Cannot name concrete component-level checks (AC correction, EV/rules-of-credit change, ETC methodology change) when asked what to verify first."
+    ],
+    "p6Checks": [
+      "Compare this month's AC to last month's AC plus this period's incurred cost to identify any retroactive adjustment.",
+      "Compare the ETC methodology and key assumptions documented in both months' reports.",
+      "Check whether any formal variation/descope was processed that would also require a BAC change, not just an EAC change."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you find the swing is entirely explained by a legitimate $5,500,000 invoice duplication being corrected in AC, is the new EAC now fully trustworthy?",
+        "purpose": "Tests whether the candidate still checks the remaining ETC assumptions rather than assuming one verified explanation clears the whole figure."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What materiality threshold would you set for requiring a documented explanation before an EAC change is accepted into a report?",
+        "purpose": "Tests ability to propose a practical governance control, not just a one-off investigation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies AC, EV, and methodology/assumption changes as the three components to check."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Treats an unexplained favorable swing with appropriate skepticism rather than accepting good news uncritically."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Names concrete verification steps."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "EAC",
+      "data integrity",
+      "forecasting",
+      "cost report",
+      "seaport"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "EVM-028",
+    "category": "EVM",
+    "subcategory": "Earned Schedule Concept",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Explaining why SPI becomes unreliable late in a project and how Earned Schedule (ES) provides a more accurate, time-based alternative",
+    "difficulty": 5,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "CASE_STUDY",
+    "scenario": "A petrochemical EPC project is 92% complete by Earned Value (EV = 92% of BAC), giving SPI = EV/PV = 0.98, which the project team is reporting as 'essentially on schedule.' An independent Earned Schedule analysis, using the actual time elapsed against the time at which each increment of EV was planned to be earned, calculates that the project's Earned Schedule is 45 calendar days behind Actual Time, meaning the project is genuinely running about 45 days late relative to its baseline schedule, a materially different conclusion than 'essentially on schedule.'",
+    "question": "Why can SPI show a near-1.0, apparently healthy value at 92% completion even though the project is genuinely 45 days behind schedule? What is Earned Schedule measuring differently, and which figure should be trusted?",
+    "explanation": "SPI, defined as EV/PV, is denominated in dollars (or budget units), not time, and mathematically must converge toward 1.0 as a project approaches 100% completion, since EV cannot exceed BAC and PV also approaches BAC as the baseline nears its end: the 'gap' between EV and PV that SPI measures has a shrinking ceiling regardless of how many actual calendar days behind the project is running. This is a well-documented mathematical limitation of cost-based SPI, not a sign of genuine schedule recovery late in a project. Earned Schedule instead identifies, on the baseline PV curve, the time at which the current EV value would have been planned to be earned, and compares that to Actual Time elapsed; the resulting time-based gap (45 days behind, in this case) does not have the same end-of-project convergence-to-1.0 problem and gives a genuine, undistorted read of schedule health even very close to completion.",
+    "reasoning": "This tests understanding of a known, real limitation of cost-based SPI that a senior/lead-level controls professional should be aware of: because BAC bounds both EV and PV, SPI necessarily trends toward 1.0 as a project nears completion, which can mask genuine, persistent schedule delay right when it matters most (near the end, close to a critical milestone or handover date). Earned Schedule, an extension to classical EVM, restates schedule performance in true time units specifically to correct this late-project distortion, and its output (Earned Schedule versus Actual Time, or the derived SPI(t) index) should be trusted over classical SPI whenever a project is more than roughly 70-80% complete.",
+    "commonMistakes": [
+      "Reporting SPI near 1.0 late in a project as proof schedule performance has genuinely recovered, without checking Earned Schedule or the CPM forecast.",
+      "Not knowing that SPI is mathematically bounded to converge toward 1.0 as EV approaches BAC, regardless of true schedule health.",
+      "Dismissing Earned Schedule as an unnecessary complication rather than recognizing it addresses a specific, well-known SPI limitation."
+    ],
+    "redFlags": [
+      "Reports 'essentially on schedule' based on late-project SPI without cross-checking against a time-based method or the CPM forecast finish date.",
+      "Cannot explain why SPI mathematically converges toward 1.0 near project completion."
+    ],
+    "p6Checks": [
+      "Cross-check the CPM-calculated forecast finish date directly against the baseline finish date rather than relying on SPI alone this late in the project.",
+      "If Earned Schedule is being calculated, verify it is derived correctly from the baseline PV curve (the time at which current EV would have been planned) rather than approximated."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "At roughly what percent complete would you start distrusting SPI as a reliable schedule-health indicator on future projects, and what would you use instead from that point forward?",
+        "purpose": "Tests whether the candidate internalizes this as a practical reporting-methodology change, not just a one-off observation."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you explain the difference between SPI = 0.98 and 45 days behind to a client who has only ever seen SPI in prior reports?",
+        "purpose": "Tests communication skill in introducing a more technical but more accurate metric without confusing the audience."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains SPI's late-project convergence-to-1.0 limitation."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Correctly explains what Earned Schedule measures differently and why it avoids the same distortion."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends trusting the time-based figure over late-project SPI."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 230,
+    "tags": [
+      "earned schedule",
+      "SPI",
+      "late project distortion",
+      "forecasting",
+      "EPC"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-029",
+    "category": "EVM",
+    "subcategory": "ETC Sanity Check",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recalculating a plausible ETC from CPI and identifying an implausibly low reported ETC as a data-quality error",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "An airport baggage handling system package has BAC = $7,500,000. At the data date, EV = $5,000,000 (67% earned) and AC = $6,800,000. This month's cost report, submitted by a junior team member, shows a reported EAC of $6,900,000, implying an ETC (EAC - AC) of only $100,000 for the remaining 33% of scope.",
+    "question": "Calculate CPI, then calculate the ETC that the typical-variance formula (BAC/CPI) would actually imply for the remaining work. Explain why the reported $100,000 ETC is implausible.",
+    "correctAnswer": 3400000,
+    "explanation": "CPI = EV/AC = 5,000,000 / 6,800,000 = 0.735, an unfavorable trend on the 67% completed so far. The typical-variance EAC = BAC/CPI = 7,500,000 / 0.735 = $10,200,000, giving ETC = EAC - AC = 10,200,000 - 6,800,000 = $3,400,000. The reported $100,000 ETC is implausible on its face: it would require the remaining 33% of scope, roughly $2,500,000 of budgeted work (BAC - EV), to be completed for essentially nothing, on a package that has so far cost 36% more than budgeted for the value earned. There is no stated reason (design simplification, resolved constraint, new crew) for such a dramatic and immediate reversal in cost performance, so the reported figure is almost certainly a data or calculation error, not a genuine forecast.",
+    "reasoning": "A basic but essential sanity check on any reported ETC is comparing it against what the remaining budgeted work (BAC - EV) would cost even at the currently demonstrated CPI, let alone at a worse or better rate. An ETC far below what the remaining budgeted work would cost even at CPI = 1.0 (here, remaining budgeted work alone is $2,500,000, already 25 times the reported $100,000 ETC) should be treated as an obvious red flag before it is accepted into any report.",
+    "commonMistakes": [
+      "Accepting a reported ETC without checking it against the remaining budgeted work (BAC - EV) as a baseline sanity check.",
+      "Computing CPI as AC/EV instead of EV/AC.",
+      "Not questioning why a package with unfavorable CPI to date would suddenly need almost no further cost to complete."
+    ],
+    "redFlags": [
+      "Would publish or accept an ETC without checking it against a simple order-of-magnitude sanity check."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What is the simplest, fastest sanity check you would teach a junior team member to catch this kind of error before it reaches a report?",
+        "purpose": "Tests ability to translate a technical check into a practical, teachable habit."
+      }
+    ],
+    "weight": 1.1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "ETC",
+      "EAC",
+      "CPI",
+      "data quality",
+      "sanity check"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
+  },
+  {
+    "questionCode": "EVM-030",
+    "category": "EVM",
+    "subcategory": "Portfolio EVM Roll-up",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Aggregating PV, EV and AC across multiple buildings into a portfolio-level CPI and SPI, and flagging an anomalous cost-without-progress data point",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A university campus programme has five buildings under construction at the data date: Building 1 (BAC $6,000,000, PV $6,000,000, EV $6,000,000, AC $6,300,000, complete); Building 2 (BAC $9,000,000, PV $7,200,000, EV $6,750,000, AC $7,000,000); Building 3 (BAC $4,500,000, PV $2,000,000, EV $1,800,000, AC $1,950,000); Building 4 (BAC $12,000,000, PV $3,000,000, EV $2,400,000, AC $2,900,000); Building 5 (BAC $3,500,000, PV $0, EV $0, AC $80,000, not yet due to start per the baseline).",
+    "question": "Calculate the programme-wide BAC, PV, EV, AC, CPI and SPI. Separately, what is unusual about Building 5's figures, and what would you check?",
+    "correctAnswer": "Programme BAC = $35,000,000; PV = $18,200,000; EV = $16,950,000; AC = $18,230,000; CPI = 0.930 (16,950,000/18,230,000); SPI = 0.931 (16,950,000/18,200,000). Building 5 has AC = $80,000 despite PV = EV = $0, meaning cost has been incurred on work not yet due to start per the baseline, which needs investigation.",
+    "explanation": "Programme BAC = 6,000,000+9,000,000+4,500,000+12,000,000+3,500,000 = $35,000,000. PV = 6,000,000+7,200,000+2,000,000+3,000,000+0 = $18,200,000. EV = 6,000,000+6,750,000+1,800,000+2,400,000+0 = $16,950,000. AC = 6,300,000+7,000,000+1,950,000+2,900,000+80,000 = $18,230,000. CPI = EV/AC = 16,950,000/18,230,000 = 0.930. SPI = EV/PV = 16,950,000/18,200,000 = 0.931. Building 5's $80,000 of actual cost against zero PV and zero EV is unusual: either it reflects legitimate early mobilization or long-lead procurement cost incurred ahead of the building's baseline start (which should ideally have its own small PV allowance if planned), or it is miscoded cost that belongs to a different building or cost code and is inflating the programme's actual cost without any corresponding earned value, which would understate CPI programme-wide.",
+    "reasoning": "Portfolio-level EVM is a straightforward sum of each component's PV, EV and AC, with the indices recalculated from the totals. Beyond the arithmetic, a competent controls professional should also scan for individual data points that don't fit the expected pattern, such as actual cost being incurred against work with zero planned or earned value, since this is either a legitimate but unplanned early-mobilization cost that should be reflected in the baseline, or a coding error that will distort every rolled-up figure until corrected.",
+    "commonMistakes": [
+      "Averaging the five buildings' CPI/SPI values instead of summing PV/EV/AC and recalculating from the totals.",
+      "Not noticing or investigating the Building 5 anomaly (AC without any PV or EV).",
+      "Assuming all actual cost must correspond to earned progress without checking for coding errors."
+    ],
+    "redFlags": [
+      "Reports the programme CPI/SPI without noticing or flagging the Building 5 data anomaly."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the $80,000 turns out to be legitimate early procurement cost for Building 5's long-lead structural steel, should the baseline PV be adjusted to reflect it?",
+        "purpose": "Tests understanding of when a baseline should versus should not be adjusted mid-project for a legitimate but unplanned cost."
+      }
+    ],
+    "weight": 1.7,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "portfolio EVM",
+      "aggregation",
+      "CPI",
+      "SPI",
+      "data quality",
+      "university campus"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-031",
+    "category": "EVM",
+    "subcategory": "Contingency Drawdown vs Realized Risk",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing that risk contingency being drawn down faster than physical progress, with no linkage to logged risk events, signals it is masking routine cost overrun rather than funding genuine risk realization",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "DECISION_MAKING",
+    "scenario": "A desalination plant project has $1,200,000 of risk contingency allocated within specific control accounts as part of the approved Performance Measurement Baseline (distinct from unallocated Management Reserve). At month 6 of an 18-month programme, $850,000 (71%) of that allocated contingency has already been drawn down, while only 35% of the project's overall BAC has been earned. No specific risk register item has been formally closed out or linked to the drawdown; the project controls team notes it has simply been 'absorbed' into routine monthly cost overruns.",
+    "question": "Is this a legitimate pattern of contingency usage? What should the project controls team investigate and recommend, and does this change BAC or EAC?",
+    "expectedAnswer": "This is not a healthy pattern: contingency drawn down at 71% while the project is only 35% complete, with no specific risk event logged against it, strongly suggests the contingency is being used as an unstructured buffer to absorb routine cost overruns rather than to fund genuine, identified risk realization. The team should investigate what specific cost items the $850,000 has actually been charged against, and whether those costs would otherwise have shown up as straightforward unfavorable cost variance in the base estimate if contingency had not been available to absorb them, effectively masking the base CPI. BAC does not change, since this allocated contingency was already part of the approved Performance Measurement Baseline, but EAC should be revised to reflect that with only 29% of contingency remaining and 65% of the project still to execute, the remaining contingency cushion is very likely to be exhausted well before completion, which is a real forecast risk that needs to be reported.",
+    "strongAnswer": "Adds that going forward, contingency draws should require linkage to a specific, logged risk register item with a documented basis, not be applied as a general cost offset, so that the true underlying cost performance (with contingency stripped out) is visible in CPI, and recommends the report separately show CPI including and excluding contingency draws so leadership can see the base cost trend that the contingency has been masking.",
+    "expertAnswer": "Recognizes this as a governance and reporting-integrity issue, not just a numbers issue: unlinked, undocumented contingency drawdown at this rate should be escalated as a red flag in its own right, since it indicates either weak cost control discipline (routine overruns being absorbed without proper variance reporting) or, in the worst case, a deliberate attempt to keep the base CPI looking healthier than it actually is by hiding overruns inside the contingency line; recommends an immediate, itemized reconciliation of the $850,000 against specific cost transactions, and treating any further undocumented drawdown as a control-account level variance requiring its own explanation, exactly as if it were unfavorable AC.",
+    "explanation": "Contingency drawn down far faster than physical progress, with no linkage to specific realized risk events, is a strong indicator it is masking routine cost overrun rather than funding genuine risk. BAC remains unchanged since the contingency was already part of the approved baseline, but EAC should be revised upward to reflect that the remaining contingency cushion will very likely be exhausted before project completion, and the practice of undocumented drawdown should be tightened going forward.",
+    "reasoning": "This tests whether the candidate understands contingency as a specific, risk-linked budget reserve rather than a general-purpose cushion, and can recognize when its usage pattern (rate of drawdown relative to progress, absence of risk-event linkage) itself becomes diagnostic evidence of an underlying cost problem being hidden rather than managed. A senior controls professional should treat unexplained contingency consumption with the same scrutiny as an unfavorable cost variance, because in substance it often is one.",
+    "commonMistakes": [
+      "Treating contingency drawdown as a routine, unremarkable line item as long as the total project remains within overall budget.",
+      "Not comparing the rate of contingency consumption against the rate of physical progress.",
+      "Confusing this allocated, PMB-level contingency with unallocated Management Reserve, and concluding BAC should change when it should not."
+    ],
+    "redFlags": [
+      "Would not flag 71% contingency consumption at 35% physical progress as a concern requiring investigation.",
+      "Cannot explain why undocumented contingency drawdown can mask a true cost problem in the base CPI."
+    ],
+    "p6Checks": [
+      "Reconcile the $850,000 drawdown against specific cost transactions and control accounts to identify what it actually paid for.",
+      "Check whether CPI, calculated with contingency-funded costs excluded from AC, shows a materially different (likely worse) trend than the reported blended CPI."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the itemized reconciliation shows the $850,000 was genuinely spent on a documented, unforeseen ground condition, does your recommendation change?",
+        "purpose": "Tests whether the candidate's conclusion is evidence-based rather than an automatic assumption of misuse."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes allocated contingency (part of BAC) from Management Reserve."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Treats the unlinked drawdown pattern as a genuine red flag requiring investigation."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Recommends concrete reconciliation and tightened governance."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.7,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "contingency",
+      "risk",
+      "EAC",
+      "BAC",
+      "cost control governance"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "EVM-032",
+    "category": "EVM",
+    "subcategory": "VAC with Trend Analysis",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating a favorable VAC forecast and cautioning against over-relying on it when SPI is unfavorable",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "scenario": "A combined-cycle power plant package has BAC = $60,000,000. At the data date, PV = $26,000,000, EV = $24,500,000, and AC = $23,000,000, so the package is showing favorable cost performance but is slightly behind on planned work volume.",
+    "question": "Calculate CPI, SPI, EAC (typical-variance formula) and VAC. Should the project team treat the forecast underrun (positive VAC) as a reliable, bankable result given the unfavorable SPI? What would you caution leadership about?",
+    "explanation": "CPI = EV/AC = 24,500,000/23,000,000 = 1.065. SPI = EV/PV = 24,500,000/26,000,000 = 0.942. EAC = BAC/CPI = 60,000,000/1.065 = approximately $56,338,000. VAC = BAC - EAC = 60,000,000 - 56,338,000 = approximately $3,662,000 (favorable, a forecast underrun). While the underrun is real based on current data, it should not be treated as a locked-in, bankable result: the CPI-based EAC assumes current cost efficiency (1.065) continues for all remaining work, but the project is also behind schedule (SPI 0.942), and schedule slippage commonly creates downstream cost pressure, extended site overheads, possible liquidated-damages exposure, or a need to accelerate remaining work, that a purely cost-index-driven EAC does not capture. Leadership should be cautioned that the favorable VAC is a snapshot forecast conditional on cost efficiency holding and on the schedule slippage not translating into additional cost, not a guaranteed final outcome.",
+    "reasoning": "This tests whether the candidate can calculate a full EVM index/forecast set correctly and also apply appropriate professional caution to a favorable forecast that coexists with an unfavorable secondary signal (SPI). A VAC calculated purely from CPI, while numerically correct as a snapshot, does not account for cost risk that an unfavorable schedule position commonly introduces later in a project, and reporting VAC without that caveat risks setting an expectation that may not hold.",
+    "commonMistakes": [
+      "Reporting the favorable VAC to leadership as a confirmed underrun without qualifying it against the unfavorable SPI.",
+      "Calculating VAC as EAC - BAC instead of BAC - EAC, inverting the sign.",
+      "Assuming a favorable CPI-based EAC already accounts for schedule-driven cost risk."
+    ],
+    "redFlags": [
+      "Presents the $3.66 million forecast underrun as a firm, bankable result without any qualification about schedule risk."
+    ],
+    "p6Checks": [
+      "Check the CPM forecast finish date against baseline to quantify how far behind the project actually is in time, beyond what SPI alone conveys.",
+      "Review whether any extended-duration cost items (site overheads, equipment rental) are contractually tied to the finish date and would be affected if the schedule slippage persists or worsens."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What specific evidence would make you more confident the favorable VAC will actually be realized rather than eroded by schedule-driven cost pressure?",
+        "purpose": "Tests ability to identify concrete corroborating evidence (e.g., a validated recovery plan, confirmed absence of extended-duration cost exposure) rather than accepting or rejecting the forecast on instinct."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct CPI, SPI, EAC and VAC calculations with correct sign convention."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Appropriately cautions against treating the favorable VAC as guaranteed given the unfavorable SPI."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 4,
+          "guidance": "Explains the mechanism by which schedule slippage can erode a currently favorable cost forecast."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "VAC",
+      "EAC",
+      "CPI",
+      "SPI",
+      "forecast reliability",
+      "power plant"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "EVM-033",
+    "category": "EVM",
+    "subcategory": "Data Quality Prerequisites for EVM Reporting",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying what critical information is missing before accepting a bare CPI/SPI = 1.00 report at face value",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MISSING_INFO",
+    "scenario": "A correctional facility expansion project's monthly cost report to the client consists of a single line: 'CPI = 1.00, SPI = 1.00 - project performing exactly to plan.' No supporting detail, trend history, or control-account breakdown is provided.",
+    "question": "What critical information is missing before you would trust this report at face value, and why does each item matter?",
+    "expectedAnswer": "Missing: whether these are cumulative figures (which tend to stabilize toward 1.00 over time even when recent performance has changed) or current-period figures, since a cumulative 1.00 can mask a recent unfavorable trend; whether the figures are broken down by control account/package, since a project-wide 1.00 can result from offsetting favorable and unfavorable packages that individually need attention; whether Actual Cost includes proper accruals for work performed but not yet invoiced, since omitting accruals can produce an artificially favorable (or exactly-1.00-looking) CPI; whether progress (EV) is based on an objective, verified rules-of-credit system or on self-reported, unverified percent-complete estimates, since the latter is easily manipulated toward a comfortable-looking number; and a trend view over the last several periods, since a single data point cannot show whether 1.00 is a stable result or a coincidental crossing point in a volatile trend.",
+    "strongAnswer": "Adds that it is also worth checking whether the PV baseline itself remains valid and unmanipulated (has it been quietly re-baselined to make the actuals look better), and whether any known risks or pending change orders exist that could move these figures materially in the near term, since a snapshot of exactly 1.00 with no forward-looking context gives false confidence about stability.",
+    "expertAnswer": "Notes that an unqualified 'CPI = 1.00, SPI = 1.00' report with no supporting detail should itself be treated as a red flag about the maturity of the reporting process, not just the project's performance, since a credible EVM report always shows trend, breakdown, and basis of measurement; recommends the project controls function establish a minimum reporting standard, cumulative and current-period trend, control-account breakdown, accrual basis stated, rules-of-credit basis stated, that any report must meet before being accepted as a basis for client or management decision-making, rather than accepting a bare summary number at face value regardless of how favorable it looks.",
+    "explanation": "A bare 'CPI = 1.00, SPI = 1.00' figure, without trend history, control-account breakdown, stated accrual basis, and stated progress-measurement basis, cannot be trusted at face value: each of these missing items could individually explain an apparently perfect but misleading result, from cumulative smoothing to offsetting variances to omitted accruals to unverified self-reported progress.",
+    "reasoning": "This tests the candidate's instinct to interrogate a suspiciously clean, headline EVM result rather than accept it uncritically, precisely because CPI and SPI both equal to exactly 1.00 with zero supporting detail is, in real project controls practice, more often a sign of an underdeveloped or oversimplified report than a genuine, verified finding, and a competent controls professional should know exactly which supporting data points would confirm or disprove it.",
+    "commonMistakes": [
+      "Accepting 'CPI = 1.00, SPI = 1.00' as self-evidently good news without asking for supporting detail.",
+      "Not distinguishing cumulative from current-period figures when interpreting an EVM index.",
+      "Not considering that offsetting variances across control accounts can produce a misleadingly tidy project-wide figure."
+    ],
+    "redFlags": [
+      "Treats a bare, unsupported CPI/SPI = 1.00 report as trustworthy without requesting any further detail."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If you request the control-account breakdown and find one package at CPI 1.40 and another at CPI 0.70 exactly offsetting to a project-wide 1.00, what would you recommend reporting instead?",
+        "purpose": "Tests ability to move from diagnosis to a concrete, more informative reporting recommendation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies multiple distinct missing items (cumulative vs period, breakdown, accruals, measurement basis, trend)."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why each missing item specifically could produce a misleadingly tidy result."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 4,
+          "guidance": "Treats the bare report itself as a red flag about reporting maturity."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "CPI",
+      "SPI",
+      "data quality",
+      "report credibility",
+      "accruals",
+      "rules of credit"
+    ],
+    "references": [
+      "PMBOK Guide",
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "EVM-034",
+    "category": "EVM",
+    "subcategory": "LOE Distortion of SPI",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Quantifying how a large Level-of-Effort budget share mechanically dilutes a blended SPI and masks genuine schedule slippage in discrete field work",
+    "difficulty": 5,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "PRACTICAL_SCENARIO",
+    "scenario": "An EPC project has BAC = $40,000,000, split between home office project management/engineering support, budgeted at $14,000,000 (35% of BAC) and earned using Level of Effort (LOE, meaning EV is credited automatically in lockstep with PV regardless of actual output, so LOE's own SPI is always exactly 1.0 by definition), and discrete field construction activities, budgeted at $26,000,000 (65% of BAC) and earned using objective, verifiable progress measurement. At the data date, PV for the LOE scope is $7,000,000 (EV = $7,000,000, by definition). PV for the field scope is $13,000,000, but EV for the field scope is only $9,750,000, a true field SPI of 0.75, genuinely behind.",
+    "question": "Calculate the blended project-wide SPI. Then calculate the true field-only SPI. Explain why the blended figure understates how far behind the project's discrete, deliverable-based work actually is, and what you would recommend reporting instead.",
+    "expectedAnswer": "Blended PV = 7,000,000 + 13,000,000 = $20,000,000. Blended EV = 7,000,000 + 9,750,000 = $16,750,000. Blended SPI = 16,750,000/20,000,000 = 0.8375. Field-only SPI = EV(field)/PV(field) = 9,750,000/13,000,000 = 0.75. The blended SPI (0.8375) looks materially healthier than the true field SPI (0.75) purely because the LOE scope, 35% of total BAC, mechanically always earns exactly 100% of its planned value every period by definition, contributing no genuine schedule signal but diluting the blended figure upward. Since LOE has no discrete deliverable, its SPI can never reveal a schedule problem, so blending it with genuinely measurable field work systematically understates how far behind the deliverable-producing scope actually is. The recommendation is to report SPI separately for LOE-earned scope and for discrete, objectively-measured scope, and to treat only the discrete-scope SPI as a genuine schedule health indicator, since the LOE component should be reported (or excluded) as a budget-consumption metric rather than a schedule-performance one.",
+    "strongAnswer": "Adds that this distortion grows larger, not smaller, as the LOE budget share increases, so projects with very large indirect/support cost bases (a common feature of complex EPC and infrastructure programmes) are structurally more prone to this masking effect than projects with a small LOE share, making the separate-reporting recommendation more, not less, important on exactly the projects where it is most often skipped.",
+    "expertAnswer": "Recommends this be built into the project's standard EVM reporting template from project set-up, not discovered ad hoc, specifically flagging any project where LOE-earned budget exceeds roughly 15-20% of total BAC as requiring a mandatory LOE-excluded SPI to be shown alongside the blended figure; also notes that because LOE cost itself is real (staff still need to be paid regardless of field progress), a slipping field schedule with a large LOE base compounds cost risk, since home office support costs continue to accrue at the planned (LOE) rate for longer than planned if field completion slips, an indirect cost-growth consequence of schedule slippage that a purely field-focused view would also miss.",
+    "explanation": "The blended SPI (0.8375) is materially more favorable than the true field-only SPI (0.75) because Level of Effort scope, by definition, always earns exactly its planned value and therefore contributes no genuine schedule signal while diluting the blended average. A competent controls professional should report discrete/measurable-scope SPI separately from LOE-scope SPI, since only the former is a genuine indicator of schedule performance, and should recognize this masking effect grows with the size of the LOE budget share.",
+    "reasoning": "This tests a genuinely advanced EVM literacy point: SPI's mathematical construction assumes EV meaningfully reflects physical progress, an assumption that Level of Effort earning, by design, violates, since LOE credits value on the passage of time/budget consumption rather than on any verifiable output. Blending LOE and discrete-scope EV together in one project-wide SPI is technically correct arithmetic but analytically misleading, and recognizing this, and correcting for it in reporting, distinguishes an expert-level controls professional from one who calculates indices correctly but does not understand their limitations.",
+    "commonMistakes": [
+      "Reporting only the blended SPI without separating LOE from discrete/measurable scope.",
+      "Not recognizing that LOE's SPI is definitionally always 1.0 and therefore contributes zero genuine schedule information.",
+      "Assuming a project with a large indirect/support cost base is less exposed to this distortion, when in fact it is more exposed."
+    ],
+    "redFlags": [
+      "Reports blended SPI without knowing what share of BAC is LOE-earned.",
+      "Cannot explain why LOE's SPI is always exactly 1.0 by definition."
+    ],
+    "p6Checks": [
+      "Check which activities in the cost-loaded schedule are assigned a Level of Effort percent-complete type versus Physical or Units, and sum their budgeted cost as a share of total BAC.",
+      "Verify whether the reporting template already separates LOE-earned SPI from discrete-scope SPI, and if not, flag this as a reporting gap."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If LOE budget share were only 5% of BAC instead of 35%, would this distortion still be worth correcting for in reporting?",
+        "purpose": "Tests whether the candidate applies proportional judgment rather than a blanket rule."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How does a slipping field schedule with a large LOE base create additional, indirect cost risk beyond the field cost variance itself?",
+        "purpose": "Tests the deeper insight that LOE cost continues to accrue at the planned rate as field completion slips, compounding cost exposure."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct blended SPI and field-only SPI calculations."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Correctly explains why LOE mechanically dilutes blended SPI and contributes no genuine schedule signal."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends separate LOE vs discrete-scope reporting and recognizes the effect scales with LOE budget share."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 2.0,
+    "estimatedTimeSec": 230,
+    "tags": [
+      "LOE",
+      "level of effort",
+      "SPI",
+      "EVM limitations",
+      "EPC",
+      "home office"
+    ],
+    "references": [
+      "PMI Practice Standard for Earned Value Management"
+    ]
   }
 ]

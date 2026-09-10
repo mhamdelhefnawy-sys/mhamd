@@ -605,5 +605,1613 @@
       "AACE RP 57R-09: Integrated Cost and Schedule Risk Analysis Using Monte Carlo Simulation",
       "PMI Practice Standard for Project Risk Management"
     ]
+  },
+  {
+    "questionCode": "RISK-009",
+    "category": "RISK",
+    "subcategory": "Schedule Risk Identification",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Identifying schedule risk signals embedded in a subcontractor programme rather than relying on the subcontractor's self-declared status",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "WHAT_CHECK_FIRST",
+    "projectType": "Commercial office fit-out",
+    "scenario": "A main contractor's planner is reviewing a newly submitted subcontractor programme for the MEP fit-out package ahead of incorporating it into the master schedule. The subcontractor's cover email states 'programme is fully resourced and on track for the agreed completion date, no risks to flag.'",
+    "question": "Before accepting the subcontractor's 'no risks to flag' statement at face value, what would you check first in the submitted programme itself to independently identify schedule risk?",
+    "expectedAnswer": "Lists concrete checks: resource loading against the subcontractor's stated crew size/availability, the number and duration of open-ended activities or missing logic, the percentage of activities sitting on the critical or near-critical path, whether durations look compressed relative to typical productivity rates for that scope, and whether long-lead materials (e.g. switchgear, chillers) show realistic procurement lead times.",
+    "strongAnswer": "Adds checking for constraint abuse (hard constraints masking true float), calendar assumptions (working days or shift patterns that may not be achievable), and cross-checking the subcontractor's programme logic and milestones for consistency against the main contractor's master schedule, since a subcontractor programme built in isolation often hides risk that only appears once it is integrated.",
+    "expertAnswer": "Notes that a subcontractor declaring 'no risks' in a cover letter, while commercially routine, is not itself evidence - the planner's job is to verify independently from the schedule mechanics, and recommends documenting the specific checks performed and any findings in the programme acceptance or comments log, since this record protects the main contractor's position if the subcontractor later claims a delay was foreseeable and undisclosed.",
+    "explanation": "Schedule risk should be verified from the mechanics of the submitted programme itself - resource loading, float distribution, constraint use, calendar assumptions, and procurement lead times - rather than accepted on the basis of a subjective assurance in a cover letter.",
+    "reasoning": "A programme can be internally consistent and still carry hidden risk: compressed durations, constraints that suppress true float, or unrealistic resourcing will not show up as 'no risk' in a covering statement but will show up clearly once the underlying data is examined activity by activity.",
+    "commonMistakes": [
+      "Accepting a subcontractor's narrative assurance without checking the schedule data behind it.",
+      "Reviewing only the finish date and overall duration, not the resource loading or float distribution.",
+      "Not checking whether hard constraints are masking true float."
+    ],
+    "redFlags": [
+      "Incorporates a subcontractor programme into the master schedule without any independent quality check.",
+      "Cannot name a single concrete thing to verify beyond 'ask the subcontractor again'."
+    ],
+    "p6Checks": [
+      "Resource-loaded view vs stated crew availability for the package.",
+      "Filter for constrained activities and compare constraint dates to calculated dates.",
+      "Total Float distribution and percentage of activities near-critical.",
+      "Long-lead procurement activities' durations against realistic vendor lead times."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The subcontractor's programme shows zero constraints anywhere. Does that make you more or less confident in it, and why?",
+        "purpose": "Tests whether the candidate recognizes an unconstrained programme can still hide compressed durations or missing logic."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What would you do if the resource loading check shows the crew size assumed is double what the subcontractor has ever mobilized before?",
+        "purpose": "Tests whether the candidate escalates a credible risk finding rather than just noting it privately."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Names concrete, correct schedule-mechanics checks."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Checks are realistic and would actually surface hidden risk."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Does not accept a subjective assurance as sufficient evidence."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "subcontractor programme",
+      "risk identification",
+      "fit-out",
+      "resource loading",
+      "constraints"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RISK-010",
+    "category": "RISK",
+    "subcategory": "Qualitative Risk Assessment",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Challenging an optimistic probability rating on a schedule risk using objective evidence rather than accepting a discipline lead's self-assessment",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "DECISION_MAKING",
+    "projectType": "Municipal water treatment plant",
+    "scenario": "In a monthly risk review, the mechanical discipline lead rates the risk 'Pump skid factory acceptance test (FAT) delay' as Probability 2 (Low) out of 5, stating 'the vendor has always delivered on time for us before.' The planner's own tracking shows this is the vendor's fourth consecutive project where the FAT slipped against its planned date, by 2, 3, and 5 weeks on the prior three respectively.",
+    "question": "How should the planner respond to this probability rating in the risk workshop?",
+    "expectedAnswer": "Raises the discrepancy respectfully with the objective track record (three consecutive FAT delays with a worsening trend) and proposes the probability rating be revisited to at least Medium or High rather than accepted as Low, since the discipline lead's confidence is not supported by the vendor's actual delivery history.",
+    "strongAnswer": "Suggests using the historical data to also inform the impact assessment and a more realistic FAT date and duration, and documents the objection and its basis in the risk register or meeting minutes even if the group does not immediately change the rating, so the position is on record.",
+    "expertAnswer": "Notes that risk ratings driven by relationship trust or a one-off vendor assurance, rather than a track record, are a common source of understated schedule risk, and that a planner has both the standing and the responsibility to bring documented, objective schedule data into a risk workshop to counter anecdotal reassurance - this is core to the analytical role, not overstepping into another discipline's territory.",
+    "explanation": "Qualitative probability ratings should be anchored to objective evidence (a vendor's demonstrated track record) rather than to relationship-based optimism; a planner who holds the historical data has a professional obligation to bring it into the rating discussion.",
+    "reasoning": "Three consecutive, worsening FAT slips (2, then 3, then 5 weeks) is a clear trend, not noise, and directly contradicts a Low probability rating for a fourth occurrence; ignoring available trend data in favor of an unsupported assurance understates the true schedule risk carried in the register.",
+    "commonMistakes": [
+      "Deferring to the discipline lead's seniority or relationship with the vendor instead of citing the data.",
+      "Accepting the Low rating without documenting an objection.",
+      "Treating the vendor's history as irrelevant because 'this project is different'."
+    ],
+    "redFlags": [
+      "Says nothing in the workshop despite holding contradicting data.",
+      "Cannot articulate why a track record should outweigh a stated assurance."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the group still votes to keep the rating Low, what would you do next?",
+        "purpose": "Tests whether the candidate escalates or documents a formal dissent rather than dropping the issue."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you use this same data to also challenge the impact rating, not just probability?",
+        "purpose": "Tests whether the candidate applies the same evidence-based approach to both matrix axes."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Uses the vendor track record correctly to challenge the rating."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Raises the objection constructively and on the record."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete revised rating and next step."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "qualitative risk",
+      "optimism bias",
+      "vendor performance",
+      "risk workshop"
+    ],
+    "references": [
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-011",
+    "category": "RISK",
+    "subcategory": "Risk Register-Schedule Linkage",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Understanding what P6 can and cannot automatically link between a risk register and the schedule",
+    "difficulty": 2,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "question": "A project controls manager asks: 'Can P6 automatically flag every activity that is linked to a risk register entry and update its status in real time whenever the external risk register, held in a separate risk tool, changes?' Is this possible natively in P6, and if not, how is this linkage normally achieved in practice?",
+    "expectedAnswer": "Explains P6 has no native, live, bidirectional integration to an external risk register; linkage is normally achieved using an Activity Code or User-Defined Field on the schedule (e.g. a 'Risk ID' field) populated to match the risk register's entries, which allows filtering and grouping in P6, but any change made in the separate risk tool does not automatically flow into P6 - someone must update the field or reconcile the two on a defined cycle.",
+    "strongAnswer": "Notes that some organizations build tighter integration through a dedicated add-in or a custom export/import between the risk-register system and P6's XER or API, but this is a built process, not an out-of-the-box P6 capability, and it still generally does not run in true real time.",
+    "expertAnswer": "Adds that even with a UDF-based linkage in place, the planner should build a periodic reconciliation step into the update cycle to confirm the tags are still current, because a UDF is only a static label - it will not itself warn anyone that the risk register and the schedule have drifted apart, the same failure mode that lets a stale risk-register status contradict an eroding float trend elsewhere in the schedule.",
+    "explanation": "P6 Professional/EPPM does not natively synchronize with an external risk register in real time; risk-to-schedule linkage is a manual or semi-automated tagging convention (activity codes or UDFs) that requires active maintenance, not an automatic feed.",
+    "reasoning": "P6's data model has no built-in object for an external risk register entry; any linkage has to be represented using fields P6 already supports (codes/UDFs), which are static values set by a user and therefore require deliberate upkeep to stay synchronized with a separate system.",
+    "commonMistakes": [
+      "Assuming any Oracle Primavera product has a built-in live risk-register integration.",
+      "Believing a UDF tag, once set, will stay correct without maintenance.",
+      "Confusing P6's own 'Risks' feature in some EPPM configurations (where present) with a full external risk-tool integration."
+    ],
+    "redFlags": [
+      "Tells a client or manager P6 auto-syncs with the risk register.",
+      "Cannot describe any practical method of linking risks to activities in P6."
+    ],
+    "p6Checks": [
+      "Activity Code or UDF dictionary for a Risk ID field.",
+      "Filter/group layout by the Risk ID field to review all risk-linked activities together.",
+      "Any export/import process or API integration between the risk tool and P6 that exists on the project."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "How often would you recommend reconciling the UDF tags against the live risk register, and why that frequency?",
+        "purpose": "Tests whether the candidate ties the maintenance cadence to the schedule update cycle rather than an arbitrary interval."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What would you do if you found several activities tagged with a Risk ID that no longer exists in the current risk register?",
+        "purpose": "Tests whether the candidate treats orphaned tags as a data-quality issue to resolve, not ignore."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly states P6 has no native live risk-register integration."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Describes the UDF/activity-code tagging approach accurately."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names a maintenance/reconciliation step to keep the linkage current."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": [
+      "P6",
+      "risk register",
+      "UDF",
+      "integration",
+      "linkage"
+    ],
+    "references": [
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-012",
+    "category": "RISK",
+    "subcategory": "Schedule Contingency & Buffers",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Distinguishing schedule contingency (project-team-held, risk-linked) from management reserve (sponsor-held, unallocated) and their different ownership and disclosure treatment",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Airport terminal expansion",
+    "scenario": "A project sponsor's office asks the planning manager to add a 45-working-day block at the end of the master schedule and label it 'Management Reserve,' separate from the 15-working-day schedule contingency the planning team already carries against specifically identified risks on the baggage handling system installation.",
+    "question": "Explain the difference between schedule contingency and management reserve in this context, who should own and authorize the use of each, and how you would represent both in the schedule so the distinction is not lost.",
+    "expectedAnswer": "Explains schedule contingency is time set aside against specific, identified risks (the 15 days tied to baggage handling system risks) and is typically owned and released by the project or planning team as those specific risks are retired or realized; management reserve is a separate, unallocated buffer held by the sponsor for unknown-unknowns or strategic decisions, and its use is authorized at the sponsor level, not by the project team. Recommends showing both explicitly and separately in the schedule, as two distinct, clearly labelled elements rather than a merged block, so each is auditable and released independently.",
+    "strongAnswer": "Adds that schedule contingency should sit logically close to the risks it protects, while management reserve is legitimately a single end-of-schedule or programme-level item since it is not tied to a specific risk; and that reporting to the client should distinguish contingency owned by the contractor from reserve held by the sponsor, to avoid a later dispute about which party is entitled to consume which pool of time.",
+    "expertAnswer": "Notes the commercial sensitivity: on many contract forms, ownership of float and contingency is a live dispute topic, so merging contingency and reserve into one undifferentiated block risks being misread later as the contractor claiming ownership of time that was actually the sponsor's reserve, or vice versa; recommends the distinction be documented in the schedule basis of estimate or narrative with an explicit statement of who authorizes release of each pool.",
+    "explanation": "Schedule contingency and management reserve serve different purposes and have different owners: contingency is tied to known risks and normally sits with the project/planning team; management reserve is unallocated and sits with the sponsor. Representing them as one merged block obscures both their technical purpose and their ownership.",
+    "reasoning": "Because the two pools have different governance (who authorizes release) and different technical linkage (tied to specific risks vs unallocated), collapsing them into a single labelled block removes the information a reader would need to know who can consume which days and why, which matters both for schedule management and for any later dispute over float ownership.",
+    "commonMistakes": [
+      "Treating contingency and reserve as interchangeable terms for 'extra time at the end'.",
+      "Placing schedule contingency only at the very end of the schedule regardless of where the risks it protects actually sit.",
+      "Assuming the project team can authorize release of management reserve."
+    ],
+    "redFlags": [
+      "Cannot explain who is entitled to authorize use of each pool.",
+      "Merges contingency and reserve into a single unlabelled float block without objection."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes contingency from management reserve."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the governance/ownership implications of the distinction."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends explicit, separate, disclosed representation rather than a merged block."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the 15-day contingency is fully consumed by a materialized risk, but the project still needs more time, should the project team be able to dip into the 45-day management reserve on its own authority?",
+        "purpose": "Tests whether the candidate correctly keeps authorization boundaries separate even under pressure."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you show the release of contingency days back into the schedule once a specific risk is retired without a response being needed?",
+        "purpose": "Tests practical mechanics of tracking contingency drawdown over time."
+      }
+    ],
+    "tags": [
+      "schedule contingency",
+      "management reserve",
+      "buffer ownership",
+      "airport",
+      "float ownership"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RISK-013",
+    "category": "RISK",
+    "subcategory": "Schedule Risk Analysis (Monte Carlo)",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Recognizing when treating weather-dependent activity durations as statistically independent in a Monte Carlo model understates true schedule risk",
+    "difficulty": 3,
+    "careerLevel": "LEAD",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "projectType": "Offshore wind farm installation",
+    "scenario": "A schedule risk analysis on an offshore wind installation campaign models 12 turbine installation activities, each with a three-point duration range reflecting weather-window uncertainty, and treats each activity's duration as statistically independent in the Monte Carlo simulation. The resulting P80 completion date is only 9 working days later than the P50 date, which the risk analyst says 'seems tight given how weather-dependent this campaign is.'",
+    "question": "What is the most likely cause of the unexpectedly narrow P50-P80 spread, and what should be changed in the model?",
+    "expectedAnswer": "Identifies that treating the 12 turbine installation durations as statistically independent is the likely cause: in reality, weather windows affect many or all of the installation activities simultaneously, since a single storm system delays multiple turbines' work at once, so their durations are strongly positively correlated, not independent. Modeling them as independent lets the simulation average out bad weather on some activities against good weather on others in a way that would not happen in reality, artificially narrowing the output distribution.",
+    "strongAnswer": "Recommends applying explicit correlation coefficients between the weather-affected activities, or more robustly, modeling weather as a shared external driver or calendar-level risk affecting all offshore activities together rather than as independent per-activity duration ranges, which will widen the true P50-P80 spread and give a more defensible forecast.",
+    "expertAnswer": "Notes this is a well-known modeling pitfall specific to marine and offshore schedule risk analysis, and that ignoring correlation is one of the most common ways a technically well-built Monte Carlo model still produces a misleadingly optimistic output; recommends validating the correlated model's output against historical weather-window records for the region and season as an independent sanity check before presenting the P80 date to stakeholders.",
+    "explanation": "A narrow P50-P80 spread on a heavily weather-dependent campaign is a classic signature of an independence assumption that does not hold: correlated risks (a shared weather driver) compound and widen the true outcome distribution far more than independent risks do.",
+    "reasoning": "When activities are modeled as independent, extreme outcomes on some activities are statistically offset by favorable outcomes on others across thousands of iterations, compressing the resulting distribution; if the true underlying driver (weather) affects most activities together, that offsetting effect does not occur in reality, so an independence assumption systematically understates the tail risk and narrows the P50-P80 band.",
+    "commonMistakes": [
+      "Concluding the model must simply be run with more iterations to fix the narrow spread.",
+      "Assuming three-point ranges alone are sufficient without considering correlation between activities.",
+      "Treating a narrow, reassuring output as good news rather than a modeling red flag."
+    ],
+    "redFlags": [
+      "Cannot explain why correlated risks produce wider distributions than independent ones.",
+      "Has run Monte Carlo analyses before but never applied or discussed correlation."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Besides weather, name another common source of correlated risk across activities in a large EPC schedule.",
+        "purpose": "Tests whether the candidate generalizes the concept (e.g. shared labor pool, shared design approval authority, common supplier)."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If you cannot get a defensible correlation coefficient, what is a simpler, more conservative way to represent the shared weather risk in the model?",
+        "purpose": "Tests practical modeling judgment when precise correlation data is unavailable."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the independence assumption as the cause."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why correlated risk widens, and independence narrows, the output distribution."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete fix (correlation coefficients or a shared driver) and a validation step."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "Monte Carlo",
+      "correlation",
+      "weather risk",
+      "offshore wind",
+      "schedule risk analysis"
+    ],
+    "references": [
+      "AACE RP 57R-09: Integrated Cost and Schedule Risk Analysis Using Monte Carlo Simulation"
+    ]
+  },
+  {
+    "questionCode": "RISK-014",
+    "category": "RISK",
+    "subcategory": "Risk-Float Correlation",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Calculating float burn rate against remaining risk exposure to forecast when a path will turn critical",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "NUMERICAL",
+    "projectType": "Petrochemical plant turnaround/shutdown",
+    "scenario": "A catalyst change-out activity sits on a path with 21 working days of Total Float at the start of a shutdown. Across the first three weekly updates of the shutdown, that path's float has eroded to 15, 8, and 2 working days respectively, driven by a recurring risk: catalyst handling and disposal permits taking longer than planned each week.",
+    "question": "If the erosion rate observed over the last three updates continues unchanged, after how many more weekly updates would you expect this path's Total Float to first reach zero or below?",
+    "correctAnswer": 1,
+    "explanation": "The float has eroded by approximately 6-7 working days per weekly update (21 to 15 is -6, 15 to 8 is -7, 8 to 2 is -6), averaging roughly -6.3 days per update. Starting from only 2 days of float remaining, one more update at that rate would take the path to roughly -4 to -5 days, i.e. the path goes critical at the very next update, not several updates away. The planner should treat the risk as already effectively materialized now and escalate immediately, since waiting for the next data date to 'confirm' negative float wastes the one window still available to act while some float remains.",
+    "reasoning": "Weekly float losses: 21-15=-6, 15-8=-7, 8-2=-6; average erosion approximately -6.3 days/week. With only 2 days of float left, a single further update at this rate exhausts it and pushes the path negative, so the answer is 1 more update.",
+    "commonMistakes": [
+      "Extrapolating naively without noticing that 2 remaining days is already less than a full week's typical erosion.",
+      "Waiting for the next official update to confirm negative float before escalating.",
+      "Averaging the three data points incorrectly or ignoring the consistent trend direction."
+    ],
+    "redFlags": [
+      "Concludes several more updates are available before the path turns critical.",
+      "Does not connect the numerical answer to an immediate escalation recommendation."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What would you do this week, before the next update confirms the path has gone negative?",
+        "purpose": "Tests whether the candidate acts on the trend now rather than waiting for confirmation."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What risk response could actually address the root cause here, rather than just the schedule symptom?",
+        "purpose": "Tests whether the candidate connects the float trend back to the underlying permit-processing risk, not just the numbers."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "float erosion",
+      "burn rate",
+      "shutdown",
+      "turnaround",
+      "risk forecasting"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RISK-015",
+    "category": "RISK",
+    "subcategory": "Risk Response Impact on Schedule Logic",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Representing a risk mitigation decision (parallel sourcing) correctly in CPM logic rather than only noting it in the risk register",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "CASE_STUDY",
+    "projectType": "Semiconductor fabrication facility",
+    "scenario": "Following a risk workshop, management approves a mitigation for the risk 'single-source supply of cleanroom HVAC filtration units': the procurement team will place a second, parallel purchase order with an alternate supplier as a hedge, to be used only if the primary supplier's units are unavailable by a decision-gate date. The risk register is updated to 'Response: Approved - dual sourcing,' but the master P6 schedule still shows a single activity, 'Procure and Deliver HVAC Filtration Units,' fed from one supplier with no change to logic or duration.",
+    "question": "Is the risk register update alone sufficient? Explain how you would represent this dual-sourcing mitigation in the CPM schedule, including any new activities, logic, or decision points needed, and what happens if the response is left unrepresented in the schedule.",
+    "expectedAnswer": "Explains the risk register entry alone does not change what the schedule actually predicts - the schedule still shows single-source risk exposure with no protection, so anyone relying on the CPM dates is relying on an unmitigated position despite what the register says. Recommends adding the actual mitigation to the network: a second procurement activity for the alternate supplier with its own realistic duration and lead time, and an explicit decision-gate milestone at the point management committed to reviewing primary-supplier progress, with logic showing the installation activity fed by whichever path is actually used.",
+    "strongAnswer": "Notes a practical way to represent an either/or mitigation is to schedule the alternate-supplier activity as a parallel path feeding the same successor, sized to protect the required delivery date even if it is only contingently selected, and to flag both procurement activities and the decision milestone with a Risk ID UDF so the mitigation is traceable and auditable; the decision-gate milestone itself should carry an owner and a documented trigger condition in its notebook.",
+    "expertAnswer": "Adds that if the alternate supplier's lead time is long enough that placing the order only after the decision gate would not recover the schedule, the hedge is illusory - the parallel purchase order may need to be placed now, in parallel with the primary, for the mitigation to actually work, which has a cost implication procurement and commercial should be made aware of; the planner's job is to test the logic and durations of the proposed response, not just format it, since a mitigation that exists only as register text provides no real protection and can create false comfort in status reporting.",
+    "explanation": "A risk response approved in the register only becomes real schedule protection once it is represented in the CPM network with correctly sequenced activities, realistic durations, and an explicit decision point; until then the schedule continues to predict the unmitigated, single-source outcome.",
+    "reasoning": "CPM logic, not register text, is what actually drives the forecast dates a project relies on; a mitigation that is not modeled cannot change the calculated critical path or float, so the schedule will keep showing the pre-mitigation risk exposure regardless of what the risk register claims has been approved.",
+    "commonMistakes": [
+      "Treating a risk register status change as equivalent to actually protecting the schedule.",
+      "Adding the alternate-supplier activity without checking whether its lead time actually allows the hedge to work if triggered at the decision gate.",
+      "Failing to tag the mitigation activities so the response remains traceable and auditable."
+    ],
+    "redFlags": [
+      "Sees no need to change the schedule once the risk register shows 'Response: Approved'.",
+      "Cannot explain why an unmodeled mitigation provides no real schedule protection."
+    ],
+    "p6Checks": [
+      "Add a parallel procurement activity for the alternate supplier with a realistic, independently verified duration.",
+      "Add a decision-gate milestone with a notebook entry documenting the trigger condition and owner.",
+      "Tag both paths with a Risk ID UDF or activity code.",
+      "Trace the driving path to the installation activity to confirm the mitigation actually protects the required delivery date."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you size the alternate-supplier activity's duration if that supplier has never delivered to this project before?",
+        "purpose": "Tests whether the candidate sources duration estimates defensibly rather than guessing."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would you tell procurement if the alternate supplier's lead time is too long for the hedge to work if only triggered at the decision gate?",
+        "purpose": "Tests whether the candidate follows through to the practical, potentially costly implication of a properly modeled mitigation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains why an unmodeled register entry provides no schedule protection."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes concrete activities, logic, and a decision-gate milestone."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the modeling gap to the real consequence of continued unmitigated exposure."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "risk response",
+      "dual sourcing",
+      "schedule logic",
+      "semiconductor",
+      "procurement"
+    ],
+    "references": [
+      "PMI Practice Standard for Project Risk Management",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RISK-016",
+    "category": "RISK",
+    "subcategory": "Risk Response Trade-offs",
+    "competency": "ANALYTICAL_THINKING",
+    "skill": "Evaluating the schedule risk introduced by a risk response itself (fast-tracking) rather than assuming mitigation is always net-positive",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "DECISION_MAKING",
+    "projectType": "Metro rail extension",
+    "scenario": "To recover 25 working days of critical-path delay caused by an unresolved utility diversion, the project director proposes fast-tracking the trackwork and systems installation phases so they run substantially in parallel instead of the originally sequential arrangement, arguing 'this gets us back on the committed date without adding resources.'",
+    "question": "As the planning manager, what risk does the proposed fast-tracking response itself introduce, and how would you advise the project director before this is adopted as the recovery strategy?",
+    "expectedAnswer": "Explains fast-tracking (running phases in parallel that were originally sequential for technical or dependency reasons) trades schedule duration for increased execution risk: rework risk, since systems installation proceeding before trackwork is fully complete and tested may require redoing work if trackwork issues surface later; interface and coordination risk between trades working concurrently in the same physical space; and potential safety or access conflicts. Recommends quantifying and disclosing this new risk rather than presenting the fast-tracked schedule as a clean recovery with no downside.",
+    "strongAnswer": "Recommends identifying which specific sequential dependencies can be safely overlapped with acceptable risk, such as starting systems installation progressively in already-completed and tested trackwork sections, versus which cannot be compressed without unacceptable rework risk, and proposes this selective, partial fast-tracking be tested against the original technical basis for the sequential logic before being adopted wholesale.",
+    "expertAnswer": "Notes that a full 25-day fast-track recovery presented to the client or sponsor as risk-free is itself a form of misrepresentation if the new rework and interface risk is not disclosed alongside the recovered date, and that a defensible recovery plan should show the recovered date together with its own new risk register entries and, ideally, a comparison against the crashing alternative (adding resources or shifts) so the decision-maker can weigh cost against added technical risk with full information, rather than being given only the schedule outcome.",
+    "explanation": "Fast-tracking recovers duration by overlapping activities that were originally sequenced for technical reasons, and that overlap itself becomes a new, distinct source of schedule and execution risk that must be evaluated and disclosed, not assumed away simply because it recovers the committed date on paper.",
+    "reasoning": "The original sequential logic between trackwork and systems installation exists for a technical reason (installation depends on completed, tested trackwork); removing that sequencing to compress duration reintroduces the dependency risk informally, through potential rework and interface conflicts, rather than removing it, so the net schedule risk position is not simply improved by the recovered duration alone.",
+    "commonMistakes": [
+      "Accepting a fast-track recovery plan as risk-free because it 'uses no extra resources'.",
+      "Not distinguishing which specific dependencies can be safely overlapped from those that cannot.",
+      "Presenting only the recovered date without the new risk it introduces."
+    ],
+    "redFlags": [
+      "Endorses full fast-tracking without evaluating rework or interface risk at all.",
+      "Cannot compare fast-tracking against crashing as an alternative recovery strategy."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you quantify the rework risk this fast-tracking introduces, for inclusion in the risk register?",
+        "purpose": "Tests whether the candidate can move from qualitative caution to a documented, quantified risk entry."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would make you conclude the crashing alternative is actually the better recovery strategy here despite its resource cost?",
+        "purpose": "Tests whether the candidate can weigh two recovery strategies rather than defaulting to whichever the project director proposed first."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains the rework/interface risk fast-tracking introduces."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Connects the original sequential logic's purpose to the risk of removing it."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends disclosure and a selective, tested approach rather than uncritical endorsement."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "tags": [
+      "fast-tracking",
+      "recovery schedule",
+      "risk response trade-off",
+      "metro rail",
+      "rework risk"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "PMI Practice Standard for Project Risk Management"
+    ]
+  },
+  {
+    "questionCode": "RPT-001",
+    "category": "RPT",
+    "subcategory": "Progress Report vs Schedule Narrative Content",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Distinguishing the content that belongs in a progress report versus a schedule narrative",
+    "difficulty": 1,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "MCQ",
+    "question": "Which of the following belongs primarily in the SCHEDULE NARRATIVE section of a monthly report, rather than in the general progress report's summary section?",
+    "options": [
+      {
+        "label": "A",
+        "text": "Overall percent complete and manpower on site this period",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "An explanation of the specific logic, constraint, or calendar changes made in this update and their impact on the critical path",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "Photographs of completed work areas for the period",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "Safety statistics (lost-time incidents, near misses) for the reporting period",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The schedule narrative is the planner's technical explanation of what changed in the CPM model and why - logic revisions, calendar changes, constraint changes, critical path shifts, and the drivers behind schedule variance - detail that a general progress report's summary section, aimed at a broader project audience, does not carry at that level. General progress metrics, photographs, and safety statistics belong in the broader progress report, not the schedule-specific narrative.",
+    "reasoning": "A monthly report typically serves several audiences within one package; separating technical schedule-change explanation (narrative) from general progress evidence (summary, photos, safety) keeps each section useful to the reader who actually needs it, rather than burying the CPM-relevant explanation inside general progress commentary.",
+    "commonMistakes": [
+      "Treating the whole monthly report as one undifferentiated block with no distinct narrative section.",
+      "Putting photographs or safety statistics into the schedule narrative instead of the general report."
+    ],
+    "redFlags": [
+      "Cannot describe what a schedule narrative is meant to contain beyond 'a summary of progress'."
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "reporting",
+      "schedule narrative",
+      "progress report"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-002",
+    "category": "RPT",
+    "subcategory": "Reporting Cadence",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Understanding that different reporting cadences serve different decision horizons and cannot simply substitute for one another",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: A detailed 2-week look-ahead schedule issued weekly to site supervision makes the monthly formal schedule update and narrative to the client unnecessary, since the look-ahead already shows current activity status.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": false
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": true
+      }
+    ],
+    "correctAnswer": "False",
+    "explanation": "A 2-week look-ahead is a short-horizon execution tool for site coordination - sequencing, crew and resource planning, access - and is not a substitute for the monthly formal update, which re-runs the full CPM schedule against the current data date, reports project-level float and critical-path movement, and includes a narrative explaining causes and forecast impact against baseline and contract milestones. These serve different decision horizons and audiences and are normally both required.",
+    "reasoning": "The look-ahead answers 'what happens in the next two weeks on site,' while the monthly update answers 'where does the whole project stand against its baseline and contract commitments' - the two questions require different data, different analysis, and different recipients, so one cannot substitute for the other.",
+    "commonMistakes": [
+      "Assuming any frequent, detailed report automatically covers what a less frequent, broader report is for.",
+      "Confusing execution-level status with project-level schedule health."
+    ],
+    "redFlags": [
+      "Recommends dropping the monthly update because weekly look-aheads are already being issued."
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "reporting cadence",
+      "look-ahead schedule",
+      "monthly update"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-003",
+    "category": "RPT",
+    "subcategory": "Reporting to Management/Client",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Verifying report integrity before issuing a routine weekly progress report",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "projectType": "Warehouse and logistics park",
+    "scenario": "It is Friday afternoon and the planner is about to issue the weekly progress report, generated largely from an automated P6-to-report template, to the project manager and client.",
+    "question": "Before hitting send, what would you check first to make sure the report is not misleading, even though it was largely auto-generated?",
+    "expectedAnswer": "Checks that the data date used matches the intended reporting cutoff, that percent-complete figures were actually updated this week rather than carried over or stale from a failed update, that reported critical path and Total Float figures reconcile with what is actually in the current schedule file rather than a prior saved version, and that any activity showing a large jump in float or percent complete has a sensible explanation before being reported without comment.",
+    "strongAnswer": "Adds spot-checking a sample of individually significant or critical activities against site knowledge or the site team's verbal status, since an automated template faithfully reports whatever is in the schedule file even if the underlying update itself was flawed, for example a progress override applied incorrectly or an activity marked complete that has not actually finished.",
+    "expertAnswer": "Notes that an auto-generated report is only as trustworthy as the update process behind it, and a competent planner treats automation as a formatting convenience, not a substitute for the same due diligence as a manually prepared report; issuing an unchecked report with an error, even an automation error, remains the planner's professional responsibility once it goes out under their name.",
+    "explanation": "Automated report generation removes formatting effort but not the planner's responsibility to verify the underlying data date, currency of progress, and consistency of the figures before the report leaves their hands.",
+    "reasoning": "An automated template will silently propagate any upstream data problem - a wrong data date, a stale update, a bad progress entry - into a professionally formatted, seemingly authoritative report, which is precisely why the checks need to happen before issue, not be assumed away by the tool.",
+    "commonMistakes": [
+      "Trusting the template's output because it is automated and therefore assumed to be correct.",
+      "Not confirming the data date matches the intended reporting cutoff.",
+      "Skipping a sanity check on activities with unusually large week-on-week changes."
+    ],
+    "redFlags": [
+      "Issues the report without opening the underlying schedule file at all.",
+      "Cannot name a single check beyond 'the software generated it'."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "You notice one activity jumped from 20% to 95% complete in a single week with no note explaining why. What do you do?",
+        "purpose": "Tests whether the candidate would investigate an anomaly before letting it go out unexplained."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you build a routine check into the weekly process so this is not a one-off manual effort every time?",
+        "purpose": "Tests whether the candidate thinks about process reliability, not just one-time vigilance."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete, correct verification steps before issuing an automated report."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies data date and progress-currency risks specific to automation."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Treats verification as the planner's own responsibility, not the tool's."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "weekly report",
+      "data integrity",
+      "automated reporting",
+      "warehouse"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-004",
+    "category": "RPT",
+    "subcategory": "Tailoring Detail to Audience",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Adjusting the level of technical schedule detail appropriately for different report audiences without changing the underlying facts",
+    "difficulty": 2,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "projectType": "Hospital expansion",
+    "scenario": "The same underlying schedule fact - the imaging suite fit-out package is now running 12 working days behind baseline, having consumed all its float - needs to go into three different outputs this week: a one-slide executive dashboard for the hospital board, a detailed schedule narrative for the client's project management consultant, and a 2-week look-ahead for the site foreman.",
+    "question": "Describe how the content and level of detail should differ across these three outputs, while making sure none of them understates or contradicts the same underlying fact.",
+    "expectedAnswer": "Executive dashboard: a simple status indicator (e.g. amber or red) with one or two lines of plain-language impact - 'imaging suite package 12 days behind, no float remaining, on the critical path' - with no jargon. Client PM consultant narrative: full technical detail - the specific activities affected, the cause of the delay, current Total Float, critical path status, and the forecast completion impact with supporting data. Site foreman look-ahead: no need to restate the overall delay narrative at all - just the current, correct, executable 2-week sequence of activities and their revised target dates.",
+    "strongAnswer": "Emphasizes that the level of detail changes but the underlying fact - 12 days behind, zero float, critical - must be consistent and traceable across all three; the board slide's rating and the narrative's technical explanation must describe the same reality at different resolutions, never softened or reframed at the executive level.",
+    "expertAnswer": "Adds that a common failure mode is for the executive-level summary to be rounded up or softened into good news, such as 'on track overall,' simply because it is a smaller, simpler message - which is a form of misrepresentation even without an explicit false statement. Recommends the underlying rating or color-coding be generated directly from the schedule data using a defined threshold rule, not chosen subjectively per audience, so tailoring detail never becomes tailoring the conclusion.",
+    "explanation": "Tailoring a report to its audience means adjusting the granularity and language of the same underlying fact, never adjusting the fact itself; an executive summary, a technical narrative, and an execution look-ahead can legitimately look very different while still being fully consistent with one another.",
+    "reasoning": "Because the three outputs reach different decision-makers who will act on what they read, any divergence in the underlying conclusion between them - not just the detail level - creates a real risk that one audience is misled relative to what another audience is being told about the same schedule position.",
+    "commonMistakes": [
+      "Softening the executive summary's conclusion because it is shorter, rather than only simplifying its language.",
+      "Including unnecessary technical schedule-change detail in the site foreman's look-ahead.",
+      "Treating audience tailoring as a license to omit unfavorable facts from the shortest report."
+    ],
+    "redFlags": [
+      "Cannot explain how they would keep three differently detailed outputs consistent with one another.",
+      "Suggests the executive dashboard should just say 'on track' regardless of the underlying data because 'boards don't need the detail'."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses all three outputs with appropriately differentiated content."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Content choices are realistic and audience-appropriate."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Insists on factual consistency across all three despite differing detail levels."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Who should decide the executive dashboard's amber/red threshold, and should it ever be a subjective, per-report choice?",
+        "purpose": "Tests whether the candidate would formalize a rules-based threshold rather than leave status color to discretion."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would you do if the project manager asked you to leave the 12-day figure out of the board slide entirely, on the grounds that 'the board doesn't need that level of detail'?",
+        "purpose": "Tests whether the candidate distinguishes legitimate simplification from omission of the material fact."
+      }
+    ],
+    "tags": [
+      "audience tailoring",
+      "executive dashboard",
+      "schedule narrative",
+      "look-ahead",
+      "hospital"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-005",
+    "category": "RPT",
+    "subcategory": "Communicating Bad News Early",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Proactively escalating newly discovered negative float to the project manager before the next scheduled report, rather than waiting for the routine cycle",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Distribution center automation retrofit",
+    "scenario": "Mid-week, two days after the last formal schedule update, the planner learns informally from the automation subcontractor's site lead that conveyor system commissioning has hit a software integration problem likely to take 10-12 working days to resolve, well beyond the 4 days of float currently shown against that activity in the last issued update. The next formal monthly update and client report is not due for another three weeks.",
+    "question": "Should the planner wait until the next scheduled monthly update to report this, given that it was only informally confirmed by the subcontractor's site lead and not yet through a formal update cycle? What would you do?",
+    "expectedAnswer": "No, the planner should not wait three weeks. Even though the information is informal and not yet reflected in a re-run schedule update, a credible indication that an activity with only 4 days of float faces a 10-12 day delay is material and should be raised promptly to the project manager, and once verified, reflected in an interim update or at minimum a heads-up communication, rather than sitting on it until the routine cycle. Recommends first quickly verifying the estimate with the subcontractor or discipline lead, then escalating internally immediately with the caveat that it is a preliminary estimate pending formal update.",
+    "strongAnswer": "Adds that surfacing bad news early, even as a preliminary flag with appropriate caveats, preserves the project team's ability to respond - recovery options, early client notice if contractually relevant - while the situation is still fresh, versus discovering three weeks later that everyone already knew and sat on it, which damages the planner's and the project's credibility more than the original delay itself.",
+    "expertAnswer": "Notes the potential contractual dimension: if this delay involves a subcontractor default or a third-party cause with a notice requirement, a three-week reporting delay could itself prejudice a notice deadline, so the planner should flag both the schedule and the potential notice-timing implication to the project manager and commercial team without waiting for full technical certainty, while being careful to present it as a preliminary estimate, not a confirmed number, until verified.",
+    "explanation": "Material, credible information about a delay that exceeds available float should be escalated as soon as it is reasonably verified, not held for the next scheduled reporting cycle, because the routine cadence is not a substitute for timely disclosure of a material change.",
+    "reasoning": "Waiting three weeks discards the only window in which the project team could still influence the outcome of the software integration problem; the informal nature of the information affects how it should be caveated when reported, not whether it should be reported at all.",
+    "commonMistakes": [
+      "Treating informal information as not reportable until it appears in a formal schedule update.",
+      "Waiting for the next scheduled report purely because that is the established cadence.",
+      "Reporting the issue without flagging its potential notice-timing implications."
+    ],
+    "redFlags": [
+      "Would sit on this information for three weeks because it is 'not official yet'.",
+      "Cannot distinguish between verifying information before escalating and delaying escalation until the next scheduled cycle."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends prompt escalation despite the information being informal and off-cycle."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the delay in reporting to lost response time and, where relevant, notice risk."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a realistic verify-then-escalate approach with appropriate caveats."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you word the preliminary escalation so it is clearly flagged as unverified without downplaying its seriousness?",
+        "purpose": "Tests whether the candidate can communicate urgency and appropriate caveats simultaneously."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What if the subcontractor's site lead later says the estimate was wrong and it is really only 2 extra days - was escalating early still the right call?",
+        "purpose": "Tests whether the candidate understands early escalation is about acting on credible risk, not about being proven exactly right."
+      }
+    ],
+    "tags": [
+      "bad news",
+      "early escalation",
+      "negative float",
+      "conveyor commissioning",
+      "notice"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-006",
+    "category": "RPT",
+    "subcategory": "Dashboard/KPI Selection",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Selecting schedule KPIs for an executive dashboard that reflect true schedule health rather than metrics that can look favorable while the schedule is in trouble",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "projectType": "Renewable energy solar farm",
+    "scenario": "A project controls manager is designing a one-page executive dashboard for a utility-scale solar farm project and has to choose 4 schedule-related KPIs from a longer candidate list: (1) overall percent complete, (2) SPI (cost-weighted), (3) critical path Total Float trend over the last 6 updates, (4) count of open activities behind their baseline finish, (5) milestone hit-rate (percent of contractual milestones achieved on their committed date), (6) number of activities updated this period.",
+    "question": "Which of these would you select as the 4 most meaningful for showing true schedule health to executives, and which would you exclude? Justify your choices.",
+    "expectedAnswer": "Recommends including critical path Total Float trend, which directly shows whether the project's true schedule risk is improving or worsening; milestone hit-rate, which directly answers whether contractual commitments are being met; count of activities behind baseline finish, which shows the breadth of the problem rather than only the single worst path; and overall percent complete for basic context. Recommends excluding or de-prioritizing SPI alone, a cost-weighted volume metric that can look favorable while the critical path slips, and 'number of activities updated,' which is a process metric, not a schedule-health metric.",
+    "strongAnswer": "Notes that percent complete should ideally be shown against time elapsed, i.e. percent complete versus percent duration elapsed, rather than in isolation, since percent complete alone does not indicate whether the project is ahead of or behind its intended pace.",
+    "expertAnswer": "Adds that Total Float trend and milestone hit-rate should be presented together specifically because they check each other: a project can hit float-driven milestones while the critical path trend is quietly worsening elsewhere, or vice versa. Recommends the dashboard designer resist including any KPI simply because it tends to look favorable on its own; every KPI selected should be one that, if it moved to its worst plausible value, executives would genuinely want to know.",
+    "explanation": "An executive dashboard's KPIs should be chosen for their power to reveal true schedule risk, not for how favorable they tend to look; a cost-weighted volume metric like SPI can mask critical-path deterioration, while float trend and milestone hit-rate expose it directly.",
+    "reasoning": "SPI aggregates earned value across all activities regardless of float, so high-value non-critical work can offset low-value critical-path slippage in the blended number, exactly the same mechanism that lets SPI read favorably while the CPM forecast finish deteriorates; float trend and milestone hit-rate are structurally tied to the actual date outcome and do not have this blind spot.",
+    "commonMistakes": [
+      "Selecting KPIs mainly because they are already familiar or easy to calculate, rather than because they reveal risk.",
+      "Including SPI as the sole schedule-health indicator without a critical-path-based check.",
+      "Treating 'number of activities updated' as evidence of schedule health rather than of process activity."
+    ],
+    "redFlags": [
+      "Cannot explain why SPI alone can be misleading about date performance.",
+      "Selects KPIs purely because they currently show good numbers on this project."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes date-relevant KPIs from volume/process metrics."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Selection is realistic and would function well on an actual dashboard."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Explicitly avoids choosing KPIs because they look favorable rather than because they are informative."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If SPI and Total Float trend disagree - SPI says 1.1, float trend says worsening - which would you lead with on the dashboard, and how would you explain the apparent contradiction?",
+        "purpose": "Tests whether the candidate can reconcile conflicting signals for an executive audience rather than picking whichever looks better."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would your KPI selection change for a fixed-price EPC contract versus a cost-reimbursable one? Why or why not?",
+        "purpose": "Tests whether the candidate recognizes contract type can shift which metrics matter most to the audience."
+      }
+    ],
+    "tags": [
+      "dashboard",
+      "KPI selection",
+      "SPI",
+      "milestone hit-rate",
+      "executive reporting",
+      "solar"
+    ],
+    "references": [
+      "PMBOK Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-007",
+    "category": "RPT",
+    "subcategory": "Avoiding Misleading Presentation of Schedule Status",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Recognizing when a summary-level green/on-track status conflicts with underlying schedule mechanics and must be corrected before circulation",
+    "difficulty": 3,
+    "careerLevel": "LEAD",
+    "questionType": "WHAT_NEXT",
+    "projectType": "Data center build-to-suit",
+    "scenario": "A junior planner has prepared the monthly report. The one-line executive summary reads 'Project Status: GREEN - On Track,' based on overall percent complete of 62% actual versus 60% planned. The planner reviewing it before issue notices the critical path, running through electrical switchgear commissioning, currently shows -6 working days of Total Float, a status that only emerged in this update.",
+    "question": "What should the reviewing planner do before this report is issued?",
+    "expectedAnswer": "Stops the report from going out as-is. The GREEN or on-track rating is misleading because it is based on aggregate percent complete, which does not reflect the critical path's actual negative float. Corrects the status rating to red or amber as appropriate per the project's defined thresholds, and ensures the summary explicitly states the critical path position, not just the aggregate percent complete figure.",
+    "strongAnswer": "Recommends the project define and document objective status-rating thresholds - for example, status is red if critical path Total Float is negative, regardless of aggregate percent complete - precisely to prevent this kind of inconsistency from depending on whoever happens to compile the report that month, and treats this instance as a training moment for the junior planner on the difference between aggregate progress and critical path health.",
+    "expertAnswer": "Notes that issuing a GREEN status while the critical path is already negative is a materially misleading representation, whether or not it was intentional, and that if it had already gone out, the correct remedy is an immediate corrected re-issue with a clear explanation, not a quiet fix the following month, because the recipient will have made or will be making decisions based on the number that was actually sent.",
+    "explanation": "A status rating should be derived from a defined, objective rule tied to the schedule's actual health, such as critical path float, not from a single favorable aggregate figure that can mask negative float elsewhere in the network.",
+    "reasoning": "Aggregate percent complete blends progress across all activities regardless of float, so a project can be slightly ahead on aggregate percent complete while its critical path is already negative, meaning the two figures are answering different questions and only the critical path figure actually predicts whether the project will finish on time.",
+    "commonMistakes": [
+      "Using aggregate percent complete versus plan as the sole basis for an overall status rating.",
+      "Letting a junior planner's status determination go unreviewed before issue.",
+      "Treating a status-rating error as a formatting issue rather than a substantive one requiring correction."
+    ],
+    "redFlags": [
+      "Allows the GREEN rating to be issued because 'the percent-complete number technically supports it'.",
+      "Would only correct the status quietly next month rather than re-issuing immediately if it had already gone out."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly identifies why aggregate percent complete can contradict critical path status."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Stops the misleading report and insists on a correction before issue."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Recommends a rules-based status determination tied to critical path float."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What documented status-rating rule would you propose so this does not depend on individual judgment each month?",
+        "purpose": "Tests whether the candidate proposes a durable process fix, not just a one-time correction."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "If percent complete is ahead of plan, does that guarantee the project will finish on time?",
+        "purpose": "Remedial prompt toward separating aggregate progress from critical-path date performance."
+      }
+    ],
+    "tags": [
+      "status rating",
+      "misleading report",
+      "negative float",
+      "data center",
+      "RAG status"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-008",
+    "category": "RPT",
+    "subcategory": "Progress Report vs Schedule Narrative Content",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Writing a schedule narrative that clearly explains a known delay's cause and status without overstating or understating contractual conclusions",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "PRACTICAL_SCENARIO",
+    "projectType": "Bridge widening",
+    "scenario": "A structural steel girder delivery from an offshore fabricator arrived 18 working days late due to a documented port congestion event. The activity had 5 days of float, so the critical path, running through the bridge deck pour sequence, has moved out 13 working days against baseline. An extension of time (EOT) request is being prepared separately by the commercial team but has not yet been submitted.",
+    "question": "Draft the key content, not full prose but the essential points, that the schedule narrative for this month's report should cover regarding this delay.",
+    "expectedAnswer": "Should cover: what happened, the girder delivery delayed 18 working days with cause stated (port congestion, referencing supporting evidence such as shipping documentation); the mechanical schedule effect, the activity's 5 days of float fully consumed and the critical path shifted 13 working days, naming the specific downstream activities and milestones now affected; and current status stated factually, for example 'EOT submission in preparation by commercial team; this narrative provides the schedule basis only,' explicitly not stating or implying an entitlement conclusion, since that is a contractual determination outside the schedule narrative's scope.",
+    "strongAnswer": "Adds that the narrative should reference the specific baseline versus current comparison, dates and float consumption, with enough granularity that the numbers in the narrative and the later EOT submission will reconcile with each other, since inconsistent numbers between a routine report and a subsequent claim submission are a common credibility problem in disputes.",
+    "expertAnswer": "Notes the narrative must be scrupulously careful with language: describing the cause and effect factually is appropriate, but words implying legal conclusions, such as 'the delay is excusable' or 'the contractor is entitled to X days,' should be avoided in a routine schedule narrative, since technical schedule analysis and contractual entitlement are distinct, and the schedule narrative's job is to provide an accurate factual and analytical basis, not to pre-empt the contractual determination.",
+    "explanation": "A schedule narrative covering a known delay should factually describe the cause, the mechanical schedule effect on float and critical path, and the current status, while explicitly avoiding entitlement language that belongs to the separate contractual/commercial determination.",
+    "reasoning": "Because entitlement depends on contract terms, notice provisions, and causation that the schedule narrative alone cannot determine, conflating the two risks the narrative being read later as a premature or inconsistent statement of entitlement, which can complicate rather than support the EOT process.",
+    "commonMistakes": [
+      "Omitting the specific downstream activities and milestones affected, leaving the impact statement too general.",
+      "Using entitlement language such as 'excusable delay' or 'contractor is entitled' in the routine schedule narrative.",
+      "Reporting figures that do not reconcile with what the EOT submission will later state."
+    ],
+    "redFlags": [
+      "States an entitlement conclusion in the routine schedule narrative before the commercial team has assessed it.",
+      "Cannot separate the technical schedule effect from the contractual entitlement question."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly describes the float consumption and critical path shift mechanics."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Covers cause, mechanical effect, and status without gaps."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Avoids entitlement language and correctly separates technical analysis from contractual determination."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "The commercial team asks you to state in the narrative that the delay is 'fully excusable and compensable.' How do you respond?",
+        "purpose": "Tests whether the candidate holds the line on separating schedule narrative from entitlement conclusions even under a specific request."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would make you flag this delay's cause as potentially concurrent with another, contractor-caused issue, and how would that change what you write?",
+        "purpose": "Tests awareness of concurrency and its effect on how a schedule narrative should be worded."
+      }
+    ],
+    "tags": [
+      "schedule narrative",
+      "EOT",
+      "delay causation",
+      "bridge",
+      "entitlement vs analysis"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-009",
+    "category": "RPT",
+    "subcategory": "Avoiding Misleading Presentation of Schedule Status",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Detecting a misleading cumulative percent-complete S-curve caused by front-loaded low-effort activities",
+    "difficulty": 3,
+    "careerLevel": "LEAD",
+    "questionType": "TROUBLESHOOTING",
+    "projectType": "Residential housing scheme (multiple units)",
+    "scenario": "A monthly report's cumulative percent-complete S-curve shows the project tracking almost exactly on the planned curve through month 6 of a 14-month programme. Digging into the underlying activities, the planner notices that the activities completed so far are heavily weighted toward early, low-effort items such as site clearance, temporary works, and early procurement submittals across many units, while high-effort, high-duration items such as unit-by-unit structural and MEP works are all showing 'not started' or minimal progress, despite being scheduled to have started by now.",
+    "question": "Why can this S-curve be misleading even though it currently tracks the plan almost exactly, and what would you check or add to the report to correct the impression?",
+    "expectedAnswer": "Explains that an S-curve built on percent-complete-by-count or a simple weighting can appear on track while the actual substantive, schedule-driving work has not meaningfully started, because early low-effort activities can carry disproportionate weight or simply mask the absence of progress on the harder activities that determine the real completion date. Recommends checking whether the weighting basis, such as activity count versus budgeted duration, cost, or hours, fairly represents effort, and separately reporting progress on the critical or near-critical, high-duration activities specifically, not just the blended curve.",
+    "strongAnswer": "Adds recommending a secondary view, such as percent complete restricted to critical-path or high-duration activities only, or a 'start conformance' metric comparing activities that should have started by now against those that actually have, to catch exactly this pattern, since the blended S-curve alone would not have surfaced it.",
+    "expertAnswer": "Notes this is a structurally common failure mode on multi-unit or repetitive-scope projects specifically, because early per-unit administrative and submittal activities are numerous and quick, inflating count-based progress while the real production work, which repeats slowly unit by unit, lags behind. Recommends the report explicitly flag any material divergence between the blended S-curve and the critical-path-only progress view, since presenting only the blended curve when it is known to be diverging from the true schedule-driving work is a misleading omission even if every individual number in the report is technically accurate.",
+    "explanation": "A cumulative S-curve that weights activities by count rather than by effort can track the plan closely even while the real schedule-driving work has barely started, because numerous small early activities mask the absence of progress on fewer, larger, later ones.",
+    "reasoning": "If percent complete is derived from activity count, completing many small early activities inflates the cumulative figure disproportionately to the schedule-critical, high-duration work remaining, so the curve can align with plan on paper while the true completion trajectory is already at risk.",
+    "commonMistakes": [
+      "Accepting a blended S-curve tracking the plan as sufficient evidence the project is healthy.",
+      "Not checking the weighting basis behind the percent-complete calculation.",
+      "Failing to separately track progress on critical-path, high-duration activities."
+    ],
+    "redFlags": [
+      "Reports the blended S-curve as reassuring without checking what is actually driving it.",
+      "Cannot explain how a count-based weighting can distort an S-curve on a multi-unit project."
+    ],
+    "p6Checks": [
+      "Compare percent complete weighted by activity count versus weighted by budgeted duration or cost.",
+      "Filter for high-duration, critical or near-critical activities and check their individual progress against baseline.",
+      "Check start conformance: activities that should have started by the data date versus those that actually have."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you re-weight the S-curve so it reflects effort rather than activity count?",
+        "purpose": "Tests whether the candidate can propose a concrete, correct alternative weighting basis."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would this same pattern be a concern on a project with far fewer, larger activities? Why or why not?",
+        "purpose": "Tests whether the candidate understands this is specifically amplified by repetitive, multi-unit scope structure."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly explains the front-loading mechanism distorting the S-curve."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Identifies the count-vs-effort weighting issue accurately."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete secondary view or corrected weighting."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "S-curve",
+      "percent complete",
+      "front-loading",
+      "residential",
+      "misleading report"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-010",
+    "category": "RPT",
+    "subcategory": "Avoiding Misleading Presentation of Schedule Status",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Refusing to reframe a negative schedule position into softer, less precise language at a manager's request, and proposing an accurate alternative",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Shopping mall renovation",
+    "scenario": "The project manager reviews the draft client report, which states 'Fit-out Zone 3 is 9 working days behind baseline with -9 days of Total Float on the critical path.' The PM asks the planner to change the wording to 'Fit-out Zone 3 is 91% complete and progressing' instead, saying the days-behind figure 'just invites unnecessary questions at the client meeting.'",
+    "question": "How would you respond to this request? Is there a defensible middle ground, or should the original wording stand?",
+    "expectedAnswer": "Explains that replacing a precise, decision-relevant fact, 9 days behind with -9 days of float and on the critical path, with a vaguer, favorable-sounding one that omits the schedule-critical information is a misleading presentation, even though 91% complete may itself be a true number, because it substitutes a less relevant metric for the one that actually answers whether the work will finish on time. Recommends declining to remove the days-behind or float figures, while offering to also include the 91% complete figure alongside them for context if the PM wants a fuller picture, not instead of the critical information.",
+    "strongAnswer": "Suggests reframing the conversation with the PM around what the client meeting is actually for: if the goal is to avoid an unproductive ambush, the better solution is to proactively prepare a recovery plan or mitigation narrative to present alongside the accurate delay figure, not to hide the figure itself, since the client will eventually see the true position regardless.",
+    "expertAnswer": "Notes that if the PM insists and the planner is asked to issue the softened version under their own name or sign-off, this becomes a professional integrity issue, not just a stylistic disagreement. Recommends putting the objection in writing, proposing the accurate alternative, and if overruled, ensuring it is documented who made the final call on wording, since the planner should not allow their professional output to be altered into something they know is misleading without at least a clear, recorded objection.",
+    "explanation": "Substituting a favorable but less relevant metric for the precise, decision-relevant figure it is meant to replace is a form of misleading presentation, regardless of whether the substitute figure is itself accurate.",
+    "reasoning": "The client's actual question is whether the work will finish on time; 9 days behind with negative float on the critical path answers that question directly, while 91% complete does not, so removing the former in favor of the latter changes what the reader can conclude even though no single number stated is false.",
+    "commonMistakes": [
+      "Treating the request as a harmless stylistic softening rather than a substantive change to what the report communicates.",
+      "Complying without proposing any alternative that preserves the critical information.",
+      "Not documenting an objection when overruled."
+    ],
+    "redFlags": [
+      "Agrees to the PM's wording without raising any concern.",
+      "Cannot explain why 91% complete does not convey the same information as days-behind and negative float."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Declines to remove the material figure and explains why clearly."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains why percent complete does not substitute for float/critical-path status."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a constructive alternative (both figures, plus a mitigation narrative) rather than a bare refusal."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the PM insists and issues the softened wording over your objection, what would you document, and to whom?",
+        "purpose": "Tests whether the candidate knows to create a record when overruled on a material accuracy issue."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you help the PM actually reduce the awkward questions at the client meeting without changing what is reported?",
+        "purpose": "Tests whether the candidate can address the PM's underlying concern constructively rather than only refusing."
+      }
+    ],
+    "tags": [
+      "misleading report",
+      "negative float",
+      "client communication",
+      "mall renovation",
+      "professional integrity"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-011",
+    "category": "RPT",
+    "subcategory": "Reporting Cadence",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Designing a tiered reporting package spanning cadence, audience, and content appropriate to a large multi-stakeholder EPC programme",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "CASE_STUDY",
+    "projectType": "LNG export terminal EPC",
+    "scenario": "A planning manager is setting up the reporting structure for a large LNG terminal EPC project with an owner's team, an EPC contractor project management team, multiple subcontractors, and dozens of internal discipline leads, over a 4-year construction duration.",
+    "question": "Design the reporting cadence and content tiers for this project: what would you report daily or weekly, what monthly, what quarterly, and to which audiences, and why?",
+    "expectedAnswer": "Proposes a tiered structure: daily or weekly site-level look-aheads, typically 2-3 week rolling, to site supervision and subcontractor foremen for execution coordination; weekly internal progress and exception reporting to discipline leads and the project controls team covering variance, resource conflicts, and near-critical activities; a monthly formal schedule update and narrative to the owner or client and senior management, including critical path status, milestone forecast, EVM or progress metrics, and risk register linkage; and a quarterly executive or steering-committee summary focused on overall programme health, key milestone trend, major risks, and strategic decisions needed, with minimal technical detail.",
+    "strongAnswer": "Adds that each tier's content should be a distillation of the tier below it, not a separately compiled report, so the same underlying schedule data flows consistently from daily execution detail up to the quarterly executive summary without contradiction between levels, and that a defined escalation trigger, such as any milestone forecast to miss by more than a stated threshold, should push information up-cadence immediately rather than waiting for the next scheduled tier.",
+    "expertAnswer": "Notes that on a project this size and duration, the biggest reporting risk is not lack of data but inconsistency between reports issued by different teams or disciplines at different cadences describing the same reality differently. Recommends a single source-of-truth schedule with disciplined change control that every tier's report is generated from, and a formal reconciliation step before each monthly or quarterly issue to confirm the different tiers are not silently telling different stories to different audiences.",
+    "explanation": "A tiered reporting structure should match each cadence to the decision horizon its audience actually needs, while ensuring all tiers derive from and remain consistent with a single underlying schedule.",
+    "reasoning": "Site supervision needs short-horizon execution detail, discipline leads and project controls need variance and exception detail at working pace, and owner/executive audiences need periodic, distilled status against contractual milestones and overall risk; conflating these cadences either overwhelms an audience with irrelevant detail or starves it of the detail it actually needs to act.",
+    "commonMistakes": [
+      "Designing all tiers with essentially the same content at different frequencies rather than genuinely differentiated detail.",
+      "Allowing each tier to be compiled independently rather than derived from one consistent schedule.",
+      "Having no defined escalation trigger to move urgent information up-cadence outside the routine schedule."
+    ],
+    "redFlags": [
+      "Cannot describe any escalation mechanism outside the routine reporting calendar.",
+      "Proposes reports compiled separately by different teams with no reconciliation step."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Covers all major cadence tiers, audiences, and appropriate content for each."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Design is realistic for a large, long-duration, multi-stakeholder EPC programme."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Addresses consistency across tiers and an escalation path outside routine cadence."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 240,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you handle a subcontractor whose own reporting cadence to the EPC contractor is monthly, when the EPC contractor needs weekly internal visibility into that subcontractor's progress?",
+        "purpose": "Tests whether the candidate addresses cadence mismatches between contractual reporting requirements and internal management needs."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What would make you add an ad hoc reporting trigger outside this structure entirely?",
+        "purpose": "Tests whether the candidate recognizes some events warrant immediate, off-cycle reporting regardless of the tiered structure."
+      }
+    ],
+    "tags": [
+      "reporting cadence",
+      "LNG",
+      "EPC",
+      "stakeholder reporting",
+      "tiered reporting"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-012",
+    "category": "RPT",
+    "subcategory": "Dashboard/KPI Selection",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Deciding what to elevate to a board-level report when the schedule is genuinely in trouble, balancing transparency with actionable clarity",
+    "difficulty": 4,
+    "careerLevel": "MANAGER",
+    "questionType": "DECISION_MAKING",
+    "projectType": "Multi-site retail rollout programme",
+    "scenario": "A retail rollout programme covering 38 stores is running significantly behind: 14 of 38 stores are individually behind their committed opening dates, driven by several different root causes - permitting delays in some jurisdictions, a landlord handover delay pattern in others, and one recurring MEP subcontractor's underperformance across multiple sites. The programme director must report to the board next week.",
+    "question": "What would you choose to elevate to the board-level report, and how would you structure it so the board gets an accurate, actionable picture rather than either a diluted 'mostly fine' summary or an overwhelming site-by-site data dump?",
+    "expectedAnswer": "Recommends grouping the 14 delayed stores by root cause, such as permitting, landlord handover, and subcontractor performance, rather than listing them individually, since the board needs to see the systemic drivers to make decisions such as escalating with a specific subcontractor, engaging a specific landlord relationship, or adjusting permitting strategy in a jurisdiction. Reports the aggregate schedule impact, such as total store-days of delay or the count of stores at risk of missing a fiscal-quarter opening target, alongside the root-cause grouping, and includes the proposed recovery or mitigation action against each root-cause group, not just the problem statement.",
+    "strongAnswer": "Adds a forward-looking risk view, identifying which of the remaining 24 on-track stores share the same root-cause exposure, for example the same underperforming MEP subcontractor, and are therefore at risk of joining the delayed group, so the board sees the trend, not just the current snapshot.",
+    "expertAnswer": "Notes the report must resist two opposite failure modes: collapsing 14 distinct problems into one soft 'behind schedule, working on it' line, which hides the systemic subcontractor issue the board specifically needs to know about to authorize a commercial response, and dumping all 38 stores' raw data on the board, which buries the signal. The right level is root-cause-grouped, with quantified impact and a specific ask or decision the board needs to make, which is what distinguishes a useful board report from either a whitewash or a data dump.",
+    "explanation": "A board-level report on a multi-site programme in trouble should group problems by root cause with quantified impact and a specific decision ask, rather than either an undifferentiated 'mostly fine' summary or a full site-by-site data dump.",
+    "reasoning": "Boards make decisions at the level of systemic causes and resource commitments, not individual site schedules; grouping by root cause surfaces the pattern (e.g. one underperforming subcontractor affecting multiple sites) that a site-by-site list would leave the board to infer on their own, while a diluted overall summary would hide the pattern entirely.",
+    "commonMistakes": [
+      "Reporting only an aggregate percent-on-track figure that dilutes the severity and hides the systemic subcontractor issue.",
+      "Listing all 14 delayed stores individually without grouping by cause, leaving the board to find the pattern themselves.",
+      "Omitting a forward-looking view of stores at risk of joining the delayed group."
+    ],
+    "redFlags": [
+      "Reports 'programme is 63% on track' as the headline with no root-cause breakdown of the remainder.",
+      "Cannot distinguish a useful board-level abstraction from either an oversimplified summary or a raw data dump."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Covers root-cause grouping, quantified impact, and a forward-looking view."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Avoids both a diluted whitewash and an unusable data dump."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Structure is realistic for an actual board presentation with a clear decision ask."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "The board asks 'so is the programme on track or not?' as a single yes/no question. How do you answer honestly without oversimplifying?",
+        "purpose": "Tests whether the candidate can give a direct, honest answer under pressure for a binary response."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What specific decision or resource commitment would you ask the board to make regarding the underperforming subcontractor?",
+        "purpose": "Tests whether the candidate moves from diagnosis to an actionable ask, not just a status report."
+      }
+    ],
+    "tags": [
+      "board reporting",
+      "retail rollout",
+      "root cause",
+      "subcontractor performance",
+      "executive communication"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-013",
+    "category": "RPT",
+    "subcategory": "Reporting to Management/Client",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Identifying missing information in a report before circulating it, specifically data date and baseline reference",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "MISSING_INFO",
+    "projectType": "Wastewater treatment upgrade",
+    "scenario": "A newly hired project controls coordinator hands the planning lead a draft monthly report for review before it goes to the client. It includes a critical path narrative, a bar chart of activities, and a statement that the project is '7 days behind schedule.' The report does not state the data date used for the update, nor which baseline, original or a specific approved revision, the 7-days-behind figure is measured against. The project has had two approved baseline revisions to date due to owner-directed scope changes.",
+    "question": "What critical information is missing from this report, and why does its absence matter?",
+    "expectedAnswer": "Identifies two missing essentials: the data date of the update, without which the reader cannot know how current the 7-days-behind figure is or reconcile it against other reports; and which baseline the comparison is measured against, given two approved baseline revisions exist, since 7 days behind schedule is ambiguous and could mean three different things - behind the original baseline, behind Revision 1, or behind Revision 2 - with potentially very different numbers and, more importantly, different contractual implications since the baseline revisions were owner-directed.",
+    "strongAnswer": "Adds that every report should state both explicitly and consistently, for example a report header convention such as 'Data Date: [date], measured against Baseline Rev 2 approved [date],' and that this is not a formatting nicety - a reader, especially an external one such as an auditor or a claims consultant reviewing the project later, cannot correctly interpret any variance figure without this context.",
+    "expertAnswer": "Notes that ambiguity about baseline reference is a recurring issue in delay disputes specifically: if this project ever moves into a claims scenario, every report in the record needs to be traceable to a specific baseline and data date, and a report that silently uses 'baseline' without specifying which approved revision could later be read, favorably or unfavorably, in ways the author never intended. Recommends this be a mandatory field in the reporting template, not left to individual authors' judgment.",
+    "explanation": "A schedule variance figure such as 'days behind schedule' is meaningless without stating both the data date it was measured at and which approved baseline it is measured against, especially where multiple baseline revisions exist.",
+    "reasoning": "With two approved baseline revisions in play, the same '7 days behind' statement could correspond to materially different actual positions depending on which baseline is the reference, so omitting the baseline reference leaves the figure open to misinterpretation, whether by an internal reader now or an external reviewer later.",
+    "commonMistakes": [
+      "Assuming 'baseline' is unambiguous once a report states a variance figure.",
+      "Treating data date as an internal technical detail unnecessary for the reader.",
+      "Not flagging the missing information before the report circulates to the client."
+    ],
+    "redFlags": [
+      "Approves the report for issue without noticing either omission.",
+      "Cannot explain why baseline ambiguity matters given multiple approved revisions exist."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies both missing elements: data date and baseline reference."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains why baseline ambiguity changes the meaning of the figure."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Treats this as something to fix before issue and as a template-level control, not a one-off catch."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you coach the newly hired coordinator so this omission does not recur in future reports?",
+        "purpose": "Tests whether the candidate addresses the process/training gap, not just this one report."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If you had to guess which baseline the 7 days is measured against before asking, what clue in the report would you look for first?",
+        "purpose": "Tests practical diagnostic instinct while still requiring the ambiguity to be resolved explicitly."
+      }
+    ],
+    "tags": [
+      "missing information",
+      "data date",
+      "baseline revision",
+      "wastewater",
+      "report template"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-014",
+    "category": "RPT",
+    "subcategory": "Communicating Bad News Early",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Handling a real-time challenge to a reported delay finding from a client executive without capitulating to pressure or being needlessly defensive",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "International airport baggage system upgrade",
+    "scenario": "At a monthly steering committee meeting, the client's programme director pushes back hard on the reported finding that the baggage sortation system integration is now 22 working days behind baseline with the critical path running through it: 'Your own site reports last month said progress was good. I don't believe this number. I want the report to show 10 days, not 22, before this goes to my board tomorrow.' No new schedule data or evidence is offered by the client to support the alternate number, only pressure and a deadline.",
+    "question": "How should the planning manager respond, in the room, in real time?",
+    "expectedAnswer": "Does not change the number on the spot without technical basis. Acknowledges the client's concern and the apparent contradiction with prior site reports professionally, and either walks through the specific data and calculation behind the 22-day figure right there if prepared to do so, or, if the challenge raises a genuine question such as whether last month's report actually said 'good progress' on this specific system or on the programme generally, commits to a same-day or next-morning reconciliation with a documented explanation, rather than agreeing in the room to an unsupported alternate number under deadline pressure.",
+    "strongAnswer": "Recommends separating two possible situations before responding: either the 22-day figure is correct and the discrepancy with the prior 'good progress' commentary needs explaining, for example that the comment covered a different system or an earlier period, or there is a genuine error to find and correct. Treats the client's pushback as useful pressure-testing to resolve quickly one way or the other, not as an instruction to simply produce a different number.",
+    "expertAnswer": "Notes that agreeing to change a reported figure to match what a stakeholder wants to hear, absent new evidence, compromises the report's integrity and the planning manager's professional standing; if it later emerges the true position was 22 days, the manager who changed it to 10 under pressure bears responsibility for the misrepresentation, not just the client who requested it. Recommends offering to escalate the reconciliation as a same-day priority with a committed time to report back, which respects the urgency without sacrificing accuracy, and documenting the exchange afterward, including what was asked and what was committed.",
+    "explanation": "A reported schedule figure should not be changed in response to stakeholder pressure alone; a genuine discrepancy with prior reporting should be investigated and explained on its merits, with a committed timeline, rather than resolved by simply substituting a more palatable number.",
+    "reasoning": "The client's demand supplies no new evidence, only pressure and a deadline; changing the figure under those conditions would mean reporting a number known not to be supported by the schedule data, which undermines the reliability of every future report from that point forward regardless of the short-term relief it provides in the room.",
+    "commonMistakes": [
+      "Agreeing to revise the number in the meeting to defuse the immediate pressure.",
+      "Becoming purely defensive without offering a concrete path to resolve the apparent contradiction.",
+      "Failing to distinguish between explaining a genuine discrepancy and capitulating to an unsupported demand."
+    ],
+    "redFlags": [
+      "Changes the reported figure in the room without any new evidence.",
+      "Cannot describe a credible, time-bound way to reconcile the apparent contradiction with last month's commentary."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Holds the line on the data-supported figure without capitulating to pressure."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Proposes a credible, evidence-based way to explain or verify the figure."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains the consequence of changing a figure without evidence for future report credibility."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "The client director says 'if you can't show 10 days by tomorrow, we'll find someone who can.' Does this change your answer?",
+        "purpose": "Tests whether the candidate holds firm even under an explicit threat, rather than treating it as decisive new pressure."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Suppose the reconciliation the next morning actually reveals a genuine error and the true figure is 17 days, not 22. How would you communicate that correction?",
+        "purpose": "Tests whether the candidate can correct a genuine error transparently without it looking like they simply caved to pressure."
+      }
+    ],
+    "tags": [
+      "client pressure",
+      "real-time challenge",
+      "steering committee",
+      "airport",
+      "reporting integrity"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "RPT-015",
+    "category": "RPT",
+    "subcategory": "Reporting to Management/Client",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Reconciling a contractually mandated report format that shows compliance against a specific clause with the need to also communicate the true underlying schedule risk honestly",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "PARADOX",
+    "projectType": "Toll road design-build concession",
+    "scenario": "The concession contract requires a monthly progress report in a fixed contractual format that reports status against each contractual milestone simply as 'Achieved / On Track / At Risk / Missed,' with no narrative field mandated for that section. Milestone 6, interchange structure completion, is currently technically 'On Track' by the strict definition in the contract, having not yet missed its date and retaining 3 days of float, but the planner's own analysis shows a fast-eroding float trend, 18 days lost over the last two updates, making it very likely to flip to 'At Risk' or 'Missed' within the next update cycle.",
+    "question": "Is reporting Milestone 6 as 'On Track' in the contractual format technically accurate but potentially misleading? How would you handle this tension between the mandated report format and honest communication of the true risk?",
+    "expectedAnswer": "Confirms that 'On Track' is technically accurate under the contract's own definition, positive float and date not yet missed, so filling in the mandated field that way is not itself false, but recognizes that presenting only that field with no accompanying context risks the client reading 'On Track' as 'no concern' when the underlying trend says otherwise, a technically true but incomplete picture. Recommends using whatever supplementary channel is available, such as a covering narrative, an internal risk log shared separately, or a verbal flag at the review meeting, to communicate the eroding trend explicitly, even though the contractual field itself is limited to the four fixed categories.",
+    "strongAnswer": "Suggests proactively raising with the client and commercial team, well before the milestone flips, that the contractual report format's coarse categories do not capture trend information, and proposing in writing that a supplementary trend note or risk flag be added to future reports for milestones approaching the At Risk threshold, so this becomes a structural fix rather than a one-off workaround each month.",
+    "expertAnswer": "Notes this is a case where formal contractual compliance and full professional candor could appear to diverge, but they do not actually conflict if handled correctly: nothing in complying with the contractual report format prevents supplementing it with additional honest disclosure through another channel, and choosing to say nothing further because the mandated field technically permits silence would be a decision to let a technically true answer create a misleading impression, which a competent planning manager should not do regardless of what the minimum contractual format requires.",
+    "explanation": "Complying with a contractually mandated report format and disclosing material schedule risk honestly are not actually in conflict; the planner should fill the mandated field accurately and add the missing risk context through whatever supplementary channel is available, rather than treating the format's limits as license to withhold the trend information.",
+    "reasoning": "The contractual field's binary-ish categories were not designed to capture rate-of-change information, so relying on them alone will systematically under-communicate risks that are deteriorating quickly but have not yet crossed a threshold; supplementing, rather than replacing, the mandated field resolves the apparent tension without breaching either obligation.",
+    "commonMistakes": [
+      "Treating 'the contract only requires these four categories' as sufficient justification for omitting known risk trend information.",
+      "Assuming honest disclosure requires overriding or reinterpreting the mandated contractual categories rather than supplementing them.",
+      "Waiting until the milestone actually flips to At Risk before raising the trend at all."
+    ],
+    "redFlags": [
+      "Reports 'On Track' with no supplementary disclosure despite knowing the trend, reasoning that the contract does not require more.",
+      "Cannot articulate that contractual compliance and honest disclosure can coexist rather than conflict."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes the disclosure obligation exists beyond the bare contractual field and acts on it."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly confirms the contractual field itself is not false while identifying its limitation."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete supplementary disclosure mechanism and a structural fix, not just a one-off flag."
+        }
+      ],
+      "passingScore": 11
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the client's commercial team objects to any supplementary trend commentary because it is 'not contractually required,' how would you respond?",
+        "purpose": "Tests whether the candidate can defend the disclosure recommendation on professional, not just contractual, grounds."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would your recommendation change if the contract explicitly prohibited any commentary beyond the four fixed categories?",
+        "purpose": "Tests whether the candidate can reason through a genuinely harder version of the tension where supplementary disclosure is contractually restricted."
+      }
+    ],
+    "tags": [
+      "contractual reporting format",
+      "toll road concession",
+      "milestone trend",
+      "disclosure",
+      "technically true but misleading"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "SCL Delay and Disruption Protocol"
+    ]
   }
 ]

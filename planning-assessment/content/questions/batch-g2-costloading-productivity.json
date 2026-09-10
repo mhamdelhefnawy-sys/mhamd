@@ -1,0 +1,1958 @@
+[
+  {
+    "questionCode": "CL-001",
+    "category": "CL",
+    "subcategory": "Cost Loading vs Resource Loading",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Distinguishing cost loading (assigning budgeted $ value to activities) from resource loading (assigning physical resources/quantities)",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
+    "questionType": "MCQ",
+    "question": "A planning engineer is asked to 'cost load' the baseline schedule for a new office building before it is submitted to the client for approval. What does cost loading actually mean in this context?",
+    "options": [
+      {
+        "label": "A",
+        "text": "Assigning labor, equipment and material resources with quantities and productivity rates to every activity so the schedule can calculate physical progress.",
+        "isCorrect": false
+      },
+      {
+        "label": "B",
+        "text": "Assigning a budgeted dollar value to each activity — directly as a lump-sum expense or derived from resource units times a unit price — so that, summed and time-phased, the schedule produces a cumulative cost curve for billing, cash flow and earned-value reporting.",
+        "isCorrect": true
+      },
+      {
+        "label": "C",
+        "text": "Converting the project's calendar from a 5-day week to a 6-day week to reflect actual site working hours.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "Replacing every activity's duration with a duration calculated backward from the total contract value.",
+        "isCorrect": false
+      },
+      {
+        "label": "E",
+        "text": "Assigning overhead and indirect cost codes to the project WBS only, without touching individual activities.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Cost loading is the process of attaching a budgeted monetary value to schedule activities — either directly as a lump-sum Expense, or derived by multiplying assigned resource quantities by a unit price — so the schedule can generate a cumulative cost (S-)curve. That curve is the basis for the schedule of values, progress billing, cash flow forecasting and the planned-value (PV/BCWS) side of earned value management.",
+    "reasoning": "Resource loading and cost loading are related but distinct: resource loading assigns physical labor/equipment/material quantities to track productivity and physical progress; cost loading assigns dollar value for financial reporting. A schedule can be cost-loaded without being resource-loaded (e.g., a lump-sum subcontract cost-loaded directly as an Expense with no underlying quantity), and can be resource-loaded without being fully cost-loaded if unit price fields are left blank.",
+    "commonMistakes": [
+      "Conflating cost loading with resource loading as if they were the same step.",
+      "Believing resource-level quantity tracking is mandatory before a cost curve can exist.",
+      "Thinking cost loading changes activity durations or logic ties."
+    ],
+    "redFlags": [
+      "Cannot explain any difference between cost loading and resource loading.",
+      "Believes cost loading only concerns project overhead, not activity-level budget."
+    ],
+    "p6Checks": [
+      "Activity Usage Spreadsheet / Cost view showing Budgeted Cost by period.",
+      "Activities > Resources tab (Labor/Nonlabor/Material) versus Activities > Expenses tab, to see how each activity's cost is sourced."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Can an activity be resource-loaded but show $0 budgeted cost? How?",
+        "purpose": "Tests understanding that a resource with no Price/Unit populated produces zero cost despite quantities being tracked."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Why would a subcontracted lump-sum package typically be cost-loaded without being resource-loaded at all?",
+        "purpose": "Tests whether the candidate connects the concept to real contracting practice, not just definitions."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "cost loading",
+      "resource loading",
+      "budgeted cost",
+      "S-curve",
+      "schedule of values"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-002",
+    "category": "CL",
+    "subcategory": "S-Curve Shape Fundamentals",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing why a typical cumulative cost curve for a construction project is S-shaped rather than linear",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: On a typical construction project, the cumulative planned cost curve (the 'S-curve') is usually S-shaped because spending starts slowly during mobilization and early design/procurement, accelerates through the main construction period, and tapers again during close-out — a perfectly straight-line cumulative curve would imply a constant spend rate for the entire project duration, which is rarely realistic.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": true
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "True",
+    "explanation": "This is correct and describes the standard rationale for the S-curve shape: low early spend during mobilization/procurement lead time, a steep middle section as the bulk of trades execute concurrently, and a tapering finish during commissioning, punch-list and demobilization.",
+    "reasoning": "Early activities typically carry lower $ value per week (site setup, submittals, long-lead procurement not yet paid in full); the bulk of labor- and material-intensive trades run mid-project; final activities (testing, commissioning, punch list, demobilization) are lower-value and slower — plotting the cumulative sum of this profile over time produces an S shape.",
+    "commonMistakes": [
+      "Assuming the S-curve concept only applies to cost and not also to manpower or physical progress curves.",
+      "Assuming any deviation from a perfect S shape automatically signals an error rather than a legitimate project-specific profile."
+    ],
+    "redFlags": [],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Would a project consisting of many identical, evenly-phased repetitive units (e.g., a housing estate of 200 identical units built in parallel) still necessarily show a classic S-curve?",
+        "purpose": "Tests whether the candidate understands the S-curve is a common pattern, not a law — a highly repetitive, steady-state project can be close to linear."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 45,
+    "tags": [
+      "S-curve",
+      "cumulative cost curve",
+      "mobilization",
+      "close-out"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "CL-003",
+    "category": "CL",
+    "subcategory": "Expense vs Labor/Material Resource Classification",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Correctly classifying budgeted costs as Labor, Material, Nonlabor/Equipment, or Expense when cost loading activities, and understanding how the choice affects downstream tracking",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "SCENARIO",
+    "scenario": "A commercial office fit-out project is being cost loaded. Four representative activities need budgeted cost assigned: (1) 'Obtain Fit-Out Permit' — an $18,000 lump-sum authority fee; (2) 'Procure & Deliver VRF Units' — $310,000 across several staged deliveries; (3) 'Install VRF Ductwork' — performed by the contractor's own in-house mechanical crew, budgeted at 640 labor-hours at a blended crew rate; (4) 'Mobilize Site Welfare Cabins' — a $45,000 lump-sum rental covering the whole site duration.",
+    "question": "For each of these four activities, state which cost-loading approach (a Labor/Material/Nonlabor resource with quantity and unit price, or a lump-sum Expense) is most appropriate, and explain your reasoning for at least two of them.",
+    "expectedAnswer": "Permit fee and welfare cabin rental should be loaded as Expense items — lump-sum costs with no meaningful unit-of-measure or productivity rate to track. VRF unit procurement should be loaded as a Material resource (unit of measure and price/unit per unit delivered), or as an Expense if the team does not need to track delivered quantity separately. Ductwork installation should be loaded as a Labor resource (crew hours times a rate), because it is performed in-house and needs productivity and manpower tracking, not just a lump-sum value.",
+    "strongAnswer": "Notes that Expense items in P6 are typically distributed using an accrual method (Start, End, or Uniform, or a custom curve) rather than the resource assignment curves used for Labor/Material/Nonlabor resources; recognizes that loading the VRF procurement as an Expense still produces a valid cost curve but loses the ability to track delivered quantity or run resource-based earned value on that scope, so the choice should match what the project actually needs to report.",
+    "expertAnswer": "Connects the classification choice to reporting granularity and client requirements: over-classifying everything as Expense is a common shortcut that still produces a workable S-curve/cash-flow forecast but strips out productivity reporting, manpower histograms, and resource-based EV — a trade-off the planning engineer should flag to the project controls manager rather than decide unilaterally, since it may be driven by the client's contractual EVMS or schedule-of-values granularity requirements.",
+    "explanation": "P6 resource types (Labor, Nonlabor, Material) carry a quantity and a Price/Unit, so their cost is derived (rate x units); Expense items are a direct lump-sum dollar assignment with no underlying unit of measure. The right choice depends on whether the activity's cost genuinely derives from a measurable quantity/rate (ductwork installation, procurement by unit) or is inherently a fixed lump sum with no meaningful unit rate (permit fee, cabin rental).",
+    "reasoning": "Labor/Nonlabor/Material assignments enable productivity tracking, resource histograms and quantity-based earned value because cost = rate x quantity; Expense items are appropriate where no such unit relationship exists or is being tracked, and are distributed to periods via an accrual type rather than a resource curve.",
+    "commonMistakes": [
+      "Classifying in-house labor-hours work as an Expense, which discards productivity/manpower tracking for that scope.",
+      "Classifying a lump-sum permit fee as a Material resource with a fabricated unit of measure.",
+      "Assuming the classification choice is purely cosmetic as long as the total dollar value is correct."
+    ],
+    "redFlags": [
+      "Cannot distinguish Expense from resource-based cost at all.",
+      "Believes every activity's cost should be entered as a single lump-sum number regardless of source data available."
+    ],
+    "p6Checks": [
+      "Activities > Resources tab — Labor/Nonlabor/Material assignments, Price/Unit and Budgeted Units.",
+      "Activities > Expenses tab — Expense Item, Accrual Type, Budgeted Cost.",
+      "Enterprise Data > Resources dictionary to confirm resource type and default price/unit."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If the ductwork installation were instead performed by a lump-sum subcontractor, would your classification change? Why?",
+        "purpose": "Tests whether the candidate ties classification to who controls the underlying quantity/productivity data, not just the trade."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What P6 field determines how an Expense item's cost is spread across the activity's duration?",
+        "purpose": "Tests knowledge of Expense accrual types (Start/End/Uniform) as the distribution mechanism."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly classifies at least 3 of the 4 items with the right resource/expense type."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why each classification fits based on measurability of quantity/rate versus lump-sum nature."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Connects classification choice to downstream reporting consequences (productivity tracking, EV granularity)."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "expense resource",
+      "material resource",
+      "labor resource",
+      "cost classification",
+      "P6 resource types",
+      "MEP fit-out"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-004",
+    "category": "CL",
+    "subcategory": "Cumulative Planned Value Calculation",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating cumulative planned value (PV/BCWS) as a percentage of BAC from a monthly cost-loaded budget table",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "A regional highway resurfacing package has been cost loaded into a 6-month baseline schedule. Total Budget at Completion (BAC) = $4,200,000, distributed by month as follows: Month 1 = $450,000; Month 2 = $820,000; Month 3 = $1,050,000; Month 4 = $980,000; Month 5 = $610,000; Month 6 = $290,000.",
+    "question": "What is the cumulative planned value (PV) as a percentage of BAC at the end of Month 4? Show your calculation.",
+    "correctAnswer": 78.6,
+    "explanation": "Cumulative PV through Month 4 = 450,000 + 820,000 + 1,050,000 + 980,000 = $3,300,000. As a percentage of BAC: 3,300,000 / 4,200,000 = 0.7857, i.e. approximately 78.6%.",
+    "reasoning": "Cumulative PV at any point is the running sum of the time-phased budgeted cost up to that period, expressed against total BAC — not the single period's value, and not an average of monthly percentages.",
+    "commonMistakes": [
+      "Averaging the monthly percentages instead of summing the dollar values first.",
+      "Using only Month 4's value (980,000/4,200,000 = 23.3%) instead of the cumulative total through Month 4.",
+      "Dividing by remaining budget instead of total BAC."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct cumulative sum and correct final percentage."
+        }
+      ],
+      "passingScore": 4
+    },
+    "weight": 1,
+    "estimatedTimeSec": 120,
+    "tags": [
+      "planned value",
+      "PV",
+      "BAC",
+      "cumulative cost curve",
+      "highway"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-005",
+    "category": "CL",
+    "subcategory": "Cost Curve Validation Against Contract Value",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Verifying a cost-loaded schedule's total sums to the correct contract/budget value before submission",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On a combined-cycle gas turbine power plant EPC contract, a planning engineer finishes cost loading the Level 3 baseline schedule and generates the cumulative cost (S-)curve for client submission. The curve has a reasonable S-shape, but the project controls manager notices the curve's final cumulative value is $2.3M lower than the awarded contract value.",
+    "question": "What would you check first to find the source of this $2.3M discrepancy before resubmitting the curve?",
+    "expectedAnswer": "Check whether every activity, milestone and sub-network in the schedule has actually been cost loaded — a late-added scope item, a commissioning phase, or an entire subcontract package may have been left with zero or partial cost. Also check for known exclusions such as contingency, indirect/overhead cost, or escalation that may legitimately sit outside activity-level cost loading but are still part of contract value.",
+    "strongAnswer": "Reconciles systematically by comparing the schedule of values / cost-loaded total against the contract schedule of values line by line, WBS by WBS, to isolate exactly which scope package is missing or under-loaded rather than assuming a single blanket cause; checks for un-cost-loaded LOE/hammock activities, unassigned Expense items, or a resource whose Price/Unit field is blank or zero, producing silent $0 cost on an otherwise resource-loaded activity.",
+    "expertAnswer": "Notes that if a mismatch of this kind is not caught before client submission, it risks either an inability to bill the full contract value through the schedule later, or a credibility/commercial dispute with the client's QS once discovered; recommends building a standing reconciliation check (schedule cost-loaded total minus contract value = 0, or an explained variance) into the baseline acceptance checklist rather than treating this as a one-off fix.",
+    "explanation": "The root cause of a shortfall against contract value is almost always traceable to specific unloaded or under-loaded scope, not a global curve-shape problem, so the check should start at the WBS/activity level rather than by adjusting the curve as a whole.",
+    "reasoning": "A cost-loaded total should reconcile exactly (or with an explicitly explained variance for items intentionally held outside the schedule, like contingency) to contract value; a shortfall usually traces to unloaded activities/expenses or a resource with no price populated.",
+    "commonMistakes": [
+      "Assuming a correct-looking S-curve shape means the totals must be correct.",
+      "Not reconciling at WBS/activity level before resubmitting.",
+      "Scaling the whole curve up by a blanket factor to force the total to match without finding the real cause."
+    ],
+    "redFlags": [
+      "Proposes an across-the-board scaling adjustment instead of finding the specific unloaded scope.",
+      "Cannot articulate a systematic reconciliation approach."
+    ],
+    "p6Checks": [
+      "Activity Usage Spreadsheet Total Budgeted Cost column, grouped by WBS, compared against the contract schedule of values by the same breakdown.",
+      "Filter for resources with Price/Unit = 0.",
+      "Filter for activities with no resource or expense assignment at all (Budgeted Cost = 0)."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If contingency is deliberately excluded from activity-level cost loading, how would you document that so the $2.3M gap isn't mistaken for an error in the future?",
+        "purpose": "Tests whether the candidate thinks about auditability, not just the immediate fix."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you build a repeatable check to catch this before every future baseline submission?",
+        "purpose": "Tests process-improvement thinking beyond the single incident."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Identifies plausible root causes (unloaded scope, zero-price resource) rather than a shape-based explanation."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a concrete WBS-level reconciliation method."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "cost curve validation",
+      "schedule of values",
+      "budget reconciliation",
+      "power plant"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-006",
+    "category": "CL",
+    "subcategory": "Cost Loading of Lump-Sum Subcontracts",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Cost loading a lump-sum subcontract package without underlying resource or quantity data, and understanding the resulting limitation on progress measurement",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "PRACTICAL_SCENARIO",
+    "scenario": "On a high-rise residential tower, the curtain wall package is subcontracted on a lump-sum basis for $6.4M. The GC's planning team has no visibility into the subcontractor's internal labor crews or material quantities — only the subcontractor's submitted activity list and its proposed monthly billing profile.",
+    "question": "How should the planning engineer cost load the curtain wall activities in the master schedule given there is no labor/material resource data available, and what limitation does this approach create for progress measurement?",
+    "expectedAnswer": "Cost load each curtain wall activity using an Expense item (lump-sum dollar value) distributed either per the subcontractor's proposed billing profile or a logical distribution curve, summing to $6.4M. Because there are no underlying resource quantities, physical percent-complete for earned-value purposes must come from an independent measure — agreed milestones, measured quantities such as square meters of panel installed, or the subcontractor's own progress claims validated against a site quantity survey — rather than from a resource-based earned quantity.",
+    "strongAnswer": "Adds that the GC should still sanity-check the subcontractor's proposed monthly billing profile for front-loading before simply adopting it as the cost-loading curve, and notes that lump-sum cost loading via Expense is standard, common industry practice for subcontracted scope where the GC neither needs nor has resource-level visibility — not a workaround.",
+    "expertAnswer": "Connects this to the commercial angle: the GC's own progress payment application to the client for this package is limited by what the GC has actually certified/paid the subcontractor for or is contractually entitled to bill, so the cost-loading curve chosen directly affects the GC's cash-flow exposure if the subcontractor's billing runs ahead of actual installed quantity.",
+    "explanation": "Lump-sum subcontracts are commonly cost loaded through Expense items with a chosen accrual/distribution profile rather than resource quantities, and progress measurement then relies on external verification rather than resource-earned value.",
+    "reasoning": "Without resource quantities there is no rate x units calculation available, so Expense loading is the only practical mechanism; the trade-off is that percent-complete must be independently measured, since the schedule itself has no earned-quantity basis for this scope.",
+    "commonMistakes": [
+      "Insisting resource loading is always required regardless of data availability.",
+      "Adopting the subcontractor-proposed billing curve without checking it for front-loading.",
+      "Conflating the cost-loading mechanism with the progress-measurement mechanism as if they were the same decision."
+    ],
+    "redFlags": [
+      "Cannot describe any independent way to measure percent-complete on lump-sum scope."
+    ],
+    "p6Checks": [
+      "Expenses tab — Expense Item and Accrual Type (Start/End/Uniform).",
+      "Custom expense distribution curve if the billing profile is non-uniform."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you independently verify the subcontractor's claimed percent-complete each month, given the GC has no resource-level data of its own?",
+        "purpose": "Tests knowledge of independent progress verification methods (milestone certificates, physical measurement, site survey)."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies Expense-based loading as the mechanism."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Identifies a credible independent progress-measurement method."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "lump sum subcontract",
+      "expense loading",
+      "curtain wall",
+      "progress measurement",
+      "high-rise"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-007",
+    "category": "CL",
+    "subcategory": "Front-Loading Detection via S-Curve Shape",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing an abnormally front-loaded cumulative cost curve relative to the underlying scope sequence, and diagnosing likely causes before client submission",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a hyperscale data center project, the planning engineer's freshly cost-loaded 18-month baseline shows 42% of total contract value planned within the first 3 months, even though those 3 months are scoped almost entirely as sitework, foundations and mobilization — before any of the far higher-value MEP, IT fit-out or commissioning scope begins.",
+    "question": "Is this cost-loading profile plausible for this scope sequence, and if not, what would you investigate before this baseline goes to the client?",
+    "expectedAnswer": "This is not plausible as a legitimately-derived curve for this scope sequence: 42% of contract value concentrated in low-value early civil/mobilization scope is a classic signature of front-loading, since sitework, foundations and mobilization are normally a small fraction of total value on a data center relative to MEP, electrical, IT fit-out and commissioning. Would investigate which specific activities or WBS elements carry the disproportionate cost — checking whether early activities have unit rates or lump-sum expense values inflated relative to their actual scope/quantity, or whether a major equipment procurement milestone has been booked into the wrong period.",
+    "strongAnswer": "Describes a concrete check: compares $/unit or $/activity for the early-period activities specifically against an independent estimate, historical benchmark, or the detailed estimate the bid was built from, rather than judging the curve by shape alone; also checks whether a legitimate long-lead procurement milestone (e.g., a switchgear or generator down-payment) is driving genuine early cost versus the value being deliberately loaded onto low-content civil activities.",
+    "expertAnswer": "Notes that if this is the contractor's own submission, uncorrected front-loading like this creates real commercial risk to the client (overpaying relative to progress, exposure if the contractor defaults) and credibility risk to the contractor during the client's QS review; also notes some early cost concentration can be entirely legitimate (major long-lead equipment down payments, bonded/insured mobilization costs), so any finding must be scope-substantiated rather than rejected on curve shape alone.",
+    "explanation": "Value distribution should roughly track where the real cost/effort lies across the WBS; low-value early scope carrying a disproportionate share of contract value is a recognized front-loading (or data-entry/allocation error) signature, and the correct response is to trace the dollars to specific activities/resources and test each against an independent benchmark.",
+    "reasoning": "A cost-loaded curve derived correctly from the estimate should reflect the actual cost content of each phase; the check is not whether the curve 'looks S-shaped' but whether early-period $ concentration is substantiated by real scope/cost content in that period.",
+    "commonMistakes": [
+      "Accepting any S-shaped-looking curve as valid without checking proportionality between $ and scope content.",
+      "Assuming front-loading is always deliberate rather than possibly a legitimate procurement-driven early cost or a genuine allocation error."
+    ],
+    "redFlags": [
+      "Dismisses the 42%/3-month mismatch as immaterial.",
+      "Cannot articulate any check beyond 'it looks front-loaded'."
+    ],
+    "p6Checks": [
+      "Activity Usage Spreadsheet grouped by WBS/phase for the first 3 months.",
+      "Resource/Expense assignment detail on the high-dollar early activities.",
+      "Cross-check against the estimate/BOQ used to build the bid."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Suppose the early spike traces to a legitimate $1.8M switchgear down-payment expense. Does that fully explain the 42%, and how would you present the remainder to the client?",
+        "purpose": "Tests whether the candidate can partially validate a finding and still pursue the unexplained residual rather than stopping at the first plausible explanation."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What independent benchmark would you use if this were a first-of-its-kind project type with no comparable historical data?",
+        "purpose": "Tests awareness of alternative substantiation methods (detailed estimate build-up, vendor quotes) when historical benchmarks are unavailable."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the mismatch as an implausible front-loading signature."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains why low-value early scope with high early $ is a red flag."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names a concrete investigation method (WBS-level tracing, benchmark comparison)."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "front-loading",
+      "S-curve",
+      "data center",
+      "cost curve validation"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "CL-008",
+    "category": "CL",
+    "subcategory": "Cash Flow Forecasting Shortfalls from Procurement Cost Loading",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Diagnosing a negative near-term cash flow forecast on an otherwise on-budget project by tracing it to procurement/material cost-loading timing",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A marine terminal construction project is tracking on budget and on schedule overall, with CPI approximately 1.0. However, the project controls manager's rolling 3-month cash flow forecast — built from the cost-loaded schedule — shows a significant net cash shortfall in Month 5, even though the client's payment applications for that period are expected to be paid on time.",
+    "question": "What is the most likely cause of the Month 5 cash shortfall, and what would you check to confirm it?",
+    "expectedAnswer": "The most likely cause is a timing mismatch between when major material/equipment costs are actually incurred and paid to suppliers (often ahead of installation — e.g., fenders, bollards or steel piling procured and paid for well before the associated installation activity, which is what earns billable value from the client) and when the corresponding value is billed to and collected from the client. Cost loading captures cost-incurrence timing for cash-out, while client billing (cash-in) follows the contractor's own progress-billing cycle and payment terms; a large procurement outlay landing in Month 5 without a matching billing milestone produces a shortfall even on a healthy, on-budget project.",
+    "strongAnswer": "Adds that retention withheld by the client on progress payments (typically 5-10%) further widens the gap between cost incurred and cash received, and frames this as a normal, foreseeable cash-timing issue rather than a cost overrun — one project controls should flag early so the contractor can arrange bridging finance or negotiate an advance/milestone payment for major procurement.",
+    "expertAnswer": "Explicitly distinguishes this from a genuine cost problem (CPI is healthy) and frames it purely as a working-capital/cash-timing issue; recommends the practical fix is commercial — negotiating a materials-on-site or advance-payment milestone, adjusting supplier payment terms, or proactively planning drawdowns on a project financing facility using the cost-loaded procurement schedule — rather than a schedule or cost-control fix.",
+    "explanation": "Cash-out timing tracks cost accrual (heavily influenced by non-labor/material procurement expense loading, which is often front-heavy relative to installation), while cash-in timing tracks the client's billing/payment cycle plus retention; a healthy CPI does not guarantee healthy period cash flow because CPI measures value earned against cost incurred, not cash timing.",
+    "reasoning": "CPI is a cumulative value-versus-cost ratio and says nothing about the period-by-period timing of cash movements; a single large procurement payment in a period with no offsetting billing milestone can create a real cash shortfall independent of overall project cost health.",
+    "commonMistakes": [
+      "Assuming CPI = 1.0 automatically means cash flow must also be healthy.",
+      "Not distinguishing cost incurred from cash paid, or billed value from cash received.",
+      "Looking for a schedule delay as the cause when the real driver is procurement payment timing."
+    ],
+    "redFlags": [
+      "Cannot separate the concepts of 'cost' and 'cash' at all."
+    ],
+    "p6Checks": [
+      "Expense tab accrual dates for major procurement items around Month 5.",
+      "Compare procurement expense timing against the billing timing of the associated installation activities."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What contractual mechanism could the contractor negotiate to close this kind of gap for future major procurement items?",
+        "purpose": "Tests knowledge of advance payment / materials-on-site billing provisions as a practical remedy."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the procurement-vs-billing timing mismatch as the cause."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes CPI (value/cost) from cash flow timing."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete confirmation check and/or remedy."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "cash flow forecast",
+      "procurement",
+      "material cost loading",
+      "retention",
+      "marine terminal"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-009",
+    "category": "CL",
+    "subcategory": "Reviewing Contractor Cost-Curve Revisions",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Evaluating whether to approve a subcontractor's request to revise its cost-loading curve to front-load early billing",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "On an airport terminal expansion, the structural steel subcontractor requests that its cost-loaded schedule of values be revised so that 35% of its $9.5M lump-sum value is allocated to 'Mobilization and Shop Drawing Approval,' a 6-week activity at the very start of its 40-week scope, up from the 8% originally agreed at contract award. The stated reason is to offset high upfront fabrication costs.",
+    "question": "As the GC's planning/project controls lead reviewing this request, what would you decide, and what conditions (if any) would you attach?",
+    "expectedAnswer": "Should not approve the revision as-is without substantiation — a jump from 8% to 35% for a preparatory, non-installation activity is disproportionate and matches a classic front-loading pattern. Would require the subcontractor to substantiate the requested value against actual, verifiable early cost commitments (mill order deposits, shop-drawing/detailing man-hours, fabrication down payments with supporting purchase orders or invoices) before agreeing to any increase, and would only approve an amount demonstrably matched to real early cost exposure, not simply the subcontractor's cash-flow preference.",
+    "strongAnswer": "Proposes a middle path such as a material-on-order or mill-certificate-backed procurement milestone payment for verified steel procurement, instead of inflating the mobilization line item — achieving the subcontractor's legitimate cash-flow need without corrupting the SOV's correlation to installed value; flags that once approved, this SOV becomes the basis for monthly progress billing, so unjustified early loading directly increases the GC's/client's overpayment exposure if the subcontractor underperforms or defaults later.",
+    "expertAnswer": "Explicitly weighs the commercial trade-off: some accommodation for genuine fabrication cash-flow need is normal and can protect the schedule (a subcontractor starved of early cash may slow fabrication, a real durational risk), but ties any approved increase to verifiable milestones and security — a bond, parent company guarantee, or payment conditioned on mill certificates — so the increased exposure is managed rather than simply accepted.",
+    "explanation": "Legitimate early cost (fabrication, procurement lead time) can justify some front-end value loading, but it must be substantiated with verifiable evidence; unverified front-loading shifts risk onto the payer if the subcontractor later underperforms or defaults, since billed value would then exceed installed value.",
+    "reasoning": "Reviewing a cost-curve revision request requires separating the subcontractor's legitimate cash-flow need from an unsubstantiated shift of commercial risk onto the GC/client; the correct response ties approval to verifiable cost evidence and/or security rather than a flat approve/reject.",
+    "commonMistakes": [
+      "Approving because the subcontractor 'needs the cash' without requiring substantiation.",
+      "Rejecting outright without recognizing that genuine fabrication lead-time cost can justify some increase.",
+      "Not linking the SOV revision to its downstream progress-billing consequences."
+    ],
+    "redFlags": [
+      "Automatic approval of any subcontractor cash-flow request without scrutiny.",
+      "No mention of substantiation or security as a condition."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If the subcontractor cannot produce supporting purchase orders but insists the cost is real, what would you do?",
+        "purpose": "Tests how the candidate handles an unsubstantiated-but-plausible claim rather than just a clear-cut case."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would your answer change if this subcontractor had a strong track record of on-time, on-budget delivery on prior packages with the GC?",
+        "purpose": "Tests whether track record appropriately informs risk tolerance without eliminating the need for substantiation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Does not simply approve or reject; ties decision to substantiation and risk."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete alternative mechanism (milestone/security-backed payment)."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the SOV decision to downstream billing/overpayment risk."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "front-loading",
+      "subcontractor SOV",
+      "structural steel",
+      "airport",
+      "cash flow risk"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "CL-010",
+    "category": "CL",
+    "subcategory": "Quantifying Front-Loading (Billing vs Earned Value)",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating the dollar and percentage magnitude of apparent front-loading by comparing billed cost-loaded value against independently verified earned value",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "On a $14,000,000 oil & gas EPC package, at the end of Month 2 the contractor's cost-loaded schedule of values claims cumulative billing of $3,150,000. An independent quantity survey by the client's engineer verifies that only $2,240,000 of work is actually physically complete at that date.",
+    "question": "Calculate the dollar amount and the percentage (of total contract value) of apparent front-loading (over-billing) at this point.",
+    "correctAnswer": 6.5,
+    "explanation": "Over-billing amount = 3,150,000 - 2,240,000 = $910,000. Expressed as a percentage of total contract value: 910,000 / 14,000,000 = 0.065, i.e. 6.5%.",
+    "reasoning": "Front-loading is quantified as billed value in excess of independently verified earned value, then expressed against total contract value to gauge materiality; this figure by itself flags an item for investigation, it does not by itself prove intentional misconduct, since part of the gap could reflect legitimate early procurement cost not yet captured by the installed-quantity survey.",
+    "commonMistakes": [
+      "Comparing billed value against total contract value instead of against independently verified earned value.",
+      "Expressing the gap as a percentage of billed value rather than of total contract value as asked.",
+      "Treating the calculated gap as automatic proof of fraud rather than a trigger for further investigation."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct dollar and percentage calculation."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes the finding warrants investigation rather than an automatic conclusion of fraud."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "front-loading quantification",
+      "earned value",
+      "EPC",
+      "over-billing"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-011",
+    "category": "CL",
+    "subcategory": "Cumulative Cost Curve Behavior (Credits and Variations)",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Understanding when a cumulative planned or earned cost curve can legitimately decrease period-over-period rather than always indicating a data error",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "IS_THIS_POSSIBLE",
+    "scenario": "A long-span bridge infrastructure project's cumulative earned-value curve, replotted after the latest schedule update, shows a small dip between Month 9 and Month 10 — cumulative EV is slightly lower at Month 10 than it was at Month 9.",
+    "question": "Is it possible for a cumulative cost/earned-value curve to legitimately decrease from one period to the next, or does this always indicate a data error? Explain.",
+    "expectedAnswer": "Yes, it is possible, though unusual. A cumulative curve is not mathematically guaranteed to be monotonically non-decreasing if the underlying budget or claimed progress changes: a negative variation, descope or credit that reduces Budget at Completion (and is applied retroactively to a completed activity's value), or a correction of a previously over-reported percent-complete once a more accurate measurement becomes available, can both cause a real, legitimate dip.",
+    "strongAnswer": "Distinguishes the two most common legitimate causes — a negative change order/credit reducing BAC on completed scope, and a downward correction of a previously over-claimed percent-complete — from the more common erroneous causes, such as a status/update error, a resource assignment accidentally deleted and re-added at a lower budget, or the data date rolled back incorrectly, and states both categories must be checked before assuming either explanation.",
+    "expertAnswer": "Notes the practical significance: if left unexplained, this kind of dip undermines the credibility of the entire EV report with the client, so it should always be traced to a specific, documented cause (a change order reference, a corrected quantity survey) before the report is issued, rather than left as an unexplained anomaly or silently smoothed over in the chart.",
+    "explanation": "A cumulative EV curve normally rises because both physical progress and budget are expected to only increase, but either can legitimately decrease under specific, traceable circumstances.",
+    "reasoning": "The two structurally different legitimate causes are a change to the denominator/value basis (a negative variation reducing BAC) and a correction to previously reported progress (a percent-complete restatement); both are real, auditable events, distinct from a data-entry or software error, which is the more common but not the only explanation.",
+    "commonMistakes": [
+      "Assuming a cumulative dip must always be a data or software error.",
+      "Not knowing that negative variations or percent-complete corrections are legitimate, traceable causes."
+    ],
+    "redFlags": [
+      "Insists this is 'impossible' without checking the underlying data."
+    ],
+    "p6Checks": [
+      "Change/variation log cross-referenced to the affected activities' budget history.",
+      "Look for a recent negative Budgeted Units/Cost revision on any activity between the two data dates.",
+      "Check for a resource assignment change or a percent-complete restatement between the two updates."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you traced the dip to a negative change order, what would you check to confirm it was applied to the correct period and the correct activity?",
+        "purpose": "Tests follow-through into verification, not just identifying the category of cause."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you explain this dip to a client reviewing the report, without it looking like the project's status is unreliable?",
+        "purpose": "Tests communication judgment alongside the technical explanation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies at least one legitimate cause of a cumulative dip."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Distinguishes legitimate causes from data-error causes rather than defaulting to only one category."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "cumulative EV curve",
+      "negative variation",
+      "change order",
+      "bridge",
+      "data validation"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-012",
+    "category": "CL",
+    "subcategory": "Front-Loading Case Review",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Conducting a structured review of a submitted cost-loaded baseline to identify and substantiate front-loading (and back-loading) before accepting it as the basis for progress payments",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "CASE_STUDY",
+    "scenario": "A metro rail civil works contractor submits its cost-loaded baseline schedule of values for a $220M design-build contract. The client's project controls team notices: (1) 'Site Establishment & Access Roads' (4 weeks, minor civil scope) is valued at $18M, 8.2% of contract value; (2) 'Tunnel Boring Machine Mobilization' (a genuine major procurement/logistics activity) is valued at $31M; (3) the entire 'Systems Integration & Testing' phase — the last 10% of the schedule duration, covering signaling, power and testing — is valued at only $9M, 4.1% of contract value, despite being widely recognized in the industry as one of the highest-risk, highest-cost phases of metro rail delivery.",
+    "question": "As the client's project controls reviewer, identify the specific red flags in this submission, explain what makes each one a red flag (or not), and describe the review process you would follow before accepting this cost-loading as the basis for monthly payment certificates.",
+    "expectedAnswer": "Site Establishment at $18M/8.2% for 4 weeks of minor civil scope is a strong front-loading red flag: disproportionate value for low-complexity, short-duration scope. TBM Mobilization at $31M is not automatically a red flag on its own — large mobilization/logistics costs for a TBM are genuinely substantial in reality — so it needs to be checked against an independent estimate/benchmark rather than assumed suspicious. Systems Integration & Testing at only 4.1% of value for a phase industry experience shows is typically far higher-cost/risk is itself a concern in the opposite direction (back-loading/undervaluation) — and undervaluing late-stage scope can be a symptom of value having been shifted to early activities elsewhere, while separately reducing the contractor's financial exposure/incentive tied to successfully completing the highest-risk phase.",
+    "strongAnswer": "Describes a concrete review process: benchmark each major line item against an independent estimate, historical data from comparable metro projects, or the contractor's own detailed take-off/estimate (requesting it if not already provided); require substantiation for any line item materially above or below a reasonable range; review and negotiate the SOV line by line rather than accepting or rejecting it as one bloc; document the accepted SOV and the reasoning behind it as the record for resolving any future payment certificate dispute.",
+    "expertAnswer": "Frames the Systems Integration undervaluation as the more commercially dangerous issue of the two, since it weakens the client's leverage/security during the highest-risk closeout phase — if most of the contractor's payment has already been received before the hardest phase begins, the client has less commercial lever to keep the contractor adequately motivated and resourced through testing and commissioning. Recommends the client's team insist on a minimum reasonable value in the SOV for late-phase, high-risk scope specifically for this reason, separate from standard retention.",
+    "explanation": "A credible cost-loaded baseline review must evaluate each line item against the real cost/risk content of its scope rather than accepting or rejecting the submission as a whole; both over-valuation of low-risk early scope and under-valuation of high-risk late scope are commercially significant, for different reasons.",
+    "reasoning": "Front-loading transfers payment-timing risk to the payer; under-valuing high-risk late-stage scope reduces the payee's financial stake in successfully completing that scope — both distort the SOV's intended function of tracking payment to real progress and risk.",
+    "commonMistakes": [
+      "Flagging every large-dollar line item as front-loading without checking scope substance.",
+      "Missing the back-loading/undervaluation risk on Systems Integration entirely.",
+      "Treating this as a pass/fail review instead of a line-by-line negotiation."
+    ],
+    "redFlags": [
+      "Accepts the SOV without any benchmarking.",
+      "Cannot articulate why undervaluing late high-risk phases is itself a risk to the client."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If the contractor pushes back that the TBM cost is fully substantiated by supplier quotes, does that resolve all three concerns, or just one?",
+        "purpose": "Tests whether the candidate treats the three line items as independent findings rather than one resolved finding clearing the whole review."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What contractual mechanism, beyond SOV negotiation, could the client use to protect its position on the undervalued Systems Integration phase?",
+        "purpose": "Tests awareness of retention structuring or milestone-based payment security as complementary tools."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly separates the three line items into distinct findings with different levels of concern."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes undervaluation of high-risk late scope as a real risk, not just front-loading."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a concrete, line-by-line review/negotiation process."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 280,
+    "tags": [
+      "front-loading",
+      "back-loading",
+      "metro rail",
+      "schedule of values",
+      "case study"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "CL-013",
+    "category": "CL",
+    "subcategory": "Cash Flow Forecasting Without Payment Terms",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing what information beyond the cost-loaded schedule is missing before it can validly be turned into a cash flow forecast",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "MISSING_INFO",
+    "scenario": "A design-build highway contractor's finance manager asks the planning engineer to 'just export the cost-loaded schedule's monthly totals as our cash flow forecast for the bank' ahead of an upcoming financing review.",
+    "question": "What critical information is missing before the cost-loaded schedule's monthly cost totals can validly be presented as a cash flow forecast? List what you would need and explain why each matters.",
+    "expectedAnswer": "The cost-loaded schedule shows planned cost/value incurred or earned by period, not cash actually received or paid. Missing: (1) client payment terms — invoice cycle length and payment lag (e.g., monthly application plus a 30/45/60-day payment period) to convert billed value into cash-in timing; (2) retention percentage withheld from each payment and when it is released; (3) the contractor's own payment terms to subcontractors/suppliers, to convert cost incurred into cash-out timing, which may lag or lead the cost-loading's accrual timing; (4) any advance/mobilization payment and its recoupment schedule.",
+    "strongAnswer": "Adds that cost loading typically reflects cost accrual (when cost is 'earned' or committed), which is not the same period cash actually moves in either direction, and that without these adjustments the deliverable handed to the bank would really be a cost/value forecast mislabeled as a cash flow forecast — a meaningful risk if the bank bases a financing decision on it.",
+    "expertAnswer": "Notes that a financing-grade cash flow forecast should also address contingency for late payment risk, and that the planning engineer should push back on the finance manager's shortcut request rather than deliver a mislabeled forecast, since presenting cost data to a bank as cash flow incorrectly is both technically wrong and a business/reputational risk if actual collections or payables timing don't match the (unstated) assumptions baked into the raw export.",
+    "explanation": "A valid cash flow forecast requires converting the cost-loaded schedule's accrual-based timing into actual cash-in and cash-out timing using payment terms, retention and advance-payment mechanics — information the schedule itself does not contain.",
+    "reasoning": "Cost loading answers 'when is cost/value incurred'; cash flow answers 'when does money actually move'; the gap between the two is entirely explained by payment terms, retention and advance payment mechanics, none of which live in the schedule.",
+    "commonMistakes": [
+      "Exporting the raw cost curve as-is and labeling it a cash flow forecast.",
+      "Not distinguishing accrual timing from cash timing.",
+      "Forgetting retention entirely."
+    ],
+    "redFlags": [
+      "Agrees to just export the raw curve without raising the gap to the finance manager."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you don't yet have the confirmed payment terms, what would you deliver to the finance manager in the meantime?",
+        "purpose": "Tests whether the candidate proposes a clearly-labeled interim/approximate forecast rather than either refusing entirely or delivering the flawed raw export."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would advance mobilization payment received early in the project change the shape of the cash flow forecast compared to the cost curve?",
+        "purpose": "Tests whether the candidate can reason through a specific mechanic's effect on the forecast shape."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes cost/accrual timing from cash timing."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies payment terms, retention, and payables timing as the key missing inputs."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes the risk of delivering a mislabeled forecast rather than just complying with the shortcut request."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "cash flow forecast",
+      "payment terms",
+      "retention",
+      "missing information",
+      "highway design-build"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "CL-014",
+    "category": "CL",
+    "subcategory": "Post-Approval Billing Mismatch Response",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Responding when a first progress payment application reveals a material mismatch against the approved cost-loaded baseline",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "WHAT_NEXT",
+    "scenario": "On an industrial warehouse/distribution center project, the client formally approved the contractor's cost-loaded baseline schedule of values three months ago. The contractor has just submitted its first monthly payment application, claiming $2.85M for the period — but the project controls team's independent review of physical progress against the approved cost-loaded schedule supports only $2.1M of earned value for the same period, a $750,000 gap concentrated in the 'Structural Steel Erection' line item.",
+    "question": "As the project controls lead reviewing this payment application before it goes to the client's engineer for certification, what do you do next?",
+    "expectedAnswer": "Do not simply pass the contractor's claimed $2.85M through for certification. Investigate the $750,000 gap specifically on Structural Steel Erection before certifying: verify actual installed quantity/percent-complete on site (physical survey, photographs, inspection records) against both what the contractor claims and what the approved cost-loaded value implies for that line item; reconcile the finding with the contractor before the certification deadline, and certify only the substantiated amount, with the discrepancy documented.",
+    "strongAnswer": "Adds that this should trigger a broader check of whether the approved baseline SOV itself under- or over-valued Structural Steel Erection relative to its real scope (i.e., is this a progress-measurement dispute or a baseline cost-loading problem), and that the response should be documented formally — a payment certificate with a noted adjustment and reason — rather than resolved through an informal verbal pushback, to protect both parties' contractual position.",
+    "expertAnswer": "Recognizes the pattern risk: a large gap on the very first payment application is an early warning sign worth escalating internally to the commercial/contracts team regardless of how this specific gap resolves, since it may indicate the contractor intends to bill ahead of progress throughout the contract; early, consistent, well-documented pushback sets the tone and precedent for every subsequent payment application on this project.",
+    "explanation": "A first-application discrepancy of this size should be investigated at the specific line-item level and resolved through documented, substantiated certification, not passed through to avoid friction with the contractor.",
+    "reasoning": "Certifying an unverified claim sets a precedent that the certification process is not a real check; tracing the gap to a specific line item both resolves the immediate application and reveals whether it is a one-off measurement dispute or the start of a recurring billing pattern.",
+    "commonMistakes": [
+      "Certifying the full claimed amount to avoid conflict with the contractor.",
+      "Not tracing the gap to a specific line item before responding.",
+      "Treating this as a one-off issue rather than a possible pattern worth monitoring going forward."
+    ],
+    "redFlags": [
+      "Certifies without independent verification.",
+      "No plan to monitor future applications for the same pattern."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The contractor insists their $2.85M claim is correct and disputes your $2.1M figure. What is your next step?",
+        "purpose": "Tests how the candidate handles an active dispute rather than a straightforward correction."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would this finding change how you review the contractor's next two payment applications?",
+        "purpose": "Tests whether the candidate escalates from a single incident to a monitoring pattern."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a concrete verification and certification process rather than a vague response."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Does not simply pass the claim through, and treats the finding as a possible pattern."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses both the immediate certification decision and the forward-looking monitoring implication."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "payment certification",
+      "progress verification",
+      "structural steel",
+      "front-loading pattern",
+      "warehouse"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "CL-015",
+    "category": "CL",
+    "subcategory": "Negotiating Cost-Loading Curves with Client QS",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Balancing a contractor's legitimate early cash-flow needs against a client's commercial exposure when negotiating a disputed cost-loading curve, with commercial and contractual judgment",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "You are the project controls manager for the EPC contractor on a $310M gas-fired power plant. The client's quantity surveyor has rejected your submitted cost-loaded baseline, alleging front-loading, and is demanding the entire schedule of values be re-cast on a strict 'cost-plus-margin spread evenly across duration' basis for every activity — effectively a linear cost curve for the whole project. Your commercial director has told you the contractor genuinely needs stronger early cash flow, because major long-lead equipment (turbines, generators, HRSGs) requires substantial supplier down-payments in the first two quarters, well before that equipment is installed or commissioned.",
+    "question": "How would you approach this negotiation with the client's QS, and what position would you recommend to your commercial director?",
+    "expectedAnswer": "Reject the QS's demand for a fully linear curve as equally unrealistic as an unsubstantiated front-loaded one — a linear spread ignores genuine major-equipment procurement cost timing just as much as an inflated early SOV ignores real installation value. Instead, propose a cost-loading curve substantiated line-by-line against real cost drivers — supplier payment schedules/purchase orders for the long-lead equipment, and actual labor/installation profiles for the balance of scope — and offer to open the underlying estimate/procurement schedule to the QS as evidence rather than negotiating a curve shape in the abstract.",
+    "strongAnswer": "Proposes a structural solution serving both sides' legitimate interests: separating major equipment procurement into its own milestone-based, PO/invoice-substantiated billing line (materials-on-order or mill-certificate-backed payments, potentially with an advance-payment bond or vesting certificate transferring title to the client), distinct from the installation/construction SOV lines — giving the contractor early cash tied to verifiable procurement cost without inflating unrelated early construction activities, while giving the client security against those advance payments.",
+    "expertAnswer": "Weighs the contractual/commercial trade-offs explicitly: conceding to a fully linear curve could starve the contractor of cash needed to secure long-lead equipment on time, a real schedule risk to the client too, since late equipment ordering delays the whole project; an unsubstantiated front-loaded curve exposes the contractor's own credibility and the client's payment security. Recommends escalating the advance-payment security mechanism (bond, guarantee, vesting certificate) to commercial/legal as the real solution rather than letting the dispute be resolved purely as a curve-shape argument, and would advise the commercial director accordingly rather than simply picking a side.",
+    "explanation": "Both extremes in this dispute — an unsubstantiated front-loaded curve and a rigid linear curve — misrepresent the real cost profile; the durable resolution separates genuinely verifiable early cost (long-lead procurement) into a secured, evidence-backed payment mechanism rather than treating the whole SOV as a single negotiable shape.",
+    "reasoning": "A cost-loading dispute at this level is fundamentally a commercial risk-allocation question, not just a scheduling technicality: the contractor needs early cash for real procurement obligations, the client needs assurance that early payment corresponds to real, secured value — a milestone/security-backed procurement line resolves both without either side simply overriding the other.",
+    "commonMistakes": [
+      "Capitulating entirely to the client's linear-curve demand without addressing the real procurement cash need.",
+      "Defending the original front-loaded curve without offering substantiation.",
+      "Treating this as purely a technical scheduling argument rather than a commercial/contractual one."
+    ],
+    "redFlags": [
+      "Cannot see any resolution beyond 'who wins the argument.'",
+      "Ignores the commercial director's stated cash-flow need entirely."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The client's QS is open to a procurement milestone line but refuses any security mechanism (bond/vesting certificate). Does the proposal still work?",
+        "purpose": "Tests whether the candidate recognizes the security mechanism as the element that actually makes the compromise acceptable to the client, not an optional add-on."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you explain this recommendation to your commercial director if it means accepting a lower near-term billing amount than originally submitted?",
+        "purpose": "Tests whether the candidate can communicate a nuanced compromise upward, not just downward to the client."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Rejects both extremes and proposes a substantiated, risk-managed middle path."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete mechanism (milestone/security-backed procurement billing)."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses both the negotiation with the client and the recommendation to the commercial director."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 260,
+    "tags": [
+      "front-loading negotiation",
+      "advance payment",
+      "vesting certificate",
+      "EPC power plant",
+      "commercial judgment"
+    ],
+    "references": [
+      "FIDIC forms of contract",
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-001",
+    "category": "PMH",
+    "subcategory": "Manpower Histogram Fundamentals",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Reading a manpower histogram and understanding how it differs from a cumulative cost S-curve",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
+    "questionType": "MCQ",
+    "question": "A project controls report includes a bar chart showing the number of workers, by trade, planned on site for each week of the project — rising from a low mobilization level, peaking mid-project, then tapering toward completion. What is this chart called, and how does it differ from the project's cumulative cost S-curve?",
+    "options": [
+      {
+        "label": "A",
+        "text": "It is the manpower (resource) histogram — it shows period, non-cumulative headcount/hours demand over time, whereas the S-curve shows cumulative cost or value accumulated to date; the histogram typically rises and falls in a hump shape while the S-curve is monotonically non-decreasing.",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "It is the same chart as the S-curve, simply relabeled for a different audience.",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "It is the productivity curve, which always mirrors the cost curve exactly since cost and manpower are directly proportional at every point in time.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "It is a resource-leveling report and only exists after leveling has been performed; an un-leveled schedule cannot produce this chart.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "This is a manpower (resource) histogram: a period-by-period, non-cumulative view of headcount or hours demand, which naturally rises and falls as different trades mobilize and demobilize. It is fundamentally different from a cumulative cost S-curve, which sums value over time and, absent negative variations, only rises.",
+    "reasoning": "Histograms show a rate/flow quantity per period; S-curves show an accumulated stock quantity to date. Cost and manpower are not always directly proportional either, since cost also includes materials, equipment and expenses that don't track headcount one-for-one.",
+    "commonMistakes": [
+      "Confusing a cumulative chart with a period (non-cumulative) chart.",
+      "Assuming cost and manpower must move in lockstep at every point in time."
+    ],
+    "redFlags": [],
+    "p6Checks": [
+      "Resources tab > Resource Usage Profile, toggled between histogram (period) and cumulative curve display."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Can a manpower histogram exist on an un-leveled schedule? Why or why not?",
+        "purpose": "Tests whether the candidate understands leveling adjusts the histogram but is not a prerequisite for one to exist."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "manpower histogram",
+      "S-curve",
+      "resource loading"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "PMH-002",
+    "category": "PMH",
+    "subcategory": "Productivity Rate Units and Direction",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Understanding that productivity can be expressed as either a direct rate (output per hour) or an inverse rate (hours per unit output), and that these move in opposite directions",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "questionType": "TRUE_FALSE",
+    "question": "True or False: If a formwork crew's productivity is reported as 0.75 labor-hours per square meter in one progress report and as 1.33 square meters per labor-hour in another, these two figures describe the same crew performance — the second is simply the mathematical reciprocal of the first, not a different or conflicting measurement.",
+    "options": [
+      {
+        "label": "True",
+        "text": "True",
+        "isCorrect": true
+      },
+      {
+        "label": "False",
+        "text": "False",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "True",
+    "explanation": "1 / 0.75 = 1.333, so 1.33 m2 per labor-hour is exactly the reciprocal of 0.75 labor-hours per m2 — both describe the identical crew performance, just expressed in opposite conventions.",
+    "reasoning": "Productivity can be expressed as a direct rate (output per hour, where a higher number is better) or an inverse rate (hours per unit of output, where a lower number is better). Confusing which convention a given report uses is a common source of misreading a productivity trend, since a rising trend is good news in one convention and bad news in the other.",
+    "commonMistakes": [
+      "Assuming a higher reported number is always better without checking which convention (direct or inverse) is being used.",
+      "Misreading a rising labor-hours-per-unit trend as improving productivity, when it actually signals declining productivity."
+    ],
+    "redFlags": [],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If next month's report shows the rate rising from 0.75 to 0.95 labor-hours per m2, is productivity improving or declining?",
+        "purpose": "Tests whether the candidate can correctly interpret direction of change in the inverse convention under time pressure."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 60,
+    "tags": [
+      "productivity rate",
+      "unit rate",
+      "labor-hours per unit",
+      "direct vs inverse rate"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-003",
+    "category": "PMH",
+    "subcategory": "Required Manpower from Quantity and Productivity Rate",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating the average crew size required to complete a quantity of work within a target duration given a productivity rate",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "A commercial building's ground-floor slab-on-grade package totals 1,800 m3 of concrete placing and finishing. The estimating team's productivity rate for this crew type and slab configuration is 0.85 labor-hours per m3. The activity is scheduled for 15 working days at 10 working hours per day per person.",
+    "question": "What average crew size (number of persons) is required to complete this scope within the scheduled duration? Show your calculation.",
+    "correctAnswer": 11,
+    "explanation": "Total labor-hours required = 1,800 m3 x 0.85 MH/m3 = 1,530 labor-hours. Available hours per person over the duration = 15 days x 10 hr/day = 150 hours/person. Crew size = 1,530 / 150 = 10.2, rounded up to 11 persons, since a fractional worker cannot be mobilized and rounding down would leave the crew short of the required total hours.",
+    "reasoning": "The calculation converts quantity into total labor-hours via the productivity rate, then divides by the labor-hours available per person over the scheduled duration to find the number of people needed working in parallel.",
+    "commonMistakes": [
+      "Dividing quantity directly by duration without first converting to total labor-hours via the productivity rate.",
+      "Rounding down (10) instead of up (11), leaving the crew short of the hours actually required.",
+      "Treating '10 hours/day' as a crew total rather than a per-person availability figure."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct total labor-hours, correct per-person availability, correct rounded crew size."
+        }
+      ],
+      "passingScore": 4
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "required manpower",
+      "productivity rate",
+      "concrete",
+      "labor-hours",
+      "slab on grade"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-004",
+    "category": "PMH",
+    "subcategory": "Required Duration from Quantity, Crew Output Rate and Crew Count",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Calculating required duration for a scope of work given multiple crews working in parallel at a known daily output rate",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "A cross-country gas pipeline package requires 4,200 diameter-inches of girth (butt) welds. Each qualified welding crew — welder, fitter and support labor — achieves a sustained output rate of 60 diameter-inches per working day. The contractor plans to mobilize 3 welding crews working in parallel along different spreads of the pipeline.",
+    "question": "How many working days are required to complete the welding scope, assuming all 3 crews sustain the stated rate throughout? Show your calculation.",
+    "correctAnswer": 24,
+    "explanation": "Combined daily output with 3 crews = 3 x 60 = 180 diameter-inches per day. Duration = 4,200 / 180 = 23.33 working days, rounded up to 24 working days, since a partial day still requires a full working day to complete the remaining welds.",
+    "reasoning": "Total daily output scales with the number of parallel crews (assuming no interference between spreads); duration is total quantity divided by combined daily output, rounded up because a fractional day of remaining work still consumes a whole working day.",
+    "commonMistakes": [
+      "Forgetting to multiply the single-crew rate by the number of parallel crews.",
+      "Truncating 23.33 down to 23 instead of rounding up to 24, understating the duration needed.",
+      "Assuming the combined rate scales linearly forever without considering interface or tie-in constraints between spreads, which is a valid real-world caveat but does not change the arithmetic answer here."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct combined daily output and correct rounded duration."
+        }
+      ],
+      "passingScore": 4
+    },
+    "weight": 1,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "required duration",
+      "crew output rate",
+      "pipeline welding",
+      "parallel crews"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-005",
+    "category": "PMH",
+    "subcategory": "Crew Composition and Output Rate",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Understanding that crew output depends on a balanced composition of trades/skills, not just the headcount of any single trade",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "SCENARIO",
+    "scenario": "A high-rise residential tower's formwork subcontractor currently runs a standard crew of 1 foreman, 6 carpenters and 2 laborers, achieving 85 m2/day of wall formwork erection. To accelerate a recovery plan, the site team proposes doubling only the carpenters, to 12, while keeping 1 foreman and 2 laborers, expecting output to roughly double to about 170 m2/day.",
+    "question": "Is it reasonable to expect output to double by only doubling the carpenter headcount while keeping the foreman and laborer counts fixed? Explain what actually governs the crew's output rate.",
+    "expectedAnswer": "No, it is not reasonable to expect a simple doubling. Crew output depends on a balanced ratio of trades and skills for the task — foreman supervision and layout capacity, laborer material handling and support, carpenter installation — not on any single trade's headcount in isolation. Doubling carpenters without proportionally increasing laborer support and supervision capacity (one foreman now directing 12 carpenters instead of 6) will likely create bottlenecks in material/panel delivery, supervision and quality control, and physical working space, preventing output from scaling linearly and potentially reducing per-person productivity.",
+    "strongAnswer": "Adds that available working face/area is itself a constraint — even a perfectly balanced larger crew may not double output if there isn't physically twice the wall face available to work simultaneously, a trade-stacking-type limitation. The correct approach is to determine the optimal crew mix and maximum productive crew size for the available work face first, then decide whether adding a second balanced crew with its own foreman in a different area is a better way to accelerate than inflating one crew.",
+    "expertAnswer": "Frames this as a first-order estimating/methods judgment the site team should test with a short measured trial of the proposed crew mix over a few days before committing the recovery plan to it, since crew-output assumptions used to justify a recovery schedule are exactly the kind of assumption that, if wrong, causes a recovery plan to fail and erodes the client's confidence in future recovery commitments.",
+    "explanation": "Output rate is a function of the whole crew's balanced composition and the available work face, not of a single trade's headcount, so scaling one trade in isolation does not scale output proportionally.",
+    "reasoning": "Supervision span-of-control, support-trade ratios (material handling), and available work face together set a practical ceiling on how much a single crew's output can be increased simply by adding more of one trade.",
+    "commonMistakes": [
+      "Assuming output scales linearly with any single trade's headcount.",
+      "Ignoring supervision span-of-control and support-trade ratios.",
+      "Ignoring available work-face area as a physical constraint on parallel output."
+    ],
+    "redFlags": [
+      "Endorses the doubling assumption without questioning the crew ratio or work-face constraint."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "What data would you want from a short trial run before committing the recovery schedule to this crew-composition assumption?",
+        "purpose": "Tests whether the candidate proposes measuring actual output rather than relying purely on judgment."
+      },
+      {
+        "trigger": "always",
+        "prompt": "If the work face genuinely cannot support more than 8 carpenters productively, what alternative would you propose to accelerate?",
+        "purpose": "Tests whether the candidate can propose a second balanced crew/parallel front rather than only critiquing the flawed plan."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly rejects the linear-doubling assumption."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains crew balance and work-face constraints as the real governing factors."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete verification or alternative acceleration approach."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "crew composition",
+      "output rate",
+      "formwork",
+      "recovery schedule",
+      "high-rise"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-006",
+    "category": "PMH",
+    "subcategory": "Diagnosing Unexpected Productivity Decline",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying trade stacking as a candidate cause of declining productivity and knowing what to check first",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "On a hyperscale data center's white-space fit-out floor, weekly progress reports show MEP installation productivity — installed quantity per labor-hour — has been steadily declining over the past three weeks, even though crew headcount on that floor has actually increased each week as electrical, mechanical, fire protection and low-voltage trades have all mobilized into the same open floor area simultaneously to try to recover schedule.",
+    "question": "What would you check first to confirm whether trade stacking is the cause of the declining productivity?",
+    "expectedAnswer": "Check the planned versus actual trade density on that floor: compare the number of workers/trades now working concurrently in the same physical area against the area's practical working-space capacity (workers per m2 or per zone) assumed in the original productivity rate/estimate. A sharp rise in concurrent trades and headcount within a fixed physical area, coinciding with the productivity decline, supports trade stacking as the cause rather than coincidence.",
+    "strongAnswer": "Also checks whether the declining productivity is uniform across all trades on the floor or concentrated in specific trades/zones — which would point more specifically to interference between particular trades, such as electrical conduit routing conflicting with mechanical ductwork installation in the same ceiling void — and reviews site photos/daily reports for direct evidence of congestion, rework due to clashes, or waiting time.",
+    "expertAnswer": "Notes that confirming trade stacking should lead to a corrective recommendation, not just a diagnosis — for example, re-sequencing trades into a rolling wave by zone instead of all trades across the whole floor simultaneously, even if that appears to slow the immediate recovery push, because uncontrolled stacking is likely to keep eroding productivity for all trades the longer it continues, worsening the very recovery it was meant to achieve.",
+    "explanation": "Trade stacking — multiple trades competing for the same physical space and access — is a well-recognized productivity loss cause. Its diagnostic signature is productivity declining as concurrent worker/trade density rises in a fixed area, not merely headcount rising in isolation.",
+    "reasoning": "The correct first check isolates whether density (trades/workers per unit area) rather than total headcount alone has increased, since density is the mechanism that actually causes congestion-driven productivity loss.",
+    "commonMistakes": [
+      "Assuming more workers should automatically mean more output, without checking density or interference.",
+      "Treating the productivity numbers as self-evidently a workforce-quality problem instead of checking site conditions first."
+    ],
+    "redFlags": [
+      "Recommends adding even more workers to the same area to 'push harder' without checking stacking first."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile grouped by area/zone (if activities are coded by zone) to compare concurrent trade density over the three-week period."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If trade density is confirmed as the cause, what resequencing option would you propose, and what would you tell the site team who wanted 'all hands' to recover schedule?",
+        "purpose": "Tests whether the candidate can propose a corrective plan, not just a diagnosis."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Could this decline instead be explained by something unrelated to stacking, like a specific material shortage? How would you rule that out?",
+        "purpose": "Tests rigor in considering alternative explanations before concluding stacking is the cause."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Identifies trade density/congestion, not just headcount, as the relevant check."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names a concrete way to check density and corroborating evidence."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "trade stacking",
+      "productivity decline",
+      "data center",
+      "MEP fit-out",
+      "congestion"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-007",
+    "category": "PMH",
+    "subcategory": "Overtime-Driven Productivity Loss",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing sustained overtime/extended shift length as a cause of declining per-hour productivity due to cumulative fatigue",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A marine construction crew installing sheet piling has been working sustained 60-hour weeks — six 10-hour days — for the past eight weeks to recover schedule after a weather-related delay. The site engineer's weekly output-per-labor-hour tracking shows total weekly output has plateaued and even slightly declined over the last three weeks, despite an unchanged crew size and no change in equipment or piling type.",
+    "question": "What is the most likely cause of the productivity plateau/decline given these facts, and what would you recommend?",
+    "expectedAnswer": "The most likely cause is overtime/fatigue-driven productivity loss: sustained extended workweeks over many consecutive weeks are well documented to progressively reduce output per labor-hour, to the point where total weekly output can plateau or even fall despite more hours being worked, because each additional hour is less productive than a normal-shift hour, and cumulative fatigue also degrades the productivity of the 'normal' hours too. Would recommend reviewing whether continuing 60-hour weeks is still net-beneficial, since the marginal hours may be producing little or negative real output relative to their cost, and consider reverting to a more sustainable schedule (for example, 50-hour weeks or a rest-day rotation) to restore per-hour productivity, potentially achieving similar or better total output with fewer paid hours and lower safety risk.",
+    "strongAnswer": "Before concluding fatigue is the sole cause, rules out coincidental factors over the same 3-week window — material shortages, access/space constraints, changed ground conditions, or subcontractor crew turnover — but notes the specific pattern (a gradual plateau/decline despite unchanged crew and equipment, developing over many consecutive overtime weeks) is the classic fatigue signature rather than a discrete external cause, which usually produces a sudden step-change rather than a gradual decline.",
+    "expertAnswer": "Frames the recommendation in terms a manager would need: quantifies (or asks for) the actual cost per unit of output for the overtime hours, including the premium labor rate for hours producing below-normal output, against the schedule value gained, to make the case objectively rather than just asserting 'fatigue is bad'; recommends monitoring output-per-hour going forward as the leading indicator for whether any adjusted work schedule is actually improving productivity, rather than assuming a change will help without verifying it.",
+    "explanation": "Overtime productivity-loss patterns show diminishing and eventually negative returns to sustained extended hours over multiple weeks; a gradual plateau or decline with unchanged crew and equipment across many consecutive overtime weeks matches this pattern more closely than a discrete external cause.",
+    "reasoning": "Fatigue accumulates across consecutive weeks of extended hours, degrading both the marginal (overtime) hours and the baseline hours; the gradual, multi-week timing of the decline (rather than a sudden drop tied to a specific event) is the key evidence pointing to fatigue rather than a one-off external disruption.",
+    "commonMistakes": [
+      "Assuming more hours worked always means more output produced.",
+      "Not considering fatigue as a cause at all and searching only for external/site causes.",
+      "Recommending simply adding more overtime to 'push through' the plateau."
+    ],
+    "redFlags": [
+      "Dismisses fatigue as a real, measurable phenomenon.",
+      "Recommends further increasing hours without evidence it will help."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you convince a schedule-pressured project manager to reduce hours when the instinct is that more hours must mean more progress?",
+        "purpose": "Tests the candidate's ability to make a data-driven case against an intuitive but incorrect assumption."
+      },
+      {
+        "trigger": "always",
+        "prompt": "If you reduced the crew to 50-hour weeks, what would you track over the following 3 weeks to confirm the change actually helped?",
+        "purpose": "Tests whether the candidate proposes a verification plan rather than assuming the fix works."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly identifies sustained overtime/fatigue as the most likely cause with supporting reasoning."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Distinguishes the gradual fatigue pattern from a discrete external cause."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete, verifiable recommendation."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "overtime",
+      "fatigue",
+      "productivity loss",
+      "sheet piling",
+      "marine construction"
+    ],
+    "references": [
+      "Business Roundtable Scheduled Overtime Effect on Construction Projects (C-2)"
+    ]
+  },
+  {
+    "questionCode": "PMH-008",
+    "category": "PMH",
+    "subcategory": "Reconciling Manpower Histogram Against Physical Progress",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Diagnosing a situation where planned manpower levels are being achieved but physical progress is falling behind the manpower-loaded plan",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "On a highway widening project, the resource-loaded schedule's manpower histogram shows the paving and earthworks crews have consistently achieved, and in some weeks exceeded, their planned weekly headcount for the last 6 weeks. Despite this, physical percent-complete for earthworks is now 12 percentage points behind the baseline plan.",
+    "question": "Given that planned manpower is being met or exceeded, what would you investigate to explain why physical progress is still falling behind, and what does this combination of facts rule in or rule out as causes?",
+    "expectedAnswer": "This combination rules out simple under-mobilization (not enough workers) as the cause, since headcount targets are being met or exceeded — the gap must be in output per worker (productivity) or in the crew's ability to convert presence-on-site into installed quantity, not in staffing levels. Would investigate: actual productivity rate achieved versus the rate assumed in the baseline (fewer m3/day per person than planned, possibly due to ground conditions, access, equipment breakdowns, or an overly optimistic original estimate); whether the 'planned headcount' being met actually reflects productive working time, since high attendance can mask significant idle/waiting time from material delivery delays, utility relocation conflicts, or permit/inspection holds; and whether the crew composition matches what the productivity rate assumed, since meeting total headcount with an unbalanced skill mix can still underperform.",
+    "strongAnswer": "Proposes a specific diagnostic: compare actual output per day against the productivity rate baked into the original estimate for this specific activity, and separately track 'workers present' versus 'workers productively engaged' through daily reports or site observation, to distinguish an availability problem from a genuine productivity or estimating problem.",
+    "expertAnswer": "Notes the forward-looking implication for the recovery plan: if this is confirmed as a productivity shortfall rather than a staffing shortfall, simply adding more manpower — the default recovery instinct — will not close the gap and may make it worse through trade stacking or supervision dilution. The correct recovery lever is addressing the root productivity constraint (site conditions, equipment, sequencing, or re-estimating the remaining rate), not mobilizing additional crews.",
+    "explanation": "A manpower histogram tracks headcount or hours deployed, not output; when headcount targets are met but progress lags, the deficiency lies in achieved productivity or productive time utilization, not staffing, which changes the correct recovery response entirely.",
+    "reasoning": "Separating 'hours deployed' (histogram) from 'output earned' (percent complete/quantity) isolates whether the shortfall is a staffing problem or a productivity/utilization problem; the facts given already rule out the former, so the investigation should focus on the latter.",
+    "commonMistakes": [
+      "Recommending mobilizing more manpower as the default response without first checking whether staffing was ever the real constraint.",
+      "Not distinguishing 'present on site' from 'productively working.'"
+    ],
+    "redFlags": [
+      "Jumps straight to 'add more crews' without diagnosing root cause."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile (planned vs actual units/hours) plotted alongside percent-complete/quantity-earned trend for the same activities, to separate hours-deployed from output-earned."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you find workers are present but a large share of hours is idle waiting for material deliveries, is that a productivity problem or something else, and does it change your recovery recommendation?",
+        "purpose": "Tests whether the candidate distinguishes true productivity loss from an availability/logistics constraint masquerading as one."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you re-forecast the remaining duration if the actual achieved rate is confirmed to be materially below the baseline rate?",
+        "purpose": "Tests the candidate's ability to translate a diagnosed productivity shortfall into an updated forecast."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes headcount/hours deployed from output/productivity."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why meeting headcount rules out staffing as the cause."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete checks to isolate productivity vs utilization causes."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "manpower histogram",
+      "productivity shortfall",
+      "earthworks",
+      "highway",
+      "recovery planning"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-009",
+    "category": "PMH",
+    "subcategory": "Manpower Leveling Under a Hard Site Constraint",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Deciding how to level a resource-loaded schedule when peak manpower demand exceeds a hard site/logistics constraint, while protecting the critical path where possible",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "scenario": "A remote inland oil & gas processing facility's resource-loaded schedule shows peak combined craft manpower demand of 640 workers in Week 22, but the site's temporary accommodation camp has a hard capacity limit of 500 beds, with no ability to expand camp capacity before Week 22 due to a separate permitting constraint. Several of the trades contributing to the Week 22 peak — insulation, painting, and instrumentation tray installation — have significant total float in the current schedule; the mechanical piping and structural steel crews driving the peak have little to no float.",
+    "question": "How would you approach leveling this schedule to fit within the 500-bed camp constraint, and what would you prioritize?",
+    "expectedAnswer": "Prioritize shifting the float-rich, non-critical trades — insulation, painting, instrumentation tray — later within their available float first, rather than delaying the no-float mechanical piping/structural steel work, since that preserves the critical path and finish date while reducing the Week 22 peak headcount. Recalculate the leveled histogram to confirm the new Week 22 peak, mechanical plus steel plus whatever float-trades remain, fits within 500 beds; only if it still doesn't fit would you examine whether the no-float trades' own peak can be smoothed by re-sequencing or re-phasing their own scope, for example splitting a large-crew short-duration approach into a smaller-crew longer-duration approach, without extending the critical path, before accepting a finish-date impact.",
+    "strongAnswer": "Notes that leveling based on float alone is necessary but not sufficient — also checks whether the shifted trades' rescheduled timing creates new conflicts, such as insulation now overlapping with something else at its new dates or exceeding a different constraint like scaffold availability, and would re-run the full leveled histogram rather than checking only the single Week 22 peak in isolation.",
+    "expertAnswer": "Frames the decision explicitly as float-consumption risk management: using up float on insulation, painting and instrumentation to solve today's camp constraint reduces the schedule's resilience against future disruption on those trades' own paths, so this should be flagged to the project manager as a trade-off, schedule risk buffer spent to solve a logistics constraint, rather than treated as a free fix. If leveling alone cannot resolve the peak without touching the critical path, recommends escalating the camp capacity conflict itself, such as temporary additional accommodation, bussing workers from a nearby site, or phased demobilization of an earlier trade, as parallel options rather than accepting a finish-date slip by default.",
+    "explanation": "Manpower leveling should consume available float on non-critical trades before ever impacting the critical path, since that avoids extending overall duration; float consumption is not risk-free, however, and should be visible to management rather than treated as a silently free resource.",
+    "reasoning": "Leveling logic prioritizes shifting activities with float over activities without float, because delaying a no-float activity directly extends the project finish date while delaying a float-rich activity does not, as long as the shift stays within the available float.",
+    "commonMistakes": [
+      "Leveling by simply cutting the largest-headcount trade regardless of its float status.",
+      "Not re-checking that the re-leveled schedule still avoids impacting the critical path after the shift.",
+      "Treating float as a free resource with no downside to consuming it."
+    ],
+    "redFlags": [
+      "Recommends delaying the no-float mechanical/steel crews without recognizing the finish-date consequence.",
+      "No mention of re-checking the full leveled profile after adjustment."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile/Histogram before and after applying Level within available float.",
+      "Total Float column to identify which contributing trades have float to give.",
+      "Re-run the leveled histogram to confirm the new Week 22 peak actually fits the 500-bed limit."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "After leveling, the float-rich trades' new peak still pushes Week 22 to 540 workers. What would you do next?",
+        "purpose": "Tests whether the candidate has a next step beyond the first leveling pass, rather than assuming one pass always solves the constraint."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you communicate the float consumed by this leveling exercise to the project manager?",
+        "purpose": "Tests whether the candidate treats float consumption as something to report transparently, not just execute silently."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly prioritizes float-rich trades over no-float trades for leveling."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes a concrete re-check of the leveled histogram against the constraint."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes float consumption as a trade-off worth surfacing to management, not a free fix."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "manpower leveling",
+      "camp capacity",
+      "float consumption",
+      "oil and gas",
+      "remote site"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "PMH-010",
+    "category": "PMH",
+    "subcategory": "Learning Curve Effect on Repetitive Unit Productivity",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Applying a unit learning-curve model to forecast the labor-hours for a later repetition of a repetitive task",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "NUMERICAL",
+    "scenario": "A precast concrete parking structure involves erecting 60 identical double-tee panels. The erection crew's first panel took 6.0 labor-hours to place, align and secure. Based on similar past projects, the estimating team applies a 90% learning curve, meaning each doubling of cumulative panels erected reduces the per-panel time to 90% of what it was at half that cumulative count.",
+    "question": "Using the standard unit learning-curve model, T(n) = T1 x n^b where b = ln(learning rate) / ln(2), estimate the labor-hours required for the 20th panel. Show your calculation.",
+    "correctAnswer": 3.8,
+    "explanation": "b = ln(0.90) / ln(2) = (-0.10536) / (0.69315) = -0.152. T(20) = 6.0 x 20^(-0.152) = 6.0 x e^(-0.152 x ln 20) = 6.0 x e^(-0.152 x 2.9957) = 6.0 x e^(-0.4553) = 6.0 x 0.634 = approximately 3.8 labor-hours.",
+    "reasoning": "This is the unit (per-piece) learning-curve model, distinct from the cumulative-average-time model, which uses a different formula. It forecasts the time for one specific repetition, not the average time across all repetitions to date. In practice, learning-curve effects flatten out at higher repetition counts and can be disrupted by crew turnover or changed conditions, so this is a planning estimate that should be revisited against actual recorded times at intervals.",
+    "commonMistakes": [
+      "Applying the 90% factor as a flat linear percentage reduction per panel instead of the power-curve relationship.",
+      "Confusing the unit-time model with the cumulative-average-time model, which uses a different formula and answers a different question.",
+      "Forgetting that learning curves assume a stable, unchanged crew and a genuinely repeatable task, an assumption worth challenging on a real project."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly derives b and computes T(20) within a reasonable rounding tolerance (approximately 3.7-3.9 hours)."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Notes the model's real-world limitations (crew turnover, flattening effect, need to validate against actuals)."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "learning curve",
+      "precast erection",
+      "unit rate",
+      "productivity forecasting"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-011",
+    "category": "PMH",
+    "subcategory": "Weather-Driven Productivity Loss and Forecast Adjustment",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Adjusting a manpower/duration forecast for weather-driven productivity loss using a realistic partial-productivity factor rather than a simple binary worked/not-worked day",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "PRACTICAL_SCENARIO",
+    "scenario": "A rural highway paving package in a region with a pronounced summer heat season is baselined assuming a standard 8-hour productive day and the estimated productivity rate throughout. Local historical weather/HSE data shows that for the 10 weeks of peak summer, when ambient temperatures regularly exceed 42 degrees C, mandatory heat-stress work/rest cycles and reduced achievable working hours cut effective productive time to roughly 65% of a normal day on average, even on days that are not fully lost to a weather stoppage.",
+    "question": "How should this be reflected in the manpower/duration forecast for the paving activities that fall within the 10-week summer window, and what is wrong with simply marking those weeks' calendar as non-working weather days?",
+    "expectedAnswer": "Marking the summer weeks as fully non-working days would overstate the impact, since roughly 65% of a normal day's output is still typically achieved, while simply ignoring the heat effect would understate it. The correct approach is to apply a productivity/output adjustment factor, effectively treating those weeks as achieving about 65% of the normal daily output rate, to the affected activities' remaining duration or required crew size calculation, rather than either ignoring the effect or treating the whole period as fully lost.",
+    "strongAnswer": "Adds that this can be modeled by extending the activity's duration for the same crew size, increasing crew size to compensate within the same duration, or a combination of both, and that the choice has cost implications, extra duration versus extra headcount, that should be evaluated rather than applied mechanically; also notes that mandatory rest-cycle time is itself a real paid cost even though it produces no output, and should be reflected in cost loading as well as in duration.",
+    "expertAnswer": "Notes this kind of adjustment should be based on the project's own historical productivity data from a similar prior summer season on this or a comparable regional project, rather than a generic assumption, and that a planning engineer who fails to build a known, foreseeable, recurring seasonal productivity effect into the baseline is setting the project up for a predictable schedule slip every year at the same time — a poor forecasting practice which, in a contractual context, also weakens, though does not eliminate, since this remains a technical planning point rather than a determination of entitlement, any later argument that the weather impact was unforeseeable.",
+    "explanation": "Weather-driven productivity loss is better modeled as a partial-productivity factor applied to every affected working day than as a binary worked/lost day, since the underlying effect (reduced achievable hours from mandatory rest cycles) applies broadly across the period rather than eliminating entire days.",
+    "reasoning": "Treating the period as fully non-working discards the roughly 65% of normal output actually achieved; treating it as fully normal ignores a documented, quantifiable productivity loss — the accurate model applies the historical factor to every affected day.",
+    "commonMistakes": [
+      "Treating weather impact as a strictly binary lost-day/not-lost-day calendar exception.",
+      "Using a generic weather allowance instead of a locally-substantiated productivity factor.",
+      "Ignoring paid non-productive rest-cycle time in cost loading."
+    ],
+    "redFlags": [
+      "Draws no distinction between 'day lost' and 'day at reduced productivity.'"
+    ],
+    "p6Checks": [
+      "Calendar exceptions (for fully lost days) versus an adjusted productivity rate/duration on affected activities for the partial-productivity effect.",
+      "Historical productivity/weather-loss data from a comparable prior season, if available, as the basis for the applied factor."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If next year's summer is milder than the historical average, does that retroactively prove this year's forecast adjustment was wrong?",
+        "purpose": "Tests whether the candidate understands the adjustment is a statistically reasonable forecast, not a guaranteed prediction."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would you apply the same 65% factor to indoor MEP fit-out activities running in parallel during the same 10 weeks?",
+        "purpose": "Tests whether the candidate recognizes the factor is specific to outdoor/heat-exposed work, not a blanket seasonal adjustment."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly rejects the binary lost-day approach in favor of a partial-productivity factor."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete way to apply the factor to duration/crew size and cost loading."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "weather productivity loss",
+      "heat stress",
+      "paving",
+      "seasonal forecasting",
+      "duration adjustment"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-012",
+    "category": "PMH",
+    "subcategory": "Trade Stacking Root-Cause Analysis and Corrective Sequencing",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Conducting a structured investigation into a multi-trade productivity collapse on a congested fit-out floor and recommending a corrective resequencing plan",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "CASE_STUDY",
+    "scenario": "A hospital tower's Level 6 patient-ward fit-out floor was originally sequenced with a rolling-wave approach: one of 4 zones fully worked in sequence, each zone handed from ceiling/MEP rough-in through drywall to finishes before the next zone starts. Under schedule pressure, the site team abandoned the zoning three weeks ago and opened all 4 zones simultaneously to all trades — MEP rough-in, drywall framing, and finishes crews. Since then: overall productivity, installed quantity per labor-hour averaged across trades, has dropped 30% from the original baseline rate; rework hours documented via daily reports have tripled; and net weekly progress, despite roughly 25% more total labor-hours being deployed than planned, is now behind the original zoned-sequence baseline.",
+    "question": "Analyze what has most likely happened here, and recommend a corrective course of action, including whether you would revert to the original zoning.",
+    "expectedAnswer": "This is a clear trade-stacking-driven productivity collapse. Abandoning zoning and running MEP rough-in, framing and finishes concurrently across all 4 zones created direct physical and sequence conflicts — finishes and framing crews working in spaces where MEP rough-in is not complete, causing rework when later trades damage or must remove not-yet-inspected or incomplete prior work, congestion in shared access and corridors, and quality/inspection hold-ups from out-of-sequence work. This explains both the productivity drop and the tripled rework despite more labor-hours deployed: the extra labor is being consumed by congestion and rework, not converted into net progress, which is exactly why net weekly progress is behind despite more hours.",
+    "strongAnswer": "Recommends reverting to a zoned/rolling-wave sequence, or a modified version with more parallel zones than the original one-zone-at-a-time approach if genuinely needed for schedule recovery, but with clear trade sequencing enforced within each zone, rather than continuing open-floor stacking, since the data shows the 'more trades at once' approach is net counter-productive here, not just slower to show visible results. Suggests a short transition/stabilization period to complete out-of-sequence work and re-establish zone boundaries before judging the corrected approach's real rate.",
+    "expertAnswer": "Frames the recommendation with the commercial/behavioral reality that reverting will look like a step backward to the client or management in the short term, since visible zones will appear to 'close' again rather than all 4 appearing simultaneously active, and prepares the data-driven case — the productivity, rework and net-progress numbers already gathered — to justify the reversal decision to project leadership rather than simply asserting it. Also recommends instituting an early-warning metric, productivity per labor-hour tracked weekly rather than just headcount or activity-count progress, so a similar stacking-driven collapse is caught within a week or two next time, not three weeks in.",
+    "explanation": "The combination of falling productivity, tripled rework, and net progress lagging despite higher labor-hours deployed is a coherent, internally consistent signature of trade-stacking-driven congestion and out-of-sequence rework triggered specifically by the zoning abandonment.",
+    "reasoning": "Trade stacking degrades productivity through physical congestion and out-of-sequence rework; connecting all three data points (productivity down, rework up, hours up but net progress down) to the single sequencing change, rather than treating them as separate or coincidental issues, is what correctly diagnoses the root cause.",
+    "commonMistakes": [
+      "Recommending adding still more labor-hours to compensate for the shortfall.",
+      "Not connecting the rework increase to the sequencing change.",
+      "Being reluctant to recommend reverting a 'recovery' decision because it looks like admitting the recovery attempt failed."
+    ],
+    "redFlags": [
+      "Cannot connect the three data points, productivity drop, rework triple, hours up but progress down, into one coherent explanation."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The site superintendent argues that reverting to zoning will visibly 'slow down' the floor and make the recovery look worse to the client next week. How do you respond?",
+        "purpose": "Tests whether the candidate can defend a technically correct but optically unfavorable recommendation with data."
+      },
+      {
+        "trigger": "always",
+        "prompt": "What early-warning threshold would you set on the productivity-per-labor-hour metric to trigger a review before three weeks pass next time?",
+        "purpose": "Tests whether the candidate can operationalize the lesson learned into a concrete monitoring practice."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects productivity drop, rework increase, and lagging net progress into one coherent trade-stacking explanation."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends reverting/resequencing despite the optics, supported by the data."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete corrective sequencing plan and a forward-looking monitoring metric."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 260,
+    "tags": [
+      "trade stacking",
+      "rolling wave sequencing",
+      "hospital fit-out",
+      "rework",
+      "productivity collapse"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PMH-013",
+    "category": "PMH",
+    "subcategory": "Validating a Manpower Histogram Without Crew Composition Data",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying what information is missing to properly validate a submitted resource-loaded schedule's manpower histogram",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "questionType": "MISSING_INFO",
+    "scenario": "A solar farm EPC subcontractor submits a resource-loaded schedule for the module installation and racking scope, with a manpower histogram showing a flat 180 workers per day for the full 20-week installation duration, meeting a stated total capacity of 45 MWdc. The client's project controls reviewer is asked to validate whether 180 workers/day is a credible, achievable number.",
+    "question": "What information is missing before you can validate whether the 180 workers/day figure is credible, and what would you request from the subcontractor?",
+    "expectedAnswer": "Missing: the underlying productivity rate assumption, labor-hours per MW or per module/panel installed, and the crew composition, the ratio of racking installers, module installers, electrical/wiring crews and QC, used to derive the 180 figure. Without these, 180 workers/day is an assertion, not a substantiated number. Also missing is whether 180 is meant to be a constant flat crew for the whole 20 weeks, which is unusual since most projects ramp up and down, or a simplification/average of a real ramp-up/ramp-down profile. Would request the detailed productivity build-up (labor-hours per MW or per module by activity), the planned crew composition and daily output rate per crew, and the underlying calculation showing how quantity divided by rate divided by duration produces 180, plus confirmation of whether this is a true flat histogram or an averaged representation of a ramped one.",
+    "strongAnswer": "Notes that a flat, non-ramping histogram across the full duration is itself a red flag worth specifically questioning, since mobilization and final commissioning/testing phases typically need fewer installation workers than peak mid-installation, and that a genuinely flat number across 20 weeks might indicate the schedule was built by simply dividing total scope by total duration rather than genuine activity-level resource loading.",
+    "expertAnswer": "Connects this to downstream risk: if 180 workers/day is not actually achievable at that rate, the subcontractor will either fall behind, which would be visible early if properly resource-loaded and tracked against an achievable baseline, or will be forced into recovery-mode overstaffing/overtime later. Recommends the client's review insist on the detailed build-up before accepting this as the baseline against which progress and any future EOT/recovery claims will be measured, since an unsubstantiated baseline weakens the client's position in any later schedule dispute.",
+    "explanation": "A manpower figure without the underlying productivity rate, crew composition and ramp profile behind it cannot be validated as credible, only accepted on faith, which is an inadequate basis for a baseline that will govern progress tracking and future disputes.",
+    "reasoning": "Validating any manpower/duration figure requires reconstructing it from quantity, rate and crew composition; a bare headcount number with no visible derivation cannot be checked for reasonableness or achievability.",
+    "commonMistakes": [
+      "Accepting a flat headcount number without asking for its derivation.",
+      "Not noticing the lack of ramp-up/ramp-down as itself suspicious.",
+      "Conflating 'a histogram exists' with 'the histogram is validated.'"
+    ],
+    "redFlags": [
+      "Approves the schedule without requesting supporting productivity/crew data."
+    ],
+    "p6Checks": [
+      "Resource assignment detail, Budgeted Units/Time per resource per activity, versus a flat manual override on a summary activity.",
+      "Resource Usage Profile shape, flat versus ramped, as a first visual indicator of whether genuine activity-level loading was performed."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The subcontractor provides a productivity rate but no crew composition breakdown. Is that enough to validate the 180 figure?",
+        "purpose": "Tests whether the candidate recognizes both the rate and the composition are needed, not just one."
+      },
+      {
+        "trigger": "always",
+        "prompt": "If the subcontractor refuses to provide the underlying build-up, what would you do?",
+        "purpose": "Tests how the candidate handles a stonewalled request for substantiation, escalation versus conditional acceptance."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies both productivity rate and crew composition as missing, not just one."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Flags the flat, non-ramping shape itself as suspicious."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Specifies concrete documents/data to request."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "manpower histogram validation",
+      "solar farm",
+      "productivity substantiation",
+      "missing information"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "PMH-014",
+    "category": "PMH",
+    "subcategory": "Responding to a Camp/Logistics Capacity Breach in Manpower Forecast",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Deciding the next steps when a manpower forecast reveals peak demand will exceed remote-site logistics capacity well ahead of time",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "WHAT_NEXT",
+    "scenario": "On a remote LNG plant construction project, the 18-month-ahead rolling manpower forecast, built from the resource-loaded schedule, now shows a projected peak workforce of 3,400 workers in Month 14, driven by overlapping mechanical, piping, electrical and instrumentation completion activities across multiple process units. The site's camp, catering and site-transport infrastructure is contracted and being built out for a firm maximum of 2,800 workers, and the camp expansion contract cannot be increased before Month 14 due to its own long-lead construction timeline.",
+    "question": "As the project controls lead who has just identified this 600-worker forecast breach, what do you do next?",
+    "expectedAnswer": "Immediately escalate the forecast breach to the project management team with the specifics — the 600-worker gap, the Month 14 timing, and the driving activities/process units. This is a forward-looking capacity risk identified with enough lead time, well before Month 14, that it should be treated as a live planning problem to solve now, not just logged for later. In parallel, work with the schedule to identify options: leveling non-critical/float-rich trades among the Month 14 contributors to spread demand into adjacent months, examining whether some scope can be resequenced or split across process units to avoid full overlap, and evaluating whether the camp/logistics infrastructure itself can be supplemented, through temporary additional accommodation, off-site lodging with transport, or phased demobilization of an earlier-completing discipline, as a parallel track alongside schedule leveling.",
+    "strongAnswer": "Notes that because this was caught 4-plus months ahead, there is real optionality to solve it without a finish-date impact if enough float exists among the contributing trades. Recommends quantifying how much of the 600-worker peak can be absorbed by float-based leveling alone versus how much genuinely requires either more camp capacity or a schedule extension, so management gets a clear, quantified set of options rather than just a warning.",
+    "expertAnswer": "Frames this explicitly as a case where early identification is the main value the project controls function adds. Recommends setting a recurring rolling-forecast review specifically watching for camp/logistics capacity breaches going forward, since this is unlikely to be the only month at risk on an 18-month lookahead with multiple overlapping disciplines, rather than treating this one instance as a one-off fire to put out. Prepares the trade-off analysis, cost of camp expansion versus schedule impact of leveling/extension, needed for a management decision rather than making the call unilaterally.",
+    "explanation": "A forecast breach identified this far ahead should be escalated promptly with a quantified set of options, since the lead time available is exactly what makes the problem solvable without a forced, late, reactive decision.",
+    "reasoning": "The value of an 18-month rolling forecast lies in surfacing capacity conflicts while there is still time to act; failing to escalate promptly, or escalating without quantified options, wastes the lead time that makes the problem solvable.",
+    "commonMistakes": [
+      "Waiting until closer to Month 14 to raise the issue.",
+      "Presenting only the problem without quantified options.",
+      "Assuming leveling alone will obviously solve it without checking how much float is actually available among the contributing trades."
+    ],
+    "redFlags": [
+      "Does not escalate promptly given the lead time available.",
+      "Offers no concrete options."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile, 18-month lookahead, grouped/filtered by discipline.",
+      "Total Float on Month 14 contributing activities to assess leveling headroom.",
+      "Group/filter by process unit to check resequencing options."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "Leveling alone can only absorb 250 of the 600-worker gap. What do you present to management for the remaining 350?",
+        "purpose": "Tests whether the candidate can present a partial-solution scenario honestly rather than overstating what leveling alone can achieve."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you build a recurring check into the rolling forecast process so similar breaches are caught even earlier on this project going forward?",
+        "purpose": "Tests process-improvement thinking beyond resolving this single instance."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Describes concrete, quantified options (leveling, resequencing, camp supplementation)."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Escalates promptly given the lead time rather than delaying."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses both the immediate escalation and a forward-looking monitoring improvement."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "manpower forecast",
+      "camp capacity",
+      "LNG",
+      "remote site logistics",
+      "leveling"
+    ],
+    "references": [
+      "Oracle Primavera P6 Professional User's Guide"
+    ]
+  },
+  {
+    "questionCode": "PMH-015",
+    "category": "PMH",
+    "subcategory": "Attributing Productivity Loss for Client Reporting (Disruption vs Internal Inefficiency)",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Exercising professional judgment when reporting a productivity shortfall to a client, distinguishing genuinely client-caused disruption from internal inefficiency without overstating entitlement or understating a legitimate claim",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "You are the project controls manager on a large industrial EPC project. Cumulative productivity on the mechanical piping scope is currently running at 0.72, meaning actual labor-hours are 39% higher than the earned/planned labor-hours for the quantity installed to date. Your site team's informal view is 'it's all the client's fault,' citing frequent client-issued engineering revisions and late free-issue materials. Your own review of the data also shows the piping general foreman has had unusually high crew turnover, part of your own subcontractor's workforce management, and that a significant number of shifts show low productivity on days with no recorded client-caused disruption at all.",
+    "question": "How would you approach analyzing and reporting this productivity shortfall, both internally to your management and, separately, toward any potential claim discussion with the client?",
+    "expectedAnswer": "Would not simply adopt the site team's 'it's all the client's fault' framing without analysis. Would first separate the 39% shortfall into components with actual supporting evidence: labor-hours lost specifically attributable to documented client-caused disruption events, engineering revisions with dates and scope, late free-issue material with dates, tied to specific affected activities/crews, versus the portion that correlates with internal factors, crew turnover timing, and days with no disruption event but still low output. Would report the findings honestly to internal management, showing both components, not just the client-attributable portion, since understating internal inefficiency to management creates its own risk: repeating the same internal problem, and losing credibility if the client's own investigation finds the internal-cause portion first.",
+    "strongAnswer": "Adds that even for the portion attributable to client-caused disruption, technical schedule/productivity analysis, quantifying lost labor-hours or reduced productivity correlated with disruption events, is necessary but not sufficient to establish contractual entitlement to a claim or additional payment. That depends on the specific contract terms, notice provisions, disruption/loss-of-productivity clauses, and causation and proof requirements, which is a separate determination from the technical analysis and should involve the commercial/contracts team rather than being asserted by project controls alone.",
+    "expertAnswer": "Recognizes the dual audience and professional-integrity dimension explicitly. Internally, full transparency about the internal-inefficiency component is necessary for the company to actually fix it and to avoid a credibility problem later. Externally toward the client, presenting only a rigorously evidenced, disruption-correlated claim rather than the full 39% protects the company's credibility and improves the realistic chance of recovering the legitimate portion, whereas inflating the claim to the full 39% risks the whole claim being discredited once the client's own analysis finds the internal-cause days. Recommends using a recognized methodology, such as a measured mile analysis comparing an undisrupted/baseline productivity period against the disrupted period where a comparable undisrupted period of the same scope exists, to make the disruption-attributable portion as defensible as possible.",
+    "explanation": "A productivity shortfall should be analyzed by attributable cause before it is reported or claimed, since neither adopting the site team's client-blame framing uncritically nor dismissing the client-caused portion entirely reflects the mixed evidence available; technical analysis of lost productivity is also distinct from, and does not itself establish, contractual entitlement.",
+    "reasoning": "The evidence given, high crew turnover and low-productivity days with no recorded disruption, directly contradicts a 100%-client-caused explanation, so a credible analysis must separate attributable causes using specific, dated evidence rather than accept either extreme framing; entitlement is then a further, separate, contract-dependent question.",
+    "commonMistakes": [
+      "Adopting the site team's framing uncritically and reporting or claiming the full 39% as client-caused.",
+      "Conversely, dismissing the client-caused portion entirely to avoid conflict with the client.",
+      "Not using any recognized method, such as measured mile, to substantiate the disruption-attributable portion.",
+      "Treating a technical productivity-loss finding as automatically equivalent to contractual entitlement."
+    ],
+    "redFlags": [
+      "Reports or pursues a claim for the full shortfall without evidentiary attribution.",
+      "Hides the internal-inefficiency finding from own management."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The site team pushes back, saying a measured mile analysis will take weeks and the client wants an answer now. How do you respond?",
+        "purpose": "Tests whether the candidate holds the line on rigor under time pressure rather than defaulting to an unsubstantiated quick answer."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Does finding that some of the shortfall is internally caused mean the client-caused portion has no merit at all?",
+        "purpose": "Tests whether the candidate understands mixed causation is normal and does not eliminate a legitimate, narrower claim."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Rejects both the uncritical client-blame framing and an internal cover-up; reports honestly to own management."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Proposes a sound attribution method (e.g., measured mile) rather than an unsubstantiated split."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes technical productivity-loss analysis from contractual entitlement determination."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 2,
+    "estimatedTimeSec": 260,
+    "tags": [
+      "productivity loss claim",
+      "measured mile",
+      "disruption vs inefficiency",
+      "professional judgment",
+      "EPC"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol",
+      "AACE International Recommended Practices"
+    ]
+  }
+]
