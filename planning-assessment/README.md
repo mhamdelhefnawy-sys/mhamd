@@ -10,7 +10,7 @@ application, independent of any other project in this repository.
 
 ## What's here
 
-- **Professional question bank** — 500+ original, structured questions
+- **Professional question bank** — 705 original, structured questions
   (see `content/questions/*.json`, loaded by the seed script) spanning 25
   categories: CPM/Float, Primavera P6 Fundamentals & Advanced, Schedule
   Logic, Constraints, Calendars, Progress Updating, Baselines, Schedule
