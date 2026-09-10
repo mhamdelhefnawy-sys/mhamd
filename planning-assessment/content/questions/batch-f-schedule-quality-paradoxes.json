@@ -1223,5 +1223,443 @@
     "references": [
       "GAO Schedule Assessment Guide"
     ]
+  },
+  {
+    "questionCode": "SQ-018",
+    "category": "SQ",
+    "subcategory": "Open Ends and Dangling Logic",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing that milestones participate fully in CPM calculation and are not exempt from needing real logic ties",
+    "difficulty": 1,
+    "careerLevel": "JUNIOR",
+    "secondaryCareerLevels": [
+      "PLANNING_ENGINEER"
+    ],
+    "questionType": "MCQ",
+    "scenario": "A shipyard's newbuild vessel construction schedule includes several intermediate milestones such as 'Keel Laid', 'Hull Structurally Complete', and 'Launch', which the planner has left with no predecessor or successor relationships at all, reasoning that 'milestones are just markers, they don't need logic.'",
+    "question": "Is the planner's reasoning correct?",
+    "options": [
+      {
+        "label": "A",
+        "text": "No — a milestone with no predecessor defaults to the data date or project start regardless of real progress, and a milestone with no successor cannot drive or be driven by anything downstream, so milestones need real logic ties reflecting what must complete before them and what depends on them afterward, just like any other activity",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "Yes — milestones are purely informational markers and do not participate in CPM forward/backward pass calculations",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "No, but only Finish milestones need a predecessor; Start milestones never require any logic at all",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "Yes, as long as the milestone dates are manually typed in to match what the team currently expects, logic ties are unnecessary",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Milestones are activities (typically zero-duration) from a CPM engine's perspective and participate fully in the forward and backward pass — an unlinked milestone floats freely exactly like any other open-ended activity, meaning 'Keel Laid' could show an artificially early date with no real connection to the structural work it is meant to mark, and 'Launch' would fail to reflect genuine readiness if nothing downstream actually depends on its completion. Options C and D describe exceptions that do not exist in real CPM mechanics.",
+    "reasoning": "This is the same float-distortion mechanism as any other open-ended activity: without real predecessor and successor logic, a milestone's calculated date is not actually derived from network logic at all, undermining its entire purpose as a meaningful checkpoint.",
+    "commonMistakes": [
+      "Believing milestones are exempt from normal logic-tie requirements because they have zero duration.",
+      "Assuming a milestone's manually-appearing 'reasonable' date is proof it is being calculated correctly."
+    ],
+    "redFlags": [
+      "Cannot explain that milestones participate in the forward/backward pass the same way durationed activities do.",
+      "Sees no problem with widespread unlinked milestones in a schedule."
+    ],
+    "p6Checks": [
+      "Activities view — filter for milestone activity types with zero predecessors or zero successors, excluding only the true project start/finish milestones.",
+      "Trace each flagged milestone back to the specific activities whose completion it is actually meant to represent."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If 'Launch' has no successor at all, what practical problem does that create even though it's the last major milestone before sea trials?",
+        "purpose": "Tests whether the candidate connects the concept to a concrete downstream consequence, not just the rule."
+      },
+      {
+        "trigger": "if_incorrect",
+        "prompt": "What would 'Keel Laid' show as its Early Start if nothing forces it to wait for any prior structural work?",
+        "purpose": "Remedial prompt toward the float/default-date mechanics of an open-start activity."
+      }
+    ],
+    "weight": 1,
+    "estimatedTimeSec": 80,
+    "tags": [
+      "open ends",
+      "milestones",
+      "dangling logic",
+      "shipyard",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-019",
+    "category": "SQ",
+    "subcategory": "Excessive Soft Constraints",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing that widespread cosmetic use of As Late As Possible constraints distorts float-based metrics even though it does not override calculated dates the way a hard constraint does",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "SCENARIO",
+    "scenario": "A multi-family residential podium schedule review finds that 60 of the schedule's roughly 900 remaining activities carry an 'As Late As Possible' (ALAP) constraint, mostly non-critical finishing trades (painting, signage, final cleaning). The planner applied ALAP to these activities so the Gantt chart bars would 'look tidier' by pushing float-rich activities toward their late dates rather than showing long early-start bars.",
+    "question": "What schedule-quality concern does this widespread ALAP usage create, even though ALAP is a soft constraint that stays within logic-calculated boundaries rather than overriding them?",
+    "explanation": "ALAP forces an activity to schedule at its late dates within its own available float, which consumes that activity's float internally and makes it display as having little or no free float even though real, unused schedule buffer still exists structurally in the network — this can make an activity look falsely critical or near-critical in float-based filters and reports, distorting exactly the kind of high-float or criticality metrics used elsewhere to assess schedule health. It also means that if a predecessor finishes early, an ALAP successor will deliberately NOT start early to capture that gain, since it is scheduled to sit at its late date by design — this can misrepresent the project's true ability to recover time from upstream good news. While ALAP does not override calculated dates the way a hard Start-On/Finish-On constraint does, applying it to dozens of activities purely for Gantt-chart cosmetics removes real flexibility the schedule should retain and corrupts the float-based signals reviewers rely on.",
+    "reasoning": "ALAP is a genuine constraint mechanic, not a display-only setting — it changes calculated dates within the activity's float envelope, so 'it's only cosmetic' is not accurate; the difference from a hard constraint is only that ALAP stays inside logic-calculated boundaries rather than overriding them entirely.",
+    "commonMistakes": [
+      "Assuming ALAP is purely a Gantt-chart display preference with no real calculation impact.",
+      "Not recognizing that ALAP consumes an activity's own float, making it appear artificially critical or near-critical.",
+      "Believing only hard constraints (Start On, Finish On) are worth auditing for schedule-quality concerns."
+    ],
+    "redFlags": [
+      "Cannot explain that ALAP is a real constraint affecting calculated dates, not just a cosmetic Gantt setting.",
+      "Sees no problem with dozens of activities carrying ALAP purely for chart appearance."
+    ],
+    "p6Checks": [
+      "Activities view — add the Constraint Type column and filter for 'As Late as Possible' to quantify usage.",
+      "For a sample of ALAP activities, temporarily remove the constraint and compare the resulting Free Float / Total Float to see how much the constraint was suppressing.",
+      "Check whether any ALAP-constrained activities sit near a filter threshold used elsewhere (e.g., a 'critical if TF < 5 days' report) that their ALAP-driven float consumption could be distorting."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Is there ever a legitimate reason to use ALAP deliberately rather than just for Gantt-chart appearance?",
+        "purpose": "Tests nuance — e.g., deliberately delaying float-rich procurement of a perishable/high-storage-cost item can be a legitimate ALAP use case."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you recommend the planner achieve a 'tidier' Gantt chart appearance without using ALAP as the mechanism?",
+        "purpose": "Tests whether the candidate can solve the underlying cosmetic need (e.g., a layout/filter change) without sacrificing float accuracy."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains ALAP's real effect on calculated dates and float."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains how ALAP usage distorts float-based schedule-quality metrics elsewhere."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete way to check for and address ALAP overuse."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "ALAP",
+      "soft constraints",
+      "float distortion",
+      "residential",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-020",
+    "category": "SQ",
+    "subcategory": "Excessive Lag Usage",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing that modeling schedule contingency as an invisible relationship lag undermines transparency and trackability compared to an explicit buffer activity",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "A cross-border gas pipeline tie-in package review finds a Finish-to-Finish relationship between 'Hydrostatic Testing — Segment 7' and 'Tie-In Weld & NDT — Segment 7' carrying a 15-working-day positive lag. When asked why, the planner explains: 'That's just our schedule contingency for this segment, built in as a buffer in case testing runs long.'",
+    "question": "Is modeling contingency as a lag on this relationship a defensible practice? What is the concern, and what would you recommend instead?",
+    "explanation": "This is not a defensible way to model contingency. The concern is that a lag hides the contingency as an invisible number buried inside one relationship rather than as a transparent, trackable schedule element — it cannot be resourced, cannot be reported on as its own line item, and cannot be consumed and tracked (how much contingency has been used versus how much remains) the way an explicit activity can, and a reviewer scanning the schedule for risk allowances will not see it unless they specifically inspect that one relationship's lag value among thousands of others. It also blurs accountability: contingency should generally be visible at a defined point — a dedicated, clearly labeled 'Schedule Risk Contingency — Segment 7' activity, sized and positioned deliberately — so management can consciously see and decide how much total contingency exists and where it sits, rather than having it scattered invisibly across individual relationship lags throughout the network. The recommendation is to replace the lag with an explicit, labeled contingency/buffer activity inserted into the chain; if a genuine minimum waiting or administrative period also exists independently of the risk contingency (e.g., NDT report turnaround time), that should be separated out and identified as its own legitimate lag, distinct from the risk allowance rather than conflated into one blended number.",
+    "reasoning": "A lag is inherently a black box — it has no owner, no resource, no percent complete, and does not appear as a distinct line item to be tracked, challenged, or reported against — which makes it a poor vehicle for something (contingency) that specifically needs to be visible, quantifiable, and consciously managed rather than quietly embedded.",
+    "commonMistakes": [
+      "Accepting 'it's just our contingency buffer' as a sufficient explanation for a large relationship lag without questioning its visibility.",
+      "Not distinguishing a genuine physical/administrative waiting period from a risk contingency allowance when both are blended into the same lag value.",
+      "Assuming contingency modeled anywhere in the schedule is equally useful regardless of whether it is visible or hidden."
+    ],
+    "redFlags": [
+      "Accepts hidden lag-based contingency as good practice without proposing a more transparent alternative.",
+      "Cannot explain why a lag is a poor vehicle for tracking consumed versus remaining contingency."
+    ],
+    "p6Checks": [
+      "Relationships tab — review lag values across the schedule and interview responsible engineers for any lag exceeding a reasonable threshold to determine whether it represents genuine waiting time, contingency, or unmodeled scope.",
+      "Check whether a formal schedule risk register or contingency log exists and whether it reconciles with contingency actually embedded in the schedule.",
+      "If replacing the lag with an explicit buffer activity, confirm it is clearly named/coded so it is not mistaken for real physical work when progress is reported."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you explain to the planner why this change matters, given the current approach 'works' in the sense that the dates come out right?",
+        "purpose": "Tests whether the candidate can articulate the transparency/governance value, not just the mechanical difference."
+      },
+      {
+        "trigger": "always",
+        "prompt": "If the client's schedule specification explicitly prohibits any explicit 'contingency' or 'buffer' activities in the submitted baseline, how would you handle this instead?",
+        "purpose": "Tests practical judgment when the ideal fix conflicts with a real contractual constraint."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the lag-as-hidden-contingency problem."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why a lag is a poor vehicle for transparent, trackable contingency."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Proposes a concrete, workable alternative (explicit buffer activity)."
+        }
+      ],
+      "passingScore": 9
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "lag",
+      "contingency",
+      "pipeline",
+      "buffer management",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-021",
+    "category": "SQ",
+    "subcategory": "Excessive Activity Duration",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Quantifying unexplained duration extension (duration creep) during execution and recognizing the procedural risk of unjustified extensions distinct from the raw number",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "NUMERICAL",
+    "scenario": "A petrochemical plant turnaround (planned shutdown) schedule originally baselined 340 maintenance and inspection activities with a combined baseline duration of 9,800 hours. During the 21-day shutdown window, without any formally logged scope changes, the team has extended the remaining/actual durations of 55 of those activities by a combined total of 640 additional hours beyond their original baseline durations, each time attributing the extension generically to 'unforeseen conditions' with no specific technical justification recorded.",
+    "question": "Calculate the percentage of total baseline duration hours this unexplained duration extension represents, and explain why the lack of recorded justification is itself a schedule-quality concern distinct from the raw percentage.",
+    "correctAnswer": 6.53,
+    "explanation": "640 ÷ 9,800 = 0.0653, or approximately 6.53% of the total baseline duration hours across the turnaround. Beyond the raw percentage, the procedural concern is that repeated, generic 'unforeseen conditions' extensions with no specific technical justification recorded for each instance make it impossible to distinguish genuine unforeseeable conditions (which may be legitimate, and on some shutdown contracts even compensable) from optimistic original estimates being quietly corrected, or from real execution problems being absorbed without management visibility. A shutdown schedule, where every additional hour of outage typically carries a very high cost, especially needs each duration extension individually and specifically justified and logged, not blended into an unexplained aggregate that nobody can later audit or learn from.",
+    "reasoning": "Percentage duration creep = (sum of unexplained extension hours) ÷ (total baseline duration hours) × 100 = 640/9,800 × 100 ≈ 6.53%. The number alone tells you the scale of drift; the missing justification record is what actually determines whether this drift is a manageable, explainable phenomenon or an uncontrolled data-integrity and accountability failure.",
+    "commonMistakes": [
+      "Computing the percentage against the wrong denominator (e.g., against the 55 affected activities' own baseline hours rather than the full 9,800-hour total).",
+      "Treating a single blended percentage as sufficient without flagging the missing per-instance justification as a separate, real concern.",
+      "Assuming 'unforeseen conditions' is a legitimate technical justification in itself rather than a placeholder that still requires a specific underlying cause."
+    ],
+    "redFlags": [
+      "Cannot perform the percentage calculation correctly.",
+      "Sees no concern with generic, unjustified duration extensions as long as the shutdown still finishes within the 21-day window."
+    ],
+    "p6Checks": [
+      "Activities view — compare Baseline Duration against Remaining/Actual Duration for each of the 55 flagged activities and confirm the 640-hour total.",
+      "Check the activity Notebook/log or a change log for documented, activity-specific justification for each extension.",
+      "Cross-reference extended activities against inspection/discovery reports to see whether a genuine unforeseen condition (e.g., unexpected corrosion) is actually documented anywhere."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If you found that 40 of the 55 extensions were on activities performed by the same subcontractor, what would that suggest?",
+        "purpose": "Tests whether the candidate considers clustering by responsible party as a diagnostic lead, not just the aggregate number."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correct percentage calculation (~6.53%)."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why unjustified extensions are a concern distinct from the raw percentage."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1.2,
+    "estimatedTimeSec": 150,
+    "tags": [
+      "duration creep",
+      "turnaround",
+      "shutdown",
+      "percentage calculation",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-022",
+    "category": "SQ",
+    "subcategory": "High Float Prevalence",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing that unresourced CPM float calculation can report a false 'healthy slack' picture when a shared resource constraint would eliminate that apparent slack under resource leveling",
+    "difficulty": 4,
+    "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "PARADOX",
+    "scenario": "A nuclear facility decommissioning schedule health check shows 42% of remaining activities with Total Float greater than 30 days, which the project controls team presents as evidence of a healthy schedule buffer. However, a resource histogram for the specialized radiological safety officers required to supervise nearly every activity shows they are booked at roughly 140% of available capacity for the next two quarters, meaning many of these 'float-rich' activities cannot actually start at their CPM-calculated early dates because the required supervision resource is not physically available.",
+    "question": "Does the reported high-float percentage mean this schedule has genuine slack and low schedule risk? Explain the paradox.",
+    "explanation": "No — Total Float as calculated by a standard, unresourced (or unleveled) CPM forward and backward pass assumes unlimited resource availability; it measures only logic and duration relationships, not whether the resources actually needed to execute each activity within its float window are physically available. Here, the radiological safety officers are a hard, shared capacity constraint spanning almost the entire remaining scope, so many of the 'float-rich' activities cannot actually be executed at their calculated early dates at all — the true, resource-constrained picture (after resource leveling) would very likely show a materially tighter schedule, quite possibly with far less real float and new critical or near-critical paths driven by resource contention rather than by logic. Reporting the 42% high-float figure as evidence of low schedule risk, without first checking resource capacity against demand, significantly understates the project's true risk position.",
+    "reasoning": "Unresourced CPM float is a logic-and-duration-only measure; it says nothing about physical resource feasibility unless resource-constrained (leveled) scheduling is explicitly performed. A genuinely scarce, widely-required shared resource — common on regulated/safety-critical work like nuclear decommissioning — can make calculated float largely fictional, because activities cannot actually execute at their early dates without that resource regardless of what the unleveled schedule shows.",
+    "commonMistakes": [
+      "Treating high Total Float as inherently good news without checking whether the schedule has been resource-leveled or whether a hard shared-resource constraint exists.",
+      "Assuming resource loading is only relevant to cost/earned-value reporting, not to the validity of float itself.",
+      "Not recognizing that a single widely-required specialist resource (here, radiological safety officers) can behave like a de facto critical path even when CPM logic shows float everywhere."
+    ],
+    "redFlags": [
+      "Presents high float as evidence of low risk without checking resource capacity against demand.",
+      "Cannot explain why unresourced CPM float and physically achievable float can diverge."
+    ],
+    "p6Checks": [
+      "Resource Usage Profile — check radiological safety officer (or equivalent) demand against available capacity across the same period the high-float activities are calculated to occur.",
+      "Run resource leveling (or a resource-constrained what-if) and compare the leveled float distribution against the unleveled 42% figure.",
+      "Identify which specific high-float activities are most dependent on the constrained resource and prioritize those for closer monitoring regardless of their unleveled float value."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you recommend the project respond — hire more safety officers, resequence work, or something else — and what would inform that choice?",
+        "purpose": "Tests whether the candidate can move from diagnosis to a realistic resourcing/scheduling recommendation."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Would a standard DCMA-14-style high-float check, run only on unresourced Total Float, have caught this problem?",
+        "purpose": "Tests understanding that logic-only health checks have a real blind spot for resource-driven risk, reinforcing that no single methodology's checklist is a complete risk assessment."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains why unresourced float can be fictional under a real shared-resource constraint."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Connects the resource histogram data to the float paradox mechanistically."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recognizes the understated risk and recommends resource-constrained analysis."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.8,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "high float",
+      "resource leveling",
+      "nuclear decommissioning",
+      "resource constraint",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling",
+      "GAO Schedule Assessment Guide"
+    ]
+  },
+  {
+    "questionCode": "SQ-023",
+    "category": "SQ",
+    "subcategory": "Excessive Percentage of Critical Activities",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Distinguishing legitimate external-constraint-driven high criticality from modeling-defect-driven high criticality and responding to each differently",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "DECISION_MAKING",
+    "scenario": "A grid-scale battery storage facility schedule shows 82% of remaining activities critical or near-critical (within 5 working days of zero float). Investigation rules out the usual modeling-defect causes: there is no excessive zero-lag Start-to-Start lockstep and no chain of hard constraints artificially compressing the network. The actual cause is that the national grid operator has imposed a single, fixed, non-negotiable interconnection energization date 14 months out, and the project's own logic-calculated duration — built up from real construction and testing durations — comes to almost exactly that same duration, leaving very little genuine float anywhere in the network relative to that fixed external date.",
+    "question": "Given that the high criticality here is not caused by a schedule-quality defect, how would you evaluate and manage this situation differently than you would a criticality problem caused by bad relationship modeling?",
+    "expectedAnswer": "Where high criticality stems from a genuinely tight but legitimate external constraint — a fixed, non-negotiable third-party interconnection date that the project's real, logic-driven duration barely meets — the schedule itself is not a quality defect to be fixed; the underlying business and risk situation (very little margin against a hard external date) is real and should be managed as a risk-management problem, not corrected as a modeling problem. This calls for different actions than repairing lockstep relationships or constraint chains: proactively identifying and closely monitoring the specific activities most likely to actually consume the thin available margin, engaging early and directly with the grid operator about the realistic feasibility of the date and any contractual mechanism for schedule relief if a genuine unforeseeable issue arises, and considering targeted schedule compression or resequencing options (fast-tracking specific activities, adding resources at defined points) to consciously build real margin back into the plan — rather than 'fixing' the criticality percentage by loosening logic that is, in fact, accurate.",
+    "strongAnswer": "Explicitly contrasts this with the modeling-defect case: fixing artificial criticality (from SS lockstep or constraint chains) means correcting the model to reveal float that genuinely exists; here, there is no float to reveal because the constraint is real, so the correct response is proactive risk management of a legitimately tight schedule rather than any kind of network 'repair'.",
+    "expertAnswer": "Recommends quantifying and communicating this distinction explicitly to the executive/steering level using a metric like Critical Path Length Index alongside the raw criticality percentage, and proposes that any recovery/compression measures be evaluated now, while there is still time to act, rather than waiting until the thin margin has already been consumed by a routine disruption — framing this as proactive schedule risk management under a hard external constraint, not passive monitoring.",
+    "explanation": "High criticality caused by a genuinely tight, legitimate external constraint requires risk management, early stakeholder engagement, and possibly deliberate compression to create margin — not the network-logic repair that would be appropriate if the same criticality percentage had been caused by a modeling defect.",
+    "reasoning": "The correct response to high criticality depends entirely on its cause: an artificial cause (bad relationship modeling) is fixed by correcting the model to reveal float that already exists; a genuine cause (a real external constraint leaving little actual margin) cannot be fixed by any model correction because there is no hidden float to reveal — the response must instead address the real, narrow-margin risk directly.",
+    "commonMistakes": [
+      "Treating all high-criticality findings the same way regardless of whether the cause is a modeling defect or a legitimate external constraint.",
+      "Assuming a legitimate external constraint means nothing further needs to be done beyond noting it.",
+      "Proposing to loosen or delete real logic simply to reduce the reported criticality percentage."
+    ],
+    "redFlags": [
+      "Cannot distinguish a legitimate external-constraint cause of high criticality from a modeling-defect cause.",
+      "Proposes 'fixing' the schedule by weakening accurate logic purely to improve the reported percentage."
+    ],
+    "p6Checks": [
+      "Confirm (as already done here) the absence of SS lockstep chains and constraint clusters as the driver, isolating the interconnection milestone as the true cause.",
+      "Calculate Critical Path Length Index against the fixed interconnection date to quantify how thin the real margin is.",
+      "Identify which specific activities have the least schedule flexibility and highest technical risk, for targeted monitoring and potential compression."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "What would you say to the grid operator in an early conversation about this date, and what outcome would you realistically hope for?",
+        "purpose": "Tests stakeholder-engagement judgment beyond the internal technical response."
+      },
+      {
+        "trigger": "always",
+        "prompt": "If a routine, minor disruption (a two-week equipment delivery delay) occurred now, what would you expect to happen to the interconnection date given this schedule's margin?",
+        "purpose": "Tests whether the candidate grasps the practical consequence of near-zero real margin, not just the diagnostic label."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes a legitimate external-constraint cause from a modeling-defect cause."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Recommends risk management and stakeholder engagement appropriate to a real, tight constraint."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete monitoring and compression/margin-building actions."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.8,
+    "estimatedTimeSec": 220,
+    "tags": [
+      "critical activities",
+      "external constraint",
+      "battery storage",
+      "interconnection",
+      "DCMA"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
   }
 ]

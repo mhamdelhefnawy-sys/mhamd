@@ -3452,5 +3452,360 @@
     "references": [
       "AACE International Recommended Practices"
     ]
+  },
+  {
+    "questionCode": "PC-024",
+    "category": "PC",
+    "subcategory": "Accrual Reversal Risk at Closeout",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Diagnosing why systematically over-stated accruals produce a misleading favorable cost 'catch-up' correction at project closeout",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "During a financial close-out audit of a completed logistics warehouse project, the finance team finds that accruals booked for several subcontract packages during months 20 through 24 were consistently higher than what those subcontractors ultimately invoiced. As a result, the project's reported Actual Cost, and therefore its CPI, was understated (making cost performance look worse than reality) throughout that period, and closeout now requires a one-time favorable adjustment that will appear as a sudden, unexplained performance improvement in the final report.",
+    "question": "What is the most likely reason this happened, how should it have been caught earlier, and what would you recommend to prevent it recurring on future projects?",
+    "expectedAnswer": "The most likely cause is that accruals were estimated conservatively (rounded up, or based on an early, since-superseded subcontractor progress claim) during months 20-24 and then never reconciled against the actual invoices that subsequently arrived, so the over-accrual persisted uncorrected across several reporting periods until closeout forced a comparison. This should have been caught earlier by a routine monthly or bi-monthly accrual reconciliation process: each period, comparing the prior period's accrual for a given package against the actual invoice that has since been received for that same scope, and adjusting the accrual methodology or specific figures where a pattern of over- or under-accrual is detected, rather than only discovering the gap at project closeout when every accrual is finally settled against final invoices.",
+    "strongAnswer": "Adds that an aging analysis of open accruals, tracking how long each accrual has remained unreconciled against an actual invoice, would have flagged the months 20-24 accruals as increasingly stale and worth investigating well before closeout, and that the fix should be a standing process requirement (a documented accrual reconciliation step in the monthly close process) rather than a one-time correction to this specific project.",
+    "expertAnswer": "Recommends the project controls function report a 'trued-up' CPI series at closeout that restates historical periods using actual invoiced cost instead of the original accrual estimates, specifically so leadership understands the true underlying cost performance trend was better than reported at the time, rather than letting the closeout adjustment appear as a mysterious, unexplained jump; also flags that systematically conservative (over-stated) accruals, while less commercially risky than under-accrual, still degrade the credibility and decision-usefulness of interim cost reports and should be corrected with the same discipline as under-accrual, since a project controls function that is known to have moved in the wrong direction, whichever direction, on a sustained basis will not be trusted going forward.",
+    "explanation": "Consistently over-stated accruals during months 20-24, never reconciled against subsequent actual invoices until closeout, produced a misleading understatement of cost performance throughout that period and a sudden favorable 'catch-up' at the end. The fix is a routine, ongoing accrual reconciliation process, comparing each period's accrual against the actual invoice once received, with an aging analysis flagging stale, unreconciled accruals well before project closeout forces the comparison.",
+    "reasoning": "This tests whether the candidate treats accruals as a one-time estimate to be set and forgotten, or as a running estimate that must be actively reconciled against reality as actual invoices arrive. Without ongoing reconciliation, accrual error in either direction, over- or under-stated, accumulates silently and distorts every interim CPI reading until a forced true-up (contract closeout, audit, or a large invoice finally arriving) reveals the cumulative error all at once, which damages the credibility of the interim reports that were relied upon for decisions during that period.",
+    "commonMistakes": [
+      "Treating accruals as a set-and-forget monthly estimate rather than a running figure requiring reconciliation against actual invoices.",
+      "Assuming over-stated accruals are a low-risk error simply because they make cost performance look worse rather than better in the interim.",
+      "Not recognizing a sudden, large favorable adjustment at closeout as a symptom of an accrual process failure requiring root-cause investigation."
+    ],
+    "redFlags": [
+      "Cannot explain why an over-stated accrual, not just an under-stated one, is a genuine data-quality problem worth investigating.",
+      "Would treat the closeout favorable adjustment as simply good news rather than a symptom requiring explanation."
+    ],
+    "p6Checks": [
+      "Review the accrual reconciliation log, if one exists, for months 20-24 to see whether accruals were ever compared against actual invoices received in subsequent periods.",
+      "Check the accrual methodology basis used for those packages (percentage of physical progress, subcontractor's own claim, or a fixed estimate) for a source of systematic overstatement."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you explain this closeout adjustment to a client who saw the original monthly reports and is now confused by the sudden change?",
+        "purpose": "Tests communication skill in explaining a retrospective correction transparently rather than letting it look like manipulation."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly diagnoses the lack of ongoing accrual-to-invoice reconciliation as the root cause."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why unreconciled accrual error distorts interim CPI regardless of direction."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Recommends a concrete, ongoing reconciliation/aging process."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.4,
+    "estimatedTimeSec": 190,
+    "tags": [
+      "accruals",
+      "reconciliation",
+      "closeout",
+      "CPI",
+      "cost control",
+      "audit"
+    ],
+    "references": [
+      "AACE International Recommended Practices"
+    ]
+  },
+  {
+    "questionCode": "PC-025",
+    "category": "PC",
+    "subcategory": "Cost-Schedule Decoupling",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying why a confirmed critical-path schedule slip can coexist with a neutral or favorable cost variance",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "MOST_LIKELY_CAUSE",
+    "scenario": "A district cooling plant project's CPM schedule shows a confirmed, well-documented 6-week critical path slip, driven by a delayed chiller delivery. The EVM read on the same package shows Schedule Variance clearly negative (behind), but the monthly cost report shows Cost Variance essentially at zero, no meaningful unfavorable cost variance at all, on the same package.",
+    "question": "What are the most likely explanations for cost performance looking essentially neutral despite a confirmed, significant schedule slip, and how would you distinguish between them?",
+    "expectedAnswer": "Two distinct explanations are most likely and should be checked separately. First, the delayed activities themselves (chiller installation and downstream commissioning) may simply not have started yet, meaning no actual cost has been incurred against them either, so CV is trivially near zero not because cost performance is genuinely fine, but because nothing chargeable has happened on the delayed scope, the true cost impact (extended site overheads, standby labor, potential expediting cost) has not yet materialized in the actuals and will likely show up later. Second, the progress measurement/rules-of-credit basis for this package may be earning EV on a duration-proportional or calendar-based method rather than genuine physical output, in which case EV (and therefore CV, since AC is being compared against a potentially inflated EV) could be overstating true progress and masking a real cost problem that would appear if EV were measured correctly. Distinguish between them by checking whether the delayed activities have any actual cost booked against them yet, and by independently verifying the rules of credit being used against genuine physical evidence.",
+    "strongAnswer": "Adds that even in the first (more benign) explanation, a neutral CV today does not mean the schedule slip is cost-free: prolongation costs (extended site establishment, standby crews, potential liquidated damages exposure) are a near-certain future cost consequence of a confirmed 6-week critical path slip, and the cost report's forward-looking EAC/ETC should already be reflecting an allowance for this even though today's AC and CV look unaffected.",
+    "expertAnswer": "Recommends never accepting a neutral CV on a package with a confirmed material schedule slip without first performing this two-path investigation, since each explanation implies a completely different risk: the first implies a real cost impact is coming but has not yet been recognized in the forecast, while the second implies the cost report's EV is not trustworthy at all and the entire package's reported cost performance, not just this period's, needs re-verification; recommends that going forward, any package showing a significant CPM slip alongside an unexpectedly neutral CV be automatically flagged for this specific two-path root-cause check as a standard project controls procedure, rather than left as an apparent (and misleading) positive signal.",
+    "explanation": "A confirmed critical-path schedule slip coexisting with a neutral cost variance is most likely explained either by the delayed scope simply not having incurred cost yet (with a real cost impact still to come, prolongation, standby, expediting) or by the progress measurement method overstating EV on a duration/calendar basis rather than genuine output, masking a real cost problem. These have very different implications and must be investigated separately, by checking actual cost booked against the delayed activities and by independently verifying the rules of credit in use.",
+    "reasoning": "This tests the candidate's ability to recognize that a 'good' cost signal is not always reassuring when it coexists with a clearly bad schedule signal on the same scope; the correct response is not to accept the neutral CV at face value but to investigate which of two structurally different explanations, cost impact not yet realized versus cost impact being hidden by a flawed measurement method, is actually occurring, since only one of them is genuinely benign.",
+    "commonMistakes": [
+      "Accepting the neutral CV as reassuring evidence that the schedule slip has no cost consequence.",
+      "Not checking whether the delayed activities have any actual cost booked against them yet before drawing a conclusion.",
+      "Assuming EV is being measured correctly without verifying the rules of credit for a package already known to have a schedule problem."
+    ],
+    "redFlags": [
+      "Reports the package as cost-neutral despite the confirmed schedule slip without investigating either explanation.",
+      "Cannot articulate how a flawed, duration-based progress measurement method could mask a real cost problem."
+    ],
+    "p6Checks": [
+      "Check actual cost booked against the chiller installation and downstream commissioning activities specifically, not just the package total, to see whether any cost has been incurred on the delayed scope at all.",
+      "Review the percent-complete type (Physical, Duration, Units) assigned to the delayed activities to confirm EV is not being earned on a calendar/duration basis disconnected from genuine output.",
+      "Verify whether the EAC/ETC forecast for this package has been updated to reflect likely prolongation cost even though current-period AC and CV look unaffected."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you confirm the delayed activities simply haven't started and no cost is yet incurred, what would you still want reflected in this month's forecast?",
+        "purpose": "Tests whether the candidate connects the diagnosis to a forward-looking EAC adjustment, not just a one-time explanation."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you change the progress measurement method if you find EV is being earned on a duration basis for this package?",
+        "purpose": "Tests ability to propose a concrete fix (switch to units-complete or milestone-weighted method) rather than only diagnosing the problem."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies both plausible explanations for the decoupling."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Explains why each explanation has different implications for true cost risk."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Names concrete steps to distinguish between the two explanations."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.8,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "cost variance",
+      "schedule variance",
+      "decoupling",
+      "rules of credit",
+      "district cooling"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "PC-026",
+    "category": "PC",
+    "subcategory": "Change Control - Trend Register vs Formal Change Register",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Recognizing that Project Controls needs its own cost/schedule exposure (trend) register distinct from Commercial's formal, contractually-priced change register",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "DECISION_MAKING",
+    "scenario": "A newly appointed project controls manager on a rail electrification project finds the only 'change log' maintained on the project belongs to the commercial team and includes only items that have already been formally submitted to the client as priced variations. It does not include items the project team already knows about internally, such as anticipated design development on the overhead line equipment, scope the site team expects will require a client instruction but has not yet been formally raised, and emerging risks the engineering team has flagged verbally but not logged anywhere formal.",
+    "question": "Should Project Controls maintain its own separate register for these items in addition to Commercial's formal change register? What is the risk of relying on the commercial register alone for cost/schedule forecasting?",
+    "expectedAnswer": "Yes, Project Controls should maintain its own trend or exposure register capturing known or anticipated cost/schedule impacts as early as they are identified internally, whether or not they have yet been formalized into a priced variation submitted to the client, since Commercial's register by design only reflects items that have reached a specific contractual milestone (formal submission), which typically lags well behind when the project team first becomes aware of an emerging impact. Relying on the commercial register alone for forecasting risks a materially incomplete and lagging EAC: real, known cost and schedule exposure that the project team is already aware of internally would simply not appear in the forecast until Commercial formally processes it, potentially months later, meaning the EAC would understate risk for as long as that gap persists.",
+    "strongAnswer": "Adds that the trend register should feed the EAC with an appropriately risk-adjusted (not full-value) allowance for each item based on its maturity and likelihood, similar to how unapproved PCOs should be probability-weighted, and that the two registers, Project Controls' trend register and Commercial's formal change register, should be reconciled periodically so that as an item matures from an internally-known trend into a formally submitted variation, it moves cleanly from one register into the other without being double-counted or dropped.",
+    "expertAnswer": "Recommends this be formalized as a standard project controls process requirement from project set-up: a trend/exposure register owned by Project Controls, populated collaboratively with engineering, site, and commercial input, reviewed at a defined cadence (e.g., monthly), with each item tracked through a maturity lifecycle (identified, quantified, submitted, approved/rejected) and an explicit, documented linkage to Commercial's formal register once an item is submitted; flags that the absence of such a register, as found on this project, is itself a project controls maturity gap that should be raised and corrected promptly, since it means the project's reported EAC has likely been materially understating real, already-known exposure for as long as the gap has existed.",
+    "explanation": "Project Controls should maintain its own trend/exposure register, populated as soon as cost or schedule impacts are identified internally, distinct from and feeding into (but not the same as) Commercial's formal, contractually-priced change register, since relying on the commercial register alone means the EAC forecast will lag significantly behind real, already-known risk and understate true project exposure.",
+    "reasoning": "This tests understanding of the specific, practical difference between Project Controls' forecasting responsibility (capturing and quantifying known risk and impact as early as possible, however uncertain, to keep the EAC realistic) and Commercial's contractual responsibility (formally pricing and submitting variations through the correct contractual process, which necessarily takes longer and requires a higher bar of certainty). Conflating the two, or relying on only the commercial register, produces a forecast that is technically 'clean' but materially behind reality.",
+    "commonMistakes": [
+      "Assuming the commercial change register is a complete and sufficient basis for cost/schedule forecasting.",
+      "Not recognizing that Project Controls has a distinct, earlier-stage forecasting responsibility separate from Commercial's contractual change process.",
+      "Waiting for items to be formally submitted before including any allowance for them in the EAC."
+    ],
+    "redFlags": [
+      "Would rely solely on the commercial change register for EAC forecasting without maintaining independent visibility of known but unformalized exposure.",
+      "Cannot explain the practical difference in purpose between a trend register and a formal change register."
+    ],
+    "p6Checks": [
+      "Check whether the schedule reflects any provisional allowance/placeholder activities for anticipated, not-yet-instructed scope such as the overhead line equipment design development.",
+      "Verify a defined process exists for reconciling items as they move from the trend register into Commercial's formal register, to avoid double-counting or items being lost between the two."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you decide what confidence/probability weighting to apply to a trend register item that is only a verbal flag from the engineering team so far?",
+        "purpose": "Tests practical judgment on quantifying immature, uncertain exposure items for forecasting purposes."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly distinguishes the trend register's purpose from the formal change register's purpose."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the forecasting risk of relying on the commercial register alone."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Describes a concrete process for maintaining and reconciling the two registers."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.7,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "trend register",
+      "change control",
+      "EAC",
+      "commercial",
+      "project controls role"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "PC-027",
+    "category": "PC",
+    "subcategory": "Control Account Variance Thresholds",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Understanding the management-by-exception requirement triggered when a control account breaches a predefined variance threshold",
+    "difficulty": 1,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "JUNIOR"
+    ],
+    "questionType": "MCQ",
+    "question": "A project's EVM procedure defines a variance threshold of plus or minus 10% on CPI or SPI for any control account. This month, a control account's CPI is reported at 0.86. What should happen as a result?",
+    "options": [
+      {
+        "label": "A",
+        "text": "The control account manager should submit a documented variance analysis explaining the cause of the breach and a corrective action plan, as required by the project's management-by-exception reporting procedure.",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "Nothing specific is required; the CPI figure is simply included in the monthly report alongside all other control accounts.",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "The control account's BAC should automatically be increased to bring CPI back within the threshold.",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "The control account should be closed and its remaining scope reassigned to a different control account manager.",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "A defined variance threshold exists specifically to trigger management-by-exception reporting: once a control account's CPI or SPI breaches the threshold, the control account manager, the single accountable individual for that account, is required to produce a documented variance analysis (explaining the root cause) and a corrective action plan, rather than the breach simply being noted as one more number among many in the report. This is the entire purpose of setting a threshold in the first place, to focus management attention where it is actually needed rather than reviewing every control account with equal, undifferentiated scrutiny.",
+    "reasoning": "This is foundational EVM governance: management-by-exception is only effective if a threshold breach has a defined, required consequence (a documented explanation and corrective action), not just be passively reported. Automatically changing BAC or reassigning the account are not appropriate automatic responses to a performance variance; they are separate, distinct decisions (a change control action or a personnel/organizational decision) that might follow from the variance analysis, but are not themselves the correct default response to a threshold breach.",
+    "commonMistakes": [
+      "Assuming a variance threshold is purely informational, with the same number simply being reported without any required follow-up action.",
+      "Confusing a performance-driven threshold breach with a scope change requiring a BAC increase.",
+      "Not understanding that the control account manager, as the single accountable individual, is specifically who is required to respond, not project controls in general."
+    ],
+    "redFlags": [
+      "Cannot explain what management-by-exception reporting actually requires when a threshold is breached."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "Who should review and approve the control account manager's corrective action plan before it is considered closed out?",
+        "purpose": "Tests understanding of the governance chain around variance response, not just the initial reporting requirement."
+      }
+    ],
+    "weight": 0.9,
+    "estimatedTimeSec": 80,
+    "tags": [
+      "control account",
+      "variance threshold",
+      "management by exception",
+      "CPI",
+      "EVM governance"
+    ],
+    "references": [
+      "ANSI/EIA-748 Earned Value Management Systems",
+      "PMBOK Guide"
+    ]
+  },
+  {
+    "questionCode": "PC-028",
+    "category": "PC",
+    "subcategory": "Monthly Report Content Requirements",
+    "competency": "PROJECT_CONTROLS_EVM",
+    "skill": "Identifying what is missing from a stripped-down cost/schedule dashboard before it can substitute for a genuine project controls report",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "MISSING_INFO",
+    "scenario": "The client on an $80 million distribution center project asks the contractor's project controls team to simplify monthly reporting to a single-page dashboard showing only Budget at Completion, Actual Cost to date, and percent complete, removing CPI, SPI, EAC, and any narrative trend commentary because the client's project director finds the fuller report 'too much detail.'",
+    "question": "What is missing from this simplified dashboard, and why is it insufficient as the sole basis for genuine cost and schedule control, even if it may be acceptable as a client-facing summary?",
+    "expectedAnswer": "Missing: any efficiency or performance measure (CPI, SPI) showing whether the money spent and time used to date are proportionate to the work accomplished, since BAC, AC and percent complete alone cannot reveal whether the project is on track to finish within budget or on time, only where it currently stands; any forward-looking forecast (EAC, ETC), since percent complete and AC to date say nothing about what the remaining work will actually cost or when it will finish; and any trend or narrative context (what is driving current performance, what corrective actions are underway, what risks/changes are pending), since a dashboard of three static numbers gives no way to distinguish a project quietly heading for trouble from one genuinely on track. This one-page view may be an acceptable client-facing summary layer, but the underlying full analysis (CPI, SPI, EAC, variance narrative, control-account breakdown) must still be produced and maintained internally and made available, since real cost/schedule control decisions cannot be made from percent complete and cumulative spend alone.",
+    "strongAnswer": "Adds that the project controls team should propose retaining the full analysis as the working report while offering the one-page dashboard as a simplified executive summary derived from it, so the client's stated preference for simplicity is accommodated without actually removing the underlying control capability, and recommends flagging clearly to the client project director what specific early-warning capability is lost by removing CPI/SPI/EAC from what they personally see, even if the fuller detail remains available on request.",
+    "expertAnswer": "Recommends framing this directly as a risk to the client's own interests, not just a project controls preference: without CPI/SPI/EAC visible even at the executive level, the client's own team loses early warning of emerging problems and is more likely to be surprised late by a cost overrun or schedule slip that a fuller report would have signaled months earlier through eroding trend lines, so this should be raised explicitly as a client risk-acceptance decision requiring sign-off, not simply implemented as a quiet reporting preference change, and the contractor's internal control processes (control accounts, variance thresholds, EAC forecasting) should continue in full regardless of what the client elects to see.",
+    "explanation": "A dashboard limited to BAC, AC, and percent complete omits any performance/efficiency measure (CPI, SPI), any forward-looking forecast (EAC/ETC), and any trend or narrative context, all of which are necessary to actually assess whether the project is on track, not just where it currently stands. The simplified view may be acceptable as a client-facing summary layer, but the full underlying analysis must still be produced and available, and the client should understand what early-warning capability is being given up by not seeing it directly.",
+    "reasoning": "This tests the candidate's ability to recognize that percent complete and cumulative actual cost, while intuitive, are backward-looking, static snapshots that cannot by themselves answer the two questions that matter most in cost/schedule control: is performance proportionate to spend/time used (efficiency), and where is the project headed (forecast). A competent controls professional should be able to both identify this gap and propose a practical way to satisfy a legitimate client preference for simplicity without actually losing real control capability.",
+    "commonMistakes": [
+      "Simply implementing the client's simplified dashboard request without flagging what analytical capability is being lost.",
+      "Assuming percent complete alone is sufficient to judge project health without an efficiency or forecast measure.",
+      "Not proposing a way to satisfy the client's stated preference for simplicity while preserving the underlying full analysis."
+    ],
+    "redFlags": [
+      "Would remove CPI, SPI, EAC and trend commentary from internal control processes entirely, not just from the client-facing dashboard, to match the client's request."
+    ],
+    "p6Checks": [
+      "Verify the full underlying report (CPI, SPI, EAC, control-account breakdown, variance narrative) continues to be produced internally regardless of what is shown to the client, and is retrievable if a dispute or claim later requires it."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you present the trade-off to the client's project director in terms they would find persuasive, without simply insisting on more detail than they asked for?",
+        "purpose": "Tests communication and stakeholder-management skill in reframing a technical concern as a client risk."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Identifies missing performance/efficiency measures, forecast, and trend/narrative context."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why static, backward-looking figures alone cannot support genuine control decisions."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 4,
+          "guidance": "Proposes a practical way to satisfy the client's simplicity preference without losing real control capability."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "reporting",
+      "dashboard",
+      "CPI",
+      "SPI",
+      "EAC",
+      "client reporting"
+    ],
+    "references": [
+      "PMBOK Guide"
+    ]
   }
 ]
