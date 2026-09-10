@@ -2213,5 +2213,755 @@
       "PMI Practice Standard for Scheduling",
       "SCL Delay and Disruption Protocol"
     ]
+  },
+  {
+    "questionCode": "ETH-001",
+    "category": "ETH",
+    "subcategory": "Integrity Under Management Pressure",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Refusing to conceal negative float from a client report at a project manager's request while preserving a constructive working relationship",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Retail fit-out chain rollout",
+    "scenario": "The project manager reviews the draft monthly report before it goes to the client and notices it states the roof waterproofing package now has -4 working days of Total Float. He tells the planner, 'Just show it as zero float for this month's report, not negative. We'll deal with the real number next month once we've had a chance to recover it. No need to alarm the client yet.'",
+    "question": "How should the planner respond to this instruction?",
+    "expectedAnswer": "Declines to alter the reported float figure. Explains to the project manager that the schedule reflects -4 days based on current logic and progress, and changing the reported number to zero would misstate the schedule's actual output - reports must reflect what the CPM model calculates, not a smoothed or delayed version of it. Offers instead to include a narrative note describing the recovery actions being pursued, which gives the project manager the less-alarming framing he wants without falsifying the underlying figure.",
+    "strongAnswer": "Notes that if recovery is genuinely likely next month, reporting -4 days now with a credible recovery narrative is a stronger, more credible position than reporting zero now and then explaining a sudden jump to negative float later if recovery does not materialize - the honest number protects the project's and the planner's credibility either way.",
+    "expertAnswer": "Explains this is a request to falsify schedule data going into a formal client report, not a legitimate judgment call. Documents the request and the planner's response, for example an email confirming the report will show -4 days per the current schedule with a recovery narrative attached, and if the project manager insists on issuing a report with the altered number over the planner's objection, escalates to the planning manager or project controls lead in writing rather than complying or simply dropping the matter, since the planner's name and role are professionally associated with the schedule data's integrity.",
+    "explanation": "Falsifying a reported float figure, even with a stated good intention of avoiding alarm, is a data integrity violation; the correct response is to report the accurate figure and address the underlying concern through an honest recovery narrative instead.",
+    "reasoning": "Total Float is a calculated output of the CPM model reflecting current logic and progress; substituting a different number for reporting purposes does not change the schedule's actual prediction, it only misrepresents it to the reader, who will make decisions believing the float position is better than it actually is.",
+    "commonMistakes": [
+      "Treating the request as a harmless timing choice rather than a data integrity issue.",
+      "Complying without proposing the honest alternative of a recovery narrative.",
+      "Not documenting the request or the response."
+    ],
+    "redFlags": [
+      "Agrees to report zero float instead of -4 without objection.",
+      "Does not document the instruction or the response.",
+      "Treats this as a minor formatting request rather than a data integrity issue."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Firmly declines to falsify the figure and explains the integrity issue clearly, proposing an honest alternative."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains that Total Float is a calculated model output, not a discretionary number."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Offers a constructive, honest alternative (recovery narrative) that addresses the PM's underlying concern."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 200,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the project manager issues the report with zero float anyway, over your documented objection, what would you do next?",
+        "purpose": "Tests whether the candidate escalates further or accepts being overruled without further action."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would your answer change if the float were -1 day instead of -4, close to a rounding or calculation nuance?",
+        "purpose": "Tests whether the candidate's position is principled rather than dependent on the size of the number."
+      }
+    ],
+    "tags": [
+      "negative float",
+      "integrity",
+      "client reporting",
+      "escalation",
+      "retail"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "ETH-002",
+    "category": "ETH",
+    "subcategory": "Integrity Under Management Pressure",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Refusing to insert artificial schedule constraints to manufacture a favorable status ahead of a client review",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Highway interchange upgrade",
+    "scenario": "Two days before a client progress review, the contractor's project manager asks the planner to add 'Start On or After' constraints to several currently late-starting activities, setting their constraint dates to match their baseline dates, 'so the schedule shows them starting on time in the report - we'll remove the constraints again after the meeting.' Actual site conditions have not changed; the activities genuinely have not started.",
+    "question": "Evaluate this request. What would you do, and what does this action actually achieve or fail to achieve technically?",
+    "expectedAnswer": "Identifies that adding artificial 'Start On or After' constraints matching baseline dates does not change reality - the activities still have not physically started - and specifically explains that this constraint type generally does not even change the calculated dates if the activity is already forecast to start later than the constraint, since a Start On or After constraint can only push a date later, not pull an already-late start forward, meaning the manipulation may not even achieve the intended cosmetic effect while definitely constituting a deliberate misrepresentation if it does display differently. Declines to make the change; the schedule should reflect actual planned or forecast dates, not constraints inserted purely to control what a report shows for one meeting.",
+    "strongAnswer": "Recommends instead preparing an honest explanation of the late starts and a recovery plan or mitigation narrative for the client review; a credible narrative about a real problem and a real response is a stronger position in front of a client than a schedule that will need unwinding right after the meeting, which itself creates an audit trail of tampering if ever scrutinized, since XER file history or comparisons can reveal constraints added and removed around report dates.",
+    "expertAnswer": "Recognizes this as a clear data integrity and misrepresentation issue, not a judgment call, and that complying would put the planner's own professional sign-off on a manipulated schedule presented to a client. Recommends declining the specific instruction, documenting the request and the refusal in writing, and if repeated or escalated as an instruction from above the immediate project manager, raising it to the planning or project controls manager or, if necessary, through whatever ethics or compliance channel the organization provides, since presenting a manipulated schedule to a client can expose the organization to real professional and reputational consequences, not just an internal disagreement.",
+    "explanation": "Inserting temporary artificial constraints to make a schedule display a status inconsistent with actual site conditions, intending to remove them afterward, is a deliberate misrepresentation of the schedule to the client, and should be declined regardless of whether it is framed as a temporary, reversible action.",
+    "reasoning": "A Start On or After constraint only delays a start if the calculated date would otherwise be earlier; it does not pull an activity's forecast start earlier than what remaining logic and progress actually support, so the request may not even achieve its stated cosmetic purpose, while its clear intent - to present a false on-time picture to the client - remains an integrity violation regardless of the mechanical outcome.",
+    "commonMistakes": [
+      "Believing a temporary, later-reversed change is less serious than a permanent one.",
+      "Not knowing that a Start On or After constraint cannot pull an already-late start forward.",
+      "Treating this as the project manager's prerogative rather than a shared data integrity responsibility."
+    ],
+    "redFlags": [
+      "Adds the constraints as requested without raising any concern.",
+      "Does not recognize the plan to remove the constraints after the meeting as evidence of intent to mislead.",
+      "Cannot explain the technical effect of the requested constraint type."
+    ],
+    "p6Checks": [
+      "Compare forecast dates before and after the proposed constraint to confirm whether the constraint actually changes the displayed date.",
+      "Check the schedule change log or XER comparison for traceability, noting that constraint additions and removals are auditable."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Firmly declines the manipulation and explains why a temporary, reversible change is still an integrity violation."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains the mechanical behavior of the constraint type in question."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the manipulation to real consequences: misrepresentation to the client and an auditable trail if scrutinized."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "What would you propose to say to the client instead, given the real late starts?",
+        "purpose": "Tests whether the candidate can offer a constructive, honest alternative rather than only refusing."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "If this instruction had come from someone above the immediate project manager, would your response change?",
+        "purpose": "Tests whether the candidate's integrity position holds regardless of the seniority of who is asking."
+      }
+    ],
+    "tags": [
+      "artificial constraints",
+      "client review",
+      "schedule manipulation",
+      "highway",
+      "data integrity"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "ETH-003",
+    "category": "ETH",
+    "subcategory": "Site Progress vs Reported Progress",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Reconciling subcontractor-reported percent complete against independently observed site progress before it flows into an upward report",
+    "difficulty": 2,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "projectType": "High-rise residential tower",
+    "scenario": "The formwork and concrete subcontractor reports Level 14 slab pour as 90% complete in this week's update. During a routine site walk, the planner observes that formwork is still being erected on roughly half the level and no concrete has been poured yet.",
+    "question": "What should the planner do with this discrepancy before it is incorporated into the progress figures reported upward to the client?",
+    "expectedAnswer": "Does not accept the subcontractor's 90% figure at face value for the upward report. Raises the discrepancy directly with the subcontractor's site team and, if unresolved, with the site engineer or quantity surveyor who has independent means of verifying actual quantities in place. Uses the more defensible, independently verifiable percent complete, or a conservative interim figure with a documented basis, in what gets reported upward, rather than passing through an unverified subcontractor self-report that visibly contradicts direct observation.",
+    "strongAnswer": "Adds that recurring, unexplained gaps between subcontractor-reported and observed progress on a specific subcontractor should be tracked as a pattern, not treated as one-off each time, since a subcontractor that consistently over-reports, whether to protect a payment application, mask a resourcing problem, or optimistically round up, erodes the reliability of the whole update process for that package.",
+    "expertAnswer": "Notes the commercial link: percent complete often drives interim payment applications, so a subcontractor systematically over-reporting progress may be doing so for payment reasons, not just optimism, and this should be flagged to the commercial or quantity surveying team as well as corrected in the schedule, since it has implications beyond the programme. Recommends documenting the site observation, including date and photographs where possible, as the basis for the corrected figure so the correction is defensible if challenged.",
+    "explanation": "A subcontractor's self-reported percent complete should be reconciled against independent observation before it is passed into an upward report; a visible, uninvestigated contradiction with direct site observation should never simply be forwarded.",
+    "reasoning": "Percent complete figures that flow upward without independent verification can be shaped by incentives other than accurate reporting, such as payment application timing; direct observation contradicting a reported figure is exactly the kind of evidence that must be resolved before the figure is trusted and reported further.",
+    "commonMistakes": [
+      "Passing through the subcontractor's self-reported figure without any verification against observed progress.",
+      "Treating a single instance of over-reporting as isolated rather than checking for a pattern.",
+      "Not documenting the site observation that contradicts the reported figure."
+    ],
+    "redFlags": [
+      "Reports the 90% figure upward without raising the observed contradiction.",
+      "Does not consider the commercial/payment-application implication of a subcontractor systematically over-reporting progress."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Does not pass through an unverified, contradicted figure and insists on independent verification."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects unverified over-reporting to possible payment or resourcing motives, not just optimism."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete, realistic verification steps (site engineer/QS, documented observation)."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 180,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If this is the third month in a row this subcontractor has over-reported progress by a similar margin, what would you do differently?",
+        "purpose": "Tests whether the candidate escalates a recurring pattern rather than resolving each instance in isolation."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you determine a defensible interim percent-complete figure to report this week while the discrepancy is being resolved?",
+        "purpose": "Tests whether the candidate can propose a practical, conservative interim approach rather than stalling the whole report."
+      }
+    ],
+    "tags": [
+      "progress verification",
+      "subcontractor reporting",
+      "percent complete",
+      "high-rise",
+      "site observation"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct"
+    ]
+  },
+  {
+    "questionCode": "ETH-004",
+    "category": "ETH",
+    "subcategory": "Integrity Under Management Pressure",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Declining to present a favorable dashboard status that the underlying schedule data does not support",
+    "difficulty": 3,
+    "careerLevel": "LEAD",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Pharmaceutical manufacturing facility",
+    "scenario": "Ahead of an internal executive review where the project's continued funding will be discussed, the project director asks the planning lead to present the programme dashboard as GREEN this month. The underlying schedule shows two of five critical qualification and validation milestones now carrying negative float, which under the project's own documented status rules, any negative float on a Level 1 milestone sets the overall status to RED, would set the overall status to RED. The director says, 'I know the rules say RED, but a RED status right before the funding review sends the wrong signal. Let's call it AMBER with a strong mitigation story instead.'",
+    "question": "How should the planning lead respond to this request?",
+    "expectedAnswer": "Declines to override the documented, rules-based status determination of RED per the project's own defined thresholds. Explains to the director that the status rule exists specifically to prevent status from becoming a subjective, situational choice, and that overriding it now, especially timed around a funding decision, undermines the credibility of the rating system for every future report. Offers the constructive alternative the director actually wants: presenting RED status accompanied by a strong, credible mitigation plan and recovery narrative, which gives decision-makers the full, honest picture rather than a falsely reassuring color.",
+    "strongAnswer": "Notes that decision-makers at a funding review specifically need the accurate risk picture to make a good funding decision; presenting AMBER when the data says RED could lead to an under-informed funding decision that backfires later, for example insufficient contingency being approved, which is a worse outcome for the project than an honest RED with a mitigation plan.",
+    "expertAnswer": "Recognizes this as a direct instruction to misrepresent status to influence a funding decision, which is a serious integrity issue. Recommends the planning lead put the objection and the technical basis, the negative float and the documented status rule, in writing, formally note that the presented status deviates from the rules-based determination if overridden despite the objection, and escalate to whoever governs the project controls process or portfolio office if the director proceeds regardless, because allowing a funding decision to be made on a status color known to be inconsistent with the actual schedule data is a matter that goes beyond the planner-PM relationship and into organizational governance.",
+    "explanation": "A documented, rules-based status determination should not be overridden to present a more favorable picture ahead of a funding decision; the correct response is to present the accurate status with a credible mitigation narrative, and to escalate in writing if overruled.",
+    "reasoning": "The RAG rule exists precisely so status is derived objectively from schedule data rather than chosen situationally; overriding it specifically around a funding decision creates a direct risk that funding is allocated based on a picture known to be inconsistent with the underlying data, which is the exact harm the rules-based system is meant to prevent.",
+    "commonMistakes": [
+      "Treating a one-time override as harmless because it is framed as being accompanied by a 'strong mitigation story'.",
+      "Complying without documenting the objection or the deviation from the rules-based determination.",
+      "Not recognizing the funding-decision context as raising the stakes of the misrepresentation."
+    ],
+    "redFlags": [
+      "Presents AMBER as requested without documenting any objection.",
+      "Does not connect the misrepresentation to the risk of an under-informed funding decision."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Declines to override the rules-based status and explains why, especially given the funding-decision context."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly applies the documented status rule to the negative-float milestones."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the misrepresentation to the risk of a poor funding decision, not just a reporting technicality."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the director proceeds to present AMBER to the executives despite your written objection, what would you do?",
+        "purpose": "Tests whether the candidate escalates further within governance channels rather than treating a documented objection as sufficient in itself."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you structure the mitigation narrative so RED status does not simply read as 'the project is failing' to the executives?",
+        "purpose": "Tests whether the candidate can present bad news constructively without softening the underlying rating."
+      }
+    ],
+    "tags": [
+      "RAG status",
+      "funding review",
+      "misrepresentation",
+      "pharmaceutical",
+      "governance"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "ETH-005",
+    "category": "ETH",
+    "subcategory": "Delay Analysis Integrity",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Resisting pressure to change a delay analysis conclusion in response to client pushback when no new evidence has been provided",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "secondaryCareerLevels": [
+      "MANAGER"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Commercial office tower",
+    "scenario": "The planner's time-impact analysis concludes a 15-working-day critical delay is attributable to a client-directed design change to the curtain wall bracket detail, supported by the as-built schedule fragnet and RFI and correspondence records. The client's representative rejects the finding at a meeting and states they will not accept more than 5 days. No technical counter-evidence is provided by the client, only a demand that the number be reduced. The planner's own project manager, wanting to preserve the client relationship ahead of a large follow-on award, asks the planner to 'just revise it down to something closer to what they want.'",
+    "question": "How should the planner respond to the project manager's request?",
+    "expectedAnswer": "Explains that the analysis should not be revised to a different number without a technical or evidentiary basis for doing so; a client's rejection alone, without new information or an identified flaw in the methodology, is not grounds to change a technical conclusion. Recommends the appropriate response is to re-examine the analysis with the client if they have specific technical objections, such as methodology, causation, or concurrency, and to revise only if that scrutiny actually reveals a basis to do so, not to move the number toward what is commercially convenient.",
+    "strongAnswer": "Notes that if the project manager's concern is genuinely about the relationship or commercial strategy, that is a legitimate commercial negotiating position to take separately, for example a negotiated settlement that is not purely technical, but that this should be handled explicitly as a negotiated commercial position, not disguised as a revised technical finding, since conflating the two undermines both the analysis's credibility and the negotiation's transparency.",
+    "expertAnswer": "Recognizes this as pressure to produce a technically unsupported conclusion to serve a commercial relationship goal, which compromises the analysis's integrity and the planner's professional standing if their name is attached to it. Recommends declining to alter the technical finding without evidentiary basis, documenting the request and the technical basis for standing by the original 15-day conclusion, and clearly separating that from any parallel commercial negotiation the project manager or commercial team wants to pursue; the planner can support a negotiated settlement process without personally endorsing a false technical number, and should say so explicitly rather than silently complying.",
+    "explanation": "A technical delay-analysis conclusion should not be revised in response to unsupported client pushback or internal commercial pressure; any negotiated settlement below the technically supported figure should be pursued transparently as a commercial decision, not disguised as a change to the technical finding itself.",
+    "reasoning": "The 15-day finding rests on documented evidence, as-built fragnet, RFI, and correspondence records, none of which has been challenged with new evidence; revising the number to satisfy a demand unsupported by evidence would substitute commercial convenience for technical accuracy, which compromises the credibility of the finding if it is ever independently scrutinized.",
+    "commonMistakes": [
+      "Treating a client's rejection of an unfavorable finding as itself a valid reason to revise the number.",
+      "Conflating a legitimate commercial negotiation strategy with an actual change to the technical analysis.",
+      "Complying with internal pressure without documenting the basis for standing by the original finding."
+    ],
+    "redFlags": [
+      "Revises the technical finding to 5 days with no new evidence, solely to satisfy the client and the project manager.",
+      "Cannot distinguish between a negotiated commercial settlement and a revised technical conclusion."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Declines to alter the technical finding absent evidence, while distinguishing it from a separate commercial negotiation."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies that no new evidence has been provided to justify a revision."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why conflating commercial pressure with technical revision undermines both."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "The project manager says 'if you won't revise it, I'll have someone else redo the analysis.' How do you respond?",
+        "purpose": "Tests whether the candidate holds their position even when threatened with being bypassed."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What if the client later provides a specific, credible technical objection to your concurrency assumption? Does your position change then?",
+        "purpose": "Tests whether the candidate would genuinely revise the finding given real evidence, distinguishing principled firmness from stubbornness."
+      }
+    ],
+    "tags": [
+      "delay analysis",
+      "client pressure",
+      "TIA",
+      "integrity",
+      "commercial relationship"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol",
+      "AACE RP 29R-03 Forensic Schedule Analysis",
+      "PMI Code of Ethics and Professional Conduct"
+    ]
+  },
+  {
+    "questionCode": "ETH-006",
+    "category": "ETH",
+    "subcategory": "Baseline Integrity",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Detecting and responding to a baseline that appears to have been altered retroactively after a delay event to conceal it",
+    "difficulty": 4,
+    "careerLevel": "LEAD",
+    "questionType": "TROUBLESHOOTING",
+    "projectType": "Rail signaling system upgrade",
+    "scenario": "While preparing a delay analysis, the planner requests the approved project baseline file for comparison. The baseline file provided shows dates and durations for the signaling testing activities that are unusually well-aligned with what actually happened during a known 3-week delay event, closer than any other part of the baseline, and the file's internal metadata and last-modified date is several weeks after the baseline's stated approval date and after the delay event occurred.",
+    "question": "What does this pattern suggest, and what should the planner do before using this baseline file in the analysis?",
+    "expectedAnswer": "Suspects the baseline file may have been altered after its formal approval date, and specifically after the delay event, to make the as-built performance look more consistent with the plan than it actually was, which would make it an unreliable and potentially improper basis for any delay or entitlement analysis. Does not proceed to use this file as the baseline without first verifying its provenance, checking for the officially approved and issued baseline such as the version formally submitted to and accepted by the client, or the version logged in the project's document control system, rather than whatever local file was handed over informally.",
+    "strongAnswer": "Adds that metadata evidence, a modification date after the stated approval and after the delay event, is exactly the kind of red flag that must be checked as a matter of course in a forensic delay analysis, since baseline integrity is foundational to any credible schedule delay analysis, and using a compromised baseline undermines the entire analysis regardless of how well the rest of the methodology is executed.",
+    "expertAnswer": "Recommends escalating the discrepancy formally rather than quietly substituting a better file and moving on, flagging it to the planning or project controls manager and, depending on findings, to the commercial or legal team, since a retroactively altered baseline used in a client-facing delay analysis or claim could constitute a serious credibility and potentially even a fraud or misrepresentation issue if not caught before use. Documents the metadata evidence and the document-control trail as part of establishing which baseline is the genuine, approved one before any further analysis proceeds.",
+    "explanation": "A baseline file whose modification metadata postdates both its stated approval and a known delay event, combined with suspiciously close alignment to as-built performance during that event, is a strong indicator of retroactive alteration and must be investigated through document control before being relied upon for any delay analysis.",
+    "reasoning": "A genuine, unaltered baseline is fixed at approval and should not correlate unusually well with subsequent as-built events it predates; a modification timestamp after both the approval date and the delay event, paired with suspiciously close alignment specifically around that event, is difficult to explain except by post-hoc editing intended to obscure the deviation.",
+    "commonMistakes": [
+      "Using the provided baseline file without checking its provenance because it was labeled as the baseline.",
+      "Noticing the metadata anomaly but not escalating it, choosing instead to quietly source a different file.",
+      "Treating document control and version history as irrelevant to technical schedule analysis."
+    ],
+    "redFlags": [
+      "Uses the suspect baseline file in the analysis without any provenance check.",
+      "Notices the metadata anomaly but does not escalate it.",
+      "Treats document control or version history as irrelevant to technical analysis."
+    ],
+    "p6Checks": [
+      "Check baseline file metadata, creation and modification dates, against the stated approval date.",
+      "Cross-reference against the formally issued or approved baseline in document control or the client's accepted submission record.",
+      "Compare the suspect baseline against any independently retained copies, for example the client's own copy of the approved baseline, if available."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Treats the anomaly as a serious integrity concern requiring verification and escalation, not a routine data quirk."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies why the metadata and alignment pattern is suspicious."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete provenance-verification steps before using the file."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 220,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If document control cannot locate any independently retained copy of the originally approved baseline, what does that do to the credibility of the analysis, and what would you recommend?",
+        "purpose": "Tests whether the candidate recognizes the analysis itself may be compromised and recommends disclosure of that limitation."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Who specifically would you escalate this finding to, and what would you include in that escalation?",
+        "purpose": "Tests whether the candidate names concrete escalation paths and evidence to include, not just 'tell someone'."
+      }
+    ],
+    "tags": [
+      "baseline integrity",
+      "retroactive alteration",
+      "forensic schedule analysis",
+      "rail",
+      "document control"
+    ],
+    "references": [
+      "AACE RP 29R-03 Forensic Schedule Analysis",
+      "PMI Code of Ethics and Professional Conduct"
+    ]
+  },
+  {
+    "questionCode": "ETH-007",
+    "category": "ETH",
+    "subcategory": "Recovery Schedule Integrity",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Refusing to present a recovery schedule to a client that is known to be operationally unachievable",
+    "difficulty": 4,
+    "careerLevel": "MANAGER",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Hospital critical care wing",
+    "scenario": "Under commercial pressure to demonstrate a path back to the contractual completion date, the project management team assembles a recovery schedule that compresses the remaining MEP commissioning and medical gas system testing activities to roughly 40% of their previously demonstrated durations, without adding any additional resources, shifts, or crews, and without changing the sequence or method. The commercial director wants this recovery schedule issued to the client this week as the contractor's committed recovery plan.",
+    "question": "As the planning manager reviewing this recovery schedule before issue, what is your assessment, and what would you do?",
+    "expectedAnswer": "Assesses the recovery schedule as not operationally credible: compressing critical, safety-relevant commissioning and medical gas testing activities to roughly 40% of previously demonstrated durations with no change in resourcing or method is not a real recovery plan, it is an aspirational number with no technical basis. Declines to issue it as presented. Recommends the recovery schedule instead be built from actual achievable measures, such as added shifts or crews, or resequencing where technically valid, and additional testing resources, each with its own durational justification, and that if the achievable recovery still falls short of the contractual date, that gap should be reported honestly rather than closed on paper by unsupported compression.",
+    "strongAnswer": "Adds that for safety-critical commissioning activities specifically, medical gas systems in a hospital, compressing durations without a genuine technical or resourcing basis is particularly concerning because it risks the recovery schedule creating real-world pressure to rush safety-relevant testing to hit dates that were never achievable, which is a safety issue layered on top of the schedule integrity issue.",
+    "expertAnswer": "Recognizes that issuing a recovery schedule known to be unachievable to a client is itself a form of misrepresentation: it commits the contractor to dates with no genuine basis, sets up a further, predictable failure and credibility loss when the recovery schedule itself slips, and in a safety-relevant context could pressure the team to cut corners on testing to chase an artificial date. Recommends refusing to issue the schedule as-is, documenting the technical basis for the objection, proposing the achievable alternative even if it shows a later date, and escalating to senior management or commercial leadership in writing if instructed to issue the unachievable version regardless, since the planner's technical sign-off lends credibility to a document that would otherwise be recognized as unsupportable.",
+    "explanation": "A recovery schedule built on unsupported duration compression, with no genuine change in resourcing, method, or sequence, is not a credible recovery plan and should not be issued to a client; the planner's professional responsibility is to insist on an achievable, technically justified alternative even where the achievable date falls short of the target.",
+    "reasoning": "Compressing durations to roughly 40% of previously demonstrated actuals, with no corresponding change in crew size, shift pattern, or method, has no technical basis, since durations are a function of scope, method, and resourcing, none of which have changed here; presenting such a schedule as a committed recovery plan commits the contractor to dates that the same underlying resourcing has already demonstrated it cannot achieve.",
+    "commonMistakes": [
+      "Accepting commercial pressure to show a recovered date as sufficient justification for unsupported duration compression.",
+      "Not distinguishing between a genuinely achievable recovery, based on new resourcing or method, and an aspirational one.",
+      "Overlooking the added safety risk of compressing safety-relevant commissioning and testing activities specifically."
+    ],
+    "redFlags": [
+      "Signs off on the compressed recovery schedule without any technical justification for the new durations.",
+      "Does not raise the safety implication of compressing medical gas system testing specifically.",
+      "Issues the schedule to the client without escalating the concern internally first."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Refuses to endorse an unsupported recovery schedule and proposes an achievable, honestly reported alternative."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains why the compression has no technical basis given unchanged resourcing and method."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects the unsupported schedule to real consequences: credibility loss, and in this context, safety risk."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "The commercial director says 'we just need something to show the client this week; we'll fix the real plan later.' How do you respond?",
+        "purpose": "Tests whether the candidate resists a 'temporary' unsupported schedule just as firmly as a permanent one."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "What specific, achievable recovery measures would you investigate before concluding no credible recovery to the contractual date exists?",
+        "purpose": "Tests whether the candidate explores genuine recovery options rather than only refusing the unsupported one."
+      }
+    ],
+    "tags": [
+      "recovery schedule",
+      "operationally unachievable",
+      "hospital",
+      "safety",
+      "commissioning",
+      "integrity"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct",
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "ETH-008",
+    "category": "ETH",
+    "subcategory": "Schedule Change Integrity",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Refusing to backdate a schedule change to obscure the true timing and impact of an approved scope variation",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "DECISION_MAKING",
+    "projectType": "Industrial gas plant expansion",
+    "scenario": "A variation for an owner-directed change to the compressor foundation design was approved and issued to the contractor 6 weeks after the original foundation activities were originally scheduled to have already finished, the project already being behind for unrelated reasons by that point. The commercial manager asks the planner to enter the additional foundation rework activities into the schedule with an original or early start date matching the ORIGINAL baseline dates, 'so it doesn't look like a separate new delay on top of what's already happened, just fold it into the existing lateness.'",
+    "question": "Should the planner enter the new activities with dates matching the original baseline period, as requested? What is the correct approach?",
+    "expectedAnswer": "Declines to backdate the new variation activities into the original baseline period; the additional foundation rework only exists because of a variation approved 6 weeks after the original activities' planned finish, so its actual schedule placement, start date and logic tied to when the variation was actually issued and work could actually begin, should reflect reality, not be folded invisibly into an earlier period. Recommends adding the activities with correct, current dates and logic, typically tied to the variation approval or issue date as an early constraint or predecessor, which will show clearly as new work with its own schedule impact, separately identifiable from the pre-existing unrelated delay.",
+    "strongAnswer": "Notes that correctly separating the two causes of lateness, pre-existing unrelated delay versus the new variation's own impact, actually helps the contractor's position rather than hurting it if any of the delay is attributable to the owner-directed change, since folding it invisibly into the existing lateness would obscure a legitimate basis for time and possibly cost relief tied to the variation, in addition to being a misrepresentation of the schedule.",
+    "expertAnswer": "Recognizes the request as an instruction to misrepresent when and why the new scope was actually incorporated, which both misstates the schedule's technical accuracy and potentially undermines the contractor's own commercial position on the variation's time impact. Declines the request, explains the reasoning, including the commercial angle, to the commercial manager in writing, and proposes the correct treatment; if the commercial manager still wants a combined lateness narrative for client communication purposes, that can be handled in the accompanying commentary or negotiation, not by altering the underlying schedule dates and logic themselves.",
+    "explanation": "New schedule activities arising from a variation should be placed at their actual, real-world position in the schedule, tied to when the variation was actually issued, rather than backdated into an earlier baseline period to disguise their separate timing and impact.",
+    "reasoning": "Backdating the new activities does not change when the work can actually be performed, since the variation was only issued 6 weeks after the original activities' planned finish; misplacing them earlier in the schedule misstates both the technical schedule logic and, potentially, the contractor's own entitlement position regarding the owner-directed change's schedule impact.",
+    "commonMistakes": [
+      "Treating the request as a harmless presentational simplification rather than a misrepresentation of schedule logic.",
+      "Not recognizing that backdating could obscure a legitimate entitlement basis for the contractor.",
+      "Complying without proposing the technically correct alternative."
+    ],
+    "redFlags": [
+      "Backdates the new activities into the original baseline period as requested without objection.",
+      "Cannot explain why the variation's actual issue date matters to correct schedule placement."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Declines to backdate the activities and explains the misrepresentation clearly."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly ties the new activities' schedule placement to the actual variation issue date."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Connects backdating to the risk of obscuring the contractor's own entitlement basis, not just technical inaccuracy."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "How would you show, in the schedule, the impact of the variation separately from the pre-existing unrelated delay?",
+        "purpose": "Tests whether the candidate can propose a concrete, technically sound way to isolate and demonstrate the variation's own impact."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Would your answer change if the commercial manager's actual intent was to help the contractor's EOT position, not hide anything?",
+        "purpose": "Tests whether the candidate recognizes that even a well-intentioned motive does not justify misrepresenting the schedule's technical logic."
+      }
+    ],
+    "tags": [
+      "backdating",
+      "variation",
+      "schedule integrity",
+      "gas plant",
+      "commercial pressure"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct",
+      "SCL Delay and Disruption Protocol"
+    ]
+  },
+  {
+    "questionCode": "ETH-009",
+    "category": "ETH",
+    "subcategory": "Claims Reporting Integrity",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Resisting pressure to inflate an extension-of-time claim duration beyond what the technical schedule analysis supports",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "MANAGEMENT_SCENARIO",
+    "projectType": "Metro tunnel boring EPC contract",
+    "scenario": "The planner's time-impact analysis of an unforeseen ground condition event supports a 28-working-day critical delay, well documented with as-built fragnets and geotechnical records. The commercial director, preparing the extension-of-time and prolongation claim submission, tells the planner the claim will be submitted for 55 days 'because we always get negotiated down anyway, so we should start higher,' and asks the planner to revise the technical schedule analysis section of the claim to show 55 days instead of the supported 28.",
+    "question": "How should the planner respond to this request to align the technical analysis with the commercial team's negotiating starting position?",
+    "expectedAnswer": "Declines to alter the technical delay-analysis finding to match the commercial team's desired opening negotiating number. Explains that the technical schedule analysis section of a claim must reflect what the methodology and evidence actually support, 28 days, and that starting a negotiation higher is a legitimate commercial strategy only if it is presented as a commercial position, not disguised as a technical finding, since conflating the two undermines the credibility of the technical analysis, which may need to stand up to independent scrutiny or a dispute board later, and could expose the claim to a credibility attack if the unsupported number is challenged.",
+    "strongAnswer": "Notes that a commercial team is free to submit a claim requesting more than the technical schedule analysis supports, structured with the technical finding clearly presented as 28 days and any additional commercial or contractual arguments, for example a different causation theory or genuinely disputed items, presented separately and explicitly as such; what is not acceptable is representing an unsupported 55-day figure as the output of the technical schedule analysis itself.",
+    "expertAnswer": "Recognizes this as pressure to misrepresent a technical finding for commercial negotiating advantage, a serious professional integrity issue with real consequences: if scrutinized by the client's own delay analyst, an adjudicator, or a tribunal, an inflated technical section undermines the credibility of the entire claim, including the genuinely supportable 28 days, and exposes the preparer personally. Recommends firmly declining to alter the technical finding, documenting the request and the response in writing, offering to support a properly structured claim where the technical section states 28 days and any further commercial ask is presented transparently as a separate negotiating position, and escalating to the planning or project controls director if the commercial director insists on issuing the technical section as 55 days regardless.",
+    "explanation": "The technical schedule analysis section of a claim should state only what the methodology and evidence actually support; any higher opening negotiating position sought by the commercial team should be presented transparently as a separate commercial argument, not disguised as an inflated technical finding.",
+    "reasoning": "A technical delay analysis derives its credibility from being methodologically supportable and evidence-based; inflating the stated technical finding to serve a negotiating strategy converts a defensible 28-day finding into an unsupportable 55-day one, which risks discrediting the entire claim, including the genuinely supportable portion, if challenged by an opposing analyst or a tribunal.",
+    "commonMistakes": [
+      "Treating 'we always get negotiated down anyway' as a valid justification for overstating the technical finding.",
+      "Not distinguishing between a commercial negotiating position and the technical analysis itself.",
+      "Complying without considering the risk an inflated technical section poses to the credibility of the whole claim."
+    ],
+    "redFlags": [
+      "Revises the technical analysis to show 55 days with no additional supporting evidence.",
+      "Cannot explain why conflating a negotiating strategy with the technical finding undermines the claim's credibility."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Firmly declines to inflate the technical finding and explains the integrity and credibility risk clearly."
+        },
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly maintains the 28-day figure as the evidence-supported technical finding."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains how an inflated technical section can discredit the entire claim if challenged."
+        }
+      ],
+      "passingScore": 15
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If the commercial director issues the claim with 55 days in the technical section over your objection, without your name attached, are you in the clear?",
+        "purpose": "Tests whether the candidate understands professional responsibility can extend beyond formal sign-off, and the importance of a documented objection regardless."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "How would you structure the claim document so the 28-day technical finding and any additional 27-day commercial ask are both clearly presented without either misleading the reader?",
+        "purpose": "Tests whether the candidate can propose a concrete, transparent claim structure rather than only refusing."
+      }
+    ],
+    "tags": [
+      "EOT claim",
+      "inflated claim",
+      "commercial pressure",
+      "metro tunnel",
+      "forensic schedule analysis"
+    ],
+    "references": [
+      "SCL Delay and Disruption Protocol",
+      "AACE RP 29R-03 Forensic Schedule Analysis",
+      "PMI Code of Ethics and Professional Conduct"
+    ]
+  },
+  {
+    "questionCode": "ETH-010",
+    "category": "ETH",
+    "subcategory": "Escalation of Discovered Manipulation",
+    "competency": "MANAGEMENT_COMM_ETHICS",
+    "skill": "Responding appropriately upon discovering that a colleague deliberately manipulated schedule logic and calendars to hide float erosion ahead of a client audit",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "questionType": "CASE_STUDY",
+    "projectType": "Offshore oil platform topsides fabrication",
+    "scenario": "Ahead of an announced client schedule audit, the planning manager reviewing the schedule file history notices that a colleague, a project planner reporting to them, added several out-of-sequence Finish-to-Start relationships with negative lag and switched two activities onto a 7-day calendar from the standard 6-day calendar in the days immediately before the audit, with no documented technical justification, no logic-change narrative entry, and no notification to the team. The combined effect is that several paths which had gone slightly negative in the prior update now show small positive float, just before the client's audit team arrives.",
+    "question": "As the planning manager discovering this, what would you do, both regarding the schedule itself and regarding the colleague who made the changes?",
+    "expectedAnswer": "Treats this as a serious integrity issue, not a routine logic correction: the undocumented, unexplained, precisely timed changes, negative lags and a calendar switch with no technical basis, made right before an audit, that happen to flip negative float to positive, strongly indicate deliberate manipulation to mislead the client's auditors about the schedule's true status. Does not allow the manipulated schedule to be presented to the audit team; restores the schedule to its technically justified state, removing the unsupported negative lags and calendar switch, or requiring the colleague to produce a genuine technical justification for each if one actually exists, before the audit proceeds.",
+    "strongAnswer": "Adds that this requires a direct, documented conversation with the colleague to understand their reasoning and give them a chance to explain, since there is a formal possibility, however unlikely given the pattern, of a legitimate but poorly documented basis, while treating the timing and lack of any narrative entry as strong prima facie evidence of intentional concealment.",
+    "expertAnswer": "Recognizes that beyond fixing the schedule itself, this is a personnel and organizational integrity matter that needs to go beyond a planner-to-planner conversation. Recommends escalating to the planning manager's own superior and, or, HR or compliance per the organization's process, since knowingly allowing a manipulated schedule to be presented to a client audit, even after personally catching and reversing it, without addressing the underlying conduct leaves the organization exposed to recurrence and to the client potentially discovering the original manipulation independently later, which would be far more damaging than proactive disclosure and correction now. Also considers whether the client needs to be proactively informed that an irregularity was found and corrected before the audit, depending on the severity and the organization's disclosure obligations.",
+    "explanation": "Undocumented, precisely timed logic and calendar changes that flip negative float to positive immediately before a client audit are strong evidence of deliberate manipulation; the correct response restores the technically justified schedule before the audit, addresses the conduct directly with the colleague, and escalates the matter through organizational channels rather than quietly reversing the changes and moving on.",
+    "reasoning": "Legitimate logic or calendar changes are normally documented with a technical rationale and a narrative entry; the combination of no documentation, precise timing immediately before an audit, and an effect that specifically converts negative float to positive on multiple paths is difficult to explain as coincidental or routine, making deliberate concealment the most probable explanation that must be investigated and addressed rather than assumed away.",
+    "commonMistakes": [
+      "Quietly reversing the changes and saying nothing further, treating it as resolved once the schedule is corrected.",
+      "Allowing the manipulated schedule to go to the client audit while planning to raise the issue afterward.",
+      "Addressing only the technical correction without engaging with the underlying conduct or considering organizational escalation."
+    ],
+    "redFlags": [
+      "Quietly reverses the changes without addressing the conduct with the colleague or escalating.",
+      "Allows the manipulated schedule to go to the client audit without correction.",
+      "Treats undocumented negative lags and calendar switches right before an audit as unremarkable."
+    ],
+    "p6Checks": [
+      "Review the schedule change log or audit trail for undocumented logic and calendar changes.",
+      "Compare relationship types and lags before and after the suspicious update for unexplained negative lags.",
+      "Check calendar assignments against the project's standard calendar policy for unauthorized changes.",
+      "Trace which specific paths flipped from negative to positive float as a result of the changes."
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "professionalJudgment",
+          "maxScore": 10,
+          "guidance": "Treats the discovery as a serious integrity matter, corrects the schedule, and escalates appropriately rather than quietly resolving it."
+        },
+        {
+          "name": "causeAndEffect",
+          "maxScore": 5,
+          "guidance": "Correctly reasons from the pattern of evidence to the likely intent, without overreaching beyond what the evidence supports."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete technical verification steps and a realistic organizational escalation path."
+        }
+      ],
+      "passingScore": 15
+    },
+    "weight": 2,
+    "estimatedTimeSec": 240,
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "The colleague says they made the changes 'to buy time to actually fix the real problem before the audit, not to deceive anyone.' Does this explanation change what you do?",
+        "purpose": "Tests whether the candidate evaluates the stated intent against the evidence rather than accepting it at face value, while still following a fair process."
+      },
+      {
+        "trigger": "if_correct",
+        "prompt": "Under what circumstances, if any, would you proactively disclose the irregularity to the client rather than simply presenting the corrected schedule?",
+        "purpose": "Tests judgment on the harder question of external disclosure obligations versus internal correction."
+      }
+    ],
+    "tags": [
+      "schedule manipulation",
+      "whistleblowing",
+      "audit",
+      "offshore",
+      "calendar manipulation",
+      "escalation",
+      "integrity"
+    ],
+    "references": [
+      "PMI Code of Ethics and Professional Conduct",
+      "AACE RP 29R-03 Forensic Schedule Analysis"
+    ]
   }
 ]
