@@ -64,10 +64,22 @@ export function SimplePieChart({ data, dataKey = 'value', nameKey = 'name', heig
   );
 }
 
+const RADAR_LABEL_ABBREVIATIONS: Record<string, string> = {
+  'Planning & CPM': 'Planning & CPM',
+  'Primavera P6': 'Primavera P6',
+  'Schedule Analysis': 'Schedule Analysis',
+  'Project Controls / EVM': 'Proj. Controls / EVM',
+  'Delay / Claims': 'Delay / Claims',
+  'Construction Methodology': 'Construction Method.',
+  'Analytical Thinking': 'Analytical Thinking',
+  'Management / Communication / Ethics': 'Mgmt / Comms / Ethics',
+};
+
 export function CompetencyRadar({ data, height = 320 }: { data: Array<{ competency: string; score: number }>; height?: number }) {
+  const shortened = data.map((d) => ({ ...d, competency: RADAR_LABEL_ABBREVIATIONS[d.competency] ?? d.competency }));
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <RadarChart data={data}>
+      <RadarChart data={shortened} margin={{ top: 16, right: 48, bottom: 16, left: 48 }} outerRadius="62%">
         <PolarGrid stroke="#e2e8f0" />
         <PolarAngleAxis dataKey="competency" tick={{ fontSize: 10 }} />
         <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 9 }} />

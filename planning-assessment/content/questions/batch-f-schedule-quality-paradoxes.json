@@ -1661,5 +1661,396 @@
       "GAO Schedule Assessment Guide",
       "PMI Practice Standard for Scheduling"
     ]
+  },
+  {
+    "questionCode": "SQ-024",
+    "category": "SQ",
+    "subcategory": "Missing Logic",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Detecting a Start No Earlier Than constraint used as a substitute for a missing predecessor relationship, which naive open-end filters can miss",
+    "difficulty": 3,
+    "careerLevel": "SENIOR",
+    "questionType": "P6_ANALYSIS",
+    "scenario": "A film studio soundstage complex schedule audit finds that 95 activities carry a 'Start No Earlier Than' (SNET) constraint dated to roughly match when the planner originally expected each activity to start, with zero predecessor relationships on any of those 95 activities. The planner explains this was deliberate: 'the SNET constraint controls when it starts, so a predecessor link isn't really necessary.'",
+    "question": "Is the planner correct that the SNET constraint makes a predecessor link unnecessary? What risk does this practice create, and how would you detect it during a schedule audit?",
+    "explanation": "No — an SNET constraint pins an activity's earliest possible start to a fixed, manually-typed date; it does not represent an actual cause-and-effect dependency on any other activity's progress. If the true predecessor work were to slip, an SNET-constrained activity's start date would not move to reflect that real-world impact — it would simply sit at the same fixed date regardless of upstream reality, silently breaking the logic chain the CPM engine is supposed to model. This is functionally equivalent to an open-start activity dressed up with a constraint: a naive 'missing predecessor' filter run without also checking for a masking constraint can miss it entirely if the analyst only looks for the total absence of any constraint. Detection requires filtering specifically for activities that carry a Start constraint of any kind AND have zero predecessors simultaneously — a legitimate constraint (e.g., a genuine permit issuance date or vendor delivery commitment) can validly coexist with an activity that also has no predecessor, but a widespread pattern of many activities using this exact combination as a substitute for real logic is the signature to look for.",
+    "reasoning": "Constraints and logic serve fundamentally different mechanical purposes: a constraint fixes a date regardless of upstream events, while logic propagates real cause and effect from predecessor to successor. Using a constraint in place of logic converts the CPM network into a set of manually pinned dates dressed up to look calculated, and because the constraint gives the activity a plausible-looking date, it is easy to overlook during a superficial review that only checks whether a date 'looks reasonable'.",
+    "commonMistakes": [
+      "Accepting that a constrained activity does not need a predecessor because it already has a date.",
+      "Running an open-ends check that only flags activities with zero predecessors and no constraint, missing the constraint-masked cases entirely.",
+      "Assuming all SNET constraints are equally suspect, without distinguishing a genuinely justified external constraint from one substituting for absent logic."
+    ],
+    "redFlags": [
+      "Cannot explain why a constrained activity can still be functionally 'open-ended' from a logic standpoint.",
+      "Has no method to detect constraint-masked missing logic distinct from a standard missing-predecessor filter."
+    ],
+    "p6Checks": [
+      "Activities view — filter simultaneously for any Start constraint type present AND zero predecessor relationships to isolate this specific pattern.",
+      "For each flagged activity, ask what real predecessor work should govern its start, and confirm whether the SNET date was ever cross-checked against that predecessor's actual planned finish.",
+      "Sample a few flagged activities and test whether extending a plausible real predecessor's duration would logically require the SNET date to move — if the schedule shows no such relationship, the masking is confirmed."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you convert all 95 activities to use real predecessor logic instead, would you expect the overall project finish date to change? Why or why not?",
+        "purpose": "Tests whether the candidate understands that fixing masked missing logic can reveal previously invisible risk, not just tidy up the schedule cosmetically."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you distinguish a genuinely justified SNET constraint (e.g., a permit date) from one masking missing logic, once you've found the pattern?",
+        "purpose": "Tests nuanced judgment rather than blanket condemnation of all SNET usage."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly explains why an SNET constraint does not substitute for real predecessor logic."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why this pattern is invisible to a naive missing-predecessor filter."
+        },
+        {
+          "name": "p6Understanding",
+          "maxScore": 5,
+          "guidance": "Describes a concrete detection method combining constraint type and predecessor count."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.6,
+    "estimatedTimeSec": 210,
+    "tags": [
+      "missing logic",
+      "SNET constraint",
+      "film studio",
+      "masked open ends",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-025",
+    "category": "SQ",
+    "subcategory": "Calendar Anomalies",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Diagnosing a schedule-wide float increase caused by an uncontrolled global calendar change rather than genuine project performance improvement",
+    "difficulty": 3,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "SENIOR"
+    ],
+    "questionType": "TROUBLESHOOTING",
+    "scenario": "A regional distribution warehouse project in the Middle East originally used a 6-day-per-week standard calendar (Saturday–Thursday working, Friday off), matching local practice. Partway through execution, the planning team switches the global default calendar to a 5-day week (matching the parent company's home-country standard) 'to align with corporate reporting,' without individually reviewing the effect on already-baselined activities. The next schedule update shows Total Float increasing by several days across dozens of unrelated activities, with no corresponding change in actual site performance.",
+    "question": "What is the most likely cause of this float increase, and what would you check to confirm it?",
+    "explanation": "The most likely cause is the calendar change itself, not any real improvement in project performance: switching from a 6-day to a 5-day working week increases the number of calendar days needed to consume the same working-day durations for every activity on (or newly defaulted to) the changed calendar, which shifts calculated late dates and, if the change was not applied deliberately and consistently relative to the original baseline calendar assumptions, can artificially inflate float across large parts of the network — a purely administrative change masquerading as a schedule risk-position improvement. To confirm, check whether the specific activities showing increased float are the ones whose calendar assignment actually changed, verify whether the baseline itself still reflects the original 6-day calendar (meaning any comparison is not truly apples-to-apples unless handled carefully), and confirm with site whether real working patterns on the ground actually moved to a 5-day week or whether this was a scheduling-tool-only change that no longer matches how the project actually works.",
+    "reasoning": "Duration values are working-day (or working-unit) figures; the calendar converts them into elapsed calendar time. Changing the calendar's work pattern without changing the underlying durations necessarily changes every calculated date derived from that calendar, and doing this globally and administratively — rather than as a deliberate, individually reviewed schedule decision — produces a systemic distortion that can easily be mistaken for genuine schedule improvement if nobody investigates the mechanism.",
+    "commonMistakes": [
+      "Interpreting the widespread float increase as genuine good news about project performance.",
+      "Not checking whether the float increase correlates specifically with the activities whose calendar assignment changed.",
+      "Assuming a calendar change is purely an internal reporting/administrative matter with no real schedule-calculation consequence."
+    ],
+    "redFlags": [
+      "Reports the float increase as a performance improvement without investigating its cause.",
+      "Cannot explain how a calendar's working-day pattern affects calculated float and dates."
+    ],
+    "p6Checks": [
+      "Enterprise Data > Calendars — confirm exactly what changed (work week pattern, holidays) and when the change was applied.",
+      "Activities view — filter for activities on the changed calendar and cross-check whether their float increase correlates with the calendar change date, not a progress update.",
+      "Compare whether the assigned baseline still reflects the original 6-day calendar or was inadvertently affected by the same global change, which would corrupt baseline comparability going forward.",
+      "Confirm with site supervision whether actual working days on the ground changed, or only the scheduling tool's calendar definition did."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If the baseline calendar was also affected by this change, what would that mean for every Finish Variance figure reported this month?",
+        "purpose": "Tests whether the candidate connects the calendar issue to broader baseline-integrity consequences, not just the float symptom."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How should a calendar change of this kind be governed going forward so it doesn't happen without review again?",
+        "purpose": "Tests whether the candidate proposes a change-control safeguard, not just a one-time fix."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the calendar change as the cause of the systemic float increase."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains the working-day-to-calendar-day mechanism driving the distortion."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete checks to confirm the cause and assess baseline impact."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.5,
+    "estimatedTimeSec": 200,
+    "tags": [
+      "calendars",
+      "calendar change",
+      "float distortion",
+      "warehouse",
+      "Middle East"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-026",
+    "category": "SQ",
+    "subcategory": "Baseline Integrity",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Distinguishing new-scope activities with no baseline record from deleted activities that silently alter baseline totals, when baseline comparison columns appear blank",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "questionType": "WHAT_CHECK_FIRST",
+    "scenario": "A hydroelectric dam project's monthly variance report shows several activities' Baseline Finish column blank (or showing no value) even though those same activities clearly exist and are actively being progressed in the current schedule. The project controls analyst is confused why baseline comparison isn't working for these specific activities.",
+    "question": "What would you check first to explain this?",
+    "expectedAnswer": "Check whether these specific activities were added to the current schedule AFTER the baseline was created — for example, through an approved variation or a logic correction inserted during execution. An activity that did not exist at the time the baseline snapshot was taken will have no corresponding baseline record, so P6 has nothing to display in the Baseline Finish column for it, which is expected, correct behavior rather than a data error. Separately, also check the reverse case: activities that existed in the baseline but have since been deleted from the current schedule will still exist inside the stored baseline (a separate, frozen snapshot) but will no longer appear in the current activity list at all — this does not produce a blank column on a visible activity, but it can quietly and invisibly shrink the population being compared for any rolled-up or summary variance figures, which is worth checking for separately.",
+    "strongAnswer": "Distinguishes the two cases clearly: a blank baseline value on an existing current activity is a legitimate 'new scope' explanation requiring no correction, while activities present in the baseline but silently absent from the current schedule is a distinct, more concerning data-integrity question worth actively investigating (was the deletion legitimate descope, or was it an accidental removal that also removes progress history).",
+    "expertAnswer": "Recommends that any activity added after baseline approval be tagged (e.g., via an Activity Code or Notebook entry referencing the change order or logic-correction approval) so a blank baseline column is self-explanatory to any future reviewer, rather than requiring investigation each time; and recommends periodically reconciling the stored baseline's activity count against the current schedule's activity count to catch any deleted-but-still-baselined activities before they distort summary-level variance figures.",
+    "explanation": "A blank Baseline Finish on an otherwise normal, actively-progressed activity most often simply means that activity postdates the baseline snapshot — legitimate and expected — but the same underlying baseline/current mismatch mechanism can also hide a more concerning case (deleted activities silently shrinking the baseline comparison population), so both possibilities should be checked before concluding either way.",
+    "reasoning": "The baseline and current schedule are separate, independently stored objects; an activity can exist in one without existing in the other, in either direction, and understanding which direction applies determines whether this is a benign reporting gap (new scope, no correction needed) or a genuine data-integrity concern (deleted activities silently altering baseline totals) worth investigating and documenting.",
+    "commonMistakes": [
+      "Assuming a blank baseline column always indicates a data error requiring correction.",
+      "Not checking the reverse case (baselined activities deleted from the current schedule) as a separate possible issue.",
+      "Failing to document why new activities lack baseline data, leaving future reviewers to re-investigate the same question."
+    ],
+    "redFlags": [
+      "Treats every blank baseline value as an error to be forced/fixed without checking whether it is legitimate new scope.",
+      "Has never considered that deleted activities can silently alter baseline-based summary totals."
+    ],
+    "p6Checks": [
+      "Compare the Activity creation/added date (or check the change log) against the baseline creation date for each flagged activity.",
+      "Project > Baselines — open the stored baseline directly and compare its total activity count against the current schedule's activity count to check for deleted-but-still-baselined activities.",
+      "Confirm any newly added activities are tagged/documented with their approval basis (variation order or logic correction reference)."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "If you find 12 activities were deleted from the current schedule but are still sitting in the stored baseline, how would that affect a summary-level Finish Variance figure for the whole project?",
+        "purpose": "Tests whether the candidate can reason about the downstream reporting consequence, not just identify the mismatch."
+      },
+      {
+        "trigger": "always",
+        "prompt": "Should newly added activities ever be retroactively added to the baseline? Under what conditions?",
+        "purpose": "Tests understanding that baseline changes require governance/approval, connecting this topic back to baseline change-control discipline."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the new-scope explanation as the most likely, benign cause."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Also checks the reverse case (deleted baselined activities) as a distinct possible issue."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Names concrete checks to confirm which case applies."
+        }
+      ],
+      "passingScore": 10
+    },
+    "weight": 1.3,
+    "estimatedTimeSec": 180,
+    "tags": [
+      "baseline",
+      "orphaned activities",
+      "hydroelectric",
+      "variance reporting",
+      "data integrity"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-027",
+    "category": "SQ",
+    "subcategory": "Invalid and Out-of-Sequence Progress",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Recognizing an internally inconsistent progress status (100% complete with remaining duration and no Actual Finish) as a data-integrity defect requiring correction",
+    "difficulty": 2,
+    "careerLevel": "PLANNING_ENGINEER",
+    "secondaryCareerLevels": [
+      "JUNIOR"
+    ],
+    "questionType": "MCQ",
+    "scenario": "A wastewater treatment plant schedule audit finds 23 activities marked 'Started' with a populated Actual Start date and 100% listed for Physical % Complete, but each of these 23 activities still shows a non-zero Remaining Duration and no Actual Finish date populated.",
+    "question": "What does this combination indicate, and why is it a data-integrity concern?",
+    "options": [
+      {
+        "label": "A",
+        "text": "This is an internally inconsistent status: an activity genuinely 100% complete should have zero Remaining Duration and a populated Actual Finish date; the mismatch suggests the percent-complete figure was overstated, the activity is not actually finished, or the update was never properly closed out — and it should be corrected before being relied on for progress reporting or forecasting",
+        "isCorrect": true
+      },
+      {
+        "label": "B",
+        "text": "This is normal and expected P6 behavior for any activity nearing completion, and requires no correction",
+        "isCorrect": false
+      },
+      {
+        "label": "C",
+        "text": "A 100% Physical % Complete automatically forces Remaining Duration to zero and populates an Actual Finish date, so this combination is a harmless display glitch",
+        "isCorrect": false
+      },
+      {
+        "label": "D",
+        "text": "This only affects cost/earned-value reporting, not schedule date calculations, so it can safely be ignored for CPM purposes",
+        "isCorrect": false
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Work reported as 100% complete with remaining duration still populated and no closing Actual Finish date is an internal contradiction — either the activity is not really finished (percent-complete was overstated, perhaps rounded up prematurely or copied from a status meeting estimate rather than verified in the field) or it is genuinely finished but was not properly closed out in the schedule (Actual Finish never entered, Remaining Duration not zeroed). In either case, downstream forecast dates and float calculations can be corrupted, because a non-zero remaining duration on a 'complete' activity can still push successor start dates later than they should be. Option C is factually wrong — P6 does not force this consistency automatically; the fields must be reconciled correctly by whoever performs the status update.",
+    "reasoning": "Percent complete, Actual Start/Finish, and Remaining Duration are separate fields that a status update must set consistently with each other — P6 calculates dates from whatever values are entered, so an internally contradictory combination produces a schedule that is mathematically well-formed but factually wrong about the true state of the work.",
+    "commonMistakes": [
+      "Assuming any 100% Physical % Complete figure automatically implies the activity is fully closed out in every other field.",
+      "Treating this kind of data-entry inconsistency as a minor cosmetic issue rather than something that corrupts forecast dates.",
+      "Believing status-field consistency only matters for cost reporting, not for CPM date calculation."
+    ],
+    "redFlags": [
+      "Cannot explain why a non-zero Remaining Duration on a '100% complete' activity would affect successor dates.",
+      "Sees no need to correct this kind of status inconsistency before relying on the schedule's forecast."
+    ],
+    "p6Checks": [
+      "Activities view — filter for Physical % Complete = 100% combined with Remaining Duration > 0 or Actual Finish blank to find every instance of this pattern.",
+      "For each flagged activity, verify with the responsible site engineer whether it is genuinely complete (and close it out properly) or was prematurely marked at 100%.",
+      "Recompute the schedule after correcting these statuses and compare the forecast finish date before and after to quantify how much distortion existed."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "always",
+        "prompt": "If correcting these 23 activities pushes the forecast finish date later, what would you tell the project manager about why the 'forecast' changed even though no new delay actually occurred this month?",
+        "purpose": "Tests communication of a data-correction-driven forecast shift versus a genuine new delay."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly identifies the internal inconsistency and its likely causes."
+        },
+        {
+          "name": "practicalApplication",
+          "maxScore": 5,
+          "guidance": "Connects the finding to a concrete downstream forecast/float distortion."
+        }
+      ],
+      "passingScore": 7
+    },
+    "weight": 1.1,
+    "estimatedTimeSec": 110,
+    "tags": [
+      "progress status",
+      "data integrity",
+      "wastewater treatment",
+      "percent complete",
+      "DCMA"
+    ],
+    "references": [
+      "PMI Practice Standard for Scheduling"
+    ]
+  },
+  {
+    "questionCode": "SQ-028",
+    "category": "SQ",
+    "subcategory": "Comprehensive Schedule Health Review",
+    "competency": "SCHEDULE_ANALYSIS",
+    "skill": "Presenting a multi-metric schedule health check to an executive audience without overstating any single methodology's thresholds as a universal pass/fail standard",
+    "difficulty": 5,
+    "careerLevel": "MANAGER",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
+    "questionType": "MANAGEMENT_SCENARIO",
+    "scenario": "A large international airport expansion program's planning director asks the schedule quality lead to run a full DCMA-14-style health check on the 8,500-activity master schedule and present findings to the executive steering committee, who have heard of 'DCMA-14' from a previous project and expect a simple pass/fail scorecard. The health check reveals: 3% missing logic, 9% hard constraints, 6% negative float, 61% of activities critical, average duration within a reasonable range, and — separately from any aggregate percentage — a cluster of 240 activities on the baggage handling system interface showing both unusually high float AND recent out-of-sequence progress simultaneously.",
+    "question": "How would you present these findings to an executive committee expecting a simple pass/fail DCMA-14 scorecard? What would you emphasize, and what would you caution against?",
+    "expectedAnswer": "A simple pass/fail scorecard against DCMA-14 thresholds would be misleading here and should be explicitly cautioned against: DCMA-14 is one specific methodology, developed for a particular contracting context, and its numeric thresholds are guidance from that one methodology rather than a universal, contractually mandatory pass/fail standard automatically applicable to this airport program unless the specific contract's own schedule specification invokes it. Presenting a bare 'X of 14 metrics pass' scorecard risks misleading the committee in either direction — false reassurance if borderline metrics are simply waved through, or an unproductive, decontextualized alarm if the committee fixates on the 61% critical or 9% constraint figures as automatic failures without understanding their cause. What should be emphasized instead: (1) the specific cluster of 240 baggage handling interface activities showing both high float and recent out-of-sequence progress simultaneously is the single most concrete, investigation-worthy finding — that particular combination often indicates the logic in that specific area no longer reflects how the work is actually being executed, which is a genuine, localized risk to the airport's operational readiness date and is more actionable than any aggregate percentage; (2) the 61% critical-activities figure needs root-cause context (a legitimate tight external constraint versus a modeling artifact) before being characterized as either acceptable or alarming; (3) the 9% hard-constraint and 6% negative-float figures should be presented with their specific locations and underlying causes, not simply as raw numbers measured against a generic threshold. The caution to the committee: schedule health metrics are diagnostic indicators that flag where to look more closely, not a certification that the schedule is fit or unfit for purpose by themselves — treating any one methodology's thresholds as a mandatory pass/fail gate risks both false confidence and misdirected alarm.",
+    "strongAnswer": "Proposes a concrete presentation structure: lead with the baggage handling interface finding and a specific remediation plan and owner, follow with root-cause context for the criticality and constraint figures, and present the DCMA-14-style metrics as one input among several rather than the headline, explicitly stating to the committee which (if any) of the thresholds are contractually mandated on this specific program versus offered purely as general guidance.",
+    "expertAnswer": "Recommends the committee be given a short, plain-language explanation of what DCMA-14 actually is (an assessment technique developed in a specific defense-contracting context) and why its thresholds are not a certification standard for this airport program unless the contract says so, framed constructively so it reads as rigor rather than as dodging accountability; and recommends establishing an ongoing (not one-off) schedule health monitoring cadence so findings like the baggage handling cluster are caught and acted on early and routinely, rather than only surfacing during a special-purpose executive review.",
+    "explanation": "This is a synthesis question: it requires correctly contextualizing DCMA-14-style metrics as one methodology's guidance rather than a universal standard, prioritizing the one concrete, causally meaningful finding (the baggage handling cluster) over decontextualized aggregate percentages, and communicating all of this to a non-technical executive audience without either overstating or dismissing the findings.",
+    "reasoning": "Schedule health metrics are diagnostic signals whose meaning depends on investigating their cause; a percentage alone (critical activities, constraints, negative float) cannot be judged 'good' or 'bad' without knowing why it exists, and a specific, causally coherent finding (high float plus out-of-sequence progress concentrated in one interface area) is inherently more decision-useful than any single aggregate number, because it points directly at an investigable, addressable risk rather than requiring further unpacking.",
+    "commonMistakes": [
+      "Presenting a bare pass/fail scorecard against DCMA-14 thresholds as if they were a universal, contractually binding standard for this specific program.",
+      "Burying the specific, actionable baggage handling interface finding among a list of undifferentiated aggregate percentages.",
+      "Either dismissing all the metrics as 'not mandatory so not important' or treating every threshold breach as an automatic serious problem, without investigating root cause in either direction."
+    ],
+    "redFlags": [
+      "States or implies DCMA-14 thresholds are a mandatory pass/fail standard on every project regardless of contract.",
+      "Cannot identify the baggage handling interface cluster as the most actionable finding among those presented.",
+      "Has no communication strategy for presenting technical nuance to a non-technical executive audience."
+    ],
+    "followUpQuestions": [
+      {
+        "trigger": "if_correct",
+        "prompt": "The planning director wants a single overall 'health score' out of 100 for the executive summary slide — would you provide one, and if so, how would you construct it responsibly?",
+        "purpose": "Tests whether the candidate can navigate a real organizational pressure for oversimplification without either refusing unhelpfully or producing a misleading single number."
+      },
+      {
+        "trigger": "always",
+        "prompt": "How would you follow up on the baggage handling interface cluster specifically after this meeting?",
+        "purpose": "Tests whether the candidate has a concrete next step beyond the presentation itself."
+      }
+    ],
+    "scoringRubric": {
+      "dimensions": [
+        {
+          "name": "technicalAccuracy",
+          "maxScore": 5,
+          "guidance": "Correctly interprets each metric and identifies the baggage handling cluster as the most significant finding."
+        },
+        {
+          "name": "professionalJudgment",
+          "maxScore": 5,
+          "guidance": "Explicitly frames DCMA-14-style thresholds as one methodology's guidance, not a universal mandate."
+        },
+        {
+          "name": "completeness",
+          "maxScore": 5,
+          "guidance": "Addresses all the given findings with appropriate context, not just the most dramatic one."
+        },
+        {
+          "name": "reasoning",
+          "maxScore": 5,
+          "guidance": "Explains why a bare pass/fail scorecard would mislead the committee in either direction."
+        }
+      ],
+      "passingScore": 14
+    },
+    "weight": 2,
+    "estimatedTimeSec": 260,
+    "tags": [
+      "DCMA",
+      "schedule health check",
+      "airport",
+      "executive communication",
+      "baggage handling"
+    ],
+    "references": [
+      "GAO Schedule Assessment Guide",
+      "PMI Practice Standard for Scheduling"
+    ]
   }
 ]
