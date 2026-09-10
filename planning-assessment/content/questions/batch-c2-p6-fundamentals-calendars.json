@@ -3483,8 +3483,11 @@
     "subcategory": "Calendar Hours Configuration",
     "competency": "P6",
     "skill": "Diagnosing a budgeted-hours discrepancy caused by a mismatch between Admin Preferences Time Periods and a calendar's actual defined workday length",
-    "difficulty": 4,
+    "difficulty": 5,
     "careerLevel": "SENIOR",
+    "secondaryCareerLevels": [
+      "LEAD"
+    ],
     "questionType": "TROUBLESHOOTING",
     "scenario": "On a shipyard fabrication project, the site actually works 10-hour shifts (defined correctly as such in the assigned Project calendar's Standard Workweek settings – 10 working hours per day). A resource is assigned to a 5-day-duration activity at 100% Units, and the planner expects Budgeted Labor Units to equal 50 hours (5 days x 10 hours). Instead, P6 shows Budgeted Units as 40 hours.",
     "question": "What is the most likely cause of this discrepancy between the expected 50 hours and the displayed 40 hours, and where would the planner check to confirm it?",
