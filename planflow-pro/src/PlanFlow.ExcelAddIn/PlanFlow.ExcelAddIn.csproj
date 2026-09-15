@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PlanFlow.ExcelAddIn</RootNamespace>
+    <AssemblyName>PlanFlow.ExcelAddIn</AssemblyName>
+    <!-- Excel-DNA packs this into a self-contained PlanFlow.ExcelAddIn.xll on build (Windows only). -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDna.AddIn" Version="1.7.0" />
+    <PackageReference Include="ClosedXML" Version="0.102.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlanFlow.Core\PlanFlow.Core.csproj" />
+  </ItemGroup>
+
+</Project>

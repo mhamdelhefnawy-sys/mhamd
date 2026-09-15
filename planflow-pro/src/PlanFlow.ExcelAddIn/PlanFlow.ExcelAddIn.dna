@@ -1,0 +1,3 @@
+<DnaLibrary Name="PlanFlow Pro" RuntimeVersion="v4.0" xmlns="http://schemas.excel-dna.net/addin/2015/10/dnalibrary">
+  <ExternalLibrary Path="PlanFlow.ExcelAddIn.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" />
+</DnaLibrary>
