@@ -67,7 +67,7 @@ public class ManpowerAndXerTests
         model.Relationships = new List<Relationship> { new() { RelationshipId = "R1", PredecessorId = "A1", SuccessorId = "A1" } };
 
         var result = XerExportValidator.Validate(model);
-        Assert.Contains(result.Errors, e => e.Code == "XER_REL_SELF_LINK");
+        Assert.Contains(result.Errors, e => e.Code == "REL_SELF_LINK");
     }
 
     [Fact]
@@ -86,7 +86,7 @@ public class ManpowerAndXerTests
         };
 
         var result = XerExportValidator.Validate(model);
-        Assert.Contains(result.Errors, e => e.Code == "XER_REL_CIRCULAR");
+        Assert.Contains(result.Errors, e => e.Code == "REL_CIRCULAR");
     }
 
     [Fact]
