@@ -1,0 +1,832 @@
+[
+  {
+    "id": "FLT-FUN-003",
+    "domain": "D08",
+    "sub_domain": "Free Float",
+    "type": "fundamentals",
+    "career_level": "junior",
+    "bloom_level": 1,
+    "scenario_level": 0,
+    "question": {
+      "en": "What is Free Float and how is it calculated for a finish-to-start relationship?",
+      "ar": "ما هو الـ Free Float وكيف يُحسب في علاقة Finish-to-Start؟"
+    },
+    "thinking_objectives": ["Free Float definition", "Dependence on successors' early dates"],
+    "model_answer": {
+      "en": "Free Float is the amount of time an activity can be delayed without delaying the early start of any of its immediate successors. For finish-to-start relationships it is: Free Float = (earliest Early Start among all successors, after applying any lag) − Early Finish of the activity. It uses early dates only. When an activity has several successors, the smallest gap governs. Free Float is always a subset of Total Float in an unconstrained network, which is why using Free Float first is 'free' — it does not reduce anyone else's float.",
+      "ar_explanation": "الـ Free Float هو التأخير المسموح للنشاط بدون تأخير الـ Early Start لأي Successor مباشر. يُحسب: أقل Early Start للـ Successors (بعد الـ Lag) ناقص Early Finish للنشاط. يعتمد على التواريخ المبكرة فقط، ولو للنشاط أكثر من Successor فالأقل هو الحاكم. استهلاكه لا يؤثر على Float أي نشاط آخر، ولذلك اسمه «حر»."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "def_successor", "text": "Delay without delaying early start of immediate successors", "weight": 2.5 },
+        { "id": "formula", "text": "ES(successor) − EF(activity), including lag", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "min_successor", "text": "Smallest value among multiple successors" }
+      ],
+      "advanced_points": [
+        { "id": "no_impact_others", "text": "Consuming Free Float does not reduce other activities' float" },
+        { "id": "early_dates_only", "text": "Uses early dates only, unaffected by project deadline" }
+      ],
+      "red_flags": [
+        { "id": "project_finish", "text": "Defines it relative to project completion (that is Total Float)", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "if_missing", "ref_point": "no_impact_others",
+        "question": { "en": "Why do planners prefer to absorb a delay in Free Float rather than Total Float?", "ar": "لماذا يفضّل المخطط امتصاص التأخير في الـ Free Float بدل الـ Total Float؟" },
+        "expects": ["Free Float use has no effect on other activities", "Total Float use erodes successors' float"]
+      }
+    ],
+    "misconceptions": ["Free Float is measured to the project finish"],
+    "related": ["FLT-FUN-001", "FLT-CON-002"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["float", "free-float", "fundamentals"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-FUN-004",
+    "domain": "D08",
+    "sub_domain": "Negative float meaning",
+    "type": "fundamentals",
+    "career_level": "junior",
+    "bloom_level": 2,
+    "scenario_level": 0,
+    "question": {
+      "en": "What does negative Total Float mean?",
+      "ar": "ماذا يعني الـ Total Float السالب؟"
+    },
+    "thinking_objectives": ["Negative float as a symptom", "Late dates vs early dates"],
+    "model_answer": {
+      "en": "Negative Total Float means the activity's late dates are earlier than its early dates: with the current logic, durations and progress, the activity cannot meet a target date imposed on the schedule — usually the project Must Finish By date or a constraint on the activity or one of its successors. The value tells you by how many days that target is currently missed along that path. It is a symptom, not a cause: it can result from slippage of the activity itself, a delayed predecessor, added logic, a newly imposed or earlier constraint, a calendar change, or an unrealistic target. Without an imposed date or constraint, CPM cannot produce negative float.",
+      "ar_explanation": "الـ Float السالب معناه إن الـ Late Dates أبكر من الـ Early Dates، يعني بالمنطق والمدد والتقدم الحالي النشاط لن يحقق تاريخًا مفروضًا (غالبًا Must Finish By أو Constraint عليه أو على Successor). القيمة = عدد الأيام التي يفوت بها الهدف على هذا المسار. وهو عَرَض وليس سببًا. ولاحظ: بدون تاريخ مفروض أو Constraint لا يمكن أن يظهر Float سالب."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "target_missed", "text": "Current plan cannot meet an imposed target/date", "weight": 2.5 },
+        { "id": "late_before_early", "text": "Late dates earlier than early dates", "weight": 1 },
+        { "id": "symptom", "text": "It is a symptom with several possible causes", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "magnitude", "text": "Value = days by which the target is missed" }
+      ],
+      "advanced_points": [
+        { "id": "needs_imposed_date", "text": "Negative float requires an imposed date or constraint" }
+      ],
+      "red_flags": [
+        { "id": "activity_late", "text": "States it always means the activity itself is delayed", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "if_missing", "ref_point": "needs_imposed_date",
+        "question": { "en": "Can a schedule with no Must Finish By date and no constraints show negative float?", "ar": "هل يمكن لبرنامج بدون Must Finish By وبدون Constraints أن يظهر Float سالب؟" },
+        "expects": ["No — backward pass starts from the calculated early finish", "Minimum float on the longest path is zero"]
+      }
+    ],
+    "misconceptions": ["Negative float means the activity itself is late", "Negative float is a P6 error"],
+    "related": ["CPM-SCN-001"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["float", "negative-float", "fundamentals"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-CON-005",
+    "domain": "D08",
+    "sub_domain": "Critical vs zero float",
+    "type": "conceptual",
+    "career_level": "planning_engineer",
+    "bloom_level": 2,
+    "scenario_level": 0,
+    "question": {
+      "en": "Is a critical activity always an activity with zero Total Float? Explain.",
+      "ar": "هل النشاط الحرج دائمًا هو النشاط الذي له Total Float = صفر؟ اشرح."
+    },
+    "thinking_objectives": ["Critical path definition", "Effect of imposed dates and constraints on float"],
+    "model_answer": {
+      "en": "No. 'Zero float = critical' is only true in an unconstrained network whose backward pass starts from the calculated finish. If the project has a Must Finish By date later than the calculated finish, the critical path carries positive float (e.g., +15); if earlier, it carries negative float. Constraints on intermediate activities create negative or zero float on paths that do not drive completion. Mixed calendars make float values differ along the same driving path. That is why the critical path is better defined as the longest path — the chain of driving relationships that determines project completion. In P6, Schedule Options let you define critical activities either as 'Total Float less than or equal to X' or as 'Longest Path'; the choice changes what the Critical filter shows.",
+      "ar_explanation": "لا. «صفر Float = حرج» صحيح فقط في شبكة بدون تاريخ مفروض. لو الـ Must Finish By متأخر عن الانتهاء المحسوب يكون Float المسار الحرج موجبًا، ولو أبكر يكون سالبًا. الـ Constraints الوسيطة تصنع Float سالب على مسارات لا تقود المشروع، والـ Calendars المختلفة تغيّر القيم على نفس المسار. لذلك التعريف الأدق: Longest Path. وفي P6 تختار في Schedule Options تعريف الحرجية: Total Float ≤ قيمة، أو Longest Path."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "answer_no", "text": "No, not always", "weight": 1 },
+        { "id": "imposed_date", "text": "Must Finish By date shifts float of the critical path (positive or negative)", "weight": 2.5 },
+        { "id": "longest_path", "text": "Critical path = longest path / driving path to completion", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "constraints", "text": "Constraints create zero/negative float off the driving path" }
+      ],
+      "advanced_points": [
+        { "id": "calendars", "text": "Mixed calendars make float differ along the driving path" },
+        { "id": "p6_definition", "text": "P6 setting: critical = TF ≤ X or Longest Path" }
+      ],
+      "red_flags": [
+        { "id": "always_zero", "text": "Says critical activities always have zero float", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "Your Critical filter (TF ≤ 0) shows nothing, yet the project obviously has a critical path. Why?", "ar": "فلتر الحرجية (TF ≤ 0) لا يظهر أي نشاط، مع أن المشروع له مسار حرج واضح. لماذا؟" },
+        "expects": ["Must Finish By later than calculated finish gives positive float", "Use Longest Path instead"]
+      }
+    ],
+    "misconceptions": ["Critical means zero float"],
+    "related": ["FLT-TRB-020"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["critical-path", "float", "longest-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-CON-006",
+    "domain": "D08",
+    "sub_domain": "Float ownership",
+    "type": "conceptual",
+    "career_level": "lead",
+    "bloom_level": 4,
+    "scenario_level": 0,
+    "question": {
+      "en": "Who owns the float in a construction schedule — the contractor, the employer, or the project?",
+      "ar": "من يملك الـ Float في برنامج مشروع إنشائي: المقاول، أم المالك، أم المشروع؟"
+    },
+    "thinking_objectives": ["Contractual float ownership", "Link between float and EOT entitlement"],
+    "model_answer": {
+      "en": "It depends first on the contract. Some contracts state float ownership explicitly (e.g., float is shared/project float, or reserved for the contractor). Where the contract is silent, the common approach — reflected in the SCL Delay and Disruption Protocol — is that float is not for the exclusive benefit of either party: it is available to the project, and an extension of time is granted only to the extent an employer risk event is predicted to reduce total float on the critical path below zero, i.e., to delay completion. Consequences: an employer delay absorbed by available float usually gives no EOT, although it may still cause disruption cost; a contractor who wants to protect float should show it explicitly (e.g., a programmed contingency/buffer activity) and keep the programme updated so the float at the time of each event is demonstrable. Lead planners should know their contract's float clause before arguing entitlement.",
+      "ar_explanation": "يعتمد أولاً على العقد. بعض العقود تنص صراحة (Float مشترك أو للمقاول). لو العقد صامت، المنهج الشائع (كما في SCL Protocol) أن الـ Float ليس حكرًا على طرف، وأن الـ EOT يُمنح فقط بقدر ما يجعل حدث مسؤولية المالك الـ Float على المسار الحرج أقل من صفر (أي يؤخر الإنجاز). لذلك تأخير من المالك يمتصه Float متاح غالبًا لا يعطي EOT وإن كان قد يسبب تكلفة إرباك. المقاول الذي يريد حماية الـ Float يظهره صراحة كـ Contingency ويحافظ على تحديث البرنامج."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "contract_first", "text": "Depends on the contract's float clause", "weight": 2.5 },
+        { "id": "silent_shared", "text": "If silent, float generally available to the project / not exclusive", "weight": 2 },
+        { "id": "eot_link", "text": "EOT only when the delay reduces float below zero / delays completion", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "scl", "text": "References SCL Protocol or similar guidance" }
+      ],
+      "advanced_points": [
+        { "id": "disruption_cost", "text": "Float absorption can still create disruption/cost entitlement" },
+        { "id": "contingency_activity", "text": "Contractor can protect time via explicit contingency/buffer" },
+        { "id": "contemporaneous", "text": "Float must be measured at the time of the event (updated programme)" }
+      ],
+      "red_flags": [
+        { "id": "absolute_answer", "text": "Gives an absolute answer ('always the contractor') without reference to the contract", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "As the contractor's planner, how would you protect your float before the employer consumes it?", "ar": "كمخطط للمقاول، كيف تحمي الـ Float قبل أن يستهلكه المالك؟" },
+        "expects": ["Read the contract clause", "Explicit contingency activities if permitted", "Prompt notices and updated programmes"]
+      }
+    ],
+    "misconceptions": ["Float always belongs to whoever uses it first", "Any employer delay gives EOT"],
+    "related": ["FLT-SCN-017"],
+    "p6_relevance": "none",
+    "real_world_relevance": "high",
+    "tags": ["float", "float-ownership", "eot", "contract"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-CON-007",
+    "domain": "D08",
+    "sub_domain": "Imposed finish date effect",
+    "type": "conceptual",
+    "career_level": "planning_engineer",
+    "bloom_level": 2,
+    "scenario_level": 0,
+    "question": {
+      "en": "You add a Project Must Finish By date 10 days earlier than the calculated finish. Which values change — early dates, late dates, or float — and why?",
+      "ar": "أضفت Project Must Finish By أبكر 10 أيام من تاريخ الانتهاء المحسوب. ما القيم التي تتغير: التواريخ المبكرة، أم المتأخرة، أم الـ Float؟ ولماذا؟"
+    },
+    "thinking_objectives": ["Forward vs backward pass", "What an imposed date does and does not do"],
+    "model_answer": {
+      "en": "Early dates do not change: the forward pass depends only on logic, durations, progress, data date and constraints that act forward. The backward pass now starts from the Must Finish By date instead of the calculated finish, so late dates move 10 days earlier on every path that leads to project completion, and Total Float decreases by 10 days on those activities — the driving path shows −10. Free Float does not change because it uses early dates only. The imposed date does not make the project finish earlier; it only measures how far the plan is from the target.",
+      "ar_explanation": "التواريخ المبكرة لا تتغير لأن الـ Forward Pass يعتمد على المنطق والمدد والتقدم. الـ Backward Pass يبدأ من الـ Must Finish By، فتتحرك الـ Late Dates 10 أيام أبكر ويقل الـ Total Float 10 أيام، والمسار القائد يصبح −10. الـ Free Float لا يتغير لأنه يعتمد على التواريخ المبكرة فقط. والتاريخ المفروض لا يقدّم المشروع، بل يقيس بُعد الخطة عن الهدف."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "early_unchanged", "text": "Early dates unchanged", "weight": 2 },
+        { "id": "late_move", "text": "Late dates move earlier by 10 days", "weight": 2 },
+        { "id": "tf_minus10", "text": "Total Float reduces by 10; driving path −10", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "backward_pass", "text": "Explains via backward pass starting from imposed date" }
+      ],
+      "advanced_points": [
+        { "id": "ff_unchanged", "text": "Free Float unchanged" },
+        { "id": "measurement_only", "text": "Imposed date measures the gap; it does not accelerate the plan" }
+      ],
+      "red_flags": [
+        { "id": "finish_moves", "text": "Says the project finish date moves 10 days earlier", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "An activity whose only path ends at an intermediate milestone with its own constraint — is its float affected?", "ar": "نشاط مساره الوحيد ينتهي عند Milestone وسيط عليه Constraint خاص به — هل يتأثر الـ Float بتاعه؟" },
+        "expects": ["Only if its path also leads to project finish", "Otherwise governed by the milestone constraint"]
+      }
+    ],
+    "misconceptions": ["Imposed dates change early dates"],
+    "related": ["FLT-FUN-004"],
+    "p6_relevance": "high",
+    "real_world_relevance": "medium",
+    "tags": ["float", "must-finish-by", "backward-pass"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-APP-008",
+    "domain": "D08",
+    "sub_domain": "Using float for resource decisions",
+    "type": "application",
+    "career_level": "planning_engineer",
+    "bloom_level": 3,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "The site manager needs to move two formwork crews to another building for 6 working days. Candidate activities: Slab L4 Zone A (TF 0, FF 0), Columns L5 Zone B (TF 12, FF 8), Stair cores (TF 9, FF 0), Parapets roof (TF 25, FF 25).",
+      "ar": "مدير الموقع يحتاج نقل طاقمي شدات لمبنى آخر لمدة 6 أيام عمل. الأنشطة المرشحة: Slab L4 Zone A (TF 0, FF 0)، Columns L5 Zone B (TF 12, FF 8)، Stair cores (TF 9, FF 0)، Parapets roof (TF 25, FF 25)."
+    },
+    "question": {
+      "en": "From which activities would you take the crews, and what else would you check before agreeing?",
+      "ar": "من أي الأنشطة ستأخذ الأطقم، وماذا ستفحص قبل الموافقة؟"
+    },
+    "thinking_objectives": ["Applying Free vs Total Float", "Resource continuity", "Risk of float erosion"],
+    "model_answer": {
+      "en": "First choices are activities whose Free Float exceeds 6 days: Parapets (FF 25) and Columns L5 Zone B (FF 8). Delaying them 6 days does not move any successor. Stair cores have 9 days TF but 0 FF, so a 6-day delay would push successors and consume their float — acceptable only if those successors' float can take it and their resources are not affected. Slab L4 Zone A is critical: no. Before agreeing I would check: (1) whether the crews actually work on those activities (resource assignment, not just float); (2) that the remaining crews can still progress the critical work; (3) whether delaying Columns L5 delays the formwork cycle for higher floors (resource-driven logic not in the network); (4) near-critical risk — Columns would drop from 12 to 6 TF; (5) return date commitment. I'd record the decision and re-run the schedule to confirm.",
+      "ar_explanation": "أبدأ بالأنشطة التي لها Free Float أكبر من 6 أيام: Parapets و Columns L5. تأخيرها لا يحرك أي Successor. الـ Stair cores لها TF = 9 لكن FF = 0، فالتأخير سيحرك الأنشطة التالية ويستهلك الـ Float بتاعها. الـ Slab حرج: مرفوض. وقبل الموافقة أتحقق أن الأطقم فعلاً تعمل على هذه الأنشطة، وأن دورة الشدات للأدوار الأعلى لن تتأثر (منطق موارد غير ظاهر في الشبكة)، وخطر تحول الأنشطة إلى Near-critical، وتاريخ العودة. ثم أعيد حساب البرنامج."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "ff_first", "text": "Prefers activities with Free Float ≥ 6 (Parapets, Columns L5)", "weight": 2.5 },
+        { "id": "not_critical", "text": "Excludes Slab L4 (critical)", "weight": 1.5 },
+        { "id": "stairs_tf_ff", "text": "Recognises Stair cores' delay affects successors (FF 0)", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "rerun", "text": "Re-runs the schedule to confirm" },
+        { "id": "return_date", "text": "Agrees a return date" }
+      ],
+      "advanced_points": [
+        { "id": "resource_logic", "text": "Resource-driven sequence (formwork cycle) not visible in float" },
+        { "id": "near_critical", "text": "Float erosion makes activities near-critical" },
+        { "id": "assignment_check", "text": "Checks crews are actually assigned to those activities" }
+      ],
+      "red_flags": [
+        { "id": "largest_tf", "text": "Chooses only by largest Total Float without considering Free Float", "severity": "minor" },
+        { "id": "take_critical", "text": "Takes crews from the critical slab", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "if_missing", "ref_point": "resource_logic",
+        "question": { "en": "Columns L5 has 8 days Free Float, but the same formwork set is needed for L6 next week. Does that change your answer?", "ar": "Columns L5 لها 8 أيام Free Float، لكن نفس طقم الشدات مطلوب للدور السادس الأسبوع القادم. هل يغير ذلك إجابتك؟" },
+        "expects": ["Yes — resource dependency not in the logic", "Float overstated; check formwork cycle"]
+      }
+    ],
+    "mutation": { "release_days": [4, 6, 10] },
+    "misconceptions": ["Float alone tells you an activity can be delayed safely"],
+    "related": ["FLT-FUN-003", "FLT-SCN-018"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["float", "free-float", "resources", "decision"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-APP-009",
+    "domain": "D08",
+    "sub_domain": "Near-critical activities",
+    "type": "application",
+    "career_level": "planning_engineer",
+    "bloom_level": 3,
+    "scenario_level": 0,
+    "question": {
+      "en": "How do you define 'near-critical' activities in a project, and how do you use them in monthly reporting?",
+      "ar": "كيف تعرّف الأنشطة Near-critical في مشروع، وكيف تستخدمها في التقرير الشهري؟"
+    },
+    "thinking_objectives": ["Setting a meaningful threshold", "Early warning reporting"],
+    "model_answer": {
+      "en": "Near-critical activities are those whose Total Float is small enough that normal variability can make them critical before the next corrective action. The threshold should be justified, not arbitrary: commonly a band such as 1–10 or 1–20 working days, or about one update period of float (e.g., ≤ 20 working days for monthly updates), adjusted for project duration and the volatility of the work. In reporting I show: the critical path, the near-critical paths (grouped by path, not as a scattered list), their float trend from previous updates, the reason each path is eroding, and the action owner. A path with steadily eroding float is a higher priority than one with a lower but stable float. I also check that near-critical float is real — not inflated by missing logic or masked by constraints.",
+      "ar_explanation": "الـ Near-critical هي الأنشطة التي Float بتاعها صغير لدرجة أن التذبذب العادي قد يجعلها حرجة قبل الإجراء التصحيحي التالي. الحد يجب أن يكون مبررًا، مثل فترة تحديث واحدة (≤ 20 يوم عمل للتحديث الشهري) ويتغير حسب مدة المشروع. في التقرير أعرض المسارات (وليس قائمة متفرقة)، اتجاه الـ Float عبر التحديثات، سبب التآكل، والمسؤول. المسار الذي يتآكل بسرعة أخطر من مسار Float بتاعه أقل لكنه ثابت."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "definition", "text": "Small positive float that can become critical", "weight": 2 },
+        { "id": "justified_threshold", "text": "Threshold justified (update period, duration, volatility)", "weight": 2 },
+        { "id": "reporting_use", "text": "Reported with trend and actions", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "example_threshold", "text": "Gives an example threshold" }
+      ],
+      "advanced_points": [
+        { "id": "trend_priority", "text": "Erosion rate matters more than absolute float" },
+        { "id": "by_path", "text": "Groups by path rather than activity list" },
+        { "id": "validate_float", "text": "Validates float is not inflated by missing logic" }
+      ],
+      "red_flags": [
+        { "id": "ignore", "text": "Says only the critical path needs reporting", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "Path A has 6 days float, stable for 4 months. Path B has 18 days, but lost 10 days last month. Which do you report as the bigger risk?", "ar": "المسار A له 6 أيام Float ثابتة منذ 4 أشهر. المسار B له 18 يومًا لكنه فقد 10 أيام الشهر الماضي. أيهما الخطر الأكبر؟" },
+        "expects": ["Path B — erosion rate suggests it becomes critical within ~2 updates", "Investigate cause of erosion"]
+      }
+    ],
+    "misconceptions": ["Only the critical path matters"],
+    "related": ["FLT-NUM-031"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["near-critical", "reporting", "float-trend"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-APP-010",
+    "domain": "D08",
+    "sub_domain": "Float trend analysis",
+    "type": "application",
+    "career_level": "senior",
+    "bloom_level": 3,
+    "scenario_level": 0,
+    "question": {
+      "en": "How would you build a float trend (float erosion) report across updates, and what decisions would it support?",
+      "ar": "كيف تبني تقرير Float Trend (تآكل الـ Float) عبر التحديثات، وما القرارات التي يدعمها؟"
+    },
+    "thinking_objectives": ["Using historical schedule data", "Turning float into early warning"],
+    "model_answer": {
+      "en": "Keep every update as a stored copy (or baseline) and export Total Float for key activities/milestones and for each critical and near-critical path at each data date. Plot float versus update date per path (or for contract milestones). The slope shows the erosion rate; extrapolating it estimates when a path will turn critical or negative. Compare with the reasons recorded each period (late progress, logic change, new scope, constraint) so the trend is explained, not just drawn. It supports decisions such as: when to start recovery before float runs out, which path needs resources, whether a milestone needs a notice, and whether the contractor's updates contain unexplained float gains (a sign of logic manipulation). Watch out: changes in logic or calendars between updates distort the trend, so annotate them.",
+      "ar_explanation": "أحتفظ بنسخة من كل تحديث، وأستخرج الـ Total Float للـ Milestones والمسارات الحرجة وشبه الحرجة عند كل Data Date، ثم أرسم الـ Float مقابل تاريخ التحديث. الميل = معدل التآكل، ومنه أتوقع متى يصبح المسار حرجًا. أربط كل تغير بسببه المسجل. يدعم قرار بدء الـ Recovery مبكرًا، وتوزيع الموارد، وإرسال الإشعارات، وكشف مكاسب Float غير مبررة في برامج المقاول."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "store_updates", "text": "Keeps each update's data (copies/baselines)", "weight": 1.5 },
+        { "id": "plot_by_path", "text": "Tracks float per path/milestone over updates", "weight": 2 },
+        { "id": "decisions", "text": "Links trend to decisions (early recovery, resources)", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "extrapolate", "text": "Extrapolates erosion to predict criticality" }
+      ],
+      "advanced_points": [
+        { "id": "explain_causes", "text": "Annotates causes of each change" },
+        { "id": "detect_manipulation", "text": "Detects unexplained float gains" },
+        { "id": "logic_changes_distort", "text": "Logic/calendar changes distort the trend" }
+      ],
+      "red_flags": [
+        { "id": "single_update", "text": "Uses one update only", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The trend shows a sudden +12 day gain on the critical path with no recovery reported. What do you do?", "ar": "الـ Trend يظهر مكسب مفاجئ +12 يومًا في المسار الحرج بدون Recovery مُعلن. ماذا تفعل؟" },
+        "expects": ["Compare logic, durations, calendars with previous update", "Request explanation before accepting"]
+      }
+    ],
+    "misconceptions": ["Float in the current update is enough to assess risk"],
+    "related": ["FLT-APP-009", "FLT-SCN-019"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["float-trend", "reporting", "early-warning"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-APP-011",
+    "domain": "D08",
+    "sub_domain": "Longest Path vs Total Float filter",
+    "type": "application",
+    "career_level": "senior",
+    "bloom_level": 4,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "In P6, the 'Total Float ≤ 0' filter shows 140 activities, while the 'Longest Path' filter shows 62.",
+      "ar": "في P6، فلتر Total Float ≤ 0 يظهر 140 نشاطًا، بينما فلتر Longest Path يظهر 62 نشاطًا."
+    },
+    "question": {
+      "en": "Why do the two filters differ, and which would you use to report the critical path?",
+      "ar": "لماذا يختلف الفلتران، وأيهما تستخدم لتقرير المسار الحرج؟"
+    },
+    "thinking_objectives": ["Driving path vs float threshold", "Sources of extra zero/negative float"],
+    "model_answer": {
+      "en": "The Total Float filter selects any activity whose float meets the threshold, whatever drives it. Extra activities appear because of: constraints on intermediate activities or milestones creating zero/negative float off the driving path; a Must Finish By date earlier than the calculated finish, making several paths negative (the less negative ones are not driving); open-ended activities if 'Make open-ended activities critical' is enabled; and mixed calendars changing float values. The Longest Path traces driving relationships back from the project finish, so it shows only the chain determining completion. For reporting completion risk I use Longest Path, and I report the other negative-float groups separately as milestone/constraint risks, explaining what drives each. I'd also confirm the longest path is continuous from data date to finish — a break suggests a constraint or logic problem.",
+      "ar_explanation": "فلتر الـ Total Float يختار أي نشاط Float بتاعه تحت الحد بغض النظر عن سببه. الأنشطة الزائدة تأتي من: Constraints على أنشطة أو Milestones وسيطة، Must Finish By أبكر من الانتهاء المحسوب يجعل أكثر من مسار سالبًا، خيار Make open-ended activities critical، واختلاف الـ Calendars. الـ Longest Path يتتبع العلاقات القائدة من نهاية المشروع، فيظهر فقط ما يحدد الإنجاز. للتقرير أستخدم Longest Path، وأعرض بقية مجموعات الـ Float السالب كمخاطر Milestones منفصلة. وأتأكد أن المسار متصل من الـ Data Date للنهاية."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "filter_difference", "text": "TF filter is threshold-based; Longest Path follows driving logic", "weight": 2 },
+        { "id": "causes", "text": "At least two causes of extra activities (constraints, imposed date, open ends, calendars)", "weight": 2.5 },
+        { "id": "use_longest", "text": "Uses Longest Path for completion critical path", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "report_others", "text": "Reports other negative-float groups separately" }
+      ],
+      "advanced_points": [
+        { "id": "open_end_option", "text": "Names 'Make open-ended activities critical' option" },
+        { "id": "continuity", "text": "Checks longest path is continuous from data date" }
+      ],
+      "red_flags": [
+        { "id": "p6_error", "text": "Says one filter is simply wrong / a P6 error", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The Longest Path starts at an activity in the middle of the schedule, not at the data date. What does that tell you?", "ar": "الـ Longest Path يبدأ من نشاط في منتصف البرنامج وليس من الـ Data Date. ماذا يعني ذلك؟" },
+        "expects": ["A constraint (e.g., Start On or After) or missing predecessor drives that point", "Check whether it is legitimate"]
+      }
+    ],
+    "misconceptions": ["Critical filter and longest path always match"],
+    "related": ["FLT-CON-005", "CPM-SCN-001"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["p6", "longest-path", "critical-path", "filters"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-APP-012",
+    "domain": "D08",
+    "sub_domain": "Lags and float",
+    "type": "application",
+    "career_level": "junior",
+    "bloom_level": 3,
+    "scenario_level": 1,
+    "scenario": {
+      "en": "Concrete pour (5 days) → FS + 7 days lag → Formwork stripping. The 7 days represent curing.",
+      "ar": "صب خرسانة (5 أيام) ← FS + Lag 7 أيام ← فك الشدات. الـ 7 أيام تمثل المعالجة (Curing)."
+    },
+    "question": {
+      "en": "Is the 7-day lag float? Which calendar should the lag use, and why does it matter?",
+      "ar": "هل الـ Lag (7 أيام) يعتبر Float؟ وأي Calendar يجب أن يستخدمه الـ Lag، ولماذا يهم ذلك؟"
+    },
+    "thinking_objectives": ["Lag vs float", "Lag calendar effect"],
+    "model_answer": {
+      "en": "No. A lag is a mandatory waiting time imposed by the relationship; float is optional slack calculated by CPM. The successor cannot start before the lag elapses, so the lag cannot be 'used' to absorb delay — if the pour is late, stripping is late. Curing happens every calendar day, including Fridays and holidays, so the lag should run on a 7-day (or 24-hour) calendar; if it runs on a 6-day work calendar, 7 lag days span more than a week and the stripping is scheduled later than necessary, artificially extending the path. In P6, the project setting 'Calendar for scheduling relationship lag' (predecessor, successor, 24-hour, project default) controls this. Better practice for long technical waits is sometimes a separate curing activity on a 7-day calendar, which is visible and reportable.",
+      "ar_explanation": "لا. الـ Lag وقت انتظار إلزامي تفرضه العلاقة، أما الـ Float فهو فسحة اختيارية يحسبها الـ CPM. المعالجة تحدث كل يوم بما فيها الجمعة والعطلات، فيجب أن يُحسب الـ Lag على Calendar سبعة أيام؛ لو حُسب على Calendar ستة أيام سيتأخر فك الشدات بلا داعٍ. في P6 الإعداد اسمه Calendar for scheduling relationship lag. وأحيانًا الأفضل عمل نشاط Curing منفصل بـ Calendar سبعة أيام."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "lag_not_float", "text": "Lag is not float; it is mandatory waiting", "weight": 2.5 },
+        { "id": "calendar_days", "text": "Curing runs on calendar days → 7-day/24h calendar", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "late_effect", "text": "Explains wrong calendar extends the schedule" }
+      ],
+      "advanced_points": [
+        { "id": "p6_setting", "text": "P6 'Calendar for scheduling relationship lag' setting" },
+        { "id": "curing_activity", "text": "Alternative: explicit curing activity" }
+      ],
+      "red_flags": [
+        { "id": "lag_is_float", "text": "Treats the lag as float that can absorb delay", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "Your schedule has 300 relationships with lags over 10 days. What concern does a reviewer raise?", "ar": "البرنامج فيه 300 علاقة بـ Lags أكبر من 10 أيام. ما الملاحظة التي سيثيرها المراجع؟" },
+        "expects": ["Lags hide work/logic and distort float", "Replace with activities where possible (DCMA lag check)"]
+      }
+    ],
+    "misconceptions": ["Lag is a type of float"],
+    "related": ["FLT-CAE-025"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["lag", "calendar", "float"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-SCN-013",
+    "domain": "D08",
+    "sub_domain": "Float deterioration diagnosis",
+    "type": "scenario",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "Activity B2040 (Block walls L2) had +15 days Total Float in the previous monthly update. In the current update it shows −5 days. The site says 'nothing special happened on B2040'.",
+      "ar": "النشاط B2040 (حوائط طوب الدور الثاني) كان له +15 يوم Total Float في التحديث الشهري السابق. في التحديث الحالي أصبح −5. الموقع يقول: «لم يحدث شيء خاص في B2040»."
+    },
+    "question": {
+      "en": "List the possible causes of the 20-day loss and explain how you would isolate the actual cause.",
+      "ar": "اذكر الأسباب المحتملة لخسارة الـ 20 يومًا، واشرح كيف ستعزل السبب الحقيقي."
+    },
+    "thinking_objectives": ["Systematic variance isolation", "Distinguishing activity vs path vs target changes"],
+    "model_answer": {
+      "en": "Float can drop because early dates moved later, late dates moved earlier, or both. Early-date causes: the activity or a predecessor progressed less than planned or its remaining duration was increased; a predecessor was delayed; the data date moved without progress being entered (unstarted work pushed forward); new logic or activities added upstream; a constraint such as Start On or After added; a calendar change; out-of-sequence progress handled with Retained Logic. Late-date causes: Must Finish By date changed, a new/earlier constraint on a successor or milestone, new successors or logic downstream, or increased durations of downstream activities. Isolation: (1) compare early and late dates of B2040 between the two updates to see which side moved; (2) trace driving predecessors (if early dates moved) or successors (if late dates moved) and find where the change first appears; (3) run a comparison of the two updates (logic, durations, constraints, calendars) — e.g., with a schedule comparison tool or exported data; (4) if several changes occurred, re-schedule the previous update with changes applied one at a time to quantify each. 'Nothing happened on B2040' is consistent with the cause being elsewhere on its path.",
+      "ar_explanation": "الـ Float يقل لأن الـ Early Dates تأخرت، أو الـ Late Dates تقدمت، أو الاثنين. أسباب الـ Early: تقدم أقل من المخطط أو زيادة Remaining Duration للنشاط أو سابقه، تأخر Predecessor، تحريك الـ Data Date بدون إدخال تقدم، منطق جديد، Constraint جديد، تغيير Calendar، Retained Logic. أسباب الـ Late: تغيير Must Finish By، Constraint جديد على Successor أو Milestone، منطق أو مدد جديدة بعد النشاط. العزل: أقارن الـ Early والـ Late بين التحديثين لمعرفة أي جانب تحرك، أتتبع المسار، أقارن التحديثين، وأطبق التغييرات واحدًا تلو الآخر لقياس أثر كل منها. وجملة «لم يحدث شيء في B2040» متسقة مع أن السبب في مكان آخر على المسار."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "two_sides", "text": "Float changes via early dates, late dates, or both", "weight": 2.5 },
+        { "id": "causes_list", "text": "Lists several realistic causes (progress, predecessors, logic, constraints, calendar, data date)", "weight": 2 },
+        { "id": "isolation_method", "text": "Systematic isolation: compare updates, trace path", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "compare_tool", "text": "Uses a schedule comparison tool/export" }
+      ],
+      "advanced_points": [
+        { "id": "one_at_a_time", "text": "Applies changes one at a time to quantify each" },
+        { "id": "data_date_trap", "text": "Data date moved without progress entered" },
+        { "id": "retained_logic", "text": "Out-of-sequence / Retained Logic effect" }
+      ],
+      "red_flags": [
+        { "id": "blame_activity", "text": "Concludes B2040 itself was delayed despite the site statement, without checking", "severity": "major" },
+        { "id": "guess_single", "text": "Names one cause with no verification approach", "severity": "major" }
+      ],
+      "multiple_valid_answers": true,
+      "scenario_dependent": true
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "always",
+        "question": { "en": "You find B2040's early dates did not move. What does that tell you immediately?", "ar": "وجدت أن الـ Early Dates لـ B2040 لم تتحرك. ماذا يخبرك هذا فورًا؟" },
+        "expects": ["The change is on the late-date side", "Look downstream: successors, constraints, Must Finish By"]
+      },
+      {
+        "id": "f2", "trigger": "if_missing", "ref_point": "data_date_trap",
+        "question": { "en": "Three predecessors should have started this month but have no actual start entered. What effect does that have?", "ar": "ثلاثة Predecessors كان يجب أن تبدأ هذا الشهر لكن لا يوجد Actual Start مُدخل. ما أثر ذلك؟" },
+        "expects": ["They are pushed to the data date", "Successors' early dates move later and float drops"]
+      }
+    ],
+    "mutation": { "previous_tf": [15, 8, 30], "current_tf": [-5, 0, 12] },
+    "misconceptions": ["If the activity did nothing wrong, its float can't change"],
+    "related": ["CPM-SCN-001", "FLT-TRB-024"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["float", "variance", "root-cause", "update"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-SCN-014",
+    "domain": "D08",
+    "sub_domain": "Prioritising negative paths",
+    "type": "scenario",
+    "career_level": "planning_engineer",
+    "bloom_level": 4,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "Two paths both lead to project completion. Path A (façade, high contract value) has −3 days Total Float. Path B (MEP risers and testing) has −12 days. The client wants the recovery effort focused on the façade because 'it is the most visible and most expensive package'.",
+      "ar": "مساران كلاهما يؤدي لإنجاز المشروع. المسار A (الواجهات، قيمة تعاقدية عالية) له −3 أيام. المسار B (MEP Risers والاختبارات) له −12 يومًا. العميل يريد تركيز الـ Recovery على الواجهات لأنها «الأكثر ظهورًا والأغلى»."
+    },
+    "question": {
+      "en": "How would you advise the client, and how much recovery does each path need to meet the completion date?",
+      "ar": "بماذا تنصح العميل، وكم يحتاج كل مسار من Recovery لتحقيق تاريخ الإنجاز؟"
+    },
+    "thinking_objectives": ["Most negative path drives completion", "Recovery quantification across parallel paths"],
+    "model_answer": {
+      "en": "Completion is driven by the most negative path: Path B at −12 days is the longest path. Recovering the façade alone does not move the completion date at all. To meet the date, Path B needs 12 days of recovery and Path A needs 3; recovering only B by 9 days would make both paths −3, so A then also governs. Value and visibility do not determine criticality; logic does. I'd advise: prioritise B (risers, testing — often constrained by inspection and authority approvals, so start early), recover A's 3 days with lower-cost measures, and verify both floats are real (constraints, logic). Also check whether the two paths share resources, since accelerating one may slow the other.",
+      "ar_explanation": "الإنجاز يقوده المسار الأكثر سلبية: المسار B عند −12. تسريع الواجهات وحدها لا يغير تاريخ الإنجاز إطلاقًا. المطلوب: 12 يومًا في B و3 أيام في A؛ ولو استعدنا 9 أيام فقط في B يصبح المساران −3 فيصبح A حاكمًا أيضًا. القيمة والظهور لا تحدد الحرجية، المنطق هو الذي يحددها. أنصح بأولوية B مع معالجة A بإجراءات أقل تكلفة، والتأكد من صحة الـ Float ومن عدم تشارك الموارد."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "b_drives", "text": "Path B (most negative) drives completion", "weight": 2.5 },
+        { "id": "quantities", "text": "B needs 12 days, A needs 3", "weight": 2 },
+        { "id": "advise_client", "text": "Explains criticality is from logic, not value/visibility", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "verify_float", "text": "Verifies float values are genuine" }
+      ],
+      "advanced_points": [
+        { "id": "path_switch", "text": "Recovering B partially makes A governing" },
+        { "id": "shared_resources", "text": "Considers shared resources between paths" },
+        { "id": "testing_constraints", "text": "Notes testing/authority constraints on B" }
+      ],
+      "red_flags": [
+        { "id": "follow_client", "text": "Agrees to focus only on the façade", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "The client insists: 'I pay for the façade, I decide.' What do you say?", "ar": "العميل يصر: «أنا أدفع للواجهات، وأنا أقرر». ماذا تقول؟" },
+        "expects": ["Show the longest path and the effect on completion", "Document the advice; offer both recoveries with cost"]
+      }
+    ],
+    "mutation": { "path_a_tf": [-3, -8, 2], "path_b_tf": [-12, -5, -20] },
+    "misconceptions": ["The most expensive package is the most critical"],
+    "related": ["FLT-CON-005"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["float", "critical-path", "recovery", "stakeholder"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-SCN-015",
+    "domain": "D08",
+    "sub_domain": "Subcontractor using float",
+    "type": "scenario",
+    "career_level": "planning_engineer",
+    "bloom_level": 6,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "The waterproofing subcontractor writes: 'Our roof waterproofing has 20 days of float in your programme, so we will start 15 days later than planned because our crew is on another project.'",
+      "ar": "مقاول العزل كتب: «عزل السطح له 20 يوم Float في برنامجكم، لذلك سنبدأ متأخرين 15 يومًا عن المخطط لأن طاقمنا في مشروع آخر»."
+    },
+    "question": {
+      "en": "As the main contractor's planner, how do you respond?",
+      "ar": "كمخطط للمقاول الرئيسي، كيف ترد؟"
+    },
+    "thinking_objectives": ["Float is not a subcontractor allowance", "Downstream impact", "Contractual/communication judgment"],
+    "model_answer": {
+      "en": "Float in the main programme is not a subcontractor's allowance; it is project contingency against risk. Before answering I check: Free Float vs Total Float of the waterproofing (if Free Float is small, the 15 days will push the roof screed, MEP roof equipment, and testing, and erode their float); whether the 20 days is real (correct logic to successors, no missing links to roof plant installation); the near-critical status after consumption (20 → 5 days, so any further slip becomes critical); weather windows; and the subcontract terms (programme compliance, start dates). My response: the subcontract programme and dates stand; a late start is not accepted on the basis of float. If the main contractor chooses to allow a shorter shift (e.g., 5 days within Free Float), it is a formal, documented concession, not an entitlement, and it requires a committed start date and crew size. I'd record it in the risk register.",
+      "ar_explanation": "الـ Float في البرنامج الرئيسي ليس حقًا لمقاول الباطن، بل احتياطي للمشروع. أتحقق من: الـ Free Float مقابل الـ Total Float (لو الـ Free Float صغير سيدفع ذلك الأنشطة التالية مثل الـ Screed ومعدات السطح والاختبار)، صحة الـ 20 يومًا، تحوله لـ Near-critical (يبقى 5 أيام فقط)، ظروف الطقس، وشروط عقد الباطن. الرد: التواريخ التعاقدية قائمة ولا يُقبل التأخير بحجة الـ Float. لو قبلنا تأخيرًا محدودًا فهو تنازل موثق وليس حقًا، مع التزام بتاريخ وحجم طاقم."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "not_entitlement", "text": "Float is not the subcontractor's entitlement", "weight": 2.5 },
+        { "id": "downstream", "text": "Checks Free Float / impact on successors", "weight": 2 },
+        { "id": "subcontract_terms", "text": "Refers to subcontract programme obligations", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "near_critical", "text": "Notes remaining float becomes small" },
+        { "id": "documented", "text": "Any concession documented formally" }
+      ],
+      "advanced_points": [
+        { "id": "validate_float", "text": "Validates the 20 days is real (logic to roof plant etc.)" },
+        { "id": "weather", "text": "Weather/season window for waterproofing" }
+      ],
+      "red_flags": [
+        { "id": "accept", "text": "Accepts because the float exists", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "What if the waterproofing has Free Float of 18 days?", "ar": "ماذا لو الـ Free Float للعزل = 18 يومًا؟" },
+        "expects": ["15 days delay has no effect on successors", "Still a concession, but lower risk; keep contingency"]
+      }
+    ],
+    "misconceptions": ["Float can be used by whoever needs it"],
+    "related": ["FLT-CON-006", "FLT-APP-008"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["float", "subcontractor", "communication"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-SCN-016",
+    "domain": "D08",
+    "sub_domain": "Unrealistically high float",
+    "type": "scenario",
+    "career_level": "planning_engineer",
+    "bloom_level": 5,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "You receive the contractor's baseline for a 14-month residential tower. Many finishing activities (painting, doors, ironmongery) show 180–250 days of Total Float.",
+      "ar": "استلمت الـ Baseline من المقاول لبرج سكني مدته 14 شهرًا. أنشطة تشطيبات كثيرة (دهانات، أبواب، إكسسوارات) يظهر لها 180–250 يوم Total Float."
+    },
+    "question": {
+      "en": "What does this indicate and what would you check?",
+      "ar": "على ماذا يدل هذا، وماذا ستفحص؟"
+    },
+    "thinking_objectives": ["Schedule quality review", "Open ends and missing logic"],
+    "model_answer": {
+      "en": "Finishing works in the last months of a 14-month project cannot genuinely have 6–8 months of float; it indicates missing or wrong logic. Check: (1) open ends — activities without successors (P6 then calculates their late finish to the project finish, giving huge float) — they should link to handover, testing, snagging or completion milestones; (2) start-to-start links without matching finish-to-finish links, which leave the finish unconstrained; (3) activities linked only to an early milestone or to the wrong successor; (4) excessive negative lags or leads; (5) a hammock/LOE incorrectly used as a successor. High float hides real criticality: if these activities slip in reality, the programme will not show it until very late. I'd run a schedule quality check (open ends, relationship types, high float — e.g., DCMA high-float threshold of 44 working days as a review trigger), return the baseline with comments, and require the logic to be fixed before approval.",
+      "ar_explanation": "أعمال تشطيبات في آخر شهور مشروع 14 شهرًا لا يمكن أن يكون لها 6–8 أشهر Float حقيقي؛ هذا يدل على منطق ناقص أو خاطئ. أفحص: الـ Open Ends (أنشطة بدون Successors فيحسب P6 الـ Late Finish لها على نهاية المشروع)، علاقات SS بدون FF مقابلة، ربط بـ Milestone مبكر أو Successor خطأ، Leads سالبة، استخدام LOE كـ Successor. الـ Float العالي يخفي الحرجية الحقيقية. أشغل فحص جودة البرنامج (مثل معيار DCMA للـ High Float = 44 يوم عمل كمؤشر للمراجعة) وأرجع الـ Baseline بملاحظات."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "missing_logic", "text": "Indicates missing/wrong logic, not real float", "weight": 2.5 },
+        { "id": "open_ends", "text": "Open ends / missing successors", "weight": 2.5 },
+        { "id": "reject_baseline", "text": "Returns baseline for correction before approval", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "ss_without_ff", "text": "SS links without FF leave finish open" }
+      ],
+      "advanced_points": [
+        { "id": "dcma", "text": "Uses DCMA-type checks (high float threshold, open ends)" },
+        { "id": "hides_criticality", "text": "Explains high float hides real criticality" }
+      ],
+      "red_flags": [
+        { "id": "good_news", "text": "Sees it as flexibility/good news", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "if_missing", "ref_point": "ss_without_ff",
+        "question": { "en": "Painting is linked SS +5 to plastering, and nothing else. Why is that a problem?", "ar": "الدهانات مربوطة SS +5 بالمحارة فقط. لماذا هذه مشكلة؟" },
+        "expects": ["Painting finish not tied to anything", "Needs FF to plastering and a successor to handover"]
+      }
+    ],
+    "misconceptions": ["High float means the plan is comfortable"],
+    "related": ["FLT-TRB-023"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["float", "schedule-quality", "open-ends", "dcma"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-SCN-017",
+    "domain": "D08",
+    "sub_domain": "Employer delay absorbed by float",
+    "type": "scenario",
+    "career_level": "lead",
+    "bloom_level": 6,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "The employer issued revised landscape drawings 10 days late. In the last accepted update, the landscape works had 15 days Total Float. The contractor submits an EOT claim for 10 days. The contract is silent on float ownership.",
+      "ar": "المالك أصدر مخططات اللاندسكيب المعدلة متأخرة 10 أيام. في آخر تحديث معتمد كان لأعمال اللاندسكيب 15 يوم Total Float. المقاول قدم مطالبة EOT بـ 10 أيام. العقد صامت بخصوص ملكية الـ Float."
+    },
+    "question": {
+      "en": "As the employer's planning lead, how would you assess the claim?",
+      "ar": "كقائد تخطيط لدى المالك، كيف ستقيّم المطالبة؟"
+    },
+    "thinking_objectives": ["Delay vs critical delay", "Contemporaneous float", "Separating time and cost"],
+    "model_answer": {
+      "en": "The event is employer risk, but an EOT requires a delay to completion. With 15 days of float at the time of the event (contemporaneous update) and the contract silent, the generally accepted approach is that an extension is due only to the extent the delay reduces float below zero; a 10-day delay leaves 5 days, so prima facie no EOT. Before concluding I'd verify: (1) the float was real and measured in the update current at the time of the event, not an old baseline; (2) the actual impact — did the late drawings cause 10 days of delay to the landscape works or more (re-procurement, re-sequencing)? A time impact analysis inserting a fragnet would show it; (3) whether other events on the same path had already consumed float, making the path critical; (4) whether the delay caused disruption cost even without EOT. My response: EOT not substantiated on current evidence, with reasons; invite the contractor to show critical delay with a TIA; consider cost of disruption separately if demonstrated.",
+      "ar_explanation": "الحدث مسؤولية المالك، لكن الـ EOT يتطلب تأخير الإنجاز. مع 15 يوم Float وقت الحدث والعقد صامت، المنهج المقبول أن الـ EOT يُمنح فقط بقدر ما يصبح الـ Float أقل من صفر؛ 10 أيام تترك 5 أيام، فلا EOT مبدئيًا. لكن أتحقق: أن الـ Float حقيقي ومن التحديث المعاصر للحدث، الأثر الفعلي (قد يكون أكثر من 10 أيام بسبب إعادة توريد)، تحليل TIA بإدخال Fragnet، أحداث أخرى استهلكت الـ Float، وتكلفة الإرباك حتى بدون EOT."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "needs_critical_delay", "text": "EOT requires delay to completion, not just to the activity", "weight": 2.5 },
+        { "id": "float_absorbs", "text": "10 days within 15 float → prima facie no EOT", "weight": 2 },
+        { "id": "contemporaneous", "text": "Uses float from the update current at the event", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "tia", "text": "Requests a TIA/fragnet" }
+      ],
+      "advanced_points": [
+        { "id": "actual_impact", "text": "Actual impact may exceed 10 days" },
+        { "id": "cost_separate", "text": "Disruption cost considered separately from time" },
+        { "id": "other_events", "text": "Other events may have consumed the float" }
+      ],
+      "red_flags": [
+        { "id": "grant_automatically", "text": "Grants 10 days because it is employer delay", "severity": "critical" },
+        { "id": "reject_no_reason", "text": "Rejects without explanation or invitation to substantiate", "severity": "minor" }
+      ],
+      "scenario_dependent": true
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The drawings were 20 days late instead. Now what?", "ar": "لو المخططات تأخرت 20 يومًا بدل 10؟" },
+        "expects": ["Float driven to −5 → up to 5 days EOT if path drives completion", "Confirm via TIA"]
+      },
+      {
+        "id": "f2", "trigger": "pressure",
+        "question": { "en": "The contractor says: 'That float was ours — we planned it as a buffer for weather.' Response?", "ar": "المقاول يقول: «هذا الـ Float كان لنا، خططناه كاحتياطي للطقس». ردك؟" },
+        "expects": ["Without an explicit contingency activity or contract clause, float is not reserved", "Ask for evidence it was programmed as a buffer"]
+      }
+    ],
+    "mutation": { "delay_days": [10, 20, 15], "float_days": [15, 5, 25] },
+    "misconceptions": ["Every employer delay gives an EOT"],
+    "related": ["FLT-CON-006"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["float", "eot", "delay", "float-ownership"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-SCN-018",
+    "domain": "D08",
+    "sub_domain": "Resource-driven criticality",
+    "type": "scenario",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "P6 shows 'Tower crane dismantling' with +30 days Total Float. The site manager insists it is critical: the crane must leave before façade cladding of the top floors and roof plant installation can finish, and the crane rental company has a fixed availability window.",
+      "ar": "P6 يظهر «تفكيك الكرين البرجي» بـ +30 يوم Float. مدير الموقع يصر أنه حرج: الكرين يجب أن يُفك قبل إكمال تكسية الواجهة للأدوار العليا وتركيب معدات السطح، وشركة الإيجار لها نافذة إتاحة ثابتة."
+    },
+    "question": {
+      "en": "Who is right, and what would you do with the schedule?",
+      "ar": "من على حق، وماذا ستفعل في البرنامج؟"
+    },
+    "thinking_objectives": ["Float depends on modelled logic and resources", "Making hidden constraints explicit"],
+    "model_answer": {
+      "en": "Possibly both: the float is correct for the logic in the model, but the model is likely incomplete. Float reflects only modelled relationships and constraints; it does not know about the crane's physical interface (the crane tie-ins block façade panels at its location, roof plant needs the crane to lift equipment before dismantling, dismantling needs a mobile crane and road closure permit) or the rental window. I'd walk through the sequence with the site manager and add the missing logic: roof plant lifting → crane dismantling → façade infill at tie-in locations → façade completion; add the external dependencies (permit, mobile crane booking) as activities or milestones; and if the rental window is fixed, represent it explicitly (e.g., a constraint with justification or a resource/calendar limitation). Then re-schedule: the 30 days will likely disappear and the activity may become near-critical or critical. Lesson: float is only as true as the logic behind it.",
+      "ar_explanation": "قد يكون الاثنان على حق: الـ Float صحيح حسب المنطق الموجود، لكن النموذج غالبًا ناقص. الـ Float يعكس العلاقات المُدخلة فقط ولا يعرف أن الكرين يمنع تركيب الواجهة عند نقاط التثبيت، وأن معدات السطح تُرفع بالكرين قبل التفكيك، وأن التفكيك يحتاج كرين متحرك وتصريح إغلاق طريق، ونافذة الإيجار. أضيف المنطق الناقص والاعتماديات الخارجية ثم أعيد الحساب، وغالبًا ستختفي الـ 30 يومًا. الدرس: الـ Float صادق بقدر صدق المنطق خلفه."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "model_incomplete", "text": "Float reflects only modelled logic; logic is likely missing", "weight": 2.5 },
+        { "id": "add_logic", "text": "Adds the missing physical/resource logic and re-schedules", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "walkthrough", "text": "Reviews sequence with site team" }
+      ],
+      "advanced_points": [
+        { "id": "specific_links", "text": "Names specific links (roof plant lift, façade tie-ins, permits)" },
+        { "id": "rental_window", "text": "Models the fixed rental window explicitly with justification" }
+      ],
+      "red_flags": [
+        { "id": "trust_p6", "text": "Says P6 is right and the site manager is wrong because float is 30", "severity": "major" },
+        { "id": "constraint_only", "text": "Forces criticality with a constraint without fixing logic", "severity": "minor" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "Why not just put a Mandatory Finish constraint on the crane dismantling and move on?", "ar": "لماذا لا نضع Mandatory Finish على تفكيك الكرين وننتهي؟" },
+        "expects": ["Mandatory constraints break logic and hide the real drivers", "Fix the logic; use soft constraints only for real external dates"]
+      }
+    ],
+    "misconceptions": ["Float is an objective property independent of the model"],
+    "related": ["FLT-APP-008", "FLT-PRS-034"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["float", "logic", "resources", "site-coordination"],
+    "status": "reviewed"
+  }
+]

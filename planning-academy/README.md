@@ -25,10 +25,19 @@ python3 tools/validate.py --coverage
 |---|---|---|
 | 1 | Question Architecture & Blueprint | ✅ Done (agreed in conversation) |
 | 2 | Master Question Specification + schema + 10 gold-standard questions | ✅ Done |
-| 3 | Question generation, domain by domain, in batches validated against the spec | ⏳ Next |
+| 3 | Question generation, domain by domain, in batches validated against the spec | 🔄 In progress — 43 / 1,000 |
 | 4 | Quality control pass (duplicates, accuracy, ambiguity, rubric quality) | — |
 | 5 | Application architecture (data model, engines, UI flows) | — |
 | 6 | Offline-first HTML application (Study / Practice / Exam / Interview / Reports) | — |
+
+## Phase 3 progress
+
+Generation order: Float → Critical Path → Constraints → Updating → P6 → EVM → Delay → remaining domains.
+
+| Domain | Questions | File |
+|---|---|---|
+| D08 Float Analysis | 35 / 35 ✅ | `D08-float-a.json`, `D08-float-b.json`, `gold-standard.json` |
+| D07 Critical Path | 1 / 40 | next |
 
 ## Decisions log
 
