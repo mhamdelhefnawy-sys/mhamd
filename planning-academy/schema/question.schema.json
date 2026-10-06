@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "planning-academy/question.schema.json",
+  "title": "Planning Academy Question",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "domain", "sub_domain", "type", "career_level", "bloom_level",
+    "scenario_level", "question", "thinking_objectives", "model_answer",
+    "evaluation", "follow_ups", "misconceptions", "tags", "status"
+  ],
+  "$defs": {
+    "bilingual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "ar"],
+      "properties": {
+        "en": { "type": "string", "minLength": 3 },
+        "ar": { "type": "string", "minLength": 3 }
+      }
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "text": { "type": "string" },
+        "weight": { "type": "number", "minimum": 0.5, "maximum": 3 }
+      }
+    },
+    "red_flag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "severity"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "text": { "type": "string" },
+        "severity": { "enum": ["minor", "major", "critical"] }
+      }
+    },
+    "follow_up": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "trigger", "question", "expects"],
+      "properties": {
+        "id": { "type": "string" },
+        "trigger": {
+          "description": "When the interviewer asks it: always, if a required point is missing, if a point was mentioned, or as a pressure/what-if probe.",
+          "enum": ["always", "if_missing", "if_mentioned", "pressure", "what_if"]
+        },
+        "ref_point": { "type": "string", "description": "Required/advanced point id the trigger refers to." },
+        "question": { "$ref": "#/$defs/bilingual" },
+        "expects": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    }
+  },
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Z0-9]{3}-[A-Z]{3}-[0-9]{3}$" },
+    "domain": { "type": "string", "pattern": "^D[0-4][0-9]$" },
+    "sub_domain": { "type": "string" },
+    "type": {
+      "enum": ["fundamentals", "conceptual", "application", "scenario", "troubleshooting",
+               "cause_effect", "numerical", "decision", "interview_pressure", "behavioral"]
+    },
+    "career_level": { "enum": ["junior", "planning_engineer", "senior", "lead", "manager"] },
+    "bloom_level": {
+      "description": "1 Recall, 2 Understand, 3 Apply, 4 Analyze, 5 Diagnose, 6 Decide, 7 Defend, 8 Expert",
+      "type": "integer", "minimum": 1, "maximum": 8
+    },
+    "scenario_level": {
+      "description": "0 no scenario, 1 single clear cause, 2 two causes, 3 many causes, 4 conflicting data, 5 real pressure & constraints",
+      "type": "integer", "minimum": 0, "maximum": 5
+    },
+    "scenario": { "$ref": "#/$defs/bilingual" },
+    "data_table": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["columns", "rows"],
+      "properties": {
+        "columns": { "type": "array", "items": { "type": "string" } },
+        "rows": { "type": "array", "items": { "type": "array" } }
+      }
+    },
+    "question": { "$ref": "#/$defs/bilingual" },
+    "thinking_objectives": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "model_answer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "ar_explanation"],
+      "properties": {
+        "en": { "type": "string", "minLength": 40 },
+        "ar_explanation": { "type": "string", "minLength": 20 },
+        "calculation": { "type": "string" }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_points", "acceptable_points", "advanced_points", "red_flags"],
+      "properties": {
+        "required_points": { "type": "array", "items": { "$ref": "#/$defs/point" }, "minItems": 1 },
+        "acceptable_points": { "type": "array", "items": { "$ref": "#/$defs/point" } },
+        "advanced_points": { "type": "array", "items": { "$ref": "#/$defs/point" } },
+        "red_flags": { "type": "array", "items": { "$ref": "#/$defs/red_flag" } },
+        "multiple_valid_answers": { "type": "boolean" },
+        "scenario_dependent": { "type": "boolean" }
+      }
+    },
+    "follow_ups": { "type": "array", "items": { "$ref": "#/$defs/follow_up" } },
+    "what_if_variations": { "type": "array", "items": { "$ref": "#/$defs/bilingual" } },
+    "mutation": {
+      "description": "Parameters the Scenario Mutation Engine may vary, with allowed ranges, so the scenario cannot be memorised.",
+      "type": "object",
+      "additionalProperties": { "type": "array" }
+    },
+    "misconceptions": { "type": "array", "items": { "type": "string" } },
+    "related": { "type": "array", "items": { "type": "string" } },
+    "p6_relevance": { "enum": ["none", "low", "medium", "high"] },
+    "real_world_relevance": { "enum": ["low", "medium", "high"] },
+    "tags": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "status": { "enum": ["draft", "reviewed", "approved"] }
+  }
+}

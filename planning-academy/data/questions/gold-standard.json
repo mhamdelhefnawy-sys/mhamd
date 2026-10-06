@@ -1,0 +1,612 @@
+[
+  {
+    "id": "FLT-FUN-001",
+    "domain": "D08",
+    "sub_domain": "Total Float",
+    "type": "fundamentals",
+    "career_level": "junior",
+    "bloom_level": 1,
+    "scenario_level": 0,
+    "question": {
+      "en": "What is Total Float, and how is it calculated?",
+      "ar": "ما هو الـ Total Float، وكيف يتم حسابه؟"
+    },
+    "thinking_objectives": ["Float definition", "CPM forward/backward pass awareness"],
+    "model_answer": {
+      "en": "Total Float is the amount of time an activity can be delayed from its early dates without delaying the project completion date or violating a schedule constraint (such as a Must Finish By date). It is calculated from the forward and backward passes: Total Float = Late Finish − Early Finish (or Late Start − Early Start). In P6 the project setting decides whether Total Float is computed as start float, finish float, or the smallest of the two. Total Float is a property of the path, not only of the single activity: activities on the same path share it.",
+      "ar_explanation": "الـ Total Float هو المدة التي يمكن أن يتأخر فيها النشاط عن تواريخه المبكرة (Early Dates) دون أن يتأخر تاريخ انتهاء المشروع أو يُخالَف Constraint. يُحسب من الـ Forward Pass والـ Backward Pass: LF − EF. والنقطة المهمة: الـ Float مِلك للمسار (Path) وليس للنشاط وحده، يعني لو نشاط استهلكه، الأنشطة التالية على نفس المسار تفقده."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "def_project_finish", "text": "Delay allowed without delaying project completion (or a constraint)", "weight": 2 },
+        { "id": "formula", "text": "LF − EF or LS − ES", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "forward_backward", "text": "Mentions forward and backward pass" }
+      ],
+      "advanced_points": [
+        { "id": "path_shared", "text": "Float is shared along the path, consuming it affects successors' float" },
+        { "id": "p6_setting", "text": "P6 setting: start float / finish float / smallest" },
+        { "id": "constraint_reference", "text": "Float is measured against the project must-finish date or constraints, not only the 'project end'" }
+      ],
+      "red_flags": [
+        { "id": "confuse_free_float", "text": "Defines Total Float as delay without delaying the immediate successor (that is Free Float)", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "always",
+        "question": { "en": "Who owns the float, the activity or the path?", "ar": "مين صاحب الـ Float: النشاط ولا المسار؟" },
+        "expects": ["Float is shared along the path", "Consuming it reduces float of downstream activities"]
+      },
+      {
+        "id": "f2", "trigger": "if_missing", "ref_point": "constraint_reference",
+        "question": { "en": "If the project has a Must Finish By date earlier than the calculated finish, what happens to Total Float?", "ar": "لو المشروع له Must Finish By أبكر من تاريخ الانتهاء المحسوب، ماذا يحدث للـ Total Float؟" },
+        "expects": ["Late dates calculated from the imposed date", "Total Float becomes negative on driving activities"]
+      }
+    ],
+    "misconceptions": ["Total Float and Free Float are the same thing", "Float belongs to the individual activity"],
+    "related": ["FLT-CON-002"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["float", "cpm", "fundamentals"],
+    "status": "reviewed"
+  },
+  {
+    "id": "FLT-CON-002",
+    "domain": "D08",
+    "sub_domain": "Total vs Free Float",
+    "type": "conceptual",
+    "career_level": "planning_engineer",
+    "bloom_level": 2,
+    "scenario_level": 0,
+    "question": {
+      "en": "Can an activity have Total Float = 10 days but Free Float = 0? Explain how.",
+      "ar": "هل يمكن أن يكون لنشاط Total Float = 10 أيام و Free Float = صفر؟ اشرح كيف."
+    },
+    "thinking_objectives": ["Distinguish Total vs Free Float", "Path-level float reasoning"],
+    "model_answer": {
+      "en": "Yes. Free Float is the delay possible without delaying the early start of any immediate successor; Total Float is the delay possible without delaying project completion. If the activity is immediately followed by a successor that starts as soon as it finishes, any delay pushes the successor's early start (Free Float = 0). But if that successor and the remainder of the path have 10 days of slack before they affect the project finish, the activity still has 10 days of Total Float. The float belongs to the path and sits at the end of it. Practical consequence: delaying this activity by 5 days will not delay the project but will consume 5 days of float from its successors.",
+      "ar_explanation": "نعم. الـ Free Float يقيس التأخير المسموح بدون تأخير الـ Early Start لأي Successor مباشر، والـ Total Float يقيس التأخير المسموح بدون تأخير المشروع. لو النشاط بعده مباشرة Successor يبدأ فور انتهائه، Free Float = 0. لكن لو المسار كله فيه 10 أيام Slack قبل نهاية المشروع، يبقى Total Float = 10. الأثر العملي: تأخير النشاط 5 أيام لا يؤخر المشروع لكنه يأكل 5 أيام من Float الأنشطة التالية."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "answer_yes", "text": "Yes, it is possible", "weight": 1 },
+        { "id": "ff_def", "text": "Free Float relates to immediate successor early start", "weight": 2 },
+        { "id": "tf_def", "text": "Total Float relates to project completion", "weight": 1.5 },
+        { "id": "mechanism", "text": "Successor starts immediately but the path has slack downstream", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "example", "text": "Gives a numeric or network example" }
+      ],
+      "advanced_points": [
+        { "id": "consumes_successor_float", "text": "Delay consumes successors' float, so it is not 'free'" },
+        { "id": "ff_le_tf", "text": "Free Float is always ≤ Total Float (for unconstrained activities)" }
+      ],
+      "red_flags": [
+        { "id": "says_impossible", "text": "Says it is impossible", "severity": "critical" },
+        { "id": "delay_is_harmless", "text": "Says delaying it by 10 days has no impact on anything", "severity": "minor" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The activity is delayed 5 days. What happens to the successor and the project?", "ar": "النشاط تأخر 5 أيام. ماذا يحدث للـ Successor وللمشروع؟" },
+        "expects": ["Successor early start moves 5 days", "Project finish unchanged", "Path Total Float reduces to 5"]
+      },
+      {
+        "id": "f2", "trigger": "what_if",
+        "question": { "en": "And if it is delayed 15 days?", "ar": "ولو تأخر 15 يومًا؟" },
+        "expects": ["Project finish delayed 5 days", "Path becomes critical with −5 days float if a must-finish date exists"]
+      }
+    ],
+    "what_if_variations": [
+      { "en": "Activity has TF = 10, FF = 4. It is delayed 6 days.", "ar": "نشاط TF = 10 و FF = 4، تأخر 6 أيام." }
+    ],
+    "misconceptions": ["Free Float = Total Float", "Zero Free Float means the activity is critical"],
+    "related": ["FLT-FUN-001"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["float", "free-float", "cpm"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-SCN-001",
+    "domain": "D07",
+    "sub_domain": "Negative float diagnosis",
+    "type": "scenario",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "During the monthly update the project completion moved 20 days beyond the contractual completion date (Project Must Finish By). Project Total Float is now −20 days. Activity A1050 (MEP first fix, Level 3) shows −45 days Total Float. The Project Manager asks: \"Does this mean A1050 is causing the entire project delay?\"",
+      "ar": "في التحديث الشهري تحرك تاريخ انتهاء المشروع 20 يومًا بعد التاريخ التعاقدي (Project Must Finish By). الـ Project Total Float أصبح −20 يومًا. النشاط A1050 (أعمال MEP First Fix بالدور الثالث) يظهر عليه −45 يومًا. مدير المشروع يسألك: «هل ده معناه إن A1050 هو سبب تأخير المشروع كله؟»"
+    },
+    "question": {
+      "en": "How would you respond, and what would you check to explain why A1050 is more negative than the project?",
+      "ar": "كيف سترد، وما الذي ستفحصه لتفسير لماذا A1050 سالب أكثر من المشروع؟"
+    },
+    "thinking_objectives": ["Negative float diagnosis", "Driving path vs float value", "Constraint awareness", "Communicating uncertainty to management"],
+    "model_answer": {
+      "en": "Not necessarily. The project finish is only 20 days late, so the path driving the completion date is at −20. A1050 being at −45 means something other than the project finish is setting its late dates. Most likely: (1) a constraint on A1050 or on one of its successors (e.g., a Finish On or Before on an intermediate milestone such as 'Level 3 handover' or 'Power-on') that is earlier than achievable; (2) a successor milestone with an access/handover date; (3) external relationships to another project with earlier dates; (4) calendar effects, since float is displayed in the activity's own calendar units, so different calendars can distort comparison; (5) the float calculation setting (finish/start/smallest). I would: trace A1050's successors (Trace Logic) to find which successor or constraint sets its late finish; list all constraints in the project; run the Longest Path filter to see whether A1050 is on the path driving completion at all; check calendars and the external dates; and compare against last update to see what changed. Then I'd answer the PM: 'A1050 is behind an intermediate commitment by 45 days; the overall completion is driven by path X at −20 days. Recovering A1050 protects the milestone, recovering path X protects completion.'",
+      "ar_explanation": "مش بالضرورة. المشروع متأخر 20 يومًا فقط، إذن المسار الذي يقود تاريخ الانتهاء عند −20. لو A1050 عند −45 فهذا معناه أن شيئًا آخر غير نهاية المشروع هو اللي بيحدد الـ Late Dates بتاعته: غالبًا Constraint على النشاط أو على Successor (مثل Milestone وسيط بتاريخ تسليم)، أو علاقة خارجية بمشروع آخر، أو اختلاف الـ Calendars، أو إعداد حساب الـ Float. الفحص: Trace Logic للـ Successors، قائمة كل الـ Constraints، فلتر Longest Path، مقارنة بالتحديث السابق. الرد على المدير: النشاط متأخر عن التزام وسيط، أما نهاية المشروع فيقودها مسار آخر."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "not_necessarily", "text": "Does not accept that A1050 drives the whole delay without verification", "weight": 2 },
+        { "id": "constraint_cause", "text": "Identifies a constraint/intermediate milestone on A1050 or its successors as a likely cause", "weight": 2.5 },
+        { "id": "trace_successors", "text": "Traces successors / driving logic to find what sets A1050's late dates", "weight": 2 },
+        { "id": "longest_path", "text": "Checks whether A1050 is on the longest/driving path to completion", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "compare_previous", "text": "Compares with previous update to see what changed" },
+        { "id": "list_constraints", "text": "Runs a constraints report" }
+      ],
+      "advanced_points": [
+        { "id": "calendar_units", "text": "Float shown in activity calendar units; different calendars distort comparison" },
+        { "id": "external_links", "text": "External relationships / other projects' dates" },
+        { "id": "float_setting", "text": "P6 Total Float calculation setting (start/finish/smallest)" },
+        { "id": "management_message", "text": "Gives the PM a clear message separating milestone risk from completion risk" }
+      ],
+      "red_flags": [
+        { "id": "yes_it_drives", "text": "Says yes, A1050 is causing the project delay because it is the most negative", "severity": "critical" },
+        { "id": "remove_constraint", "text": "Proposes deleting the constraint to 'fix' the float without checking it is contractual", "severity": "major" }
+      ],
+      "multiple_valid_answers": true,
+      "scenario_dependent": true
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "always",
+        "question": { "en": "What would you check first, and why that first?", "ar": "ما أول شيء ستفحصه، ولماذا هو أولاً؟" },
+        "expects": ["Constraints / successors of A1050", "Justification: the gap of 25 days must come from a nearer target than project finish"]
+      },
+      {
+        "id": "f2", "trigger": "pressure",
+        "question": { "en": "You found a Finish On or Before constraint on the 'Level 3 Handover' milestone. The site team says it's an old target and wants it deleted. Do you delete it?", "ar": "وجدت Finish On or Before على Milestone «تسليم الدور الثالث». فريق الموقع يقول إنه هدف قديم ويريد حذفه. هل تحذفه؟" },
+        "expects": ["Check whether it is a contractual/sectional completion date", "Do not delete contractual milestones to hide delay", "If not contractual, document and agree before removing"]
+      },
+      {
+        "id": "f3", "trigger": "what_if",
+        "question": { "en": "What if A1050 is not on the longest path at all?", "ar": "ماذا لو A1050 ليس على الـ Longest Path أصلاً؟" },
+        "expects": ["It still matters for the intermediate commitment", "Recovery priority for completion is the longest path", "It may become driving if it slips further"]
+      }
+    ],
+    "mutation": {
+      "project_float": [-30, -20, -10, 5],
+      "activity_float": [-45, -15, -5],
+      "activity": ["A1050 MEP first fix L3", "A2030 Facade L5", "A0870 Raft pour Zone B"]
+    },
+    "misconceptions": ["The most negative activity drives the project", "Negative float always means the activity itself is late"],
+    "related": ["FLT-FUN-001", "CON-TRB-001"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["negative-float", "critical-path", "constraints", "longest-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "P6T-TRB-001",
+    "domain": "D21",
+    "sub_domain": "Actual Cost vs Earned Value",
+    "type": "troubleshooting",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "You use a Global Change after each update to make Actual Cost equal Earned Value on resource-loaded activities (a common simplification when real costs are not tracked in P6). After this month's update, the EV report still shows AC ≠ EV for many activities.",
+      "ar": "تستخدم Global Change بعد كل تحديث لجعل الـ Actual Cost مساويًا للـ Earned Value للأنشطة المحمّلة بموارد (تبسيط شائع عندما لا تُتابَع التكاليف الفعلية داخل P6). بعد تحديث هذا الشهر، تقرير الـ EV ما زال يظهر AC ≠ EV في أنشطة كثيرة."
+    },
+    "question": {
+      "en": "Diagnose the possible reasons and describe how you would verify each.",
+      "ar": "شخّص الأسباب المحتملة واشرح كيف ستتحقق من كل سبب."
+    },
+    "thinking_objectives": ["P6 cost field architecture", "Calculated vs editable fields", "Project calculation settings", "Systematic diagnosis"],
+    "model_answer": {
+      "en": "Possible reasons, roughly in the order I would check: (1) The Global Change 'If' conditions did not select those activities (filter by WBS/type/status excluded them) — check by running the change in preview and reviewing the change report. (2) The wrong field was targeted: activity-level Actual Total Cost is a summed/calculated value; actual cost lives on resource assignments (Actual Labor/Nonlabor/Material Cost) and project expenses, so the change must write to editable assignment fields. (3) Activities without resource assignments or expenses have no budget, so EV is zero or not comparable. (4) Project calculation settings recalculate actuals after the change — e.g., 'Recalculate actual units and cost when duration % complete changes' or 'Link Actual to Date and Actual This Period' overwrote values when progress was applied after the Global Change; order of operations matters. (5) EV is calculated differently than assumed: the Earned Value technique (Activity % Complete, 0/100, 50/50, WBS milestones) and the activity Percent Complete Type (duration/physical/units) drive EV, so the 'EV' value targeted in the formula may not be the one the report shows. (6) Report timing: values compared at a different data date or before summarizing/scheduling. I would verify on two or three sample activities: open the assignment, compare budget, actual and remaining cost before and after the change, then fix the root cause and re-run.",
+      "ar_explanation": "الأسباب المحتملة بترتيب الفحص: (1) شروط الـ Global Change لم تختر هذه الأنشطة. (2) استهداف حقل غلط — الـ Actual Total Cost على مستوى النشاط محسوب، والتكلفة الفعلية الحقيقية تكون على الـ Resource Assignments والـ Expenses. (3) أنشطة بدون Resources = بدون Budget، فالـ EV صفر. (4) إعدادات الحساب في المشروع (مثل Recalculate actual units and cost when duration % complete changes) أعادت الحساب بعد التغيير — ترتيب الخطوات مهم. (5) طريقة حساب الـ EV (EV Technique و Percent Complete Type) مختلفة عن المتوقع. (6) توقيت التقرير. والتحقق يكون على 2–3 أنشطة عينة قبل وبعد التغيير."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "selection_filter", "text": "Global Change conditions did not select the activities", "weight": 1.5 },
+        { "id": "assignment_level", "text": "Actual cost sits on resource assignments/expenses; activity total is calculated", "weight": 2.5 },
+        { "id": "recalc_settings", "text": "Project calculation settings / update order overwrite the values", "weight": 2 },
+        { "id": "verify_sample", "text": "Verifies on sample activities rather than guessing", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "no_resources", "text": "Activities without resources/budget" },
+        { "id": "preview_report", "text": "Uses Global Change preview/change report" }
+      ],
+      "advanced_points": [
+        { "id": "ev_technique", "text": "EV technique and Percent Complete Type determine EV" },
+        { "id": "simplification_risk", "text": "Notes that forcing AC = EV hides real cost performance (CPI always 1.0)" }
+      ],
+      "red_flags": [
+        { "id": "p6_bug", "text": "Concludes it is a P6 bug without investigation", "severity": "major" },
+        { "id": "manual_override", "text": "Suggests typing values manually into the report/export", "severity": "major" }
+      ],
+      "multiple_valid_answers": true
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "If AC is forced to equal EV every month, what does CPI tell management?", "ar": "لو الـ AC مُجبَر يساوي الـ EV كل شهر، ماذا يخبر الـ CPI الإدارة؟" },
+        "expects": ["CPI = 1.0 always, it carries no information", "Cost performance must be measured from real cost data elsewhere"]
+      },
+      {
+        "id": "f2", "trigger": "if_missing", "ref_point": "recalc_settings",
+        "question": { "en": "The Global Change worked yesterday, but after you applied progress today the values changed again. Why?", "ar": "الـ Global Change اشتغل امبارح، لكن بعد إدخال الـ Progress النهارده القيم اتغيرت تاني. ليه؟" },
+        "expects": ["Calculation settings recalculate actual cost from % complete/units", "Sequence: progress → schedule → global change → verify"]
+      }
+    ],
+    "misconceptions": ["Activity-level cost fields can be edited directly", "EV in P6 is always duration % × budget"],
+    "p6_relevance": "high",
+    "real_world_relevance": "medium",
+    "tags": ["p6", "global-change", "earned-value", "actual-cost", "troubleshooting"],
+    "status": "draft"
+  },
+  {
+    "id": "EVM-NUM-001",
+    "domain": "D20",
+    "sub_domain": "CPI / SPI interpretation",
+    "type": "numerical",
+    "career_level": "planning_engineer",
+    "bloom_level": 6,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "Month 8 status of a building project: BAC = 40M SAR, PV = 10M, EV = 8M, AC = 9M. The contractor requests approval to add two more concrete crews to recover the schedule.",
+      "ar": "حالة مشروع مبنى في الشهر الثامن: BAC = 40 مليون ريال، PV = 10M، EV = 8M، AC = 9M. المقاول يطلب الموافقة على إضافة طاقمين خرسانة لاستعادة البرنامج."
+    },
+    "question": {
+      "en": "Calculate CV, SV, CPI, SPI and a CPI-based EAC. Interpret the results. Would you approve the extra crews immediately?",
+      "ar": "احسب CV و SV و CPI و SPI و EAC على أساس الـ CPI. فسّر النتائج. هل توافق على الأطقم الإضافية فورًا؟"
+    },
+    "thinking_objectives": ["EVM calculation", "Interpretation", "Linking numbers to a decision", "Limits of SPI"],
+    "model_answer": {
+      "en": "CV = EV − AC = −1M (over budget). SV = EV − PV = −2M (behind in earned value). CPI = 8/9 = 0.89: for every 1 SAR spent, 0.89 SAR of work is earned. SPI = 8/10 = 0.80: 80% of planned value has been earned. EAC = BAC / CPI = 40 / 0.889 ≈ 45M, i.e., a forecast overrun of about 5M if current cost efficiency continues. Interpretation: the project is both behind and over budget. I would not approve immediately: (1) SPI is a value measure — it does not tell me whether the critical path is delayed; I need the schedule (critical path, float, forecast finish). (2) Adding crews at CPI 0.89 will likely worsen cost — I need the cause of low productivity (access, design, materials, supervision) because if it is not manpower, crews will not help. (3) Check workface constraints: formwork quantity, pump/crane capacity, concrete supply, site congestion. (4) Check entitlement: whose delay is it — this decides who pays. I would request a recovery programme showing which critical activities gain, by how many days, and at what cost.",
+      "ar_explanation": "CV = −1M (تجاوز تكلفة)، SV = −2M، CPI = 0.89، SPI = 0.80، EAC ≈ 45M. المشروع متأخر ومتجاوز للميزانية. لن أوافق فورًا لأن: الـ SPI مقياس قيمة ولا يوضح هل المسار الحرج متأخر؛ إضافة أطقم مع CPI منخفض غالبًا تزيد التكلفة؛ لازم أعرف سبب ضعف الإنتاجية؛ لازم أفحص قيود الموقع (شدات، مضخة، كرين، توريد خرسانة)؛ ولازم أعرف مسؤولية التأخير. أطلب Recovery Programme يوضح المكسب بالأيام والتكلفة.",
+      "calculation": "CV = 8 − 9 = −1M | SV = 8 − 10 = −2M | CPI = 8/9 = 0.889 | SPI = 8/10 = 0.80 | EAC = 40/0.889 = 45.0M | VAC = 40 − 45 = −5M"
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "calc_correct", "text": "CV −1M, SV −2M, CPI 0.89, SPI 0.80", "weight": 2.5 },
+        { "id": "eac", "text": "EAC ≈ 45M", "weight": 1 },
+        { "id": "interpret", "text": "Behind schedule and over budget, correctly interpreted", "weight": 1.5 },
+        { "id": "no_immediate", "text": "Does not approve without more information", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "root_cause", "text": "Asks for cause of low productivity" },
+        { "id": "recovery_programme", "text": "Requests a recovery programme" }
+      ],
+      "advanced_points": [
+        { "id": "spi_not_cp", "text": "SPI does not reflect critical path delay" },
+        { "id": "workface_limits", "text": "Physical constraints may limit benefit of extra crews" },
+        { "id": "entitlement", "text": "Responsibility/entitlement decides who bears acceleration cost" }
+      ],
+      "red_flags": [
+        { "id": "inverted_formula", "text": "Uses AC/EV or PV/EV (inverted indices)", "severity": "critical" },
+        { "id": "approve_now", "text": "Approves immediately because SPI < 1", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "SPI is 0.80 but the critical path shows zero delay. How is that possible?", "ar": "الـ SPI = 0.80 لكن المسار الحرج لا يظهر أي تأخير. كيف يحدث ذلك؟" },
+        "expects": ["Lag in non-critical high-value activities", "SPI measures value, not time on the critical path"]
+      },
+      {
+        "id": "f2", "trigger": "what_if",
+        "question": { "en": "Recalculate if AC = 7M instead. What changes in your recommendation?", "ar": "أعد الحساب لو AC = 7M. ماذا يتغير في توصيتك؟" },
+        "expects": ["CPI = 1.14, under budget", "Problem is schedule only; acceleration more affordable but still needs CP analysis"]
+      }
+    ],
+    "mutation": {
+      "BAC": [20, 40, 75],
+      "PV": [10, 12],
+      "EV": [8, 11, 13],
+      "AC": [7, 9, 12]
+    },
+    "misconceptions": ["SPI < 1 always means the project will finish late", "More manpower always recovers delay"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["evm", "cpi", "spi", "eac", "decision"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CAL-CAE-001",
+    "domain": "D05",
+    "sub_domain": "Calendar change impact",
+    "type": "cause_effect",
+    "career_level": "planning_engineer",
+    "bloom_level": 4,
+    "scenario_level": 1,
+    "scenario": {
+      "en": "A critical activity has an Original Duration of 12 days on a 6-day workweek calendar (8 h/day). You change its calendar to a 5-day workweek calendar (also 8 h/day).",
+      "ar": "نشاط حرج مدته الأصلية 12 يومًا على Calendar ستة أيام عمل أسبوعيًا (8 ساعات/يوم). غيّرت الـ Calendar إلى خمسة أيام عمل أسبوعيًا (8 ساعات/يوم أيضًا)."
+    },
+    "question": {
+      "en": "What happens to its duration, its finish date, its Total Float, and potentially the critical path?",
+      "ar": "ماذا يحدث لمدته، وتاريخ انتهائه، والـ Total Float، وربما المسار الحرج؟"
+    },
+    "thinking_objectives": ["Working time vs elapsed time", "Calendar propagation along the path", "Critical path migration"],
+    "model_answer": {
+      "en": "Duration stays 12 working days (P6 stores duration in hours: 96 h; with the same 8 h/day it still displays 12 d). But 12 working days now spans more calendar time: about 2 weeks + 2 days elapsed instead of 2 weeks, so the finish date moves later (≈ 2 calendar days, depending on the start day and holidays). Because the activity is critical, its successors and the project finish move later by the same amount unless downstream float absorbs it, and Total Float on that path decreases (or becomes more negative against a must-finish date). The critical path may change: if a parallel path previously had little float, it may stop being critical relative to this path, or this path may become the sole longest path. Caveat: if the new calendar had different hours per day, the displayed duration in days would change (e.g., 96 h on a 10 h/day calendar shows 9.6 d) — a common source of confusion.",
+      "ar_explanation": "المدة تبقى 12 يوم عمل (P6 يخزن المدة بالساعات: 96 ساعة). لكن 12 يوم عمل على Calendar خمسة أيام تستغرق وقتًا تقويميًا أطول، فيتأخر تاريخ الانتهاء (تقريبًا يومين تقويميين حسب يوم البدء والعطلات). ولأن النشاط حرج، يتأخر المشروع بنفس القدر ويقل الـ Total Float. وممكن المسار الحرج يتغير. تنبيه: لو عدد ساعات اليوم مختلف في الـ Calendar الجديد، المدة المعروضة بالأيام هتتغير (96 ساعة على 10 ساعات/يوم = 9.6 يوم)."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "duration_same", "text": "Working duration stays 12 days", "weight": 2 },
+        { "id": "finish_later", "text": "Finish date moves later (more elapsed time)", "weight": 2 },
+        { "id": "float_reduces", "text": "Project finish / float on the path affected because it is critical", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "cp_may_change", "text": "Critical path may change" }
+      ],
+      "advanced_points": [
+        { "id": "hours_storage", "text": "P6 stores durations in hours; hours/day change alters displayed days" },
+        { "id": "holidays", "text": "Holiday/exception differences between calendars" }
+      ],
+      "red_flags": [
+        { "id": "duration_becomes_10", "text": "Says duration becomes 10 days", "severity": "critical" },
+        { "id": "no_effect", "text": "Says nothing changes because duration is unchanged", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "What if the activity had 15 days of Total Float instead of being critical?", "ar": "ماذا لو كان للنشاط 15 يوم Total Float بدل أن يكون حرجًا؟" },
+        "expects": ["Finish moves later but float absorbs it", "Project finish unchanged", "Path float reduces"]
+      },
+      {
+        "id": "f2", "trigger": "what_if",
+        "question": { "en": "What if the successor uses a 7-day calendar? Where is float shown, and could it look inconsistent?", "ar": "ماذا لو الـ Successor على Calendar سبعة أيام؟ هل ممكن الـ Float يبان غير متسق؟" },
+        "expects": ["Float displayed per activity calendar", "Mixed calendars make float values along a path differ"]
+      }
+    ],
+    "misconceptions": ["Changing the calendar changes the number of working days", "Calendars only affect the activity itself"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["calendar", "what-if", "critical-path", "float"],
+    "status": "reviewed"
+  },
+  {
+    "id": "PRG-SCN-001",
+    "domain": "D10",
+    "sub_domain": "Conflicting progress data",
+    "type": "scenario",
+    "career_level": "senior",
+    "bloom_level": 6,
+    "scenario_level": 4,
+    "scenario": {
+      "en": "For the same cut-off date: the contractor's monthly report claims 90% progress on the structural package, P6 (updated by your team) shows 75%, and the site engineer's quantity report gives 82%. The client wants one number for the monthly report by tomorrow.",
+      "ar": "لنفس تاريخ القطع: تقرير المقاول الشهري يقول 90% في حزمة الإنشائي، P6 (المحدث بواسطة فريقك) يظهر 75%، وتقرير الكميات من مهندس الموقع يعطي 82%. العميل يريد رقمًا واحدًا للتقرير الشهري غدًا."
+    },
+    "question": {
+      "en": "What do you do, and which number do you report?",
+      "ar": "ماذا تفعل، وأي رقم ستضعه في التقرير؟"
+    },
+    "thinking_objectives": ["Measurement basis reconciliation", "Evidence-based progress", "Professional integrity under time pressure"],
+    "model_answer": {
+      "en": "Three different numbers usually mean three different measurement bases, not three opinions. I would reconcile: (1) Basis: is 90% by cost/payment value, 75% by P6 duration or physical %, 82% by quantities? (2) Weights: are the packages weighted by budget, man-hours or quantity, and are the weights the same? (3) Scope: does each include the same activities (e.g., contractor includes rebar delivered on site or formwork as progress)? (4) Cut-off: same data date? (5) Rules of credit: partial credit for incomplete elements (poured but not stripped/tested). Then verify the largest-variance items physically or with measured quantities. I would report one number based on the agreed measurement method in the contract/progress measurement procedure — typically the verified quantity-based, weighted physical progress — and show the reconciliation in a note: 'Contractor-claimed 90% (value incl. materials on site), verified physical 82%, P6 under-reported by 7% due to late update of X activities, corrected this period.' And I fix P6 so it reflects verified progress. I would not average the numbers or simply accept the contractor's figure.",
+      "ar_explanation": "ثلاثة أرقام مختلفة غالبًا تعني ثلاثة أسس قياس مختلفة. أوفّق بينهم: أساس القياس (تكلفة / مدة / كميات)، الأوزان، نطاق الأنشطة، تاريخ القطع، قواعد احتساب العمل غير المكتمل. ثم أتحقق فعليًا من البنود ذات أكبر فرق. أرفع رقمًا واحدًا حسب طريقة القياس المعتمدة في العقد/الإجراء (غالبًا Physical Progress موزون ومثبت بالكميات) مع ملاحظة توضح التوفيق، وأصحح P6. لا آخذ المتوسط ولا أقبل رقم المقاول كما هو."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "measurement_basis", "text": "Identifies different measurement bases", "weight": 2.5 },
+        { "id": "verify_evidence", "text": "Verifies with quantities/site evidence", "weight": 2 },
+        { "id": "agreed_method", "text": "Reports according to the agreed/contractual measurement method", "weight": 2 },
+        { "id": "reconciliation_note", "text": "Discloses reconciliation transparently", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "cutoff", "text": "Checks cut-off/data date alignment" },
+        { "id": "weights", "text": "Checks weighting method" }
+      ],
+      "advanced_points": [
+        { "id": "materials_on_site", "text": "Recognises materials-on-site / payment value inflates progress" },
+        { "id": "fix_p6", "text": "Corrects the P6 update process, not only the number" },
+        { "id": "partial_credit_rules", "text": "Defines rules of credit for partially complete work" }
+      ],
+      "red_flags": [
+        { "id": "average", "text": "Averages the three numbers", "severity": "critical" },
+        { "id": "accept_contractor", "text": "Accepts the contractor's figure to avoid conflict", "severity": "major" },
+        { "id": "hide_discrepancy", "text": "Reports one number with no explanation of the discrepancy", "severity": "minor" }
+      ],
+      "multiple_valid_answers": true,
+      "scenario_dependent": true
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "The contractor's PM calls you and says your 82% will damage their payment. What do you say?", "ar": "مدير مشروع المقاول اتصل وقال إن 82% ستضر بالدفعة. ماذا تقول له؟" },
+        "expects": ["Payment and progress may use different bases", "Offer joint measurement", "Stay evidence-based"]
+      },
+      {
+        "id": "f2", "trigger": "what_if",
+        "question": { "en": "What if there is no progress measurement procedure in the contract?", "ar": "ماذا لو العقد لا يحتوي على إجراء لقياس التقدم؟" },
+        "expects": ["Propose one and get it agreed", "Document basis in the report until agreed"]
+      }
+    ],
+    "misconceptions": ["Progress is a single objective number regardless of method", "Payment value equals physical progress"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["progress", "reporting", "conflicting-data", "integrity"],
+    "status": "reviewed"
+  },
+  {
+    "id": "DLY-PRS-001",
+    "domain": "D27",
+    "sub_domain": "Defending a delay conclusion",
+    "type": "interview_pressure",
+    "career_level": "senior",
+    "bloom_level": 7,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "Earlier in the interview you described a project where blockwork on Levels 3–6 finished four weeks late, and you said the cause was low productivity.",
+      "ar": "في بداية المقابلة وصفت مشروعًا تأخرت فيه أعمال الطوب في الأدوار 3–6 أربعة أسابيع، وقلت إن السبب ضعف الإنتاجية."
+    },
+    "question": {
+      "en": "You told me the blockwork delay was caused by low productivity. How did you prove that?",
+      "ar": "قلت لي إن تأخير الطوب كان بسبب ضعف الإنتاجية. كيف أثبت ذلك؟"
+    },
+    "thinking_objectives": ["Evidence-based causation", "Productivity measurement", "Separating productivity from disruption"],
+    "model_answer": {
+      "en": "I compared planned and achieved productivity using daily reports: planned 12 m²/man-day from the estimate; achieved 8 m²/man-day over 6 weeks, measured as installed quantity divided by man-days on the blockwork crews. Manpower on site matched the planned histogram, so it was not a manpower shortage, and there were no material stock-outs in the store records. Work fronts were available — the preceding activities were complete per the progress records — so it was not lack of access. Rework from the QA/QC NCR log was low. That left crew productivity itself, which we traced to an inexperienced subcontractor crew; productivity improved to 11 m²/man-day after the crew change, which supports the conclusion. If any of those checks had failed — no work front, no material, design changes — the cause would be disruption, not productivity, and responsibility could be different.",
+      "ar_explanation": "الإجابة القوية تُظهر الدليل: إنتاجية مخططة من التقدير مقابل الإنتاجية المحققة من التقارير اليومية (كمية منفذة ÷ أيام عمل العمال)، ثم استبعاد الأسباب الأخرى: العمالة كانت مطابقة للـ Histogram، المواد متوفرة حسب سجلات المخزن، الـ Work Fronts متاحة، الـ Rework قليل. ويُفضل وجود دليل تأكيدي: الإنتاجية تحسنت بعد تغيير الطاقم. لو أي فحص فشل، يكون السبب Disruption وليس Productivity، وقد تختلف المسؤولية."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "planned_vs_achieved", "text": "Quantified planned vs achieved productivity from records", "weight": 2.5 },
+        { "id": "exclude_alternatives", "text": "Excluded alternative causes (manpower, materials, access, rework)", "weight": 2.5 },
+        { "id": "data_sources", "text": "Names data sources (daily reports, timesheets, quantity records)", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "trend", "text": "Shows a trend over time, not one day" }
+      ],
+      "advanced_points": [
+        { "id": "confirming_evidence", "text": "Confirming evidence (improvement after corrective action)" },
+        { "id": "responsibility_link", "text": "Links cause to responsibility/entitlement" }
+      ],
+      "red_flags": [
+        { "id": "opinion_only", "text": "Relies on site opinion ('everyone knew the crew was slow')", "severity": "major" },
+        { "id": "late_equals_low_productivity", "text": "Argues: the activity is late, therefore productivity was low (circular)", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "What if the contractor disagrees and says the work fronts were released late?", "ar": "ماذا لو المقاول اعترض وقال إن الـ Work Fronts سُلمت متأخرة؟" },
+        "expects": ["Check actual finish of predecessors per area", "Area-by-area analysis", "Possibly both causes apply"]
+      },
+      {
+        "id": "f2", "trigger": "pressure",
+        "question": { "en": "Blockwork is not on the critical path. Does the delay even matter?", "ar": "الطوب ليس على المسار الحرج. هل التأخير يهم أصلاً؟" },
+        "expects": ["Consumes float", "May become critical next update", "Affects successor trades and cost"]
+      },
+      {
+        "id": "f3", "trigger": "what_if",
+        "question": { "en": "Next update it becomes critical. What changes in your report?", "ar": "في التحديث القادم أصبح حرجًا. ماذا يتغير في تقريرك؟" },
+        "expects": ["Escalate as critical delay", "Recovery options", "Forecast completion impact"]
+      }
+    ],
+    "misconceptions": ["Low productivity is proven by the activity being late", "Non-critical delays don't matter"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["delay", "productivity", "evidence", "pressure"],
+    "status": "reviewed"
+  },
+  {
+    "id": "PRG-APP-002",
+    "domain": "D10",
+    "sub_domain": "Data interpretation",
+    "type": "application",
+    "career_level": "planning_engineer",
+    "bloom_level": 4,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "Extract from the week 18 update of a residential building:",
+      "ar": "مقتطف من تحديث الأسبوع 18 لمبنى سكني:"
+    },
+    "data_table": {
+      "columns": ["Activity", "Planned %", "Actual %", "Total Float (d)"],
+      "rows": [
+        ["Excavation", 100, 100, 0],
+        ["Foundation", 80, 65, -5],
+        ["Columns", 40, 20, 10],
+        ["Blockwork", 20, 10, 15]
+      ]
+    },
+    "question": {
+      "en": "What is your first concern, and which activity would you investigate first and why?",
+      "ar": "ما أول ما يقلقك، وأي نشاط ستبحث فيه أولاً ولماذا؟"
+    },
+    "thinking_objectives": ["Prioritising by criticality not by variance size", "Reading float with progress"],
+    "model_answer": {
+      "en": "Foundation first. Its progress gap (15%) is smaller than Columns (20%), but it is the only activity with negative float (−5 d), meaning it already pushes the completion or a milestone. Columns has the largest percentage gap but 10 days of float. However, Columns depends on Foundation, so its float will shrink as Foundation slips — I'd check whether its 20% lag is caused by Foundation or by its own resources. I'd investigate Foundation's remaining duration, resources, and cause of slippage, then confirm whether −5 d is driven by the project finish or a constraint. Excavation at 0 float and 100% complete is not a concern.",
+      "ar_explanation": "أبدأ بالـ Foundation. الفرق فيه (15%) أقل من الـ Columns (20%)، لكنه النشاط الوحيد بـ Float سالب (−5)، أي أنه يؤثر بالفعل على نهاية المشروع أو Milestone. الـ Columns عنده أكبر فرق لكن له 10 أيام Float، ومع ذلك يعتمد على الـ Foundation فسيقل الـ Float بتاعه. الأولوية بحسب الحرجية وليس بحجم الفرق."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "foundation_first", "text": "Chooses Foundation first", "weight": 2 },
+        { "id": "criticality_reason", "text": "Justifies by negative float/criticality, not by largest variance", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "columns_dependency", "text": "Notes Columns depend on Foundation" }
+      ],
+      "advanced_points": [
+        { "id": "cause_of_column_lag", "text": "Asks whether Column lag is caused by Foundation or own resources" },
+        { "id": "float_source", "text": "Checks whether −5 is from project finish or a constraint" }
+      ],
+      "red_flags": [
+        { "id": "largest_variance", "text": "Chooses Columns only because the % gap is largest", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "always",
+        "question": { "en": "What report would you generate for the PM from this?", "ar": "ما التقرير الذي ستجهزه لمدير المشروع من هذا؟" },
+        "expects": ["Critical/near-critical activities with variance and cause", "Recovery actions with owners"]
+      }
+    ],
+    "mutation": {
+      "foundation": [[80, 65, -5], [80, 75, 3]],
+      "columns": [[40, 20, 10], [40, 15, -2]]
+    },
+    "misconceptions": ["The biggest % variance is always the biggest problem"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["data-interpretation", "float", "prioritisation"],
+    "status": "reviewed"
+  },
+  {
+    "id": "BSL-JDG-001",
+    "domain": "D11",
+    "sub_domain": "Current vs baseline",
+    "type": "decision",
+    "career_level": "senior",
+    "bloom_level": 6,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "The contractor's latest updated programme forecasts completion 25 days earlier than the approved baseline. Physical progress to date is slightly behind the baseline curve.",
+      "ar": "آخر برنامج محدث للمقاول يتوقع الانتهاء قبل الـ Baseline المعتمد بـ 25 يومًا، بينما التقدم الفعلي حتى الآن متأخر قليلاً عن منحنى الـ Baseline."
+    },
+    "question": {
+      "en": "Would you conclude the project is ahead of schedule? What would you check?",
+      "ar": "هل ستستنتج أن المشروع متقدم على البرنامج؟ ماذا ستفحص؟"
+    },
+    "thinking_objectives": ["Schedule integrity review", "Detecting optimistic or manipulated forecasts"],
+    "model_answer": {
+      "en": "No — an earlier forecast with progress behind the curve is a contradiction that must be explained. I would compare the update to the baseline and previous update: (1) remaining durations reduced without justification; (2) logic changes — relationships removed or changed from FS to SS, overlapping trades; (3) deleted or descoped activities; (4) constraints or lags changed; (5) calendars changed (e.g., to 7-day or longer shifts) — is that resourced and approved? (6) out-of-sequence progress handled with Progress Override; (7) productivity assumptions vs achieved productivity to date. If the changes are genuine (approved resequencing, extra shifts actually mobilised), the forecast may be credible; otherwise I would reject the programme for resubmission with a list of the unjustified changes.",
+      "ar_explanation": "لا. توقع انتهاء مبكر مع تقدم متأخر عن المنحنى تناقض يجب تفسيره. أقارن بالـ Baseline والتحديث السابق: تقليل Remaining Durations بدون مبرر، تغيير العلاقات (FS إلى SS)، حذف أنشطة، تغيير Constraints أو Lags، تغيير الـ Calendars، استخدام Progress Override، وافتراضات إنتاجية أعلى من المحقق. لو التغييرات حقيقية ومعتمدة، ممكن التوقع يكون منطقيًا؛ غير ذلك أرفض البرنامج وأطلب إعادة تقديم."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "no_conclusion", "text": "Does not conclude the project is ahead", "weight": 2 },
+        { "id": "contradiction", "text": "Recognises contradiction between forecast and progress", "weight": 1.5 },
+        { "id": "compare_changes", "text": "Compares durations, logic and activities against baseline/previous update", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "calendar_check", "text": "Checks calendar changes" },
+        { "id": "productivity_check", "text": "Checks productivity assumptions" }
+      ],
+      "advanced_points": [
+        { "id": "retained_logic", "text": "Progress Override vs Retained Logic effect" },
+        { "id": "accept_if_justified", "text": "Accepts the forecast if changes are genuine and resourced" },
+        { "id": "formal_response", "text": "Formal rejection/resubmission with list of issues" }
+      ],
+      "red_flags": [
+        { "id": "accept_ahead", "text": "Concludes the project is ahead based on forecast date", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "You find 14 FS relationships changed to SS with zero lag in finishing works. What is your assessment?", "ar": "وجدت 14 علاقة FS تحولت إلى SS بدون Lag في أعمال التشطيبات. ما تقييمك؟" },
+        "expects": ["Possibly unrealistic overlap", "Check physical feasibility/trade stacking", "Require lags or justification"]
+      }
+    ],
+    "misconceptions": ["Forecast finish before baseline means the project is ahead"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["baseline", "forecast", "schedule-review", "forensics"],
+    "status": "reviewed"
+  }
+]
