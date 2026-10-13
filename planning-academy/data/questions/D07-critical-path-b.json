@@ -1,0 +1,999 @@
+[
+  {
+    "id": "CPM-TRB-022",
+    "domain": "D07",
+    "sub_domain": "Broken longest path",
+    "type": "troubleshooting",
+    "career_level": "planning_engineer",
+    "bloom_level": 5,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "You apply the Longest Path filter and it shows only the last eight activities of the project (from 'MEP testing' to 'Handover'). Nothing before them appears, although construction is still in progress.",
+      "ar": "طبقت فلتر Longest Path فأظهر آخر ثمانية أنشطة فقط (من «اختبار MEP» إلى «التسليم»). لا يظهر شيء قبلها مع أن الإنشاء ما زال جاريًا."
+    },
+    "question": {
+      "en": "What could cause the longest path to start in the middle of the project, and how do you find out?",
+      "ar": "ما الذي قد يجعل الـ Longest Path يبدأ من منتصف المشروع، وكيف تكتشف ذلك؟"
+    },
+    "thinking_objectives": ["Longest path continuity", "Constraints and open starts"],
+    "model_answer": {
+      "en": "The longest path starts where something other than logic sets the date of the first activity shown. Causes: (1) a constraint on 'MEP testing' (e.g., Start On or After, Mandatory Start) later than its logic allows, so the constraint drives it, not its predecessors; (2) missing predecessors — the activity has no predecessor (open start), so it starts at the data date or project start, and nothing upstream can drive it; (3) external relationships or a dependency on another project's date; (4) a long lag from a predecessor whose own path is not driving. Check: open the first activity on the path, look at its constraints and predecessors, and see whether any predecessor relationship is marked driving. If none, the date comes from a constraint or open start. Fix the logic (link testing to the construction activities it really depends on) or justify the constraint. Otherwise the schedule hides that construction progress drives testing.",
+      "ar_explanation": "الـ Longest Path يبدأ حيث يحدد شيء غير المنطق تاريخ أول نشاط. الأسباب: Constraint على «اختبار MEP» أبعد مما يسمح به المنطق، أو Predecessors ناقصة (Open Start)، أو علاقات خارجية، أو Lag طويل من Predecessor غير قائد. الفحص: أفتح أول نشاط في المسار وأنظر إلى الـ Constraints والـ Predecessors وهل أي علاقة Driving. لو لا يوجد، فالتاريخ من Constraint أو Open Start. أصلح المنطق أو أبرر الـ Constraint."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "constraint", "text": "A constraint drives the first activity", "weight": 2.5 },
+        { "id": "open_start", "text": "Missing predecessors (open start)", "weight": 2 },
+        { "id": "check_driving", "text": "Checks first activity's predecessors for a driving link", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "external", "text": "External relationships" }
+      ],
+      "advanced_points": [
+        { "id": "hides_driver", "text": "Explains this hides the real driver (construction progress)" },
+        { "id": "fix_logic", "text": "Fix logic or justify the constraint" }
+      ],
+      "red_flags": [
+        { "id": "normal", "text": "Says it is normal for the longest path to start mid-project", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "You find 'MEP testing' has a Start On or After constraint for the date the client promised to the operator. Keep it?", "ar": "وجدت أن «اختبار MEP» عليه Start On or After بالتاريخ الذي وعد به العميل المشغّل. هل تبقيه؟" },
+        "expects": ["A promise to the operator is not a reason to start later than logic allows", "Remove or replace with a milestone target; keep logic driving"]
+      }
+    ],
+    "misconceptions": ["The longest path always starts at the data date"],
+    "related": ["FLT-APP-011", "CPM-APP-011"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["longest-path", "p6", "constraints", "troubleshooting"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-TRB-023",
+    "domain": "D07",
+    "sub_domain": "Critical path not actionable",
+    "type": "troubleshooting",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "The contractor's critical path runs through 'MEP Works – Building A' (180 days) and 'Finishes – Building A' (150 days), linked SS + 30 days. The site team can't tell which MEP work is critical this month.",
+      "ar": "المسار الحرج للمقاول يمر عبر «أعمال MEP – المبنى A» (180 يومًا) و«التشطيبات – المبنى A» (150 يومًا)، مربوطين SS + 30 يومًا. فريق الموقع لا يعرف أي أعمال MEP حرجة هذا الشهر."
+    },
+    "question": {
+      "en": "What is wrong with this critical path and what would you require?",
+      "ar": "ما المشكلة في هذا المسار الحرج، وماذا ستطلب؟"
+    },
+    "thinking_objectives": ["Activity granularity", "Actionable critical path"],
+    "model_answer": {
+      "en": "The activities are too long and too summarised to show real sequence. A 180-day activity hides which floor, zone or system is driving; the SS + 30 link is an arbitrary overlap without an FF to protect the finish, so finishes could theoretically complete before MEP. Progress on such activities is hard to measure, and a delay inside them cannot be located or analysed for claims. Requirement: break them down by location and system (e.g., per floor/zone: MEP first fix → inspection → ceiling closure → finishes), with durations generally within one or two update periods, and logic that reflects handovers between trades (FS or SS/FF with justified lags). Then the critical path becomes a sequence of specific floors and trades the site can act on. DCMA-type checks flag high-duration activities for this reason.",
+      "ar_explanation": "الأنشطة طويلة جدًا ومجمعة فلا تظهر التسلسل الحقيقي. نشاط 180 يومًا يخفي أي دور أو نظام هو القائد، وعلاقة SS + 30 تداخل اعتباطي بدون FF يحمي النهاية. قياس التقدم صعب، والتأخير داخلها لا يمكن تحديده أو تحليله للمطالبات. المطلوب: تفصيلها حسب الموقع والنظام (لكل دور/منطقة: MEP First Fix ← فحص ← إغلاق الأسقف ← تشطيبات)، بمدد في حدود فترة أو فترتي تحديث، ومنطق يعكس التسليم بين الحرف."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "too_long", "text": "Activities too long/summarised to show sequence", "weight": 2.5 },
+        { "id": "breakdown", "text": "Require breakdown by location/system", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "ss_without_ff", "text": "SS without FF leaves finish unprotected" }
+      ],
+      "advanced_points": [
+        { "id": "claims", "text": "Delays inside cannot be analysed for claims" },
+        { "id": "duration_guideline", "text": "Duration guideline (within 1–2 update periods)" }
+      ],
+      "red_flags": [
+        { "id": "acceptable", "text": "Accepts it because the logic is connected", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "The contractor says: 'More detail means more work to update.' Your answer?", "ar": "المقاول يقول: «تفاصيل أكثر تعني عمل تحديث أكثر». ردك؟" },
+        "expects": ["Detail must be sufficient to manage and measure", "Use location-based structure to keep update effort reasonable"]
+      }
+    ],
+    "misconceptions": ["Fewer activities make a better schedule"],
+    "related": ["CPM-APP-011", "FLT-SCN-016"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["schedule-quality", "granularity", "critical-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-TRB-024",
+    "domain": "D07",
+    "sub_domain": "Critical path test",
+    "type": "troubleshooting",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "To test the contractor's critical path, you add 10 days to an early activity on it ('Raft foundation Zone B'). The project completion moves only 4 days.",
+      "ar": "لاختبار المسار الحرج للمقاول أضفت 10 أيام لنشاط مبكر عليه («لبشة Zone B»). إنجاز المشروع تحرك 4 أيام فقط."
+    },
+    "question": {
+      "en": "What could explain this, and what does it say about the schedule?",
+      "ar": "ما الذي قد يفسر ذلك، وماذا يقول عن البرنامج؟"
+    },
+    "thinking_objectives": ["Critical path test interpretation", "Hidden float or breaks in the path"],
+    "model_answer": {
+      "en": "A true critical path should pass a delay through one-for-one. Only 4 days means something along the path absorbs 6 days. Causes: (1) the activity was not really on the longest path — it was flagged critical by a float threshold, constraint or imposed date; (2) a downstream constraint (e.g., a Start On or After or Mandatory Start) holds a later activity at a fixed date, so the delay is absorbed until it reaches that date; (3) a parallel path takes over — after 4 days another path becomes longest; (4) calendar differences — 10 working days on one calendar may be a different number on the completion activity's calendar; (5) lags or relationships on different calendars. Any of these means the critical path cannot be relied on for delay analysis until fixed: trace the path, find where the delay stops propagating, and correct the constraint or logic.",
+      "ar_explanation": "المسار الحرج الحقيقي ينقل التأخير بنفس القدر. 4 أيام فقط تعني أن شيئًا على المسار امتص 6 أيام: النشاط لم يكن على الـ Longest Path فعلًا، أو Constraint لاحق يثبت تاريخ نشاط، أو مسار موازٍ أصبح الأطول بعد 4 أيام، أو اختلاف Calendars، أو Lags بـ Calendars مختلفة. أيًا كان، لا يمكن الاعتماد على المسار في تحليل التأخير قبل الإصلاح: أتتبع المسار وأجد أين توقف انتقال التأخير."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "one_for_one", "text": "True critical path propagates delay 1:1", "weight": 2 },
+        { "id": "causes", "text": "Two or more causes (not on longest path, constraint, parallel path, calendars)", "weight": 2.5 },
+        { "id": "trace_stop", "text": "Trace where propagation stops", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "unreliable", "text": "Schedule unreliable for delay analysis until fixed" }
+      ],
+      "advanced_points": [
+        { "id": "parallel_takeover", "text": "Parallel path becomes longest after 4 days" },
+        { "id": "calendar_effect", "text": "Calendar differences change day counts" }
+      ],
+      "red_flags": [
+        { "id": "accept_result", "text": "Accepts the schedule as valid", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "Completion moves 14 days for a 10-day delay. Possible?", "ar": "الإنجاز تحرك 14 يومًا لتأخير 10 أيام. هل هذا ممكن؟" },
+        "expects": ["Yes — calendar effects (e.g., delay pushes work into a holiday) or a weather window", "Investigate before relying on it"]
+      }
+    ],
+    "misconceptions": ["Any activity flagged critical passes delay one-for-one"],
+    "related": ["CPM-APP-011"],
+    "p6_relevance": "high",
+    "real_world_relevance": "high",
+    "tags": ["critical-path-test", "dcma", "schedule-quality"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-TRB-025",
+    "domain": "D07",
+    "sub_domain": "Fragnet does not move completion",
+    "type": "troubleshooting",
+    "career_level": "planning_engineer",
+    "bloom_level": 5,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "A variation adds a 25-day mezzanine floor in the ground-floor lobby. You insert a fragnet of four activities into the current update. The site believes it will delay handover, but completion does not move at all.",
+      "ar": "تغيير (Variation) يضيف دور ميزانين بمدة 25 يومًا في لوبي الدور الأرضي. أدخلت Fragnet من أربعة أنشطة في التحديث الحالي. الموقع يعتقد أنه سيؤخر التسليم، لكن الإنجاز لم يتحرك إطلاقًا."
+    },
+    "question": {
+      "en": "What would you check in the fragnet?",
+      "ar": "ماذا ستفحص في الـ Fragnet؟"
+    },
+    "thinking_objectives": ["Fragnet linkage", "Realistic impact modelling"],
+    "model_answer": {
+      "en": "Check how it is tied in: (1) successors — if the last fragnet activity has no successor or links only to a milestone with float, it cannot delay anything (open end). It should link to what it really delays: lobby finishes, MEP in the lobby, the fire-fighting system test, and handover; (2) predecessors — it must start after its real prerequisites (design approval, material delivery for the steel), not at the data date; (3) whether lobby finishes really continue in parallel — if the existing lobby activities stay unlinked, the fragnet sits beside them; (4) durations and calendars of the new activities; (5) whether the lobby path has genuine float — if it has 40 days of float, no delay is correct. Then rerun and document the before/after.",
+      "ar_explanation": "أفحص الربط: (1) الـ Successors — لو آخر نشاط بلا Successor أو مربوط بـ Milestone له Float فلن يؤخر شيئًا؛ يجب ربطه بتشطيبات اللوبي وMEP اللوبي واختبار الحريق والتسليم. (2) الـ Predecessors — يبدأ بعد متطلباته الحقيقية (اعتماد التصميم، توريد الحديد) وليس عند الـ Data Date. (3) هل أنشطة اللوبي الموجودة ما زالت غير مربوطة به. (4) المدد والـ Calendars. (5) هل مسار اللوبي له Float حقيقي — لو 40 يومًا فعدم التأخير صحيح."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "successors", "text": "Fragnet must link to the work it delays (no open end)", "weight": 2.5 },
+        { "id": "predecessors", "text": "Fragnet linked to real prerequisites", "weight": 2 },
+        { "id": "genuine_float", "text": "Considers that the path may genuinely have float", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "existing_links", "text": "Existing lobby activities must be re-linked" }
+      ],
+      "advanced_points": [
+        { "id": "design_material", "text": "Includes design approval/material delivery in the fragnet" },
+        { "id": "document", "text": "Documents before/after" }
+      ],
+      "red_flags": [
+        { "id": "add_constraint", "text": "Forces the delay with a constraint", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "After proper linkage, completion moves 9 days. The contractor wants 25. Who is right?", "ar": "بعد الربط الصحيح تحرك الإنجاز 9 أيام. المقاول يريد 25. من على حق؟" },
+        "expects": ["The path had 16 days of float", "Entitlement follows the impact on completion (subject to contract)"]
+      }
+    ],
+    "misconceptions": ["Adding activities automatically extends the project"],
+    "related": ["FLT-SCN-017"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["fragnet", "variation", "tia", "logic"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-TRB-026",
+    "domain": "D07",
+    "sub_domain": "External relationships",
+    "type": "troubleshooting",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "Your building project is linked by external relationships to the infrastructure project (roads and utilities) in P6. When you schedule your project alone, the critical path runs through the structure. When the infrastructure project is opened together with it, your critical path runs through 'Utility connection – Zone 3' and completion moves 30 days.",
+      "ar": "مشروع المبنى مربوط بعلاقات خارجية بمشروع البنية التحتية (طرق وخدمات) في P6. عند جدولة مشروعك وحده، يمر المسار الحرج بالإنشائي. عند فتح مشروع البنية التحتية معه يمر المسار الحرج عبر «توصيل الخدمات – Zone 3» ويتحرك الإنجاز 30 يومًا."
+    },
+    "question": {
+      "en": "Why does this happen, and which result should be reported?",
+      "ar": "لماذا يحدث ذلك، وأي نتيجة يجب أن تُعتمد في التقرير؟"
+    },
+    "thinking_objectives": ["External dates in P6", "Interfaces between projects"],
+    "model_answer": {
+      "en": "When the other project is not open, P6 uses the stored external early/late dates of the linked activities from the last time they were scheduled together; or, if 'Ignore relationships to and from other projects' is selected, it ignores those links entirely. When both are opened and scheduled together, the current infrastructure dates drive your project, showing that the utility connection is now later than your construction path. The 30 days is real interface risk; the stand-alone result is out-of-date or ignores the dependency. Report the integrated result, explain that completion is driven by the infrastructure interface, and agree with the infrastructure team on the utility date. Also standardise the scheduling procedure (always schedule linked projects together, or refresh external dates) so reports are consistent each month.",
+      "ar_explanation": "عندما يكون المشروع الآخر مغلقًا، يستخدم P6 تواريخ خارجية مخزنة من آخر مرة جُدولا معًا، أو يتجاهل العلاقات إن اخترت Ignore relationships to and from other projects. عند فتحهما معًا تقود تواريخ البنية التحتية الحالية مشروعك. الـ 30 يومًا خطر واجهة حقيقي. أعتمد النتيجة المتكاملة، وأوضح أن الإنجاز يقوده توصيل الخدمات، وأنسق مع فريق البنية التحتية، وأوحّد إجراء الجدولة."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "external_dates", "text": "Stand-alone uses stored external dates or ignores links", "weight": 2.5 },
+        { "id": "integrated_real", "text": "Integrated result reflects real interface", "weight": 2 },
+        { "id": "report_integrated", "text": "Report the integrated result", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "coordinate", "text": "Coordinate with the infrastructure team" }
+      ],
+      "advanced_points": [
+        { "id": "ignore_option", "text": "Names the 'Ignore relationships to and from other projects' option" },
+        { "id": "procedure", "text": "Standardise the scheduling procedure" }
+      ],
+      "red_flags": [
+        { "id": "standalone", "text": "Reports the stand-alone result because it's 'our project'", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The infrastructure project belongs to another contractor under a separate contract. How does that change your actions?", "ar": "مشروع البنية التحتية لمقاول آخر بعقد منفصل. كيف يغير ذلك إجراءاتك؟" },
+        "expects": ["Interface risk may be employer's; notify early", "Keep evidence of the interface dates"]
+      }
+    ],
+    "misconceptions": ["Each project's critical path is independent"],
+    "related": ["CPM-SCN-015"],
+    "p6_relevance": "high",
+    "real_world_relevance": "medium",
+    "tags": ["p6", "external-relationships", "interfaces", "multi-project"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-TRB-027",
+    "domain": "D07",
+    "sub_domain": "Critical path after levelling",
+    "type": "troubleshooting",
+    "career_level": "senior",
+    "bloom_level": 5,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "After running resource levelling on the electricians, the project finish moves 25 days. Trace Logic from the finish milestone shows driving predecessors that were not delayed, and the team cannot explain which activities now drive completion.",
+      "ar": "بعد تشغيل Resource Levelling على الكهربائيين، تحرك انتهاء المشروع 25 يومًا. الـ Trace Logic من Milestone الانتهاء يظهر Predecessors قائدة لم تتأخر، والفريق لا يستطيع تفسير الأنشطة التي تقود الإنجاز الآن."
+    },
+    "question": {
+      "en": "Why is the critical path hard to read after levelling, and how would you make it explainable?",
+      "ar": "لماذا يصعب قراءة المسار الحرج بعد الـ Levelling، وكيف تجعله قابلًا للتفسير؟"
+    },
+    "thinking_objectives": ["Logic-driven vs resource-driven delays", "Transparency for analysis"],
+    "model_answer": {
+      "en": "Levelling delays activities to remove over-allocation, but it does not create relationships. The delay is caused by resource availability, so tracing logic does not show why an activity moved; float values after levelling no longer simply reflect logic. The 25 days is therefore resource-driven and invisible in the network. To make it explainable: (1) identify which activities levelling delayed (compare levelled and unlevelled dates); (2) check whether the electrician limit is realistic or can be increased — the 25 days may be a resourcing decision rather than a fixed constraint; (3) if the limit is real, convert the key resource sequence into explicit logic (e.g., electrical rough-in by floor in a defined order) so the critical path becomes traceable; (4) report the result as 'completion constrained by electrician availability' with the histogram, so management can decide on extra resources. For delay analysis, resource-levelled schedules are hard to defend unless the levelling assumptions are documented.",
+      "ar_explanation": "الـ Levelling يؤخر الأنشطة لإزالة التحميل الزائد لكنه لا ينشئ علاقات، فالتأخير بسبب توفر الموارد ولا يظهر في الـ Trace Logic، وقيم الـ Float بعده لا تعكس المنطق ببساطة. للتفسير: أحدد الأنشطة التي أخرها الـ Levelling، أتحقق من واقعية حد الكهربائيين (قد يكون قرار موارد)، أحول التسلسل المهم إلى منطق صريح، وأعرض النتيجة كـ «الإنجاز مقيد بتوفر الكهربائيين» مع الـ Histogram ليتخذ المدير قرارًا."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "no_relationships", "text": "Levelling delays without creating relationships", "weight": 2.5 },
+        { "id": "identify_delayed", "text": "Identify activities delayed by levelling", "weight": 2 },
+        { "id": "explicit_logic", "text": "Convert key resource sequence into explicit logic or document assumptions", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "challenge_limit", "text": "Challenges the resource limit" }
+      ],
+      "advanced_points": [
+        { "id": "management_decision", "text": "Presents as a resourcing decision with histogram" },
+        { "id": "delay_analysis", "text": "Levelled schedules hard to defend in delay analysis" }
+      ],
+      "red_flags": [
+        { "id": "p6_wrong", "text": "Says P6 levelling is broken", "severity": "minor" },
+        { "id": "accept_25", "text": "Reports 25 days delay with no explanation", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "Adding 8 electricians removes 20 of the 25 days. How do you present that to the PM?", "ar": "إضافة 8 كهربائيين تزيل 20 من الـ 25 يومًا. كيف تعرض ذلك على مدير المشروع؟" },
+        "expects": ["Cost of 8 electricians vs value of 20 days (LDs, overheads)", "Remaining 5 days and next constraint"]
+      }
+    ],
+    "misconceptions": ["Levelling results can be traced like logic"],
+    "related": ["CPM-SCN-019"],
+    "p6_relevance": "high",
+    "real_world_relevance": "medium",
+    "tags": ["resource-levelling", "p6", "critical-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-CAE-028",
+    "domain": "D07",
+    "sub_domain": "Delay to a critical activity",
+    "type": "cause_effect",
+    "career_level": "junior",
+    "bloom_level": 3,
+    "scenario_level": 1,
+    "scenario": {
+      "en": "Activity 'Level 6 slab' is on the critical path with 0 days Total Float. It is delayed by 5 days.",
+      "ar": "النشاط «بلاطة الدور السادس» على المسار الحرج و Total Float = 0. تأخر 5 أيام."
+    },
+    "question": {
+      "en": "What happens to project completion? What if the project has a Must Finish By date and the critical path had +3 days of float?",
+      "ar": "ماذا يحدث لإنجاز المشروع؟ وماذا لو كان للمشروع Must Finish By وكان للمسار الحرج +3 أيام Float؟"
+    },
+    "thinking_objectives": ["Direct effect of critical delay", "Float against an imposed date"],
+    "model_answer": {
+      "en": "With 0 float, completion moves 5 days later (assuming no recovery and no parallel path changes). Successors on the path move 5 days and their float drops by 5. With +3 days of float against the Must Finish By date: the calculated finish still moves 5 days later, but only 2 of those days are beyond the contract date — the path now shows −2. In both cases the delay is real; the float only tells you how much of it breaches the target.",
+      "ar_explanation": "مع Float = 0 يتأخر الإنجاز 5 أيام (بدون استعادة). الأنشطة التالية على المسار تتحرك 5 أيام. مع +3 Float مقابل الـ Must Finish By: الانتهاء المحسوب يتحرك 5 أيام أيضًا، لكن يومين فقط بعد التاريخ التعاقدي — المسار يصبح −2. في الحالتين التأخير حقيقي، والـ Float يحدد فقط كم منه يتجاوز الهدف."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "plus5", "text": "Completion moves 5 days", "weight": 2.5 },
+        { "id": "minus2", "text": "With +3 float: 2 days beyond contract date (TF −2)", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "successors", "text": "Successors move 5 days" }
+      ],
+      "advanced_points": [
+        { "id": "finish_still_moves", "text": "Calculated finish still moves 5 days in the second case" }
+      ],
+      "red_flags": [
+        { "id": "no_delay_second", "text": "Says the second case causes no delay at all", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "A parallel path had only 2 days less duration. After the 5-day delay, does it matter?", "ar": "مسار موازٍ كان أقصر بيومين فقط. بعد تأخير 5 أيام، هل يهم؟" },
+        "expects": ["No immediate effect; it now has 7 days relative float", "But if recovery happens on the delayed path, it may become critical again"]
+      }
+    ],
+    "misconceptions": ["Positive float on the critical path means a delay doesn't move the finish"],
+    "related": ["FLT-CON-007"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["critical-path", "delay", "what-if"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-CAE-029",
+    "domain": "D07",
+    "sub_domain": "Diminishing returns of compression",
+    "type": "cause_effect",
+    "career_level": "planning_engineer",
+    "bloom_level": 4,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "You shorten a critical activity ('Block walls L1–L10') by 10 days with extra crews. The project gains only 4 days.",
+      "ar": "قصّرت نشاطًا حرجًا («حوائط الطوب الأدوار 1–10») 10 أيام بأطقم إضافية. المشروع كسب 4 أيام فقط."
+    },
+    "question": {
+      "en": "Why, and what should you have checked before paying for 10 days?",
+      "ar": "لماذا، وماذا كان يجب أن تفحص قبل أن تدفع مقابل 10 أيام؟"
+    },
+    "thinking_objectives": ["Near-critical paths limit compression gains"],
+    "model_answer": {
+      "en": "A parallel path had only 4 days of float (it was near-critical, e.g., MEP risers). After the first 4 days of compression, both paths were equal; further shortening of the blockwork path gave no benefit because the other path now governs. Six days of the paid compression bought nothing. Before compressing, check the float of all paths near the critical path (multiple float paths), compress only as far as the next path allows, and then decide whether to compress both paths — or a shared activity downstream — to gain more. This is why compression is done in small steps with rescheduling after each.",
+      "ar_explanation": "مسار موازٍ كان له 4 أيام Float فقط (Near-critical مثل الـ MEP Risers). بعد أول 4 أيام أصبح المساران متساويين، وأي تقصير إضافي لمسار الطوب لا يفيد لأن المسار الآخر هو الحاكم. ستة أيام مدفوعة بلا فائدة. قبل الضغط: أفحص Float المسارات القريبة، أضغط فقط بقدر ما يسمح المسار التالي، ثم أقرر ضغط المسارين أو نشاط مشترك. لذلك يتم الضغط بخطوات صغيرة مع إعادة الجدولة."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "near_critical", "text": "A parallel path with 4 days float became critical", "weight": 2.5 },
+        { "id": "wasted", "text": "Remaining 6 days of compression bought nothing", "weight": 1.5 },
+        { "id": "check_first", "text": "Check near-critical floats before compressing", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "small_steps", "text": "Compress in steps with rescheduling" }
+      ],
+      "advanced_points": [
+        { "id": "shared_activity", "text": "Consider compressing a shared downstream activity" }
+      ],
+      "red_flags": [
+        { "id": "p6_error", "text": "Blames the software", "severity": "minor" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "To gain the full 10 days, what is needed now?", "ar": "لكسب الـ 10 أيام كاملة، ماذا تحتاج الآن؟" },
+        "expects": ["Shorten the parallel path by 6 days too", "Or compress a common activity"]
+      }
+    ],
+    "misconceptions": ["Every day removed from the critical path is a day gained"],
+    "related": ["CPM-NUM-034", "FLT-CAE-028"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["crashing", "near-critical", "critical-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-CAE-030",
+    "domain": "D07",
+    "sub_domain": "Fast-tracking with SS links",
+    "type": "cause_effect",
+    "career_level": "planning_engineer",
+    "bloom_level": 4,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "On the critical path, 'Plaster L1–L10' (40 days) → FS → 'Paint L1–L10' (30 days). To recover, you change it to SS + 10 days, and add FF + 5 days.",
+      "ar": "على المسار الحرج: «محارة الأدوار 1–10» (40 يومًا) ← FS ← «دهانات الأدوار 1–10» (30 يومًا). للاستعادة غيرتها إلى SS + 10 أيام وأضفت FF + 5 أيام."
+    },
+    "question": {
+      "en": "How much time is gained, and what are the risks?",
+      "ar": "كم يومًا تكسب، وما المخاطر؟"
+    },
+    "thinking_objectives": ["Calculating overlap effect", "Technical and practical risk of fast-tracking"],
+    "model_answer": {
+      "en": "Before: paint finishes 40 + 30 = 70 days after plaster starts. After: SS + 10 allows paint to start on day 10; paint would finish on day 40, but FF + 5 means it cannot finish before day 45 (plaster finish + 5). So paint finishes on day 45: a gain of 25 days on this path (subject to other paths). Risks: painters working right behind plasterers on the same floors (crowding, safety); plaster curing and moisture before paint (technical quality); paint finishing waits on plaster, so painters may stand idle if plaster slows (the FF governs); the assumption that work flows floor by floor in the same direction; and other paths (MEP, ceilings) may now become critical. Check with the site whether the sequence is physically possible.",
+      "ar_explanation": "قبل: الدهانات تنتهي بعد 70 يومًا من بدء المحارة. بعد: SS + 10 يبدأ الدهان يوم 10 وكان سينتهي يوم 40، لكن FF + 5 يمنعه قبل يوم 45. المكسب 25 يومًا على هذا المسار. المخاطر: ازدحام الحرف على نفس الأدوار، جفاف المحارة قبل الدهان (الجودة)، توقف الدهانين إن تباطأت المحارة، افتراض اتجاه العمل دورًا بدور، ومسارات أخرى قد تصبح حرجة.",
+      "calculation": "Before: 40 + 30 = 70 d | After: Paint ES = 10, EF = 10 + 30 = 40; FF+5 → EF ≥ 40 + 5 = 45 → EF = 45 | Gain = 70 − 45 = 25 d"
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "calc_45", "text": "Paint finishes day 45 (FF governs)", "weight": 2.5 },
+        { "id": "gain_25", "text": "Gain 25 days", "weight": 1.5 },
+        { "id": "risks", "text": "Identifies practical/technical risks", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "other_paths", "text": "Other paths may become critical" }
+      ],
+      "advanced_points": [
+        { "id": "curing", "text": "Plaster curing/moisture before paint" },
+        { "id": "ff_governs", "text": "Explains FF controls finish so painters may idle" }
+      ],
+      "red_flags": [
+        { "id": "gain_60", "text": "Says paint finishes day 40 (ignores FF)", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "If you used only SS + 10 without the FF link, what would the schedule show and why is that dangerous?", "ar": "لو استخدمت SS + 10 فقط بدون FF، ماذا سيظهر البرنامج ولماذا هذا خطر؟" },
+        "expects": ["Paint could finish on day 40, the same day plaster finishes — no time to paint the last floor after plastering", "Finish not protected; open-end risk"]
+      }
+    ],
+    "misconceptions": ["SS links alone are enough for overlapping activities"],
+    "related": ["CPM-SCN-017", "CPM-TRB-023"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["fast-tracking", "relationships", "calculation"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-CAE-031",
+    "domain": "D07",
+    "sub_domain": "Early finish of a critical activity",
+    "type": "cause_effect",
+    "career_level": "junior",
+    "bloom_level": 3,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "Critical activity 'Roof waterproofing' finishes 4 days earlier than planned. Its successor 'Roof plant installation' is by a different subcontractor who planned to mobilise on the original date.",
+      "ar": "النشاط الحرج «عزل السطح» انتهى قبل المخطط بأربعة أيام. الـ Successor «تركيب معدات السطح» لمقاول باطن آخر خطط للحضور في التاريخ الأصلي."
+    },
+    "question": {
+      "en": "Does the project finish 4 days earlier?",
+      "ar": "هل ينتهي المشروع قبل موعده بأربعة أيام؟"
+    },
+    "thinking_objectives": ["Theoretical vs realised gains", "Converting early finish into real time"],
+    "model_answer": {
+      "en": "Only if the successor actually starts earlier and no other path is within 4 days. In the schedule, P6 will move the successor's early start forward, so the forecast improves on paper. In reality, if the plant subcontractor mobilises on the original date, the 4 days are lost. Even then, the gain only reaches completion up to the float of the next-longest path. To capture the gain: notify the successor's subcontractor immediately, check their readiness (equipment delivered, crane booked, inspections), and update the lookahead. Also don't report a 4-day improvement until it is real.",
+      "ar_explanation": "فقط إذا بدأ الـ Successor فعلًا مبكرًا ولم يكن هناك مسار آخر في حدود 4 أيام. في البرنامج سيقدم P6 الـ Early Start للـ Successor فيتحسن التوقع على الورق، لكن لو حضر مقاول المعدات في التاريخ الأصلي تضيع الأيام الأربعة. لتحقيق المكسب: إبلاغ المقاول فورًا، التحقق من الجاهزية (المعدات، الكرين، الفحوص)، وتحديث الـ Lookahead، وعدم إعلان التحسن قبل أن يصبح حقيقيًا."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "only_if", "text": "Only if successor starts earlier", "weight": 2.5 },
+        { "id": "other_paths", "text": "Limited by next-longest path", "weight": 2 },
+        { "id": "capture", "text": "Action to capture the gain (notify, check readiness)", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "paper_vs_real", "text": "Paper gain vs real gain" }
+      ],
+      "advanced_points": [
+        { "id": "dont_report", "text": "Don't report the improvement until realised" }
+      ],
+      "red_flags": [
+        { "id": "automatic", "text": "Says the project automatically finishes 4 days early", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The next-longest path has 1 day of float. What is the maximum gain?", "ar": "المسار التالي له يوم Float واحد. ما أقصى مكسب؟" },
+        "expects": ["1 day"]
+      }
+    ],
+    "misconceptions": ["Early finish on the critical path always shortens the project"],
+    "related": ["CPM-CAE-029"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["critical-path", "early-finish", "coordination"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-NUM-032",
+    "domain": "D07",
+    "sub_domain": "CPM with SS relationships",
+    "type": "numerical",
+    "career_level": "planning_engineer",
+    "bloom_level": 3,
+    "scenario_level": 1,
+    "scenario": {
+      "en": "Network (days): A (4); B (6) FS from A; C (8) SS + 2 from A; D (5) FS from C; E (3) FS from B and FS from D.",
+      "ar": "الشبكة (أيام): A (4)؛ B (6) بعلاقة FS من A؛ C (8) بعلاقة SS + 2 من A؛ D (5) بعلاقة FS من C؛ E (3) بعلاقة FS من B و FS من D."
+    },
+    "data_table": {
+      "columns": ["Activity", "Duration", "Predecessor (relationship)"],
+      "rows": [["A", 4, "—"], ["B", 6, "A (FS)"], ["C", 8, "A (SS+2)"], ["D", 5, "C (FS)"], ["E", 3, "B (FS), D (FS)"]]
+    },
+    "question": {
+      "en": "Calculate the project duration, the critical path, and the Total Float of B. Is A's finish critical?",
+      "ar": "احسب مدة المشروع، والمسار الحرج، والـ Total Float لـ B. هل نهاية A حرجة؟"
+    },
+    "thinking_objectives": ["CPM with SS links", "Start vs finish criticality"],
+    "model_answer": {
+      "en": "Forward pass: A 0–4; B 4–10; C starts 0 + 2 = 2, finishes 10; D 10–15; E starts max(10, 15) = 15, finishes 18. Project duration 18 days. Backward pass: E LS 15; D LF 15, LS 10; C LF 10, LS 2; B LF 15, LS 9 → TF 5; A's late start is limited by C's SS + 2: LS(A) ≤ LS(C) − 2 = 0, so A's start is critical. Critical path: A (start) → C → D → E. A's finish is constrained only by B's late start (9), so A's finish has 9 − 4 = 5 days of float. A's start is critical but its finish is not — which is why P6 offers Total Float as start float, finish float or the smallest of the two.",
+      "ar_explanation": "الـ Forward Pass: A من 0 إلى 4، B من 4 إلى 10، C يبدأ 2 وينتهي 10، D من 10 إلى 15، E يبدأ 15 وينتهي 18. مدة المشروع 18 يومًا. B له Float = 5. بداية A حرجة بسبب علاقة SS + 2 مع C، لكن نهاية A لها 5 أيام Float (مقيدة فقط بـ B). المسار الحرج: بداية A ← C ← D ← E. ولهذا يقدم P6 خيار حساب الـ Total Float كـ Start أو Finish أو الأصغر.",
+      "calculation": "A 0–4 | B 4–10 | C 2–10 | D 10–15 | E 15–18 | LS: E15 D10 C2 B9 | TF(B) = 9 − 4 = 5 | A start float = 0 | A finish float = 9 − 4 = 5"
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "duration_18", "text": "Project duration 18", "weight": 2 },
+        { "id": "cp", "text": "Critical path through C–D–E (via SS)", "weight": 2 },
+        { "id": "b_tf5", "text": "B Total Float 5", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "c_start2", "text": "C starts day 2" }
+      ],
+      "advanced_points": [
+        { "id": "a_finish_float", "text": "A's finish has 5 days float; only its start is critical" },
+        { "id": "p6_tf_option", "text": "Links to P6 start/finish/smallest float option" }
+      ],
+      "red_flags": [
+        { "id": "c_starts_4", "text": "Starts C after A finishes (treats SS as FS)", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "A's duration increases from 4 to 8 days. Does the project move?", "ar": "مدة A زادت من 4 إلى 8 أيام. هل يتحرك المشروع؟" },
+        "expects": ["B: 8–14, E needs max(14, 15) = 15 → no change", "A's finish has 5 days float; 4 days absorbed"]
+      }
+    ],
+    "mutation": { "A": [4, 6], "C_lag": [2, 3], "B": [6, 9] },
+    "misconceptions": ["If an activity's start is critical, all of it is critical"],
+    "related": ["FLT-NUM-029"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "medium",
+    "tags": ["cpm", "calculation", "ss-relationship"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-NUM-033",
+    "domain": "D07",
+    "sub_domain": "Critical Path Length Index",
+    "type": "numerical",
+    "career_level": "senior",
+    "bloom_level": 4,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "At the current data date the remaining critical path length to contract completion is 200 working days. Total Float on the critical path is −10 days.",
+      "ar": "عند الـ Data Date الحالي طول المسار الحرج المتبقي حتى الإنجاز التعاقدي 200 يوم عمل، والـ Total Float على المسار الحرج = −10 أيام."
+    },
+    "question": {
+      "en": "Calculate the Critical Path Length Index (CPLI) and interpret it. What does it mean for the remaining work?",
+      "ar": "احسب مؤشر Critical Path Length Index (CPLI) وفسّره. ماذا يعني للأعمال المتبقية؟"
+    },
+    "thinking_objectives": ["CPLI calculation", "Required efficiency"],
+    "model_answer": {
+      "en": "CPLI = (Critical Path Length + Total Float) / Critical Path Length = (200 − 10) / 200 = 0.95. A CPLI of 1.0 means the remaining critical work fits exactly in the time available; below 1.0 means it does not. 0.95 is the common DCMA threshold, so this project is at the limit of what is considered realistically recoverable. It means the remaining critical work must be performed about 1/0.95 ≈ 5.3% faster than planned to finish on time — sustained across 200 days, which is hard unless specific recovery actions exist. I would report it alongside the drivers of the −10 days and the recovery plan.",
+      "ar_explanation": "CPLI = (200 − 10) / 200 = 0.95. القيمة 1.0 تعني أن الأعمال الحرجة المتبقية تكفي بالضبط؛ أقل من 1.0 تعني أنها لا تكفي. 0.95 هو حد DCMA الشائع، فالمشروع عند الحد المقبول للاستعادة الواقعية. يعني أن الأعمال الحرجة المتبقية يجب أن تُنفذ أسرع بحوالي 5.3% طوال 200 يوم، وهذا صعب بدون إجراءات Recovery محددة.",
+      "calculation": "CPLI = (200 + (−10)) / 200 = 0.95 | Required efficiency ≈ 1 / 0.95 ≈ 1.053"
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "formula", "text": "CPLI = (CPL + TF) / CPL", "weight": 2 },
+        { "id": "value", "text": "0.95", "weight": 2 },
+        { "id": "interpret", "text": "Below 1 means remaining work must be done faster", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "threshold", "text": "DCMA threshold 0.95" }
+      ],
+      "advanced_points": [
+        { "id": "required_rate", "text": "Required ≈ 5% efficiency gain sustained" },
+        { "id": "report_with_plan", "text": "Report with drivers and recovery plan" }
+      ],
+      "red_flags": [
+        { "id": "inverted", "text": "Calculates CPL / (CPL + TF)", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "Next month: remaining CPL 180, TF −27. CPLI and conclusion?", "ar": "الشهر القادم: CPL المتبقي 180 و TF = −27. ما الـ CPLI والاستنتاج؟" },
+        "expects": ["(180 − 27)/180 = 0.85", "Deteriorating; recovery unrealistic without major change"]
+      }
+    ],
+    "mutation": { "cpl": [200, 120, 300], "tf": [-10, 5, -30] },
+    "misconceptions": ["Negative float of 10 days on a long project is negligible"],
+    "related": ["CPM-SCN-018"],
+    "p6_relevance": "low",
+    "real_world_relevance": "medium",
+    "tags": ["cpli", "dcma", "kpi", "calculation"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-NUM-034",
+    "domain": "D07",
+    "sub_domain": "Least-cost crashing",
+    "type": "numerical",
+    "career_level": "senior",
+    "bloom_level": 6,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "Two paths lead to completion. Path 1: X (25 d) → Y (30 d) → S (5 d) = 60 days. Path 2: Q (51 d) → S (5 d) = 56 days. S is shared. Crash options: X max 4 days at 3,000 SAR/day; Y max 5 days at 5,000/day; Q max 3 days at 4,000/day; S max 2 days at 7,000/day. Target: complete in 54 days.",
+      "ar": "مساران يؤديان للإنجاز. المسار 1: X (25) ← Y (30) ← S (5) = 60 يومًا. المسار 2: Q (51) ← S (5) = 56 يومًا. النشاط S مشترك. خيارات الضغط: X حتى 4 أيام بـ 3,000 ريال/يوم؛ Y حتى 5 أيام بـ 5,000؛ Q حتى 3 أيام بـ 4,000؛ S حتى يومين بـ 7,000. الهدف: الإنجاز في 54 يومًا."
+    },
+    "data_table": {
+      "columns": ["Activity", "Path", "Duration", "Max crash (d)", "Cost/day (SAR)"],
+      "rows": [["X", "1", 25, 4, 3000], ["Y", "1", 30, 5, 5000], ["Q", "2", 51, 3, 4000], ["S", "1 & 2", 5, 2, 7000]]
+    },
+    "question": {
+      "en": "Find the cheapest way to reach 54 days. Show why the obvious answer is not the cheapest.",
+      "ar": "أوجد أرخص طريقة للوصول إلى 54 يومًا. وضّح لماذا الإجابة البديهية ليست الأرخص."
+    },
+    "thinking_objectives": ["Crashing with parallel paths", "Value of shared activities"],
+    "model_answer": {
+      "en": "Path 1 needs −6 days, Path 2 needs −2. Obvious approach — crash Path 1 with the cheapest activities: X 4 days (12,000) + Y 2 days (10,000) = 22,000 → Path 1 = 54, but Path 2 is still 56, so the project only reaches 56. You must also crash Q 2 days (8,000): total 30,000. Better: crash the shared activity S by 2 days (14,000), which shortens both paths: Path 1 = 58, Path 2 = 54. Then crash X by 4 days (12,000): Path 1 = 54. Total 26,000 SAR — the cheapest. S is the most expensive per day, but each S day buys a day on both paths, so its effective cost is lower than crashing each path separately (7,000 vs 3,000–5,000 + 4,000).",
+      "ar_explanation": "المسار 1 يحتاج −6 والمسار 2 يحتاج −2. البديهي: ضغط المسار 1 بالأرخص X 4 أيام + Y يومين = 22,000، لكن المسار 2 ما زال 56 فنحتاج Q يومين (8,000) = 30,000. الأفضل: ضغط النشاط المشترك S يومين (14,000) فيقصر المساران (58 و54)، ثم X أربعة أيام (12,000) = 26,000 ريال. S هو الأغلى لليوم لكن كل يوم فيه يكسب يومًا على المسارين.",
+      "calculation": "Option A: X4 (12k) + Y2 (10k) + Q2 (8k) = 30,000 | Option B: S2 (14k) → P1 58, P2 54; X4 (12k) → P1 54 | Total = 26,000 SAR (cheapest) | Check S1: 7k + X4 12k + Y1 5k + Q1 4k = 28,000"
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "needs", "text": "Path 1 needs 6, Path 2 needs 2", "weight": 1.5 },
+        { "id": "path2_trap", "text": "Crashing only Path 1 leaves 56 days", "weight": 2 },
+        { "id": "shared_s", "text": "Uses shared activity S", "weight": 2 },
+        { "id": "answer_26k", "text": "26,000 SAR (S2 + X4)", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "option_30k", "text": "Identifies 30,000 as a valid but costlier solution" }
+      ],
+      "advanced_points": [
+        { "id": "effective_cost", "text": "Explains effective cost of shared activity" },
+        { "id": "check_alternatives", "text": "Checks intermediate combinations (e.g., S1 = 28,000)" }
+      ],
+      "red_flags": [
+        { "id": "answer_22k", "text": "Answers 22,000 (ignores Path 2)", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The target becomes 53 days. Can it be done, and at what extra cost?", "ar": "الهدف أصبح 53 يومًا. هل يمكن، وبكم تكلفة إضافية؟" },
+        "expects": ["Path 1 needs Y 1 day (5k), Path 2 needs Q 1 day (4k)", "Total 35,000"]
+      }
+    ],
+    "mutation": { "S_cost": [7000, 9000, 5000], "target": [54, 55, 53] },
+    "misconceptions": ["Always crash the cheapest activity on the critical path first"],
+    "related": ["CPM-CAE-029", "CPM-SCN-017"],
+    "p6_relevance": "none",
+    "real_world_relevance": "medium",
+    "tags": ["crashing", "calculation", "acceleration", "cost"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-JDG-035",
+    "domain": "D07",
+    "sub_domain": "Choosing a recovery option",
+    "type": "decision",
+    "career_level": "senior",
+    "bloom_level": 6,
+    "scenario_level": 4,
+    "scenario": {
+      "en": "A 12-floor residential building is 15 days behind on the critical path (structure → finishes). Option A: night shift for structure — gains 12 days, costs 900,000 SAR, night productivity about 20% lower, extra safety and supervision needs. Option B: start fit-out on floors 1–5 while the structure continues above — gains 18 days if a temporary waterproof deck is installed at L6, costs 400,000 SAR, risk of water damage and trade congestion.",
+      "ar": "مبنى سكني من 12 دورًا متأخر 15 يومًا على المسار الحرج (إنشائي ← تشطيبات). الخيار A: وردية ليلية للإنشائي — يكسب 12 يومًا، تكلفة 900,000 ريال، إنتاجية ليلية أقل بحوالي 20%، ومتطلبات سلامة وإشراف إضافية. الخيار B: بدء التشطيبات في الأدوار 1–5 مع استمرار الإنشاء أعلى — يكسب 18 يومًا إذا رُكّبت بلاطة عزل مؤقتة عند الدور السادس، تكلفة 400,000 ريال، مع خطر تلف بالمياه وازدحام الحرف."
+    },
+    "question": {
+      "en": "Which would you recommend, and on what conditions?",
+      "ar": "أيهما توصي به، وبأي شروط؟"
+    },
+    "thinking_objectives": ["Comparing recovery options on time, cost and risk", "Verifying gains on the network"],
+    "model_answer": {
+      "en": "Option A alone does not meet the target (12 < 15), costs more, and the 12 days are optimistic given lower night productivity. Option B covers the gap (18 > 15) at less than half the cost, but it depends on the temporary waterproofing working and on managing congestion. I would recommend B as the primary option, with conditions: design and install the temporary deck before fit-out starts; protect lower floors (drainage, inspections after rain); MEP rough-in sequence agreed so the fit-out zone is truly ready; a logistics plan (hoists, material routes) to avoid congestion; and a trigger to add a limited night shift (part of A) if B underperforms in the first two weeks. Before committing, I would model B in the schedule — re-linking fit-out to the structure at L5 and the temporary deck — to confirm the 18 days, and check which path becomes critical next (probably MEP risers or lifts).",
+      "ar_explanation": "الخيار A وحده لا يحقق الهدف (12 < 15)، وأغلى، والـ 12 يومًا متفائلة مع إنتاجية ليلية أقل. الخيار B يغطي الفجوة (18 > 15) بأقل من نصف التكلفة لكنه يعتمد على نجاح العزل المؤقت وإدارة الازدحام. أوصي بـ B كخيار أساسي بشروط: تصميم وتركيب البلاطة المؤقتة قبل البدء، حماية الأدوار السفلية، تسلسل MEP متفق عليه، خطة لوجستية، ونقطة تحول لإضافة وردية ليلية محدودة إن تعثر B. وقبل الالتزام أمثل B في البرنامج لتأكيد الـ 18 يومًا ومعرفة المسار الحرج التالي."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "a_insufficient", "text": "Option A alone does not meet 15 days", "weight": 2 },
+        { "id": "choose_b_conditions", "text": "Chooses B (or justified combination) with explicit conditions", "weight": 2.5 },
+        { "id": "model_verify", "text": "Models the option in the schedule to verify gain", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "productivity", "text": "Questions A's 12 days given night productivity" }
+      ],
+      "advanced_points": [
+        { "id": "trigger", "text": "Trigger to add part of A if B underperforms" },
+        { "id": "next_path", "text": "Checks which path becomes critical next" }
+      ],
+      "red_flags": [
+        { "id": "a_only", "text": "Chooses A only, accepting a 3-day shortfall without noting it", "severity": "major" }
+      ],
+      "multiple_valid_answers": true
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "The client's engineer refuses fit-out under an incomplete structure for quality reasons. Now what?", "ar": "مهندس العميل يرفض التشطيبات تحت هيكل غير مكتمل لأسباب الجودة. ماذا الآن؟" },
+        "expects": ["Present the mitigations and inspection regime", "Fallback: A plus other measures for the remaining 3 days"]
+      }
+    ],
+    "misconceptions": ["The option with the most labour is the safest recovery"],
+    "related": ["CPM-SCN-017", "CPM-CAE-030"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["recovery", "decision", "critical-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-JDG-036",
+    "domain": "D07",
+    "sub_domain": "Reviewing the contractor's critical path",
+    "type": "decision",
+    "career_level": "lead",
+    "bloom_level": 6,
+    "scenario_level": 4,
+    "scenario": {
+      "en": "You are the employer's lead planner. The contractor's updated programme is due for approval. Its critical path is plausible at the top level, but you found: 40 open ends, 12 hard constraints, several 60–90-day lags, and finishes linked SS-only. The client wants a decision this week and 'doesn't want to fight with the contractor'.",
+      "ar": "أنت قائد التخطيط لدى المالك. البرنامج المحدث للمقاول مطلوب اعتماده. المسار الحرج يبدو معقولًا على المستوى العام، لكنك وجدت: 40 Open End، و12 Hard Constraint، وعدة Lags بين 60 و90 يومًا، وتشطيبات مربوطة SS فقط. العميل يريد قرارًا هذا الأسبوع و«لا يريد الصدام مع المقاول»."
+    },
+    "question": {
+      "en": "Approve, approve with comments, or reject? Justify.",
+      "ar": "اعتماد، أم اعتماد مع ملاحظات، أم رفض؟ برر."
+    },
+    "thinking_objectives": ["Consequences of approving a flawed programme", "Professional, non-adversarial handling"],
+    "model_answer": {
+      "en": "Not 'approved'. An approved programme becomes the basis for measuring delay and assessing EOT claims; with open ends, hard constraints and long lags, its critical path and float cannot be relied on, and approving it can later work against the employer (or the contractor). Recommended: 'Revise and resubmit' (or 'approved with comments' only if the contract wording makes the comments binding and they are minor — these are not minor). Make it constructive: a specific list of issues with activity IDs, the required fix for each, and a short resubmission period; offer a joint review workshop so the contractor can fix them quickly. Meanwhile, keep using the last accepted programme as the reference and track progress against it. This avoids a fight by being objective and fast, not by accepting a flawed tool.",
+      "ar_explanation": "لا أعتمده. البرنامج المعتمد يصبح أساس قياس التأخير وتقييم مطالبات الـ EOT؛ ومع Open Ends و Hard Constraints و Lags طويلة لا يمكن الاعتماد على مساره الحرج، واعتماده قد يُستخدم لاحقًا ضد المالك (أو المقاول). التوصية: «يُعدل ويُعاد تقديمه» مع قائمة محددة بأرقام الأنشطة والإصلاح المطلوب ومدة قصيرة، وورشة مراجعة مشتركة. وفي الأثناء أستخدم آخر برنامج مقبول كمرجع. نتجنب الصدام بالموضوعية والسرعة، وليس بقبول أداة معيبة."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "not_approve", "text": "Does not approve as is", "weight": 2 },
+        { "id": "consequences", "text": "Explains approved programme is basis for delay/EOT assessment", "weight": 2.5 },
+        { "id": "specific_comments", "text": "Specific, actionable comments with resubmission", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "workshop", "text": "Offers joint review workshop" }
+      ],
+      "advanced_points": [
+        { "id": "interim_reference", "text": "Uses last accepted programme as interim reference" },
+        { "id": "contract_wording", "text": "Considers contract wording on approval/acceptance" }
+      ],
+      "red_flags": [
+        { "id": "approve_to_avoid_conflict", "text": "Approves to keep the relationship good", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "The contractor says the contract deems the programme accepted if you don't respond in 21 days. Day 18 today. What do you do?", "ar": "المقاول يقول إن العقد يعتبر البرنامج مقبولًا إن لم ترد خلال 21 يومًا. اليوم 18. ماذا تفعل؟" },
+        "expects": ["Issue the formal response before the deadline", "Even a brief notice of non-acceptance with reasons"]
+      }
+    ],
+    "misconceptions": ["Approving with comments is always the safe middle way"],
+    "related": ["CPM-APP-011", "FLT-JDG-032"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["programme-review", "approval", "contract", "critical-path"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-JDG-037",
+    "domain": "D07",
+    "sub_domain": "Prioritising by criticality",
+    "type": "decision",
+    "career_level": "junior",
+    "bloom_level": 6,
+    "scenario_level": 2,
+    "scenario": {
+      "en": "The consultant can carry out only one inspection tomorrow morning. Request 1: rebar inspection for 'Column L7', on the critical path, value 60,000 SAR. Request 2: inspection of 'External boundary wall', 22 days of float, value 450,000 SAR.",
+      "ar": "الاستشاري يستطيع إجراء فحص واحد فقط صباح الغد. الطلب 1: فحص حديد «أعمدة الدور السابع» على المسار الحرج بقيمة 60,000 ريال. الطلب 2: فحص «السور الخارجي» وله 22 يوم Float بقيمة 450,000 ريال."
+    },
+    "question": {
+      "en": "Which inspection do you request first, and why?",
+      "ar": "أي فحص تطلبه أولًا، ولماذا؟"
+    },
+    "thinking_objectives": ["Prioritising by schedule impact, not value"],
+    "model_answer": {
+      "en": "The column inspection. A day lost on the critical path delays completion by a day; the boundary wall can lose a day without affecting completion (22 days of float). Value doesn't decide schedule priority. I would still request the wall inspection for the next available slot, so its float is not consumed unnecessarily, and check that a one-day delay to the wall doesn't affect a crew or concrete delivery already booked.",
+      "ar_explanation": "فحص الأعمدة. يوم ضائع على المسار الحرج يؤخر الإنجاز يومًا، أما السور فيمكن أن يتأخر يومًا دون أثر (22 يوم Float). القيمة لا تحدد أولوية البرنامج. ومع ذلك أطلب فحص السور في أقرب موعد تالٍ حتى لا يُستهلك الـ Float بلا داعٍ، وأتأكد أن التأخير لا يؤثر على طاقم أو توريد خرسانة محجوز."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "column", "text": "Chooses the column inspection", "weight": 2.5 },
+        { "id": "reason", "text": "Because it is on the critical path; value irrelevant", "weight": 2.5 }
+      ],
+      "acceptable_points": [
+        { "id": "next_slot", "text": "Schedules the wall for the next slot" }
+      ],
+      "advanced_points": [
+        { "id": "knock_on", "text": "Checks knock-on effects (booked crew/concrete)" }
+      ],
+      "red_flags": [
+        { "id": "value", "text": "Chooses the wall because of higher value", "severity": "critical" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "what_if",
+        "question": { "en": "The boundary wall concrete truck is already booked and can't be cancelled. Does that change anything?", "ar": "شاحنة الخرسانة للسور محجوزة ولا يمكن إلغاؤها. هل يغير ذلك شيئًا؟" },
+        "expects": ["Cost of wasted concrete vs one day of critical delay", "Try to get both inspections; escalate"]
+      }
+    ],
+    "misconceptions": ["Higher-value work has priority"],
+    "related": ["CPM-CON-006"],
+    "p6_relevance": "none",
+    "real_world_relevance": "high",
+    "tags": ["prioritisation", "critical-path", "site"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-PRS-038",
+    "domain": "D07",
+    "sub_domain": "Defending the critical path",
+    "type": "interview_pressure",
+    "career_level": "senior",
+    "bloom_level": 7,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "You said the critical path runs through MEP risers. The interviewer, acting as the façade package manager: 'No — the façade is the real critical path. Everyone on site can see it's late.'",
+      "ar": "قلت إن المسار الحرج يمر عبر الـ MEP Risers. المحاور في دور مدير حزمة الواجهات: «لا — الواجهات هي المسار الحرج الحقيقي. الكل في الموقع يرى أنها متأخرة»."
+    },
+    "question": {
+      "en": "How do you prove your position — or change it?",
+      "ar": "كيف تثبت موقفك — أو تغيّره؟"
+    },
+    "thinking_objectives": ["Evidence-based defence", "Being late vs being critical", "Openness to being wrong"],
+    "model_answer": {
+      "en": "'Late' and 'critical' are different: an activity can be behind its baseline and still have float. I'd show the evidence: the longest path trace from completion back to the data date, with driving relationships, passing through the riser activities; the façade path's float (e.g., +12 days) and what it drives (internal finishes at the perimeter? building dry-in for MEP?); and the critical path test — delaying risers by 5 days moves completion 5 days; delaying façade by 5 days does not. Then I'd check whether he has a point the model misses: if the façade really gates something — e.g., dry-in needed before ceiling and electrical works, or the hoist removal — and that link isn't in the schedule, the façade may be critical in reality. In that case I add the logic and change my conclusion. The goal is the right answer, not winning the argument.",
+      "ar_explanation": "«متأخر» و«حرج» مختلفان: نشاط قد يكون متأخرًا عن الـ Baseline وما زال له Float. أعرض الدليل: تتبع الـ Longest Path من الإنجاز للـ Data Date عبر الـ Risers، الـ Float لمسار الواجهات وماذا يقود، واختبار المسار الحرج (تأخير الـ Risers 5 أيام يحرك الإنجاز 5 أيام، الواجهات لا). ثم أتحقق إن كان لديه حق في شيء لا يظهره النموذج — مثل إغلاق المبنى (Dry-in) قبل الأسقف والكهرباء — فأضيف المنطق وأغير استنتاجي. الهدف هو الإجابة الصحيحة وليس الفوز في النقاش."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "late_vs_critical", "text": "Distinguishes late from critical", "weight": 2 },
+        { "id": "evidence", "text": "Shows longest path trace / float of façade path", "weight": 2.5 },
+        { "id": "open_to_model_gap", "text": "Checks whether the façade drives something not modelled", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "cp_test", "text": "Uses a critical path (delay) test" }
+      ],
+      "advanced_points": [
+        { "id": "dry_in", "text": "Names a realistic hidden link (dry-in, hoist removal)" },
+        { "id": "change_conclusion", "text": "Willing to change conclusion with evidence" }
+      ],
+      "red_flags": [
+        { "id": "authority", "text": "Argues 'P6 says so' without evidence", "severity": "major" },
+        { "id": "cave_in", "text": "Agrees immediately without evidence", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "'I don't understand P6. Explain it to me without the software.'", "ar": "«لا أفهم P6. اشرحه لي بدون البرنامج.»" },
+        "expects": ["Simple chain explanation with dates", "What happens to handover if each is 1 week late"]
+      }
+    ],
+    "misconceptions": ["The most visibly late package is the critical path"],
+    "related": ["CPM-CON-006", "CPM-SCN-020"],
+    "p6_relevance": "medium",
+    "real_world_relevance": "high",
+    "tags": ["pressure", "critical-path", "evidence", "communication"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-PRS-039",
+    "domain": "D07",
+    "sub_domain": "Credibility of a changing critical path",
+    "type": "interview_pressure",
+    "career_level": "lead",
+    "bloom_level": 7,
+    "scenario_level": 3,
+    "scenario": {
+      "en": "The interviewer, as the client's project director: 'Your critical path has changed four times in four months. How can I trust your schedule?'",
+      "ar": "المحاور في دور مدير المشروع لدى العميل: «مسارك الحرج تغير أربع مرات في أربعة أشهر. كيف أثق في برنامجك؟»"
+    },
+    "question": {
+      "en": "Respond.",
+      "ar": "رُد."
+    },
+    "thinking_objectives": ["Explaining legitimate change vs instability", "Building trust with transparency"],
+    "model_answer": {
+      "en": "'A changing critical path is not by itself a sign of a bad schedule — it changes as work is completed, recovered or delayed. What matters is whether each change is explained. For each of the last four months I can show you why it moved: in month 1 the structure was completed early, so MEP became the longest path; in month 2 the façade submittal was rejected… If the top paths are within a few days of each other, the critical path will alternate — that tells us we have several paths that all need managing, and that's how we're running the project. What should worry you is a change without an explanation, or float gains without recovery — and I'll give you the variance log each month so you can check that yourself.' If I can't explain a change, I should say so and investigate rather than defend it.",
+      "ar_explanation": "«تغير المسار الحرج بحد ذاته ليس دليلًا على برنامج سيئ — فهو يتغير مع الإنجاز أو الاستعادة أو التأخير. المهم أن يكون كل تغيير مفسرًا. لكل شهر أستطيع أن أوضح سبب التغيير. ولو كانت أعلى المسارات متقاربة بأيام قليلة فسيتبدل المسار الحرج، وهذا يعني أن لدينا عدة مسارات تحتاج إدارة. ما يجب أن يقلقك هو تغيير بلا تفسير أو مكاسب Float بلا Recovery — وسأعطيك سجل التغييرات كل شهر.» ولو لم أستطع تفسير تغيير أقول ذلك وأبحث بدل الدفاع."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "change_normal", "text": "Change is normal if explained", "weight": 2 },
+        { "id": "explain_each", "text": "Offers specific explanation for each change", "weight": 2.5 },
+        { "id": "transparency", "text": "Offers variance log/transparency", "weight": 2 }
+      ],
+      "acceptable_points": [
+        { "id": "close_paths", "text": "Close paths cause alternation" }
+      ],
+      "advanced_points": [
+        { "id": "what_to_worry", "text": "Says what should worry the client (unexplained changes)" },
+        { "id": "honesty", "text": "Admits and investigates if a change can't be explained" }
+      ],
+      "red_flags": [
+        { "id": "defensive", "text": "Defensive answer without evidence", "severity": "major" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "'One of those changes happened when your planner deleted 30 relationships. Explain that.'", "ar": "«أحد هذه التغييرات حدث عندما حذف مخططك 30 علاقة. فسّر ذلك.»" },
+        "expects": ["Acknowledge; review each deleted link", "Restore unjustified ones; introduce change control"]
+      }
+    ],
+    "misconceptions": ["A stable critical path means a good schedule"],
+    "related": ["CPM-SCN-016", "FLT-SCN-019"],
+    "p6_relevance": "low",
+    "real_world_relevance": "high",
+    "tags": ["pressure", "credibility", "critical-path", "client"],
+    "status": "reviewed"
+  },
+  {
+    "id": "CPM-BHV-040",
+    "domain": "D07",
+    "sub_domain": "Experience: identifying the real critical path",
+    "type": "behavioral",
+    "career_level": "planning_engineer",
+    "bloom_level": 6,
+    "scenario_level": 0,
+    "question": {
+      "en": "Tell me about a time you found that the real critical path was different from what the project team believed. What did you do and what was the result?",
+      "ar": "حدثني عن موقف اكتشفت فيه أن المسار الحرج الحقيقي مختلف عما يعتقده فريق المشروع. ماذا فعلت وما النتيجة؟"
+    },
+    "thinking_objectives": ["Real experience", "Analysis plus influence"],
+    "model_answer": {
+      "en": "A strong answer follows STAR with specifics: Situation — e.g., 'A 9-floor residential building; the team was focused on structure.' Task — 'As planning engineer I was asked to update the programme and forecast handover.' Action — 'I linked the procurement chain for lifts, which wasn't in the programme; with a 20-week manufacturing time and late approval, lifts were 25 days longer than the structure path. I showed the trace to the PM, raised the submittal with the consultant, and proposed a temporary hoist for finishes.' Result — 'Approval came in 9 days, we recovered 16 days, and lift installation was no longer critical by month 7.' Plus a lesson: 'I now model procurement for all long-lead items at the baseline.' Weak answers stay general ('I always check the critical path') or describe no measurable result.",
+      "ar_explanation": "الإجابة القوية تتبع STAR بتفاصيل: الموقف (مبنى 9 أدوار والفريق مركز على الإنشائي)، المهمة (تحديث البرنامج وتوقع التسليم)، الإجراء (ربط سلسلة توريد المصاعد التي لم تكن في البرنامج، فظهر أنها أطول من مسار الإنشائي بـ 25 يومًا، عرض الـ Trace على المدير، متابعة الـ Submittal، واقتراح رافعة مؤقتة)، النتيجة (اعتماد خلال 9 أيام واستعادة 16 يومًا)، والدرس المستفاد. الإجابات الضعيفة عامة وبلا نتيجة قابلة للقياس."
+    },
+    "evaluation": {
+      "required_points": [
+        { "id": "specific_situation", "text": "Specific project and situation", "weight": 1.5 },
+        { "id": "analysis", "text": "How the real critical path was identified (evidence)", "weight": 2.5 },
+        { "id": "action_influence", "text": "Actions taken to convince/act", "weight": 2 },
+        { "id": "result", "text": "Measurable result", "weight": 1.5 }
+      ],
+      "acceptable_points": [
+        { "id": "star", "text": "Structured (STAR)" }
+      ],
+      "advanced_points": [
+        { "id": "lesson", "text": "Lesson learned applied later" }
+      ],
+      "red_flags": [
+        { "id": "generic", "text": "Generic answer with no specific example", "severity": "major" },
+        { "id": "blame", "text": "Blames the team without describing own actions", "severity": "minor" }
+      ]
+    },
+    "follow_ups": [
+      {
+        "id": "f1", "trigger": "pressure",
+        "question": { "en": "What would you do differently if you faced that situation again?", "ar": "ماذا كنت ستفعل بشكل مختلف لو واجهت نفس الموقف؟" },
+        "expects": ["Honest reflection", "A concrete process change"]
+      }
+    ],
+    "misconceptions": ["Behavioural answers can be generic"],
+    "related": ["CPM-APP-014"],
+    "p6_relevance": "none",
+    "real_world_relevance": "high",
+    "tags": ["behavioral", "star", "critical-path"],
+    "status": "reviewed"
+  }
+]
